@@ -134,12 +134,16 @@ describe("InputSpec validation", () => {
 });
 
 describe("scheduling rules", () => {
-  const s = settingsOf({});
+  const s = settingsOf({ families: ["calavera", "line", "loteria", "room", "closest", "case"] });
   it("1–2 teams objective only; ≥3 social allowed but never right after social; never repeat family", () => {
     for (const n of [1, 2]) expect(familyOrder({ lastFamily: "line" }, s, n, "x").sort()).toEqual(["case", "closest", "loteria"]);
     expect(familyOrder({ lastFamily: "line" }, s, 4, "x").sort()).toEqual(["calavera", "case", "closest", "loteria", "room"]);
     expect(familyOrder({ lastFamily: "room" }, s, 4, "x").sort()).toEqual(["case", "closest", "line", "loteria"]);
     expect(familyOrder({ lastFamily: "line", forceObjective: true }, s, 4, "x")).not.toContain("room");
     expect(familyOrder({ lastFamily: null, played: { line: 3, case: 0, loteria: 2, closest: 1 } }, s, 1, "x")).toEqual(["case", "closest", "loteria", "line"]);
+  });
+  it("party default leaves The Ofrenda Case out of rotation", () => {
+    expect(settingsOf({}).families).not.toContain("case");
+    expect(familyOrder({ lastFamily: null }, settingsOf({}), 4, "x")).not.toContain("case");
   });
 });

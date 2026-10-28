@@ -6,7 +6,7 @@
    submit; photos appear on the TV automatically after the guest ticks consent.
 3. Submit one test tribute to the **demo** party, view it on `/tv?party=demo`, then Admin → Party (demo) → Reset demo.
 4. Admin → Content: skim questions; disable anything you don't want.
-5. Admin → Party → pacing defaults: 15 s intro, 35 s questions, 10 s reveal, 30 s results, 120 s break.
+5. Admin → Party → pacing defaults (relaxed, adjustable): 25 s intro, 75–90 s per question (Calavera: 2 min to write, 1 min to vote), 20 s reveal, 45 s results, 5 min break (tributes first, then party photos). A step ends early once every family has answered. The Ofrenda Case is off by default; turn it on in Admin → Content if you want it.
 
 ## Party setup (30 min before)
 1. MacBook on power, HDMI connected, sleep disabled (System Settings → Lock Screen/Battery; or run `caffeinate -d`).

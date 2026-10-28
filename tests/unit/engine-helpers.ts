@@ -8,6 +8,13 @@ import { loadParty } from "@/server/engine/store";
 import type { ContentSource, TributeSource } from "@/server/engine/types";
 
 export const P = "demo";
+export const TEST_SETTINGS = {
+  introMs: 15000, calaveraWriteMs: 75000, calaveraVoteMs: 30000, lineAnswerMs: 45000, loteriaAnswerMs: 40000,
+  roomAnswerMs: 20000, roomGuessMs: 25000, closestAnswerMs: 40000, caseClueMs: 20000, caseAnswerMs: 40000,
+  revealMs: 10000, calaveraRevealMs: 15000, resultsMs: 30000, intervalMs: 120000, minViewMs: 4000,
+  catchUpGraceMs: 45000, intervalTributeMs: 70000,
+  families: ["calavera", "line", "loteria", "room", "closest", "case"],
+};
 export const T0 = Date.UTC(2026, 10, 1, 18, 0, 0);
 
 export async function setup(opts: { content?: ContentSource; tributes?: TributeSource; album?: import("@/server/engine/deps").AlbumSource } = {}): Promise<Db> {
@@ -15,7 +22,8 @@ export async function setup(opts: { content?: ContentSource; tributes?: TributeS
   setEngineDeps({ content: opts.content ?? fixtureContent(10), tributes: opts.tributes ?? { nextTribute: async () => null, isTributeVisible: async () => false }, album: opts.album ?? { nextAlbumSlide: async () => null, isAlbumPhotoVisible: async () => false } });
   await resetParty("demo", "test", {}, T0);
   await resetParty("live", "test", { confirm: true }, T0);
-  await d.query("UPDATE party SET settings='{}'");
+  // Engine tests are written against these fixed timings and the full game list, independent of party defaults.
+  await d.query("UPDATE party SET settings=$1", [JSON.stringify(TEST_SETTINGS)]);
   await d.query("DELETE FROM rate_limit");
   await d.query("DELETE FROM audit");
   await d.query("DELETE FROM content_override");

@@ -1,5 +1,11 @@
 # Games v2 — binding spec (approved by host 2026-10-27)
 
+> **Update 2026-10-27 (host feedback):** pacing relaxed so guests needn't watch the TV constantly — intro 25 s,
+> Line 90 s, Lotería/Closest 75 s, Calavera write 120 s + vote 60 s, Room 45 s + 50 s, reveal 20 s (Calavera 30 s),
+> results 45 s, break 300 s (first 150 s tributes, then party photos). Steps still close early (after 8 s minimum) once
+> every eligible family has submitted. **The Ofrenda Case is disabled by default** (too involved for a casual party);
+> it remains available in Admin → Content. Per-stage timings below are the original values.
+
 Replaces the v1 lineup (memory, truth, difference, reveal, altar, family), which is retired and must be removed
 from rotation, content, UI and tests. Audience: mostly adults; kids can help. Tone: smart, funny, a little cheeky,
 never crude, never about real loved ones or grief. Types: `src/shared/types.ts`. Migration: `db/migrations/101_games_v2.sql`.

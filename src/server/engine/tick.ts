@@ -430,7 +430,9 @@ export async function scoreQuestion(q: Q, partyId: string, setId: string, qid: s
       }
       for (const [team, choice] of answerOf)
         if (!outcomes.has(team)) outcomes.set(team, { teamId: team, points: 0, value: null, note: `no guess (actual ${roomActual(tally, choice)}%)` });
-      detail = { split: tally, total: tally.reduce((a, b) => a + b, 0) };
+      const guessOf = new Map(byKind("guess").map((a) => [a.team_id as string, a.value as number]));
+      const guesses = [...answerOf].map(([teamId, option]) => ({ teamId, option, guess: guessOf.get(teamId) ?? null, actual: roomActual(tally, option) }));
+      detail = { split: tally, counts: tally, total: tally.reduce((a, b) => a + b, 0), guesses };
       break;
     }
     case "calavera": {

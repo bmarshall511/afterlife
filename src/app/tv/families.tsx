@@ -295,7 +295,7 @@ export function LoteriaR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo 
 /* ================================================================== room */
 
 export function RoomQ({ s, q }: { s: Snapshot; q: PublicQuestion }) {
-  const opts = inputOf(q, "choice")?.options ?? [];
+  const opts = inputOf(q, "choice")?.options ?? inputOf(q, "percent")?.options ?? [];
   if (s.phase.stage === "guess") {
     return (
       <div className="tv-body room-guess">
@@ -325,7 +325,7 @@ export function RoomQ({ s, q }: { s: Snapshot; q: PublicQuestion }) {
 interface Guess { teamId: string; name: string; option: number; guess: number | null; actual: number }
 export function RoomR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo | null }) {
   const d = rec(reveal?.detail);
-  const opts = arr<QuestionOption>(d.options).length ? arr<QuestionOption>(d.options) : inputOf(q, "choice")?.options ?? [];
+  const opts = arr<QuestionOption>(d.options).length ? arr<QuestionOption>(d.options) : inputOf(q, "choice")?.options ?? inputOf(q, "percent")?.options ?? [];
   const counts = arr<number>(d.counts);
   const total = Math.max(1, counts.reduce((a, b) => a + b, 0));
   const pct = counts.map((c) => Math.round((100 * c) / total));

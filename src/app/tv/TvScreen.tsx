@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import type { PartyId, PublicQuestion, PublicTribute, RevealInfo, Snapshot } from "@/shared/types";
+import { useEffect, useRef, useState } from "react";
+import type { PartyId, PublicQuestion, PublicSlide, PublicTribute, RevealInfo, Snapshot } from "@/shared/types";
 import { useSnapshot } from "@/client/store";
 import { Backdrop, type Dim } from "@/components/Backdrop";
 import { Wordmark, FAMILY } from "@/components/Brand";
@@ -12,6 +12,10 @@ import { CalaveraQ, CalaveraR, CaseQ, CaseR, ClosestQ, ClosestR, LineQ, LineR, L
 
 export function TvScreen({ party, mock }: { party: PartyId; mock: string | null }) {
   const { snapshot: s, online, offsetMs } = useSnapshot(party, { intervalMs: 1000, mock, audience: "tv" });
+  // a selfie must never pop in right after a remembrance: remember whether a tribute was just on screen
+  const prevTribute = useRef(false);
+  const hadTribute = !!s?.phase.tribute;
+  useEffect(() => { if (hadTribute) prevTribute.current = true; else if (!s?.phase.slide) prevTribute.current = false; }, [hadTribute, s?.phase.slide]);
 
   if (!s) {
     return (
@@ -24,19 +28,21 @@ export function TvScreen({ party, mock }: { party: PartyId; mock: string | null 
 
   const kind = s.phase.kind;
   const tribute = (kind === "interval" || kind === "ambient") ? s.phase.tribute ?? null : null;
-  const dim: Dim = tribute ? "heavy" : kind === "question" ? "normal" : kind === "ambient" || kind === "intro" ? "light" : "normal";
+  const slide = !tribute && (kind === "interval" || kind === "ambient") ? s.phase.slide ?? null : null;
+  const dim: Dim = tribute || slide ? "heavy" : kind === "question" ? "normal" : kind === "ambient" || kind === "intro" ? "light" : "normal";
   const paused = s.status === "paused";
 
   return (
     <main className={`tv tv-${kind} ${tribute ? "tv-tribute" : ""}`} data-phase={kind}>
       <Backdrop
-        state={s.backdrop} dim={dim}
-        drift={!tribute && (kind === "ambient" || kind === "interval" || kind === "intro")}
+        state={slide ? "magenta" : s.backdrop} dim={dim}
+        drift={!tribute && !slide && (kind === "ambient" || kind === "interval" || kind === "intro")}
         petals={kind === "results"}
         accentKey={kind === "reveal" ? s.question?.id ?? null : null}
       />
-      <div className="tv-safe" key={kind + (s.question?.id ?? "") + (s.phase.stage ?? "")}>
+      <div className={`tv-safe ${slide && prevTribute.current ? "slow-in" : ""}`} key={kind + (s.question?.id ?? "") + (s.phase.stage ?? "") + (tribute ? "t" : slide ? "s" : "")}>
         {tribute ? <TributeView s={s} tribute={tribute} /> :
+          slide ? <SlideView slide={slide} /> :
           kind === "ambient" ? <AmbientView s={s} /> :
           kind === "intro" ? <IntroView s={s} offsetMs={offsetMs} paused={paused} /> :
           kind === "question" && s.question ? <QuestionView s={s} q={s.question} offsetMs={offsetMs} paused={paused} /> :
@@ -244,5 +250,35 @@ function TributeCard({ t, leaving }: { t: PublicTribute; leaving: boolean }) {
         {t.attribution && <p className="tribute-by">{t.attribution}</p>}
       </div>
     </article>
+  );
+}
+
+/* ----------------------------- party album slide ----------------------------- */
+
+function SlideView({ slide }: { slide: PublicSlide }) {
+  const [layers, setLayers] = useState<PublicSlide[]>([slide]);
+  useEffect(() => {
+    setLayers((l) => (l[l.length - 1]?.id === slide.id ? l : [...l.slice(-1), slide]));
+  }, [slide]);
+  return (
+    <div className="tv-slide-wrap">
+      {layers.map((p, i) => {
+        const ar = p.width && p.height ? p.width / p.height : 1.5;
+        return (
+          <figure key={p.id} className={`slide ${i < layers.length - 1 ? "leaving" : ""} ${ar < 1 ? "portrait" : "landscape"}`}>
+            <div className="slide-photo" style={{ ["--ar" as string]: String(ar) }}>
+              <img src={p.url} alt={p.caption || "Party photo"} />
+            </div>
+            {(p.caption || p.takenBy) && (
+              <figcaption>
+                <div className="slide-eyebrow">La fiesta · Tonight</div>
+                {p.caption && <p className="slide-caption">{p.caption}</p>}
+                {p.takenBy && <p className="slide-by">📷 {p.takenBy}</p>}
+              </figcaption>
+            )}
+          </figure>
+        );
+      })}
+    </div>
   );
 }

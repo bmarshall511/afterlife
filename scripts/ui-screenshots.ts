@@ -20,7 +20,7 @@ const TV_STATES = ["ambient", "intro", "intro-doubled",
   "q-room-answer", "q-room-guess", "reveal-room",
   "q-closest", "reveal-closest", "longnames",
   "q-case-clue", "q-case-answer", "reveal-case-mid", "reveal-case-final",
-  "results", "results-doubled", "interval", "interval-tribute", "paused"];
+  "results", "results-doubled", "interval", "interval-tribute", "interval-slide", "interval-slide-portrait", "paused"];
 const PHONE_STATES = ["intro-doubled",
   "q-calavera-write", "q-calavera-write-saved", "q-calavera-filtered", "q-calavera-vote", "q-calavera-vote-saved", "reveal-calavera",
   "q-line", "q-line-saved", "reveal-line",
@@ -43,6 +43,7 @@ async function main() {
     for (const st of ["q-line", "q-loteria", "q-closest", "q-room-guess", "q-case-answer", "q-calavera-vote", "longnames"]) shots.push([`phone-320-${st}`, `/play?mock=${st}`, 320, 640, 2]);
     for (const st of ["q-loteria", "q-case-answer", "reveal-line"]) shots.push([`phone-430-${st}`, `/play?mock=${st}`, 430, 932, 2]);
     for (const st of ["q-line", "q-case-answer", "q-closest"]) shots.push([`phone-landscape-${st}`, `/play?mock=${st}`, 844, 390, 2]);
+    shots.push(["phone-375-landing", "/", 375, 812, 2]);
   }
   let overflow = 0;
   for (const [name, path, w, h, dpr] of shots) {

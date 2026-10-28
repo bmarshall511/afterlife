@@ -195,7 +195,7 @@ function sceneFor(item: ContentItem): SceneSpec | null {
     }
     case "case": {
       const C = dt as unknown as CaseData;
-      return { template: "case-board", seed: C.puzzleId, data: { people: C.people, slots: C.slots, clues: C.rounds.slice(0, C.round + 1).flat(), round: C.round } };
+      return { template: "case-board", seed: C.puzzleId, data: { people: C.people, slots: C.slots, clues: C.rounds.slice(0, C.round + 1).flatMap((r: string[], k: number) => r.map((text) => ({ text, round: k }))), round: C.round } };
     }
     case "line": {
       const L = dt as unknown as LineData;

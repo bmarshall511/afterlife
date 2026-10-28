@@ -734,3 +734,21 @@ button { font: inherit; color: inherit; }
   .ph-q-line .ph-order-list li { min-height: 52px; }
 }
 @media (min-width: 400px) { .ph-cards.n12 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------------- party album slideshow (TV breaks) ---------------- */
+.tv-safe.slow-in { animation: fadeIn 2.8s ease both; }
+.tv-slide-wrap { position: relative; height: 100%; }
+.slide { position: absolute; inset: 0; margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: calc(var(--u) * 3.5); animation: fadeIn 1.4s ease both; }
+.slide.leaving { animation: fadeOut 1.4s ease both; }
+.slide-photo { --bw: calc(var(--u) * 60); --bh: calc(var(--u) * 44); width: min(var(--bw), calc(var(--bh) * var(--ar))); aspect-ratio: var(--ar); overflow: hidden;
+  border-radius: calc(var(--u) * 0.5); background: #0b0a0d; box-shadow: 0 calc(var(--u) * 2) calc(var(--u) * 6) rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.08); }
+.slide.portrait .slide-photo { --bw: calc(var(--u) * 36); }
+.slide-photo img { width: 100%; height: 100%; object-fit: contain; animation: kenburns 14s ease-out both; }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
+.slide figcaption { max-width: calc(var(--u) * 26); }
+.slide-eyebrow { color: var(--fuchsia); font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; font-size: calc(var(--u) * 0.95); }
+.slide-caption { margin: calc(var(--u) * 1) 0 0; font-family: var(--display); font-weight: 600; font-size: calc(var(--u) * 2.2); line-height: 1.25; overflow-wrap: anywhere; }
+.slide-by { margin: calc(var(--u) * 1) 0 0; color: var(--ink-2); font-size: calc(var(--u) * 1.1); }
+@media (prefers-reduced-motion: reduce) { .slide-photo img { animation: none !important; } }
+.landing-install { align-self: center; color: var(--ink-3); font-size: 0.88rem; text-decoration: underline; text-underline-offset: 3px; padding: 10px; }
+a.chip-btn { text-decoration: none; color: inherit; }

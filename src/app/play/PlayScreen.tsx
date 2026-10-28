@@ -141,6 +141,8 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
           <button className="chip-btn" aria-pressed={sound} onClick={() => { const v = !sound; setCues(v); setSound(v); }}>
             <Icon name={sound ? "sound" : "mute"} /> {sound ? (canVibrate() ? "Sound & buzz on" : "Sound on") : "Sound off"}
           </button>
+          {me.albumUrl && <a className="chip-btn" href={me.albumUrl} target="_blank" rel="noopener noreferrer"><Icon name="share" /> Party photos</a>}
+          <Link className="chip-btn" href={`/install${partyQs}`}><Icon name="arrow" /> Add to home screen</Link>
         </nav>
       )}
 
@@ -265,7 +267,7 @@ function QuestionState({ s, q, me, offsetMs, sub, submit, openCaptain }: {
   const round = (s.phase.qIndex ?? q.index) + 1;
   const isCase = q.family === "case";
   const priorSpec = c.prior ? (isCase ? inputOf(q, "assign") : inputOf(q, "choice")) : null;
-  const priorRoomText = q.family === "room" && c.prior ? (inputOf(q, "choice")?.options[c.prior.value as number]?.text ?? (spec?.kind === "percent" ? spec.optionText : null)) : null;
+  const priorRoomText = q.family === "room" && c.prior ? (inputOf(q, "choice")?.options[c.prior.value as number]?.text ?? (spec?.kind === "percent" ? spec.options?.[c.prior.value as number]?.text ?? spec.optionText : null)) : null;
 
   const head = (
     <>

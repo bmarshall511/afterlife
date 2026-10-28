@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "AFTERLIFE",
   description: "A Día de los Muertos party game",
   robots: { index: false, follow: false },
+  appleWebApp: { capable: true, title: "AFTERLIFE", statusBarStyle: "black-translucent" },
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#050506", colorScheme: "dark" };
 

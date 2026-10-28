@@ -13,7 +13,7 @@ export const MOCK_STATES = [
   "q-room-answer", "q-room-guess", "q-room-guess-noanswer", "reveal-room",
   "q-closest", "q-closest-noncaptain", "reveal-closest",
   "q-case-clue", "q-case-answer", "q-case-locked", "reveal-case-mid", "reveal-case-final",
-  "results", "results-doubled", "interval", "interval-tribute", "interval-tribute-wide", "paused", "offline", "practice", "away", "longnames",
+  "results", "results-doubled", "interval", "interval-slide", "interval-slide-portrait", "interval-tribute", "interval-tribute-wide", "paused", "offline", "practice", "away", "longnames",
 ] as const;
 
 const standings: StandingRow[] = [
@@ -202,6 +202,10 @@ export function mockSnapshot(name: string): Snapshot {
           { teamId: "t5", name: "Primos", score: 117 * k, ranked: false, perfect: false } ] } };
     }
     case "interval": return { ...s, phase: { kind: "interval", startsAt: now - 5000, endsAt: now + 95_000, tribute: null } };
+    case "interval-slide": return { ...s, phase: { kind: "interval", startsAt: now - 5000, endsAt: now + 95_000, tribute: null,
+      slide: { id: "sl1", url: "/art/celebration-magenta-960.webp", width: 1672, height: 941, caption: "Tía Carmen won the tamale-off. Again.", takenBy: "Las Flores", dwellMs: 8000 } } };
+    case "interval-slide-portrait": return { ...s, phase: { kind: "interval", startsAt: now - 5000, endsAt: now + 95_000, tribute: null,
+      slide: { id: "sl2", url: "/icons/icon-512.png", width: 800, height: 1000, caption: "Best-dressed calavera of the night", takenBy: "Primos", dwellMs: 8000 } } };
     case "interval-tribute": return { ...s, phase: { kind: "interval", startsAt: now - 5000, endsAt: now + 95_000, tribute } };
     case "interval-tribute-wide": return { ...s, phase: { kind: "interval", startsAt: now - 5000, endsAt: now + 95_000,
       tribute: { ...tribute, id: "tr2", personName: "Abuela María Guadalupe Hernández de la Cruz", photoUrl: "/art/celebration-magenta-960.webp", width: 1672, height: 941, fit: "contain",
@@ -263,5 +267,6 @@ export function mockMe(name: string): MeView {
       { setId: "s6", seq: 6, family: "room", score: 470, max: 600, ranked: true, counted: true, doubled: true, invalidated: false },
     ],
     total: 1178, setsCounted: 4,
+    albumUrl: "https://example.org/album",
   };
 }

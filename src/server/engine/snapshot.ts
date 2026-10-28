@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import type { Q } from "@/server/db";
-import type { AnswerValue, BackdropState, InputSpec, MeView, PublicPhase, PublicQuestion, RevealInfo, SetResult, Snapshot, Stage, StandingRow, TeamSummary } from "@/shared/types";
+import type { AnswerValue, QuestionOption, BackdropState, InputSpec, MeView, PublicPhase, PublicQuestion, RevealInfo, SetResult, Snapshot, Stage, StandingRow, TeamSummary } from "@/shared/types";
 import { content } from "./deps";
 import { settingsOf } from "./settings";
 import { asIds, loadParty } from "./store";
@@ -73,7 +73,15 @@ export async function stageInput(q: Q, _p: PartyRow, qid: string, qrow: { idx?: 
   } catch {
     input = null;
   }
-  if (item.family === "room" && stage === "guess" && input?.kind !== "percent") input = { kind: "percent", optionText: "your answer" };
+  if (item.family === "room" && stage === "guess") {
+    // Carry the answer options into the guess stage so a reloaded phone/TV can still name each team's pick.
+    let options: QuestionOption[] = [];
+    try {
+      const a = c.publicQuestion(item, { stage: "answer", round: Number(qrow.idx), index: Number(qrow.idx) }).input;
+      if (a?.kind === "choice") options = a.options;
+    } catch { /* ignore */ }
+    input = { kind: "percent", optionText: input?.kind === "percent" && input.optionText ? input.optionText : "your answer", options };
+  }
   if (isWatchStage(item.family, stage)) input = null;
   return input;
 }
@@ -117,6 +125,10 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
   const extra: Record<string, unknown> = { ...(priv.revealDetail ?? {}) };
   if (Array.isArray(extra.entries)) extra.entries = (extra.entries as any[]).map((e) => ({ ...e, teamName: e.teamId ? names.get(e.teamId) ?? null : null }));
   if (item.family === "room" && !extra.split && priv.tally) extra.split = priv.tally;
+  if (item.family === "room") {
+    if (!extra.counts && extra.split) extra.counts = extra.split;
+    if (Array.isArray(extra.guesses)) extra.guesses = (extra.guesses as any[]).filter((g) => names.has(g.teamId)).map((g) => ({ ...g, name: names.get(g.teamId) }));
+  }
   if (item.family === "case" && row.idx < 2) {
     // Never the solution before the final round.
     reveal = { correct: null, explanation: "", source: null, detail: extra, outcomes };
@@ -124,6 +136,9 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
     const base = priv.reveal ?? { correct: null, explanation: "" };
     reveal = { ...base, detail: { ...(base.detail ?? {}), ...extra }, outcomes };
   }
+  // Screens expect lettered options for the room split.
+  if (item.family === "room" && Array.isArray(reveal.detail?.options))
+    reveal.detail!.options = (reveal.detail!.options as unknown[]).map((o, k) => (typeof o === "string" ? { label: "ABCDEFGHIJKL"[k], text: o } : o));
   if (item.family === "room") reveal.correct = null;
   if (row.status === "void") {
     reveal.void = true;

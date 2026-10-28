@@ -66,7 +66,7 @@ export type InputSpec =
   | { kind: "number"; min: number; max: number; step: number; unit?: string } // closest
   | { kind: "text"; maxLength: number; placeholder: string }                  // calavera write
   | { kind: "vote"; entries: { id: string; text: string }[] }                 // calavera vote; own entry excluded per team by /api/me
-  | { kind: "percent"; optionText: string }                                   // room guess: % of room that picked your answer
+  | { kind: "percent"; optionText: string; options?: QuestionOption[] }       // room guess: % of room that picked your answer (options = the answer-stage choices)
   | { kind: "assign"; people: { id: string; name: string }[]; slots: { id: string; label: string }[] }; // case
 
 /** choice/vote -> index or entry id; order -> item ids in order; number/percent -> number; text -> string; assign -> {personId: slotId} */

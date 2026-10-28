@@ -3,6 +3,28 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Icon } from "./Icon";
 
+/** One shared history entry for all open sheets (pushed on first open, removed when the last one closes). */
+const sheetHistory = {
+  count: 0,
+  popped: false,
+  pendingBack: null as ReturnType<typeof setTimeout> | null,
+  open() {
+    this.count++;
+    if (this.pendingBack) { clearTimeout(this.pendingBack); this.pendingBack = null; return; } // sheet swap: keep the entry
+    if (this.count === 1) { this.popped = false; history.pushState({ afterlifeSheet: true }, ""); }
+  },
+  close() {
+    this.count = Math.max(0, this.count - 1);
+    if (this.count > 0) return;
+    if (this.popped) { this.popped = false; return; } // closed by the Back gesture: entry already gone
+    // wait a tick: if another sheet opens right away (a swap), it cancels this and keeps the entry
+    this.pendingBack = setTimeout(() => {
+      this.pendingBack = null;
+      if (this.count === 0 && history.state?.afterlifeSheet) history.back();
+    }, 0);
+  },
+};
+
 /**
  * App-style overlay used for every secondary screen on phones (photos, install, invite, scores, confirmations).
  * Slides up over the current screen instead of navigating away, so an installed app never feels like a website.
@@ -39,10 +61,10 @@ export function Sheet({
     const prevFocus = document.activeElement as HTMLElement | null;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    // Back gesture closes the sheet instead of leaving the app.
-    let poppedByUs = false;
-    history.pushState({ afterlifeSheet: true }, "");
-    const onPop = () => { poppedByUs = true; closeRef.current(); };
+    // Back gesture closes the sheet instead of leaving the app. All sheets share ONE history entry, so
+    // swapping sheets (e.g. More → Install app) doesn't let the old sheet's history.back() close the new one.
+    sheetHistory.open();
+    const onPop = () => { sheetHistory.popped = true; closeRef.current(); };
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeRef.current(); };
     window.addEventListener("popstate", onPop);
     window.addEventListener("keydown", onKey);
@@ -51,7 +73,7 @@ export function Sheet({
       window.removeEventListener("popstate", onPop);
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
-      if (!poppedByUs && history.state?.afterlifeSheet) history.back();
+      sheetHistory.close();
       prevFocus?.focus?.();
     };
   }, [open]);

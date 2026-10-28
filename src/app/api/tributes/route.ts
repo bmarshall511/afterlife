@@ -3,6 +3,7 @@ import { HttpError, clientIp, errorResponse, json, parseParty } from "@/server/t
 import { isValidInvite, LIMITS } from "@/server/tributes/config";
 import { rateLimit } from "@/server/tributes/ratelimit";
 import { createTribute } from "@/server/tributes/service";
+import { sessionTeam } from "@/server/tributes/owner";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -26,8 +27,10 @@ export async function POST(req: Request) {
     if (photo.size > LIMITS.maxBytes) throw new HttpError(413, "too_large", "That photo is too large (15 MB max). Try a smaller copy or a screenshot.");
     const buf = Buffer.from(await photo.arrayBuffer());
     const s = (k: string) => (form.get(k) == null ? undefined : String(form.get(k)));
+    const partyId = parseParty(s("party"));
     const r = await createTribute(db, {
-      partyId: parseParty(s("party")),
+      partyId,
+      submittedTeamId: await sessionTeam(db, req, partyId),
       photo: buf,
       personName: s("personName") ?? "",
       remembrance: s("remembrance"),

@@ -124,6 +124,7 @@ export interface CreateInput {
   focalX?: unknown;
   focalY?: unknown;
   consent: unknown;
+  submittedTeamId?: string | null;
 }
 
 /** Validate, process and store a tribute. The row is inserted (published) only after storage succeeds. */
@@ -144,11 +145,11 @@ export async function createTribute(q: Q, input: CreateInput): Promise<{ id: str
   try {
     const rows = await q.query(
       `INSERT INTO tribute (id, party_id, person_name, remembrance, attribution, photo_key, thumb_key, original_key,
-         width, height, fit, focal_x, focal_y, rotation, status, consent, edit_token_hash, queue_round)
+         width, height, fit, focal_x, focal_y, rotation, status, consent, edit_token_hash, queue_round, submitted_team_id)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,0,'published',true,$14,
-         (SELECT COALESCE(MIN(queue_round), 0) FROM tribute WHERE party_id = $2 AND status = 'published')) RETURNING *`,
+         (SELECT COALESCE(MIN(queue_round), 0) FROM tribute WHERE party_id = $2 AND status = 'published'), $15) RETURNING *`,
       [id, input.partyId, text.personName, text.remembrance, text.attribution, keys.display, keys.thumb, keys.original,
-        d.width, d.height, layout.fit, layout.focalX, layout.focalY, sha256(editToken)],
+        d.width, d.height, layout.fit, layout.focalX, layout.focalY, sha256(editToken), input.submittedTeamId ?? null],
     );
     await audit(q, input.partyId, "guest", "tribute.create", { id });
     return { id, editToken, tribute: toView(rows[0]) };

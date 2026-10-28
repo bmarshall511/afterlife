@@ -185,7 +185,7 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
           )}
           {me.remember && (
             <Sheet open={sheet === "remember"} onClose={() => setSheet(null)} title="Remember someone" size="full">
-              <div className="rm-in-sheet"><RememberForm token={me.remember.token} party={party} /></div>
+              <div className="rm-in-sheet"><RememberForm inApp token={me.remember.token} party={party} /></div>
             </Sheet>
           )}
           <Sheet open={sheet === "more"} onClose={() => setSheet(null)} title="More">

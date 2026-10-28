@@ -29,3 +29,13 @@ export function clientIp(req: Request) {
 export function parseParty(v: string | null | undefined): "live" | "demo" {
   return v === "demo" ? "demo" : "live";
 }
+
+export function readCookie(req: Request, name: string): string | null {
+  for (const part of (req.headers.get("cookie") ?? "").split(";")) {
+    const i = part.indexOf("=");
+    if (i > 0 && part.slice(0, i).trim() === name) {
+      try { return decodeURIComponent(part.slice(i + 1).trim()); } catch { return null; }
+    }
+  }
+  return null;
+}

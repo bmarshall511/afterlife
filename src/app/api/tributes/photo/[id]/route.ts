@@ -3,13 +3,14 @@ import { getObject } from "@/server/storage";
 import { isAdmin } from "@/server/admin/auth";
 import { sha256, safeEqual } from "@/server/tributes/config";
 import { bearer, getRow } from "@/server/tributes/service";
+import { sessionTeam } from "@/server/tributes/owner";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const notFound = () => new Response("Not found", { status: 404, headers: { "cache-control": "no-store", "x-content-type-options": "nosniff" } });
 
-/** Streams a re-encoded derivative. Published => anyone with the URL; hidden => admin or edit token; deleted => 404. */
+/** Streams a re-encoded derivative. Published => anyone with the URL; hidden => admin, edit token or submitting team's session; deleted => 404. */
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const size = new URL(req.url).searchParams.get("size") === "thumb" ? "thumb" : "display";
@@ -18,7 +19,9 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   if (!row || row.status === "deleted") return notFound();
   if (row.status !== "published") {
     const t = bearer(req);
-    const ok = (t && safeEqual(sha256(t), row.edit_token_hash)) || (await isAdmin(req, db));
+    const ok = (t && safeEqual(sha256(t), row.edit_token_hash)) ||
+      (row.submitted_team_id && (await sessionTeam(db, req, row.party_id)) === row.submitted_team_id) ||
+      (await isAdmin(req, db));
     if (!ok) return notFound();
   }
   const data = await getObject(size === "thumb" ? row.thumb_key : row.photo_key);

@@ -10,7 +10,18 @@ interface T {
 }
 const MAX = 300;
 
-export default function EditTribute({ id }: { id: string }) {
+export interface EditProps {
+  id: string;
+  /** Edit token. undefined = read it from the URL fragment (standalone page). null = rely on the guest team session. */
+  token?: string | null;
+  /** Embedded inside "Your tributes" (sheet or page): no page headings, shows a Back button. */
+  embedded?: boolean;
+  onClose?: () => void;
+  onSaved?: (t: { id: string; personName: string; remembrance: string; attribution: string; photoUrl: string }) => void;
+  onRemoved?: (id: string) => void;
+}
+
+export default function EditTribute({ id, token: tokenProp, embedded, onClose, onSaved, onRemoved }: EditProps) {
   const [token, setToken] = useState<string | null>(null);
   const [t, setT] = useState<T | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "missing" | "removed">("loading");
@@ -19,19 +30,22 @@ export default function EditTribute({ id }: { id: string }) {
   const [confirmRemove, setConfirmRemove] = useState(false);
 
   useEffect(() => {
-    const tok = decodeURIComponent(location.hash.slice(1));
-    setToken(tok || null);
-    if (!tok) return setState("missing");
-    fetch(`/api/tributes/${encodeURIComponent(id)}`, { headers: { authorization: `Bearer ${tok}` }, cache: "no-store" })
+    let tok: string | null;
+    if (tokenProp === undefined) {
+      try { tok = decodeURIComponent(location.hash.slice(1)) || null; } catch { tok = null; }
+      if (!tok) { setState("missing"); return; }
+    } else tok = tokenProp;
+    setToken(tok);
+    fetch(`/api/tributes/${encodeURIComponent(id)}`, { headers: tok ? { authorization: `Bearer ${tok}` } : {}, cache: "no-store" })
       .then(async (r) => {
         if (!r.ok) return setState("missing");
         const d = await r.json();
         setT(d.tribute);
         setState("ready");
-        saveTribute({ id, token: tok, name: d.tribute.personName, createdAt: d.tribute.createdAt });
+        if (tok) saveTribute({ id, token: tok, name: d.tribute.personName, createdAt: d.tribute.createdAt });
       })
       .catch(() => setState("missing"));
-  }, [id]);
+  }, [id, tokenProp]);
 
   async function send(method: "PATCH" | "DELETE", body?: unknown) {
     setBusy(true);
@@ -39,7 +53,7 @@ export default function EditTribute({ id }: { id: string }) {
     try {
       const r = await fetch(`/api/tributes/${encodeURIComponent(id)}`, {
         method,
-        headers: { authorization: `Bearer ${token}`, "content-type": "application/json" },
+        headers: { ...(token ? { authorization: `Bearer ${token}` } : {}), "content-type": "application/json" },
         body: body ? JSON.stringify(body) : undefined,
       });
       const d = await r.json().catch(() => ({}));
@@ -53,10 +67,12 @@ export default function EditTribute({ id }: { id: string }) {
     }
   }
 
-  if (state === "loading") return <p className="rm-muted">Loading…</p>;
+  const back = embedded && onClose ? <button type="button" className="rm-btn2" onClick={onClose} style={{ marginBottom: 12 }}>← Your tributes</button> : null;
+  if (state === "loading") return <>{back}<p className="rm-muted">Loading…</p></>;
   if (state === "removed")
     return (
       <div>
+        {back}
         <h1 className="rm-h1">Tribute removed</h1>
         <p className="rm-lede">The photo and words have been deleted and won&apos;t appear on the TV again.</p>
       </div>
@@ -64,6 +80,7 @@ export default function EditTribute({ id }: { id: string }) {
   if (state === "missing" || !t)
     return (
       <div>
+        {back}
         <p className="rm-eyebrow">Digital ofrenda</p>
         <h1 className="rm-h1">We couldn&apos;t open this tribute</h1>
         <p className="rm-lede">The edit link may be incomplete, or the tribute was removed. Make sure you copied the whole link, including everything after the #.</p>
@@ -75,8 +92,9 @@ export default function EditTribute({ id }: { id: string }) {
 
   return (
     <div>
+      {back}
       <p className="rm-eyebrow">Edit tribute</p>
-      <h1 className="rm-h1">{t.personName}</h1>
+      {embedded ? <h2 className="rm-h2">{t.personName}</h2> : <h1 className="rm-h1">{t.personName}</h1>}
       <TributePreview
         photoUrl={t.photoUrl}
         personName={t.personName.trim()}
@@ -123,7 +141,7 @@ export default function EditTribute({ id }: { id: string }) {
       {msg ? <div className={msg.ok ? "rm-ok" : "rm-error"} role="status">{msg.text}</div> : null}
       <button className="rm-btn" disabled={busy || over || !t.personName.trim()} onClick={async () => {
         const r = await send("PATCH", { personName: t.personName, remembrance: t.remembrance, attribution: t.attribution, fit: t.fit, focalX: t.focalX, focalY: t.focalY });
-        if (r) { setT({ ...t, ...r.tribute }); setMsg({ ok: true, text: "Saved. The TV will show the updated version." }); }
+        if (r) { setT({ ...t, ...r.tribute }); setMsg({ ok: true, text: "Saved. The TV will show the updated version." }); onSaved?.(r.tribute); }
       }}>{busy ? "Saving…" : "Save changes"}</button>
 
       <div style={{ marginTop: 32 }}>
@@ -134,7 +152,7 @@ export default function EditTribute({ id }: { id: string }) {
             <p style={{ marginTop: 0 }}>Remove {t.personName}&apos;s tribute? The photo and words will be deleted and can&apos;t be recovered.</p>
             <div className="rm-row">
               <button className="rm-btn2 danger" disabled={busy} onClick={async () => {
-                if (await send("DELETE")) { forgetTribute(id); setState("removed"); }
+                if (await send("DELETE")) { forgetTribute(id); if (onRemoved) onRemoved(id); else setState("removed"); }
               }}>Yes, remove it</button>
               <button className="rm-btn2" onClick={() => setConfirmRemove(false)}>Keep it</button>
             </div>

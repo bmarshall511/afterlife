@@ -1,6 +1,7 @@
 import { getDb } from "@/server/db";
 import { errorResponse, json } from "@/server/tributes/http";
-import { bearer, getWithToken, parseOr400, patchSchema, removeTribute, toView, updateTribute } from "@/server/tributes/service";
+import { getOwned } from "@/server/tributes/owner";
+import { bearer, parseOr400, patchSchema, removeTribute, toView, updateTribute } from "@/server/tributes/service";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -10,7 +11,8 @@ export async function GET(req: Request, { params }: Ctx) {
   try {
     const { id } = await params;
     const db = await getDb();
-    return json({ tribute: toView(await getWithToken(db, id, bearer(req))) });
+    const { row, via } = await getOwned(db, req, id, bearer(req));
+    return json({ tribute: toView(row), via });
   } catch (e) {
     return errorResponse(e);
   }
@@ -20,7 +22,7 @@ export async function PATCH(req: Request, { params }: Ctx) {
   try {
     const { id } = await params;
     const db = await getDb();
-    const row = await getWithToken(db, id, bearer(req));
+    const { row } = await getOwned(db, req, id, bearer(req));
     const patch = parseOr400(patchSchema, await req.json().catch(() => ({})));
     return json({ tribute: await updateTribute(db, row, patch, "guest") });
   } catch (e) {
@@ -32,7 +34,7 @@ export async function DELETE(req: Request, { params }: Ctx) {
   try {
     const { id } = await params;
     const db = await getDb();
-    const row = await getWithToken(db, id, bearer(req));
+    const { row } = await getOwned(db, req, id, bearer(req));
     await removeTribute(db, row, "guest");
     return json({ ok: true });
   } catch (e) {

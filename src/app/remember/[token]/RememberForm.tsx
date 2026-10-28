@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import TributePreview from "../TributePreview";
 import { canvasToJpeg, decodeToCanvas, rotateCanvas, type Source } from "../image";
-import { editPath, loadSaved, saveTribute, type SavedTribute } from "../store";
+import { editPath, saveTribute, type SavedTribute } from "../store";
+import MyTributes from "../MyTributes";
 
 const MAX = 300;
 
-export default function RememberForm({ token, party }: { token: string; party: "live" | "demo" }) {
+/** `inApp`: shown inside the game controller, where tributes are linked to the family (no need to keep an edit link). */
+export default function RememberForm({ token, party, inApp = false }: { token: string; party: "live" | "demo"; inApp?: boolean }) {
   const [base, setBase] = useState<Source | null>(null);
   const [rotation, setRotation] = useState(0);
   const [blob, setBlob] = useState<Blob | null>(null);
@@ -23,11 +25,11 @@ export default function RememberForm({ token, party }: { token: string; party: "
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<SavedTribute | null>(null);
-  const [saved, setSaved] = useState<SavedTribute[]>([]);
+  const [editingMine, setEditingMine] = useState(false);
+  const formTop = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => setSaved(loadSaved()), [done]);
 
   useEffect(() => {
     if (!base) return;
@@ -121,8 +123,8 @@ export default function RememberForm({ token, party }: { token: string; party: "
       <div>
         <p className="rm-eyebrow">Published</p>
         <h1 className="rm-h1">Thank you. {done.name} is on the ofrenda.</h1>
-        <p className="rm-lede">Their photo and words will appear on the party TV during the breaks between games.</p>
-        <div className="rm-notice">
+        <p className="rm-lede">Their photo and words will appear on the party TV during the breaks between games.{inApp ? " You can edit or remove it any time under Your tributes below." : ""}</p>
+        {!inApp && <div className="rm-notice">
           <strong>Your private edit link</strong>
           <p className="rm-muted" style={{ margin: "4px 0 10px" }}>
             Keep this if you want to change or remove this tribute later. It&apos;s saved on this device too. Anyone with this link can edit it, so only share it with family.
@@ -134,14 +136,18 @@ export default function RememberForm({ token, party }: { token: string; party: "
             </button>
             <a className="rm-btn2" href={editPath(done.id, done.token)} style={{ textDecoration: "none" }}>Edit now</a>
           </div>
-        </div>
-        <button className="rm-btn" onClick={addAnother}>Add another</button>
+        </div>}
+        <button className="rm-btn" onClick={addAnother} style={{ marginBottom: 28 }}>Add another</button>
+        <MyTributes party={party} refreshKey={done.id} />
       </div>
     );
   }
 
   return (
     <div>
+      <MyTributes party={party} hideWhenEmpty onEditingChange={setEditingMine}
+        onAdd={() => formTop.current?.scrollIntoView({ behavior: "smooth", block: "start" })} />
+      <div ref={formTop} hidden={editingMine}>
       <p className="rm-eyebrow">Digital ofrenda</p>
       <h1 className="rm-h1">Remember someone with us</h1>
       <p className="rm-lede">Add a photo of someone you love and miss. No account needed.</p>
@@ -218,16 +224,7 @@ export default function RememberForm({ token, party }: { token: string; party: "
         </p>
       ) : null}
 
-      {saved.length ? (
-        <div style={{ marginTop: 32 }}>
-          <p className="rm-label">Tributes you added on this device</p>
-          <ul className="rm-list">
-            {saved.map((s) => (
-              <li key={s.id}><span>{s.name}</span><a href={editPath(s.id, s.token)}>Edit</a></li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      </div>
     </div>
   );
 }

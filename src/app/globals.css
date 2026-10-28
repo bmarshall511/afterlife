@@ -971,3 +971,15 @@ a.chip-btn { text-decoration: none; color: inherit; }
 .phone .ph-tabbar { box-sizing: border-box; height: calc(var(--tabbar-h) + env(safe-area-inset-bottom)); background: rgba(12, 11, 15, 0.94); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); }
 .phone .ph-tabbar .ph-tab { min-height: 0; height: var(--tabbar-h); }
 .phone .ph-tabbar { padding-top: 0; }
+
+/* ---------- iOS home-screen app: tab bar sized like a native iOS tab bar ----------
+   --sab = the home-indicator inset (34pt on Face ID iPhones in the installed app). The labels may sit a little
+   into that area, like native apps, so there's no thick empty band under the tabs. */
+:root { --sab: env(safe-area-inset-bottom, 0px); }
+.phone { --tabbar-h: 54px; --tab-pad: max(6px, calc(var(--sab) - 14px)); }
+.phone .ph-tabbar { height: calc(var(--tabbar-h) + var(--tab-pad)); padding-bottom: var(--tab-pad); padding-top: 0; align-items: stretch; }
+.phone .ph-tabbar .ph-tab { height: var(--tabbar-h); justify-content: center; gap: 2px; padding-top: 6px; }
+.phone .ph-body { padding-bottom: calc(var(--tabbar-h) + var(--tab-pad) + 20px); }
+.phone .ph-submit { bottom: calc(var(--tabbar-h) + var(--tab-pad)); }
+.sh-body { padding-bottom: calc(12px + var(--sab)); }
+@media (orientation: landscape) and (max-height: 520px) { .phone { --tabbar-h: 46px; } }

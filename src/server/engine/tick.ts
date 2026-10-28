@@ -159,6 +159,18 @@ async function rotateMedia(q: Q, p: PartyRow, s: Settings, now: number): Promise
     ph.slideUntil = now + (slide.dwellMs || 7000);
     return true;
   }
+  // Photo turn but no photos: keep honouring the tributes rather than leaving the screen empty.
+  if (albumTurn && room >= s.tributeDwellMinMs) {
+    const t = await tq.nextTribute(q, p.id, now);
+    if (t) {
+      const dwell = Math.min(s.tributeDwellMaxMs, Math.max(s.tributeDwellMinMs, t.dwellMs || 25000));
+      ph.tribute = { ...t, dwellMs: dwell };
+      ph.tributeUntil = now + dwell;
+      ph.slide = null;
+      ph.slideUntil = undefined;
+      return true;
+    }
+  }
   ph.slide = null;
   ph.slideUntil = undefined;
   return had;

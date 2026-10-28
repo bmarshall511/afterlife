@@ -31,4 +31,14 @@ describe("break media rotation", () => {
     expect(ph.tribute ?? null).toBeNull();
     expect(ph.slide).toBeTruthy();
   });
+
+  it("falls back to tributes during the photo turn when there are no photos", async () => {
+    await setup({
+      tributes: { nextTribute: async () => tribute("t" + n++), isTributeVisible: async () => true },
+      album: { nextAlbumSlide: async () => null, isAlbumPhotoVisible: async () => false },
+    });
+    await setTributeOnly(T0);
+    for (let t = T0; t < T0 + 110_000; t += 1000) await tick(P, t);
+    expect((await phase(d)).tribute).toBeTruthy();
+  });
 });

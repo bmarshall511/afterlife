@@ -64,3 +64,6 @@
 .al-lb-by{margin:0;color:var(--mg);font-size:13px;letter-spacing:.04em}
 @keyframes al-fade{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.al-lb{animation:none}.al-tile img,.al-lb-img,.al-bar span{transition:none}.al-tile:hover img{transform:none}}
+
+.al-back{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin:0 0 6px;color:var(--marigold-2,#ffc35a);font-weight:600;font-size:16px;text-decoration:none}
+.al-back:focus-visible{outline:3px solid var(--marigold-2,#ffc35a);outline-offset:3px;border-radius:8px}

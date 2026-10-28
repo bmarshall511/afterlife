@@ -169,8 +169,17 @@ export default function AlbumApp({ token, party, initialPhotos, defaultTakenBy, 
     }
   }
 
+  // Opened from the game controller (same tab, so a home-screen app stays in the app): offer a way back.
+  const [fromPlay, setFromPlay] = useState(false);
+  useEffect(() => { setFromPlay(new URLSearchParams(location.search).get("from") === "play"); }, []);
+
   return (
     <main className="al-wrap">
+      {fromPlay && (
+        <a className="al-back" href={party === "demo" ? "/play?party=demo" : "/play"}>
+          <span aria-hidden="true">←</span> Back to the game
+        </a>
+      )}
       <header className="al-head">
         <p className="al-eyebrow">AFTERLIFE · Party album{party === "demo" ? " · demo" : ""}</p>
         <h1 className="al-h1">Tonight, in pictures</h1>

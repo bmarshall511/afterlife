@@ -6,11 +6,14 @@
 export type PartyId = "live" | "demo";
 
 /** v2 lineup (2026-10-27). Old v1 families are retired. */
-export type GameFamily = "calavera" | "line" | "loteria" | "room" | "closest" | "case";
+export type GameFamily = "calavera" | "line" | "loteria" | "room" | "closest" | "case" | "dichos" | "fib" | "price";
 /** Playable with any number of teams. */
-export const OBJECTIVE_FAMILIES: GameFamily[] = ["line", "loteria", "closest", "case"];
-/** Need >= 3 eligible teams (votes / room percentages). */
-export const SOCIAL_FAMILIES: GameFamily[] = ["calavera", "room"];
+export const OBJECTIVE_FAMILIES: GameFamily[] = ["line", "loteria", "closest", "case", "dichos", "price"];
+/** Need >= 3 eligible teams (votes / room percentages / written entries). */
+export const SOCIAL_FAMILIES: GameFamily[] = ["calavera", "room", "fib"];
+
+/** Content rating. "after-dark" items only play when the host switches on After Dark (settings.afterDark). */
+export type ContentRating = "classic" | "spicy" | "after-dark";
 
 export type BackdropState = "amber" | "violet" | "magenta";
 
@@ -66,12 +69,14 @@ export type InputSpec =
   | { kind: "order"; items: { id: string; text: string; icon?: string }[]; lowLabel: string; highLabel: string } // line
   | { kind: "number"; min: number; max: number; step: number; unit?: string } // closest
   | { kind: "text"; maxLength: number; placeholder: string }                  // calavera write
+  | { kind: "fib"; maxLength: number; prompt: string }                        // two truths and a fib: write 3 statements, mark the fib
   | { kind: "vote"; entries: { id: string; text: string }[] }                 // calavera vote; own entry excluded per team by /api/me
   | { kind: "percent"; optionText: string; options?: QuestionOption[] }       // room guess: % of room that picked your answer (options = the answer-stage choices)
   | { kind: "assign"; people: { id: string; name: string }[]; slots: { id: string; label: string }[] }; // case
 
-/** choice/vote -> index or entry id; order -> item ids in order; number/percent -> number; text -> string; assign -> {personId: slotId} */
-export type AnswerValue = number | string | string[] | Record<string, string>;
+/** choice/vote -> index or entry id; order -> item ids in order; number/percent -> number; text -> string; assign -> {personId: slotId};
+ *  fib -> { statements: [s1, s2, s3], fib: 0|1|2 } */
+export type AnswerValue = number | string | string[] | Record<string, string> | { statements: string[]; fib: number };
 
 export interface QuestionOption {
   label: string;           // "A".."L"

@@ -180,3 +180,144 @@ Method note: several authoritative sites (britannica.com, whc.unesco.org, inegi.
 ## Domains
 
 airandspace.si.edu, americanhistory.si.edu, atlas.inali.gob.mx, catalogonacionalmhi.inah.gob.mx, dof.gob.mx, doig.impi.gob.mx, gisviewer.semarnat.gob.mx, ich.unesco.org, museodelasconstituciones.unam.mx, nationalzoo.si.edu, ndsu.edu, nssdc.gsfc.nasa.gov, ocean.si.edu, patrimoniomundialmexico.inah.gob.mx, periodic-table.rsc.org, science.nasa.gov, spaceplace.nasa.gov, torrelatinoamericana.com.mx, visitateotihuacan.inah.gob.mx, volcano.si.edu, whc.unesco.org, worldathletics.org, www.artic.edu, www.biodiversidad.gob.mx, www.britannica.com, www.burjkhalifa.ae, www.crt.org.mx, www.dgcs.unam.mx, www.epa.gov, www.esbnyc.com, www.fifa.com, www.fisheries.noaa.gov, www.fs.usda.gov, www.gob.mx, www.goldengate.org, www.ibwc.gov, www.inah.gob.mx, www.inegi.org.mx, www.loc.gov, www.metro.cdmx.gob.mx, www.nasa.gov, www.niagaraparks.com, www.nist.gov, www.noaa.gov, www.nobelprize.org, www.nps.gov, www.olympics.com, www.oscars.org, www.parliament.uk, www.skyscrapercenter.com, www.thehersheycompany.com, www.toureiffel.paris, www.usgs.gov
+
+## Added 2026-10-28 (host-approved from docs/PROPOSED-QUESTIONS.md)
+
+### The Line
+
+| id | values | source |
+|---|---|---|
+| line-p-l1 | Regular beer = 5%, Malt liquor = 7%, Table wine = 12%, Distilled spirits = 40% | https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink |
+| line-p-l2 | Magnum = 1.5 L, Jeroboam = 3 L, Methuselah = 6 L, Balthazar = 12 L | https://www.champagne.fr/en/champagne-frequently-asked-questions?nid=608 |
+| line-p-l3 | 18th Amendment (Prohibition) ratified = 1919, 21st Amendment repeals Prohibition = 1933, Congress declares bourbon a "distinctive product of the US" = 1964, National Minimum Drinking Age Act = 1984 | https://guides.loc.gov/18th-amendment |
+| line-p-l4 | Pride and Prejudice = 1813, Jane Eyre = 1847, Gone with the Wind = 1936, Love in the Time of Cholera = 1985 | https://www.bl.uk/stories/blogs/posts/jane-austen-names-and-notability |
+| line-p-l5 | Casablanca = 1942, Roman Holiday = 1953, When Harry Met Sally... = 1989, Titanic = 1997 | https://www.loc.gov/static/programs/national-film-preservation-board/documents/Registry-Titles-by-release-date.pdf |
+| line-p-l6 | Women in 1960 = 20.3, Women in 1890 = 22.0, Men in 1960 = 22.8, Men in 1890 = 26.1 | https://www2.census.gov/programs-surveys/demo/tables/families/time-series/marital/ms2.xls |
+| line-p-l7 | La traviata = 1853, Tristan und Isolde = 1865, Carmen = 1875, Madama Butterfly = 1904 | https://www.kennedy-center.org/education/resources-for-educators/classroom-resources/media-and-interactives/media/opera/rep/early-romantic/la-traviata/ |
+| line-p-l8 | Dime = 2.268 g, Cent = 2.500 g, Nickel = 5.000 g, Quarter = 5.670 g, Half dollar = 11.340 g | https://www.usmint.gov/learn/coins-and-medals/circulating-coins/coin-specifications |
+| line-p-l9 | Nickel = 0, Dime = 118, Quarter = 119, Half dollar = 150 | https://www.usmint.gov/learn/coins-and-medals/circulating-coins/coin-specifications |
+| line-p-l10 | Texas = 1845, California = 1850, Nevada = 1864, Colorado = 1876, Utah = 1896 | https://www.senate.gov/states/TX/timeline.shtml |
+| line-p-l11 | The Starry Night = 1889, Les Demoiselles d'Avignon = 1907, The Persistence of Memory = 1931, Campbell's Soup Cans = 1962 | https://www.moma.org/visit/itineraries/unmissables |
+| line-p-l12 | Yosemite = 1890, Grand Canyon = 1919, Big Bend = 1944, Joshua Tree = 1994 | https://www.nps.gov/yose/learn/news/yose120.htm |
+| line-p-l13 | New Mexico = 2,117,522, Arizona = 7,151,502, Texas = 29,145,505, California = 39,538,223 | https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/apportionment-2020-table02.pdf |
+| line-p-l15 | Dachshund = 1885, Chihuahua = 1904, Labrador Retriever = 1917, Xoloitzcuintli = 2011 | https://www.akc.org/press-center/articles-resources/facts-and-stats/breeds-year-recognized/ |
+
+### Closest
+
+| id | answer | source |
+|---|---|---|
+| closest-p-x1 | 14 g | https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink |
+| closest-p-x2 | 40 % | https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink |
+| closest-p-x3 | 35 % | https://www.crt.org.mx/en/our-tequila/ |
+| closest-p-x4 | 400 mg | https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much |
+| closest-p-x5 | 30 years | https://www2.census.gov/programs-surveys/demo/tables/families/time-series/marital/ms2.xls |
+| closest-p-x6 | 4 drinks | https://www.niaaa.nih.gov/alcohols-effects-health/alcohol-topics/health-topics-binge-drinking |
+| closest-p-x7 | 20 bar | https://www.champagne.fr/en/tasting-and-appreciation/choosing-a-champagne-wine/champagne-bottles |
+| closest-p-x8 | 46 carats | https://naturalhistory.si.edu/explore/collections/hope-diamond |
+| closest-p-x9 | 282 ft | https://www.nps.gov/places/badwater-basin.htm |
+| closest-p-x10 | 1821 year | https://www.loc.gov/exhibits/mexican-revolution-and-the-united-states/independence-from-spain.html |
+| closest-p-x11 | 6 states | https://www.epa.gov/usmexicoborder |
+| closest-p-x12 | 47 thousand m² | https://lugares.inah.gob.mx/en/node/4833 |
+| closest-p-x13 | 1978 year | https://www.inah.gob.mx/boletines/el-museo-del-templo-mayor-celebra-los-45-anos-del-descubrimiento-de-coyolxauhqui |
+| closest-p-x15 | 1904 sq mi | https://www.nps.gov/grca/learn/management/statistics.htm |
+
+## Dichos (wording + meaning verified)
+
+All from the Academia Mexicana de la Lengua's online *Refranero mexicano* (Herón Pérez Martínez, 2004), one entry page each, fetched 2026-10-28. Centro Virtual Cervantes returned 404 and dle.rae.es returned 403. The three wrong endings per dicho are invented for the game (`src/content/dichosFakes.ts`).
+
+| id | dicho | source |
+|---|---|---|
+| dicho-a-falta-de-pan-buenas-son-tortillas | A falta de pan, buenas son tortillas | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/a-falta-de-pan-buenas-son-tortillas |
+| dicho-el-comal-le-dijo-a-la-olla-que-tiznada-estas | El comal le dijo a la olla: ¡qué tiznada estás! | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-comal-le-dijo-a-la-olla-que-tiznada-estas |
+| dicho-mas-vale-atole-con-risas-que-chocolate-con-lagri | Más vale atole con risas que chocolate con lágrimas | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-atole-con-risas-que-chocolate-con-lagrimas |
+| dicho-cada-chango-a-su-mecate | Cada chango a su mecate | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cada-chango-a-su-mecate |
+| dicho-no-se-puede-chiflar-y-beber-atole | No se puede chiflar y beber atole | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/no-se-puede-chiflar-y-beber-atole |
+| dicho-cuentas-claras-conservan-amistades | Cuentas claras conservan amistades | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cuentas-claras-conservan-amistades |
+| dicho-mas-vale-pedir-perdon-que-pedir-permiso | Más vale pedir perdón que pedir permiso | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-pedir-perdon-que-pedir-permiso |
+| dicho-mas-vale-morir-parado-que-vivir-de-rodillas | Más vale morir parado que vivir de rodillas | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-morir-parado-que-vivir-de-rodillas |
+| dicho-lo-que-hace-el-mono-hace-la-mona | Lo que hace el mono, hace la mona | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/lo-que-hace-el-mono-hace-la-mona |
+| dicho-el-muerto-a-la-sepultura-y-los-vivos-a-la-diablu | El muerto a la sepultura, y los vivos a la diablura | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-muerto-a-la-sepultura-y-los-vivos-a-la-diablura |
+| dicho-poco-a-poco-se-le-saca-el-agua-al-coco | Poco a poco se le saca el agua al coco | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/poco-a-poco-se-le-saca-el-agua-al-coco |
+| dicho-las-piedras-rodando-se-encuentran | Las piedras rodando se encuentran | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/las-piedras-rodando-se-encuentran |
+| dicho-al-nopal-lo-van-a-ver-solo-cuando-tiene-tunas | Al nopal lo van a ver, sólo cuando tiene tunas | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/al-nopal-lo-van-a-ver-solo-cuando-tiene-tunas |
+| dicho-hasta-el-santo-desconfia-cuando-la-limosna-es-gr | Hasta el santo desconfía cuando la limosna es grande | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/hasta-el-santo-desconfia-cuando-la-limosna-es-grande |
+| dicho-muerto-el-perico-para-que-quiero-la-jaula | Muerto el perico, ¿para qué quiero la jaula? | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/muerto-el-perico-para-que-quiero-la-jaula |
+| dicho-el-que-es-perico-dondequiera-es-verde-y-el-que-e | El que es perico, dondequiera es verde, y el que es tarugo, dondequiera pierde | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-es-perico-dondequiera-es-verde-y-el-que-es-tarugo-dondequiera-pierde |
+| dicho-donde-lloran-esta-el-muerto | Donde lloran, está el muerto | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/donde-lloran-esta-el-muerto |
+| dicho-de-que-el-cuchillo-es-malo-le-echan-la-culpa-al | De que el cuchillo es malo, le echan la culpa al herrero | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/de-que-el-cuchillo-es-malo-le-echan-la-culpa-al-herrero |
+| dicho-el-arrimado-y-el-muerto-a-los-tres-dias-apestan | El arrimado y el muerto, a los tres días apestan | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-arrimado-y-el-muerto-a-los-tres-dias-apestan |
+| dicho-lo-que-se-ha-de-pelar-que-se-vaya-remojando | Lo que se ha de pelar, que se vaya remojando | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/lo-que-se-ha-de-pelar-que-se-vaya-remojando |
+| dicho-chivo-pagado-chivo-brincado | Chivo pagado, chivo brincado | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/chivo-pagado-chivo-brincado |
+| dicho-el-que-tenga-cola-de-zacate-que-no-se-acerque-a | El que tenga cola de zacate, que no se acerque a la lumbre | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-tenga-cola-de-zacate-que-no-se-acerque-a-la-lumbre |
+| dicho-cuando-la-cocinera-es-mala-le-echa-la-culpa-al-m | Cuando la cocinera es mala, le echa la culpa al mole | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cuando-la-cocinera-es-mala-le-echa-la-culpa-al-mole |
+| dicho-entre-menos-burros-mas-olotes | Entre menos burros, más olotes | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/entre-menos-burros-mas-olotes |
+| dicho-el-que-tiene-mas-saliva-traga-mas-pinole | El que tiene más saliva, traga más pinole | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-tiene-mas-saliva-traga-mas-pinole |
+| dicho-de-limpios-y-de-tragones-estan-llenos-los-panteo | De limpios y de tragones, están llenos los panteones | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/de-limpios-y-de-tragones-estan-llenos-los-panteones |
+| dicho-no-hay-que-buscarle-ruido-al-chicharron | No hay que buscarle ruido al chicharrón | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/no-hay-que-buscarle-ruido-al-chicharron |
+| dicho-el-pobre-se-estira-hasta-donde-la-cobija-le-alca | El pobre se estira hasta donde la cobija le alcanza | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-pobre-se-estira-hasta-donde-la-cobija-le-alcanza |
+| dicho-al-que-nace-p-a-tamal-del-cielo-le-caen-las-hoja | Al que nace p'a tamal, del cielo le caen las hojas | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/al-que-nace-p-a-tamal-del-cielo-le-caen-las-hojas |
+| dicho-solo-el-que-carga-el-cajon-sabe-lo-que-pesa-el-m | Sólo el que carga el cajón, sabe lo que pesa el muerto | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/solo-el-que-carga-el-cajon-sabe-lo-que-pesa-el-muerto |
+| dicho-la-burra-no-era-arisca-los-palos-la-hicieron | La burra no era arisca, los palos la hicieron | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/la-burra-no-era-arisca-los-palos-la-hicieron |
+| dicho-se-hace-pesado-el-muerto-cuando-siente-que-lo-ca | Se hace pesado el muerto, cuando siente que lo cargan | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/se-hace-pesado-el-muerto-cuando-siente-que-lo-cargan |
+| dicho-peor-es-chile-y-el-agua-lejos | Peor es chile y el agua lejos | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/peor-es-chile-y-el-agua-lejos |
+| dicho-en-la-vida-falta-todo-en-la-muerte-sobra-todo | En la vida falta todo, en la muerte sobra todo | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/en-la-vida-falta-todo-en-la-muerte-sobra-todo |
+| dicho-el-que-tenga-miedo-a-las-espinas-que-no-entre-a | El que tenga miedo a las espinas, que no entre a la nopalera | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-tenga-miedo-a-las-espinas-que-no-entre-a-la-nopalera |
+| dicho-el-que-hambre-tiene-en-tortillas-piensa | El que hambre tiene, en tortillas piensa | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-hambre-tiene-en-tortillas-piensa |
+| dicho-entre-dos-cocineras-sale-aguado-el-mole | Entre dos cocineras sale aguado el mole | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/entre-dos-cocineras-sale-aguado-el-mole |
+| dicho-vale-mas-tortilla-con-amor-que-gallina-con-dolor | Vale más tortilla con amor que gallina con dolor | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/vale-mas-tortilla-con-amor-que-gallina-con-dolor |
+| dicho-por-las-hojas-se-conoce-el-tamal-que-es-de-mante | Por las hojas se conoce el tamal que es de manteca | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/por-las-hojas-se-conoce-el-tamal-que-es-de-manteca |
+| dicho-el-que-con-coyotes-anda-a-aullar-se-ensena | El que con coyotes anda, a aullar se enseña | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-con-coyotes-anda-a-aullar-se-ensena |
+| dicho-companeros-del-camino-pero-no-del-itacate | Compañeros del camino, pero no del itacate | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/companeros-del-camino-pero-no-del-itacate |
+| dicho-si-yo-supiera-mi-suerte-me-reiria-hasta-de-la-mu | Si yo supiera mi suerte, me reiría hasta de la muerte | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/si-yo-supiera-mi-suerte-me-reiria-hasta-de-la-muerte |
+| dicho-el-corazon-no-envejece-el-cuero-es-el-que-se-arr | El corazón no envejece, el cuero es el que se arruga | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-corazon-no-envejece-el-cuero-es-el-que-se-arruga |
+| dicho-mas-vale-gota-que-dure-y-no-chorro-que-pare | Más vale gota que dure, y no chorro que pare | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-gota-que-dure-y-no-chorro-que-pare |
+| dicho-cuando-uno-esta-de-malas-ni-presa-le-halla-al-ta | Cuando uno está de malas, ni presa le halla al tamal | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cuando-uno-esta-de-malas-ni-presa-le-halla-al-tamal |
+| dicho-amor-viejo-y-camino-real-nunca-se-dejan-de-andar | Amor viejo y camino real, nunca se dejan de andar | https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/amor-viejo-y-camino-real-nunca-se-dejan-de-andar |
+
+Left out though verified: Dios tarda pero no olvida, No hay mole si no se muele, No hay árbol de tortillas, No todos los días se muere un burro, Donde no hay humo no hay lumbre, A buen tragón buen taco, El que con niños se acuesta… (crude); vulgar or ethnically derogatory entries excluded.
+
+## Price Is Right (pesos; official sources)
+
+| id | price | as of | source |
+|---|---|---|---|
+| price-metro-ride | $5 | 2026 (fare unchanged) | https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado |
+| price-metrobus-ride | $6 | 2026 (fare unchanged) | https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado |
+| price-cablebus-ride | $7 | 2026 (fare unchanged) | https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado |
+| price-trolebus-ride | $4 | 2026 (fare unchanged) | https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado |
+| price-tren-ligero-ride | $3 | 2026 (fare unchanged) | https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado |
+| price-rtp-bus | $2 | 2026 (fare unchanged) | https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado |
+| price-min-wage-day | $315 | From 1 Jan 2026 | https://www.gob.mx/conasami/articulos/se-publican-en-el-diario-oficial-de-la-federacion-los-salarios-minimos-vigentes-a-partir-del-1-de-enero-de-2026 |
+| price-min-wage-border | $441 | From 1 Jan 2026 | https://www.gob.mx/conasami/articulos/se-publican-en-el-diario-oficial-de-la-federacion-los-salarios-minimos-vigentes-a-partir-del-1-de-enero-de-2026 |
+| price-passport-1yr | $920 | 2026 | https://www.gob.mx/pasaporte/ |
+| price-passport-3yr | $1,795 | 2026 | https://www.gob.mx/pasaporte/ |
+| price-passport-6yr | $2,440 | 2026 | https://www.gob.mx/pasaporte/ |
+| price-passport-10yr | $4,280 | 2026 | https://www.gob.mx/pasaporte/ |
+| price-teotihuacan-foreign | $210 | Spring 2026 | https://inah.gob.mx/boletines/con-operativo-la-zona-arqueologica-de-teotihuacan-se-prepara-para-recibir-la-primavera-2026 |
+| price-chichen-inah | $105 | Page updated 6 Oct 2026 | https://www.inah.gob.mx/zonas/146-zona-arqueologica-de-chichen-itza |
+| price-chichen-yucatan-foreign | $592 | Page updated 6 Oct 2026 | https://www.inah.gob.mx/zonas/146-zona-arqueologica-de-chichen-itza |
+| price-chichen-yucatan-national | $205 | Page updated 6 Oct 2026 | https://www.inah.gob.mx/zonas/146-zona-arqueologica-de-chichen-itza |
+| price-mna-general | $210 | 2026 | https://mna.inah.gob.mx/informacion_general.php |
+| price-bellas-artes | $95 | Current official site (2026) | https://museopalaciodebellasartes.inba.gob.mx/informacion-general/ |
+| price-loteria-cachito | $30 | 2026 draws | https://www.loterianacional.gob.mx/Billete/Mayor |
+| price-loteria-serie | $600 | 2026 draws | https://www.loterianacional.gob.mx/Billete/Mayor |
+| price-loteria-entero | $1,800 | 2026 draws | https://www.loterianacional.gob.mx/Billete/Mayor |
+| price-tortilla-kg | $24 | 16 Apr 2026 | https://www.gob.mx/profeco/prensa/profeco-reporta-precios-estables-de-canasta-basica-tortilla-y-gasolina?idiom=es |
+| price-magna-litre | $24 | 10 Apr 2026 | https://www.gob.mx/profeco/prensa/profeco-reporta-precios-estables-de-canasta-basica-tortilla-y-gasolina?idiom=es |
+| price-canasta-basica | $844 | Mar 2026 | https://www.gob.mx/profeco/prensa/profeco-reporta-precios-estables-de-canasta-basica-tortilla-y-gasolina?idiom=es |
+| price-licence-a-3yr | $1,142 | 2026 (current catalogue) | https://data.finanzas.cdmx.gob.mx/formato_lc/conceptos/licencias |
+| price-licence-permanent | $1,500 | 2026 | https://www.semovi.cdmx.gob.mx/busqueda?q=licencia+permanente |
+| price-licence-taxi-3yr | $2,133 | 2026 (current catalogue) | https://data.finanzas.cdmx.gob.mx/formato_lc/conceptos/licencias |
+| price-permiso-conducir | $587 | 2026 (current catalogue) | https://data.finanzas.cdmx.gob.mx/formato_lc/conceptos/licencias |
+| price-letter-national | $7 | Tarifa Postal 2026 | https://www.correosdemexico.gob.mx/DATOSABIERTOS/Tarifas/Individuales/1_Cartas_y_Tarjetas_Postales.pdf |
+| price-letter-intl-world | $15 | Tarifa Postal 2026 | https://www.gob.mx/cms/uploads/attachment/file/975624/8_INTERNACIONAL_Cartas__Impresos_y_Pequenos_Paquetes_2026.pdf |
+| price-toll-tlalpan | $156 | 13 Apr 2026 | https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf |
+| price-toll-cuernavaca-acapulco | $670 | 13 Apr 2026 | https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf |
+| price-toll-mex-queretaro | $226 | 13 Apr 2026 | https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf |
+| price-toll-san-marcos | $173 | 13 Apr 2026 | https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf |
+| price-toll-tijuana-ensenada | $152 | 13 Apr 2026 | https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf |
+| price-toll-mexico-chalco | $26 | 13 Apr 2026 | https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf |
+
+Dropped: Museo Frida Kahlo (no official 2026 price), Templo Mayor (official INAH pages say 95, 100 and 105), INM/FMM fees (table only as image), CDMX licence replacement, Metrobús Line 4 airport fare (news-only), Museo Soumaya (free; a zero answer breaks the accuracy maths), INAH filming permit and 9-axle truck toll (too obscure). Northern-border minimum wage: DOF/CONASAMI 440.87 used (a state labour page says 474.39). CDMX transit fares come from a CDMX government statement because metro/metrobús sites refused connections.
+
+## Values that may change (new)
+- All prices (fares, fees, tolls, Profeco averages) are as of the stated date; re-check before any later event.

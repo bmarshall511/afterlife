@@ -40,6 +40,20 @@ export function validateValue(spec: InputSpec, v: unknown): AnswerValue {
       if ([...t].length > spec.maxLength) throw bad("too long");
       return t;
     }
+    case "fib": {
+      if (!v || typeof v !== "object" || Array.isArray(v)) throw bad("three statements and the fib");
+      const o = v as { statements?: unknown; fib?: unknown };
+      if (!Array.isArray(o.statements) || o.statements.length !== 3) throw bad("write three statements");
+      const st = o.statements.map((x) => {
+        if (typeof x !== "string" || x.length > spec.maxLength * 4) throw bad("statement too long");
+        const t = cleanText(x, 10_000);
+        if (!t) throw bad("every statement needs some words");
+        if ([...t].length > spec.maxLength) throw bad("statement too long");
+        return t;
+      });
+      if (!Number.isInteger(o.fib) || (o.fib as number) < 0 || (o.fib as number) > 2) throw bad("pick which one is the fib");
+      return { statements: st, fib: o.fib as number };
+    }
     case "vote":
       if (typeof v !== "string" || !spec.entries.some((e) => e.id === v)) throw bad("invalid vote");
       return v;

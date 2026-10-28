@@ -1,0 +1,578 @@
+[
+ {
+  "id": "metro-ride",
+  "prompt": "A single ride on the Mexico City Metro",
+  "value": 5,
+  "min": 0,
+  "max": 19,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Five pesos gets you anywhere on 12 lines - possibly the best deal in the hemisphere.",
+  "source": {
+   "title": "Jefatura de Gobierno CDMX statement on public transport fares",
+   "url": "https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado",
+   "asOf": "2026 (fare unchanged)",
+   "verification": "official CDMX statement lists Metro 5, Metrobús 6, Cablebús 7, Trolebús 4, Tren Ligero 3, RTP 2 pesos; SEMOVI later said only concession buses rose. Domain-limited search excerpt (cdmx.gob.mx); official metro/ste sites refused connection; 2026-10-28"
+  }
+ },
+ {
+  "id": "metrobus-ride",
+  "prompt": "A standard ride on Mexico City's Metrobús",
+  "value": 6,
+  "min": 0,
+  "max": 23,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "One peso more than the Metro, for the privilege of seeing daylight.",
+  "source": {
+   "title": "Jefatura de Gobierno CDMX statement on public transport fares",
+   "url": "https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado",
+   "asOf": "2026 (fare unchanged)",
+   "verification": "official CDMX statement lists Metro 5, Metrobús 6, Cablebús 7, Trolebús 4, Tren Ligero 3, RTP 2 pesos; SEMOVI later said only concession buses rose. Domain-limited search excerpt (cdmx.gob.mx); official metro/ste sites refused connection; 2026-10-28"
+  }
+ },
+ {
+  "id": "cablebus-ride",
+  "prompt": "A ride on Mexico City's Cablebús cable car",
+  "value": 7,
+  "min": 0,
+  "max": 26,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Seven pesos for a gondola view over Iztapalapa - cheaper than any ski lift on Earth.",
+  "source": {
+   "title": "Jefatura de Gobierno CDMX statement on public transport fares",
+   "url": "https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado",
+   "asOf": "2026 (fare unchanged)",
+   "verification": "official CDMX statement lists Metro 5, Metrobús 6, Cablebús 7, Trolebús 4, Tren Ligero 3, RTP 2 pesos; SEMOVI later said only concession buses rose. Domain-limited search excerpt (cdmx.gob.mx); official metro/ste sites refused connection; 2026-10-28"
+  }
+ },
+ {
+  "id": "trolebus-ride",
+  "prompt": "A ride on a regular Mexico City Trolebús (lines 1-9)",
+  "value": 4,
+  "min": 0,
+  "max": 15,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Electric, quiet, and still just four pesos.",
+  "source": {
+   "title": "Jefatura de Gobierno CDMX statement on public transport fares",
+   "url": "https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado",
+   "asOf": "2026 (fare unchanged)",
+   "verification": "official CDMX statement lists Metro 5, Metrobús 6, Cablebús 7, Trolebús 4, Tren Ligero 3, RTP 2 pesos; SEMOVI later said only concession buses rose. Domain-limited search excerpt (cdmx.gob.mx); official metro/ste sites refused connection; 2026-10-28"
+  }
+ },
+ {
+  "id": "tren-ligero-ride",
+  "prompt": "A ride on Mexico City's Tren Ligero to Xochimilco",
+  "value": 3,
+  "min": 0,
+  "max": 12,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Three pesos to reach the trajineras - the boat costs a lot more.",
+  "source": {
+   "title": "Jefatura de Gobierno CDMX statement on public transport fares",
+   "url": "https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado",
+   "asOf": "2026 (fare unchanged)",
+   "verification": "official CDMX statement lists Metro 5, Metrobús 6, Cablebús 7, Trolebús 4, Tren Ligero 3, RTP 2 pesos; SEMOVI later said only concession buses rose. Domain-limited search excerpt (cdmx.gob.mx); official metro/ste sites refused connection; 2026-10-28"
+  }
+ },
+ {
+  "id": "rtp-bus",
+  "prompt": "A ride on a Mexico City RTP public bus (ordinary service)",
+  "value": 2,
+  "min": 0,
+  "max": 8,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Two pesos: the cheapest wheels in the capital.",
+  "source": {
+   "title": "Jefatura de Gobierno CDMX statement on public transport fares",
+   "url": "https://jefaturadegobierno.cdmx.gob.mx/comunicacion/nota/mensaje-del-secretario-de-movilidad-andres-lajous-loaeza-durante-conferencia-de-prensa-tarifa-de-transporte-concesionado",
+   "asOf": "2026 (fare unchanged)",
+   "verification": "official CDMX statement lists Metro 5, Metrobús 6, Cablebús 7, Trolebús 4, Tren Ligero 3, RTP 2 pesos; SEMOVI later said only concession buses rose. Domain-limited search excerpt (cdmx.gob.mx); official metro/ste sites refused connection; 2026-10-28"
+  }
+ },
+ {
+  "id": "min-wage-day",
+  "prompt": "Mexico's general daily minimum wage in 2026 (rounded to nearest peso)",
+  "value": 315,
+  "min": 0,
+  "max": 1200,
+  "step": 5,
+  "difficulty": 2,
+  "explanation": "Up 13% for 2026 - 315.04 pesos a day.",
+  "source": {
+   "title": "CONASAMI: salarios mínimos vigentes a partir del 1 de enero de 2026",
+   "url": "https://www.gob.mx/conasami/articulos/se-publican-en-el-diario-oficial-de-la-federacion-los-salarios-minimos-vigentes-a-partir-del-1-de-enero-de-2026",
+   "asOf": "From 1 Jan 2026",
+   "verification": "Page states 315.04 pesos/day general zone (+13%); fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "min-wage-border",
+  "prompt": "Daily minimum wage in Mexico's northern border free zone, 2026 (rounded)",
+  "value": 441,
+  "min": 0,
+  "max": 1700,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "The border zone pays 440.87 - about 40% above the rest of the country.",
+  "source": {
+   "title": "CONASAMI: salarios mínimos vigentes a partir del 1 de enero de 2026",
+   "url": "https://www.gob.mx/conasami/articulos/se-publican-en-el-diario-oficial-de-la-federacion-los-salarios-minimos-vigentes-a-partir-del-1-de-enero-de-2026",
+   "asOf": "From 1 Jan 2026",
+   "verification": "Page states 440.87 pesos/day ZLFN (+5%); fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "passport-1yr",
+  "prompt": "A 1-year Mexican passport (only for kids under 3), 2026",
+  "value": 920,
+  "min": 0,
+  "max": 3500,
+  "step": 10,
+  "difficulty": 3,
+  "explanation": "Babies grow fast, so their passports expire fast - for 920 pesos.",
+  "source": {
+   "title": "Pasaporte Mexicano - costos (gob.mx)",
+   "url": "https://www.gob.mx/pasaporte/",
+   "asOf": "2026",
+   "verification": "Table effective 1 Jan 2026 per Art. 20 Ley Federal de Derechos 2026; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "passport-3yr",
+  "prompt": "A 3-year Mexican passport, 2026",
+  "value": 1795,
+  "min": 0,
+  "max": 6700,
+  "step": 5,
+  "difficulty": 2,
+  "explanation": "1,795 pesos for three years of stamps.",
+  "source": {
+   "title": "Pasaporte Mexicano - costos (gob.mx)",
+   "url": "https://www.gob.mx/pasaporte/",
+   "asOf": "2026",
+   "verification": "Table effective 1 Jan 2026 per Art. 20 Ley Federal de Derechos 2026; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "passport-6yr",
+  "prompt": "A 6-year Mexican passport, 2026",
+  "value": 2440,
+  "min": 0,
+  "max": 9100,
+  "step": 10,
+  "difficulty": 2,
+  "explanation": "The middle child of passports: 2,440 pesos.",
+  "source": {
+   "title": "Pasaporte Mexicano - costos (gob.mx)",
+   "url": "https://www.gob.mx/pasaporte/",
+   "asOf": "2026",
+   "verification": "Table effective 1 Jan 2026 per Art. 20 Ley Federal de Derechos 2026; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "passport-10yr",
+  "prompt": "A 10-year Mexican passport, 2026",
+  "value": 4280,
+  "min": 0,
+  "max": 16000,
+  "step": 10,
+  "difficulty": 2,
+  "explanation": "A decade of travel for 4,280 pesos; seniors pay half.",
+  "source": {
+   "title": "Pasaporte Mexicano - costos (gob.mx)",
+   "url": "https://www.gob.mx/pasaporte/",
+   "asOf": "2026",
+   "verification": "Table effective 1 Jan 2026 per Art. 20 Ley Federal de Derechos 2026; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "teotihuacan-foreign",
+  "prompt": "Entry to Teotihuacan for a non-resident foreigner, 2026",
+  "value": 210,
+  "min": 0,
+  "max": 780,
+  "step": 5,
+  "difficulty": 1,
+  "explanation": "Climbing the Pyramid of the Sun costs 210; Mexicans and residents pay half, and Sundays are free for them.",
+  "source": {
+   "title": "INAH boletín: Teotihuacan se prepara para la primavera 2026",
+   "url": "https://inah.gob.mx/boletines/con-operativo-la-zona-arqueologica-de-teotihuacan-se-prepara-para-recibir-la-primavera-2026",
+   "asOf": "Spring 2026",
+   "verification": "Bulletin states access ticket 210 pesos, 50% discount for nationals/residents; domain-limited search excerpt (inah.gob.mx); 2026-10-28"
+  }
+ },
+ {
+  "id": "chichen-inah",
+  "prompt": "The INAH (federal) entry fee at Chichén Itzá, 2026",
+  "value": 105,
+  "min": 0,
+  "max": 390,
+  "step": 5,
+  "difficulty": 2,
+  "explanation": "Only the federal half of the bill - Yucatán adds its own.",
+  "source": {
+   "title": "INAH: Zona Arqueológica de Chichén Itzá",
+   "url": "https://www.inah.gob.mx/zonas/146-zona-arqueologica-de-chichen-itza",
+   "asOf": "Page updated 6 Oct 2026",
+   "verification": "Page states general cost 105 pesos plus a separate state fee; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "chichen-yucatan-foreign",
+  "prompt": "Yucatán state's extra Chichén Itzá fee for foreign visitors, 2026",
+  "value": 592,
+  "min": 0,
+  "max": 2200,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "The state's surcharge for foreigners is over five times the federal ticket.",
+  "source": {
+   "title": "INAH: Zona Arqueológica de Chichén Itzá",
+   "url": "https://www.inah.gob.mx/zonas/146-zona-arqueologica-de-chichen-itza",
+   "asOf": "Page updated 6 Oct 2026",
+   "verification": "Page states AAFY extra fee 592 pesos foreigners, 205 nationals; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "chichen-yucatan-national",
+  "prompt": "Yucatán state's extra Chichén Itzá fee for Mexican visitors, 2026",
+  "value": 205,
+  "min": 0,
+  "max": 760,
+  "step": 5,
+  "difficulty": 3,
+  "explanation": "Even locals pay the state - just a lot less.",
+  "source": {
+   "title": "INAH: Zona Arqueológica de Chichén Itzá",
+   "url": "https://www.inah.gob.mx/zonas/146-zona-arqueologica-de-chichen-itza",
+   "asOf": "Page updated 6 Oct 2026",
+   "verification": "Page states AAFY extra fee 205 pesos for nationals; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "mna-general",
+  "prompt": "General admission to Mexico City's Museo Nacional de Antropología, 2026",
+  "value": 210,
+  "min": 0,
+  "max": 780,
+  "step": 5,
+  "difficulty": 1,
+  "explanation": "The Aztec Sun Stone, for the price of a few tacos al pastor.",
+  "source": {
+   "title": "INAH search excerpt: Museo Nacional de Antropología information",
+   "url": "https://mna.inah.gob.mx/informacion_general.php",
+   "asOf": "2026",
+   "verification": "Domain-limited search excerpt (inah.gob.mx) lists 210 general, 105 nationals/residents; direct fetch blocked (HTTP 468); 2026-10-28"
+  }
+ },
+ {
+  "id": "bellas-artes",
+  "prompt": "General admission to the Museo del Palacio de Bellas Artes, CDMX",
+  "value": 95,
+  "min": 0,
+  "max": 360,
+  "step": 5,
+  "difficulty": 2,
+  "explanation": "Rivera murals and Art Deco marble for 95 pesos - free on Sundays.",
+  "source": {
+   "title": "Museo Palacio de Bellas Artes - Información general",
+   "url": "https://museopalaciodebellasartes.inba.gob.mx/informacion-general/",
+   "asOf": "Current official site (2026)",
+   "verification": "Official museum site states general admission 95 pesos; domain-limited search excerpt; 2026-10-28"
+  }
+ },
+ {
+  "id": "loteria-cachito",
+  "prompt": "One 'cachito' (fraction) of a Lotería Nacional Sorteo Mayor ticket",
+  "value": 30,
+  "min": 0,
+  "max": 120,
+  "step": 5,
+  "difficulty": 1,
+  "explanation": "Thirty pesos for a sliver of a 21-million dream.",
+  "source": {
+   "title": "Lotería Nacional: Sorteo Mayor",
+   "url": "https://www.loterianacional.gob.mx/Billete/Mayor",
+   "asOf": "2026 draws",
+   "verification": "Official page states cachito 30, serie (20 cachitos) 600, three series 1,800 pesos; domain-limited search excerpt; 2026-10-28"
+  }
+ },
+ {
+  "id": "loteria-serie",
+  "prompt": "One full series (20 cachitos) of a Lotería Nacional Sorteo Mayor ticket",
+  "value": 600,
+  "min": 0,
+  "max": 2300,
+  "step": 10,
+  "difficulty": 2,
+  "explanation": "Twenty cachitos make a serie - and 600 pesos.",
+  "source": {
+   "title": "Lotería Nacional: Sorteo Mayor",
+   "url": "https://www.loterianacional.gob.mx/Billete/Mayor",
+   "asOf": "2026 draws",
+   "verification": "Official page states cachito 30, serie (20 cachitos) 600, three series 1,800 pesos; domain-limited search excerpt; 2026-10-28"
+  }
+ },
+ {
+  "id": "loteria-entero",
+  "prompt": "All three series (60 cachitos) of a Lotería Nacional Sorteo Mayor number",
+  "value": 1800,
+  "min": 0,
+  "max": 6700,
+  "step": 50,
+  "difficulty": 3,
+  "explanation": "Buy the whole number and the 21-million jackpot is all yours.",
+  "source": {
+   "title": "Lotería Nacional: Sorteo Mayor",
+   "url": "https://www.loterianacional.gob.mx/Billete/Mayor",
+   "asOf": "2026 draws",
+   "verification": "Official page states cachito 30, serie (20 cachitos) 600, three series 1,800 pesos; domain-limited search excerpt; 2026-10-28"
+  }
+ },
+ {
+  "id": "tortilla-kg",
+  "prompt": "National average price of 1 kg of tortillas at a tortillería, Apr 2026 (rounded)",
+  "value": 24,
+  "min": 0,
+  "max": 89,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "24.27 pesos at the tortillería; supermarkets were about 14.",
+  "source": {
+   "title": "Profeco reporta precios estables de canasta básica, tortilla y gasolina",
+   "url": "https://www.gob.mx/profeco/prensa/profeco-reporta-precios-estables-de-canasta-basica-tortilla-y-gasolina?idiom=es",
+   "asOf": "16 Apr 2026",
+   "verification": "Profeco states 24.27 tortillería, 13.96 self-service; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "magna-litre",
+  "prompt": "Average price of a litre of regular (Magna) gasoline, Apr 2026 (rounded)",
+  "value": 24,
+  "min": 0,
+  "max": 89,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Under the government's voluntary cap of 24 pesos - 23.69 to be exact.",
+  "source": {
+   "title": "Profeco reporta precios estables de canasta básica, tortilla y gasolina",
+   "url": "https://www.gob.mx/profeco/prensa/profeco-reporta-precios-estables-de-canasta-basica-tortilla-y-gasolina?idiom=es",
+   "asOf": "10 Apr 2026",
+   "verification": "Profeco states regular 23.69 pesos/litre at 10 Apr 2026; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "canasta-basica",
+  "prompt": "Profeco's basic basket of essential goods (PACIC) average cost, Mar 2026 (rounded)",
+  "value": 844,
+  "min": 0,
+  "max": 3200,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "24 staples for about 844 pesos - roughly 2.7 days of minimum wage.",
+  "source": {
+   "title": "Profeco reporta precios estables de canasta básica, tortilla y gasolina",
+   "url": "https://www.gob.mx/profeco/prensa/profeco-reporta-precios-estables-de-canasta-basica-tortilla-y-gasolina?idiom=es",
+   "asOf": "Mar 2026",
+   "verification": "Profeco states PACIC average 844.10 pesos in March 2026; fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "licence-a-3yr",
+  "prompt": "A 3-year Mexico City driver's licence (type A, private car)",
+  "value": 1142,
+  "min": 0,
+  "max": 4300,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "1,142 pesos to legally brave the Periférico.",
+  "source": {
+   "title": "Secretaría de Administración y Finanzas CDMX - conceptos de licencias",
+   "url": "https://data.finanzas.cdmx.gob.mx/formato_lc/conceptos/licencias",
+   "asOf": "2026 (current catalogue)",
+   "verification": "Official payment-concept catalogue lists this amount (no calendar year shown; current 2026 catalogue); fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "licence-permanent",
+  "prompt": "A new permanent Mexico City driver's licence (type A)",
+  "value": 1500,
+  "min": 0,
+  "max": 5600,
+  "step": 50,
+  "difficulty": 2,
+  "explanation": "Pay 1,500 once and never renew - CDMX kept the price for 2026.",
+  "source": {
+   "title": "Semovi CDMX: licencia permanente",
+   "url": "https://www.semovi.cdmx.gob.mx/busqueda?q=licencia+permanente",
+   "asOf": "2026",
+   "verification": "Semovi page states 1,500 pesos for issue/replacement; multiple reports confirm price held for 2026; domain-limited search excerpt; 2026-10-28"
+  }
+ },
+ {
+  "id": "licence-taxi-3yr",
+  "prompt": "A 3-year Mexico City taxi driver licence (Tarjetón B)",
+  "value": 2133,
+  "min": 0,
+  "max": 7900,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "Taxi drivers pay almost double what private drivers do.",
+  "source": {
+   "title": "Secretaría de Administración y Finanzas CDMX - conceptos de licencias",
+   "url": "https://data.finanzas.cdmx.gob.mx/formato_lc/conceptos/licencias",
+   "asOf": "2026 (current catalogue)",
+   "verification": "Official payment-concept catalogue lists this amount (no calendar year shown; current 2026 catalogue); fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "permiso-conducir",
+  "prompt": "A Mexico City single-validity learner/teen driving permit",
+  "value": 587,
+  "min": 0,
+  "max": 2200,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "For drivers too young for the full licence.",
+  "source": {
+   "title": "Secretaría de Administración y Finanzas CDMX - conceptos de licencias",
+   "url": "https://data.finanzas.cdmx.gob.mx/formato_lc/conceptos/licencias",
+   "asOf": "2026 (current catalogue)",
+   "verification": "Official payment-concept catalogue lists this amount (no calendar year shown; current 2026 catalogue); fetched; 2026-10-28"
+  }
+ },
+ {
+  "id": "letter-national",
+  "prompt": "Mailing a letter up to 20 g within Mexico (Correos de México, with IVA)",
+  "value": 7,
+  "min": 0,
+  "max": 26,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Seven pesos - cheaper than one Cablebús ride.",
+  "source": {
+   "title": "Correos de México: Tarifa Postal 2026, depósitos individuales nacional",
+   "url": "https://www.correosdemexico.gob.mx/DATOSABIERTOS/Tarifas/Individuales/1_Cartas_y_Tarjetas_Postales.pdf",
+   "asOf": "Tarifa Postal 2026",
+   "verification": "Table headed Tarifa Postal 2026 lists up to 20 g: 7.00 with IVA; fetched PDF; 2026-10-28"
+  }
+ },
+ {
+  "id": "letter-intl-world",
+  "prompt": "Mailing a 20 g letter from Mexico to Asia/Africa/Oceania ('rest of world')",
+  "value": 15,
+  "min": 0,
+  "max": 56,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Halfway around the planet for 15 pesos.",
+  "source": {
+   "title": "Correos de México: Tarifa Postal 2026, régimen internacional",
+   "url": "https://www.gob.mx/cms/uploads/attachment/file/975624/8_INTERNACIONAL_Cartas__Impresos_y_Pequenos_Paquetes_2026.pdf",
+   "asOf": "Tarifa Postal 2026",
+   "verification": "Zone C up to 20 g 15.00 with IVA; fetched PDF; 2026-10-28"
+  }
+ },
+ {
+  "id": "toll-tlalpan",
+  "prompt": "Car toll at the Tlalpan booth, Mexico City-Cuernavaca highway",
+  "value": 156,
+  "min": 0,
+  "max": 580,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "The price of escaping to Cuernavaca's eternal spring, up from 140 in April 2026.",
+  "source": {
+   "title": "CAPUFE Red FONADIN: Tarifas vigentes 2026 (con IVA)",
+   "url": "https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf",
+   "asOf": "13 Apr 2026",
+   "verification": "Row for this booth lists this amount for autos, in force 13 Apr 2026; fetched PDF and extracted text; 2026-10-28"
+  }
+ },
+ {
+  "id": "toll-cuernavaca-acapulco",
+  "prompt": "Total car tolls Cuernavaca-Acapulco (Autopista del Sol)",
+  "value": 670,
+  "min": 0,
+  "max": 2500,
+  "step": 10,
+  "difficulty": 2,
+  "explanation": "The road to the beach is paved with toll booths.",
+  "source": {
+   "title": "CAPUFE Red FONADIN: Tarifas vigentes 2026 (con IVA)",
+   "url": "https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf",
+   "asOf": "13 Apr 2026",
+   "verification": "Row for this booth lists this amount for autos, in force 13 Apr 2026; fetched PDF and extracted text; 2026-10-28"
+  }
+ },
+ {
+  "id": "toll-mex-queretaro",
+  "prompt": "Total car tolls on the Mexico City-Querétaro highway",
+  "value": 226,
+  "min": 0,
+  "max": 840,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Two booths, 226 pesos, and Mexico's busiest truck corridor.",
+  "source": {
+   "title": "CAPUFE Red FONADIN: Tarifas vigentes 2026 (con IVA)",
+   "url": "https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf",
+   "asOf": "13 Apr 2026",
+   "verification": "Row for this booth lists this amount for autos, in force 13 Apr 2026; fetched PDF and extracted text; 2026-10-28"
+  }
+ },
+ {
+  "id": "toll-san-marcos",
+  "prompt": "Car toll at San Marcos booth, Mexico City-Puebla highway",
+  "value": 173,
+  "min": 0,
+  "max": 650,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "The gateway to mole country.",
+  "source": {
+   "title": "CAPUFE Red FONADIN: Tarifas vigentes 2026 (con IVA)",
+   "url": "https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf",
+   "asOf": "13 Apr 2026",
+   "verification": "Row for this booth lists this amount for autos, in force 13 Apr 2026; fetched PDF and extracted text; 2026-10-28"
+  }
+ },
+ {
+  "id": "toll-tijuana-ensenada",
+  "prompt": "Total car tolls on the Tijuana-Ensenada scenic highway",
+  "value": 152,
+  "min": 0,
+  "max": 570,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "Ocean views on the Baja coast for 152 pesos.",
+  "source": {
+   "title": "CAPUFE Red FONADIN: Tarifas vigentes 2026 (con IVA)",
+   "url": "https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf",
+   "asOf": "13 Apr 2026",
+   "verification": "Row for this booth lists this amount for autos, in force 13 Apr 2026; fetched PDF and extracted text; 2026-10-28"
+  }
+ },
+ {
+  "id": "toll-mexico-chalco",
+  "prompt": "Car toll at the Chalco booth, Mexico City-Chalco",
+  "value": 26,
+  "min": 0,
+  "max": 97,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "One of CAPUFE's bargains.",
+  "source": {
+   "title": "CAPUFE Red FONADIN: Tarifas vigentes 2026 (con IVA)",
+   "url": "https://iave.capufe.gob.mx/assets/Doc/Tarifas-vigentes-2026.pdf",
+   "asOf": "13 Apr 2026",
+   "verification": "Row for this booth lists this amount for autos, in force 13 Apr 2026; fetched PDF and extracted text; 2026-10-28"
+  }
+ }
+]

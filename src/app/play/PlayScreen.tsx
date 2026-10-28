@@ -16,7 +16,7 @@ import { Sheet } from "@/components/Sheet";
 import AlbumApp from "@/app/album/AlbumApp";
 import InstallGuide from "@/app/install/InstallGuide";
 import { AnswerInput, ValueSummary, incompleteReason, initialDraft, type Draft } from "./inputs";
-import { CASE_MAX, inputOf, lines, rememberInput, valueText } from "@/app/tv/families";
+import { CASE_MAX, fibFeatured, inputOf, lines, pesos, rememberInput, valueText } from "@/app/tv/families";
 
 type SubmitState = { key: string; value: AnswerValue; requestId: string; status: "pending" | "saved" | "failed"; message?: string; code?: string };
 
@@ -27,6 +27,7 @@ const ERR: Record<string, string> = {
   not_captain: "Only your captain’s phone can submit.",
   need_answer: "Your family needs an answer from step 1 first.",
   filtered: "Keep it family-friendly — try different words.",
+  self_vote: "That’s your own family — pick someone else’s.",
   invalid: "That answer isn’t complete. Check it and try again.",
   rate_limited: "Too fast — try again in a moment.",
   no_session: "This phone lost its team — rejoin from the TV QR.",
@@ -313,13 +314,20 @@ function QuestionState({ s, q, me, offsetMs, sub, submit, openCaptain }: {
     </>
   );
 
-  const prompt = q.family === "calavera" || q.family === "loteria"
+  const prompt = q.family === "dichos"
+    ? <h1 className="ph-prompt ph-dicho">“{q.prompt.replace(/[….\s]+$/, "")}…”</h1>
+    : q.family === "fib" && stage === "write" && spec?.kind === "fib"
+    ? <h1 className="ph-prompt">{spec.prompt || q.prompt}</h1>
+    : q.family === "calavera" || q.family === "loteria"
     ? <blockquote className={`ph-verse ${q.family}`}>{lines(q.prompt).map((l, i) => <span key={i}>{l}</span>)}{q.family === "calavera" && stage === "write" && <span className="ph-verse-blank" aria-hidden="true" />}</blockquote>
     : <h1 className={`ph-prompt ${q.prompt.length > 110 ? "long" : ""}`}>
         {q.family === "room" && stage === "guess" ? "What % of families picked the same answer as you?" : q.prompt}
       </h1>;
 
-  const stepLabel = q.family === "calavera" ? (stage === "write" ? "Write your last line" : "Vote for the best — not your own")
+  const featured = q.family === "fib" && stage === "vote" && fibFeatured(q).teamId === me.team.id;
+  const stepLabel = q.family === "fib" ? (stage === "write" ? "Two truths and a fib about your family" : featured ? "You’re on the TV" : `Which is ${fibFeatured(q).name ?? "their"}${fibFeatured(q).name ? "’s" : ""} fib?`)
+    : q.family === "dichos" ? "Pick the real ending"
+    : q.family === "calavera" ? (stage === "write" ? "Write your last line" : "Vote for the best — not your own")
     : q.family === "room" ? (stage === "answer" ? "Step 1 · Your honest answer" : "Step 2 · Guess the room")
     : isCase ? (stage === "clue" ? `Clue round ${round} · Read the TV` : `Lock now for up to ${CASE_MAX[round - 1] ?? 150}`) : null;
 
@@ -331,7 +339,7 @@ function QuestionState({ s, q, me, offsetMs, sub, submit, openCaptain }: {
     </div>
   ) : null;
 
-  const lockLabel = isCase ? "Lock our case" : q.family === "calavera" && stage === "write" ? "Submit our line" : q.family === "calavera" ? "Cast our vote" : "Lock it in";
+  const lockLabel = q.family === "fib" ? (stage === "write" ? "Submit our three" : "That’s the fib") : isCase ? "Lock our case" : q.family === "calavera" && stage === "write" ? "Submit our line" : q.family === "calavera" ? "Cast our vote" : "Lock it in";
   const missing = spec ? incompleteReason(spec, draft) : "—";
   const editable = !!spec && !notCaptain && !blocked && st !== "saved" && st !== "pending";
 
@@ -342,7 +350,9 @@ function QuestionState({ s, q, me, offsetMs, sub, submit, openCaptain }: {
       {prompt}
       {q.family === "room" && stage === "guess" && priorBlock}
 
-      {savedValue != null && spec ? (
+      {featured ? (
+        <div className="ph-look-card featured"><Icon name="tv" size="2rem" /><span><b>You’re on the TV — keep a straight face.</b><br />Everyone else is hunting for your fib. You score for every family you fool.</span></div>
+      ) : savedValue != null && spec ? (
         <div className={`ph-locked ${st}`}>
           <div className="ph-locked-h">{st === "pending" ? <><Icon name="spinner" className="spin" /> Sending…</> : <><Icon name="check" /> Locked in for {me.team.name}</>}</div>
           <ValueSummary spec={spec} value={savedValue} />
@@ -406,7 +416,7 @@ function RevealState({ s, q, me }: { s: Snapshot; q: PublicQuestion; me: MeView 
         </div>
       ) : <div className="ph-eyebrow">The answer</div>}
       {rv?.void && <p className="ph-p">{rv.voidReason ?? "Not enough families answered, so this one doesn’t count."}</p>}
-      {answer && <div className="ph-answer"><span>{q.family === "calavera" ? "Winning line" : q.family === "room" ? "The room picked" : "Answer"}</span>{answer}</div>}
+      {answer && <div className="ph-answer"><span>{q.family === "calavera" ? "Winning line" : q.family === "room" ? "The room picked" : q.family === "dichos" ? "El dicho" : q.family === "price" ? "The price" : q.family === "fib" ? "The fib" : "Answer"}</span>{answer}</div>}
       {rv?.explanation && !caseMid && <p className="ph-p dim">{rv.explanation}</p>}
     </div>
   );
@@ -418,6 +428,16 @@ function revealAnswer(q: PublicQuestion, r: RevealInfo | null) {
   switch (q.family) {
     case "loteria": return <b>{String(d.nameEs ?? valueText(q, r.correct))}<small>{String(d.nameEn ?? "")}</small></b>;
     case "closest": return <b>{valueText(q, r.correct)}</b>;
+    case "price": return typeof r.correct === "number" ? <b>{pesos(r.correct)}{r.source?.title && <small>Price per {r.source.title}{d.checked ? `, checked ${String(d.checked)}` : ""}</small>}</b> : null;
+    case "dichos": {
+      const full = d.full ? String(d.full) : null;
+      return full ? <b>“{full}”<small>{d.literal ? `Literally: “${String(d.literal)}”. ` : ""}{d.meaning ? String(d.meaning) : ""}</small></b> : <b>{valueText(q, r.correct)}</b>;
+    }
+    case "fib": {
+      const opts = inputOf(q, "choice")?.options ?? [];
+      const i = typeof r.correct === "number" ? r.correct : -1;
+      return opts[i] ? <b>{opts[i].label} · {opts[i].text}<small>That was the fib</small></b> : null;
+    }
     case "line": {
       const spec = inputOf(q, "order"); const by = new Map(spec?.items.map((i) => [i.id, i.text]));
       const vals = (d.values ?? {}) as Record<string, unknown>;

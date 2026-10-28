@@ -53,8 +53,13 @@ export function fixtureItems(perFamily = 6): ContentItem[] {
     const nCards = diffOf(i) === 1 ? 9 : 12;
     out.push(base("loteria", i, { data: { secret: `SECRET-loteria-${i}`, cards: Array.from({ length: nCards }, (_, k) => `card${k}`) }, answer: (i * 5) % nCards }));
     out.push(base("room", i, { data: { secret: `SECRET-room-${i}`, options: ["Opt A", "Opt B", "Opt C", "Opt D"] } }));
+    out.push(base("dichos", i, { data: { secret: `SECRET-dichos-${i}`, options: ["ending A", "ending B", "ending C", "ending D"] }, answer: i % 4 }));
+    out.push(base("price", i, { data: { secret: `SECRET-price-${i}`, min: 0, max: 5000, step: 1, unit: "MXN" }, answer: 100 + i * 13 }));
+    out.push(base("fib", i, { prompt: `Fixture fib theme ${i}` }));
     out.push(base("closest", i, { data: { secret: `SECRET-closest-${i}`, min: 0, max: 10000, step: 1, unit: "km" }, answer: 1000 + i * 37 }));
   }
+  // every 5th item of each family is After Dark
+  for (const it of out) if (Number(it.id.split("-").pop()) % 5 === 4) it.rating = "after-dark";
   return out;
 }
 
@@ -81,6 +86,13 @@ export function fixtureContent(perFamily = 6): ContentSource {
         case "room":
           pq.input = ctx.stage === "guess" ? { kind: "percent", optionText: "your answer" } : { kind: "choice", options: (d.options as string[]).map((t, k) => ({ label: LETTERS[k], text: t })) };
           break;
+        case "dichos":
+          pq.input = { kind: "choice", options: (d.options as string[]).map((t, k) => ({ label: LETTERS[k], text: t })) };
+          break;
+        case "fib":
+          pq.input = ctx.stage === "write" ? { kind: "fib", maxLength: 80, prompt: item.prompt } : null;
+          break;
+        case "price":
         case "closest":
           pq.input = { kind: "number", min: d.min, max: d.max, step: d.step, unit: d.unit };
           break;

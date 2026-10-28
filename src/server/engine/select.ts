@@ -30,6 +30,9 @@ async function disabledIds(q: Q) {
   return new Set(rows.map((r) => r.content_id as string));
 }
 
+/** After Dark: "after-dark" items only when settings.afterDark is on. */
+export const ratingOk = (s: Settings) => (i: ContentItem) => i.rating !== "after-dark" || !!s.afterDark;
+
 const byDiff = (a: ContentItem, b: ContentItem) => a.difficulty - b.difficulty;
 
 /** one of each difficulty when available, else fill from the rest; sorted 1→2→3 */
@@ -66,7 +69,7 @@ function pickFor(family: GameFamily, all: ContentItem[], exp: Map<string, any>, 
       g = null;
     }
     if (!g) break;
-    if (!exp.has(g.id) && !items.some((x) => x.id === g!.id)) items.push(g);
+    if (!exp.has(g.id) && !items.some((x) => x.id === g!.id) && g.rating !== "after-dark") items.push(g);
   }
   if (items.length === 3) return { family, items: items.sort(byDiff), encore: false };
   if (!allowEncore || pool.length < 3) return null;
@@ -94,7 +97,7 @@ export function familyOrder(p: Pick0, s: Settings, teams: number, seed: string):
 type Pick0 = { lastFamily?: GameFamily | null; forceObjective?: boolean; played?: Partial<Record<GameFamily, number>> };
 
 export async function chooseSet(q: Q, p: PartyRow, s: Settings, c: ContentSource, opts: { teams: number; seed: string }): Promise<Pick | null> {
-  const all = c.allContent();
+  const all = c.allContent().filter(ratingOk(s));
   const [exp, off] = await Promise.all([exposure(q, p.id), disabledIds(q)]);
   let order = familyOrder(p.engine, s, opts.teams, opts.seed);
   // admin disabled every eligible objective family: fall back to any objective family (never a social repeat)
@@ -185,7 +188,7 @@ async function pickQuestion(q: Q, ctx: { all: ContentItem[]; exp: Map<string, an
  * Difficulty ramps 1→2→3 where content allows.
  */
 export async function chooseMixed(q: Q, p: PartyRow, s: Settings, c: ContentSource, opts: { teams: number; seed: string }): Promise<Pick | null> {
-  const ctx = { all: c.allContent(), ...(await Promise.all([exposure(q, p.id), disabledIds(q)]).then(([exp, off]) => ({ exp, off }))), used: new Set<string>(), c };
+  const ctx = { all: c.allContent().filter(ratingOk(s)), ...(await Promise.all([exposure(q, p.id), disabledIds(q)]).then(([exp, off]) => ({ exp, off }))), used: new Set<string>(), c };
   const fams = mixedFamilies(s);
   const played = { ...(p.engine.played ?? {}) };
   let prev = p.engine.lastFamily ?? null;
@@ -204,12 +207,15 @@ export async function chooseMixed(q: Q, p: PartyRow, s: Settings, c: ContentSour
     played[prev] = (played[prev] ?? 0) + 1;
     if (isSocial(prev)) socialUsed = true;
   }
-  return { family: "mixed", items, encore };
+  // keep the 1→2→3 ramp if fallbacks broke it, as long as no game repeats back to back
+  const sorted = items.slice().sort(byDiff);
+  const okSeq = sorted.every((it, k) => it.family !== (k ? sorted[k - 1].family : p.engine.lastFamily ?? null));
+  return { family: "mixed", items: okSeq ? sorted : items, encore };
 }
 
 /** Replacement objective question (a social question whose start has <3 eligible teams). */
 export async function pickReplacement(q: Q, p: PartyRow, s: Settings, c: ContentSource, opts: { avoid: (GameFamily | null)[]; difficulty: number; usedIds: string[]; seed: string }) {
-  const ctx = { all: c.allContent(), ...(await Promise.all([exposure(q, p.id), disabledIds(q)]).then(([exp, off]) => ({ exp, off }))), used: new Set(opts.usedIds), c };
+  const ctx = { all: c.allContent().filter(ratingOk(s)), ...(await Promise.all([exposure(q, p.id), disabledIds(q)]).then(([exp, off]) => ({ exp, off }))), used: new Set(opts.usedIds), c };
   const objective = mixedFamilies(s).filter((f) => !isSocial(f));
   let order = shuffle((objective.length ? objective : OBJECTIVE_FAMILIES.filter((f) => f !== "case")).filter((f) => !opts.avoid.includes(f)), opts.seed);
   if (!order.length) order = OBJECTIVE_FAMILIES.filter((f) => f !== "case");

@@ -2,18 +2,23 @@
  * Content API v2 (docs/GAMES-V2.md "Shared module interfaces").
  * Server-side: allContent, revealInfo, generateFresh, caseSet. publicQuestion never includes secrets.
  */
-import type { GameFamily, InputSpec, PublicQuestion, RevealInfo, SceneSpec, Stage } from "@/shared/types";
+import type { ContentRating, GameFamily, InputSpec, PublicQuestion, RevealInfo, SceneSpec, Stage } from "@/shared/types";
 import { CALAVERAS } from "./calavera";
 import { CALAVERAS_2 } from "./calavera2";
 import { RIDDLES_2 } from "./loteria2";
 import { POLLS_2 } from "./room2";
+import approvedJson from "./data/approved.json";
+import dichosJson from "./data/dichos.json";
+import priceJson from "./data/price.json";
+import { FAKES } from "./dichosFakes";
+import { FIB_THEMES, type FibTheme } from "./fib";
 import { tryPuzzle } from "./case";
 import closestJson from "./data/closest.json";
 import lineJson from "./data/line.json";
 import { CARDS, RIDDLES } from "./loteria";
 import { POLLS } from "./room";
 import { hashStr, mulberry, opaqueId, shuffle } from "./rng";
-import type { CalaveraData, CaseData, ClosestData, ContentItem, LineData, LoteriaData, RoomData } from "./types";
+import type { CalaveraData, CaseData, ClosestData, ContentItem, DichoData, FibData, LineData, LoteriaData, PriceData, RoomData } from "./types";
 import { validateAll } from "./validate";
 
 export type { ContentItem, ContentSource } from "./types";
@@ -27,9 +32,9 @@ export function readingSecondsFor(...texts: string[]): number {
   return Math.max(4, Math.min(20, Math.round(words / 3.2) + 2));
 }
 
-interface RawLine { id: string; prompt: string; lowLabel: string; highLabel: string; unit: string; difficulty: number;
+interface RawLine { rating?: ContentRating; id: string; prompt: string; lowLabel: string; highLabel: string; unit: string; difficulty: number;
   items: { text: string; value: number; display: string }[]; explanation: string; source: { title: string; url: string; verification: string } }
-interface RawClosest { id: string; prompt: string; value: number; unit: string; min: number; max: number; step: number; difficulty: number;
+interface RawClosest { rating?: ContentRating; id: string; prompt: string; value: number; unit: string; min: number; max: number; step: number; difficulty: number;
   explanation: string; source: { title: string; url: string; verification: string } }
 
 const d = (n: number): 1 | 2 | 3 => (n <= 1 ? 1 : n >= 3 ? 3 : 2);
@@ -44,20 +49,20 @@ function lineItem(r: RawLine): ContentItem {
   const rev = [...truth].reverse().join();
   while (presented.join() === truth.join() || presented.join() === rev) presented = shuffle(truth, mulberry(hashStr(`${id}:${k++}`)));
   const data: LineData = { items: sorted, lowLabel: r.lowLabel, highLabel: r.highLabel, unit: r.unit, presented };
-  return { id, version: 1, family: "line", difficulty: d(r.difficulty), enabled: true, prompt: r.prompt, promptEs: "La Línea",
+  return { id, version: 1, rating: r.rating ?? "classic", family: "line", difficulty: d(r.difficulty), enabled: true, prompt: r.prompt, promptEs: "La Línea",
     detail: `${r.lowLabel} → ${r.highLabel}`, readingSeconds: readingSecondsFor(r.prompt, ...items.map((i) => i.text)),
     data: data as unknown as Record<string, unknown>, answer: truth, explanation: r.explanation, source: r.source };
 }
 
 function closestItem(r: RawClosest): ContentItem {
   const data: ClosestData = { min: r.min, max: r.max, step: r.step, unit: r.unit, value: r.value };
-  return { id: `closest-${r.id}`, version: 1, family: "closest", difficulty: d(r.difficulty), enabled: true, prompt: r.prompt,
+  return { id: `closest-${r.id}`, version: 1, rating: r.rating ?? "classic", family: "closest", difficulty: d(r.difficulty), enabled: true, prompt: r.prompt,
     promptEs: "Sin pasarse", detail: `Answer in ${r.unit}. Go over and you bust.`, readingSeconds: readingSecondsFor(r.prompt),
     data: data as unknown as Record<string, unknown>, answer: r.value, explanation: r.explanation, source: r.source };
 }
 
 const cardById = new Map(CARDS.map((c) => [c.id, c]));
-function loteriaItem(r: (typeof RIDDLES)[number]): ContentItem {
+function loteriaItem(r: (typeof RIDDLES)[number] & { rating?: ContentRating }): ContentItem {
   const id = r.id;
   const n = r.difficulty === 1 ? 9 : 12;
   const rnd = mulberry(hashStr(`${id}:grid`));
@@ -68,24 +73,59 @@ function loteriaItem(r: (typeof RIDDLES)[number]): ContentItem {
   const grid = shuffle(chosen, rnd);
   const options = grid.map((c, i) => ({ label: LETTERS[i], text: c.en, icon: `lot-${c.id}`, card: c.id }));
   const data: LoteriaData = { options, card: { id: answer.id, es: answer.es, en: answer.en, icon: `lot-${answer.id}` }, why: r.why };
-  return { id, version: 1, family: "loteria", difficulty: r.difficulty, enabled: true, prompt: r.verse, promptEs: "¡Lotería!",
+  return { id, version: 1, rating: r.rating ?? "classic", family: "loteria", difficulty: r.difficulty, enabled: true, prompt: r.verse, promptEs: "¡Lotería!",
     readingSeconds: readingSecondsFor(r.verse), data: data as unknown as Record<string, unknown>,
     answer: grid.findIndex((c) => c.id === r.card), explanation: `${answer.es} — ${answer.en}. ${r.why}`, ...(r.source ? { source: r.source } : {}) };
 }
 
-function roomItem(r: (typeof POLLS)[number]): ContentItem {
+function roomItem(r: { id: string; difficulty: 1 | 2 | 3; prompt: string; options: string[]; rating?: ContentRating }): ContentItem {
   const data: RoomData = { options: [...r.options] };
-  return { id: r.id, version: 1, family: "room", difficulty: r.difficulty, enabled: true, prompt: r.prompt, promptEs: "Lee el cuarto",
+  return { id: r.id, version: 1, rating: r.rating ?? "classic", family: "room", difficulty: r.difficulty, enabled: true, prompt: r.prompt, promptEs: "Lee el cuarto",
     readingSeconds: readingSecondsFor(r.prompt, ...r.options), data: data as unknown as Record<string, unknown>, answer: null,
     explanation: "No wrong answers — just how well you know this room." };
 }
 
-function calaveraItem(r: (typeof CALAVERAS)[number]): ContentItem {
+function calaveraItem(r: { id: string; difficulty: 1 | 2 | 3; setup: string; detail?: string; house: string[]; rating?: ContentRating }): ContentItem {
   const data: CalaveraData = { house: [...r.house] };
-  return { id: r.id, version: 1, family: "calavera", difficulty: r.difficulty, enabled: true, prompt: r.setup, promptEs: "Calaverita",
+  return { id: r.id, version: 1, rating: r.rating ?? "classic", family: "calavera", difficulty: r.difficulty, enabled: true, prompt: r.setup, promptEs: "Calaverita",
     ...(r.detail ? { detail: r.detail } : {}), readingSeconds: readingSecondsFor(r.setup), data: data as unknown as Record<string, unknown>,
     answer: null, explanation: "Calaveras literarias: playful verse epitaphs that tease the living (and La Catrina) every Día de Muertos." };
 }
+
+interface RawDicho { id: string; start: string; ending: string; full: string; literal: string; meaning: string; difficulty: number; source: { title: string; url: string; verification: string }; rating?: ContentRating }
+function dichoItem(r: RawDicho): ContentItem {
+  const id = `dicho-${r.id}`;
+  const fakes = FAKES[r.id];
+  const opts = shuffle([r.ending, ...fakes], mulberry(hashStr(`${id}:opts`)));
+  const data: DichoData = { start: r.start, options: opts, full: r.full, literal: r.literal, meaning: r.meaning };
+  const prompt = `${r.start.replace(/[,:;]\s*$/, "")}…`;
+  return { id, version: 1, rating: r.rating ?? "classic", family: "dichos", difficulty: d(r.difficulty), enabled: true, prompt, promptEs: "Termina el dicho",
+    detail: "Finish the saying", readingSeconds: readingSecondsFor(prompt, ...opts), data: data as unknown as Record<string, unknown>,
+    answer: opts.indexOf(r.ending), explanation: `${r.full} — “${r.literal}” ${r.meaning}`, source: r.source };
+}
+
+interface RawPrice { id: string; prompt: string; value: number; min: number; max: number; step: number; difficulty: number; explanation: string;
+  source: { title: string; url: string; asOf: string; verification: string }; rating?: ContentRating }
+function priceItem(r: RawPrice): ContentItem {
+  const data: PriceData = { min: r.min, max: r.max, step: r.step, unit: "pesos", value: r.value, asOf: r.source.asOf };
+  const prompt = /\?$/.test(r.prompt) ? r.prompt : `How much, in pesos? ${r.prompt}`;
+  return { id: `price-${r.id}`, version: 1, rating: r.rating ?? "classic", family: "price", difficulty: d(r.difficulty), enabled: true, prompt,
+    promptEs: "¿Cuánto cuesta?", detail: "Answer in pesos. Go over and you bust.", readingSeconds: readingSecondsFor(prompt),
+    data: data as unknown as Record<string, unknown>, answer: r.value,
+    explanation: `${r.explanation} Price per ${r.source.title} (${r.source.asOf}), checked 2026-10-28.`,
+    source: { title: r.source.title, url: r.source.url, verification: r.source.verification } };
+}
+
+function fibItem(r: FibTheme): ContentItem {
+  const data: FibData = { theme: r.theme };
+  const prompt = `Two truths and a fib about ${r.theme}.`;
+  return { id: r.id, version: 1, rating: r.rating, family: "fib", difficulty: r.difficulty, enabled: true, prompt, promptEs: "Dos verdades y una mentira",
+    detail: "Write three short statements — two true, one invented — and mark the fib.", readingSeconds: readingSecondsFor(prompt),
+    data: data as unknown as Record<string, unknown>, answer: null, explanation: "Did the room spot the fib? Points for every family that caught it — and for the family that fooled everyone." };
+}
+
+const APPROVED = approvedJson as unknown as { calavera: Parameters<typeof calaveraItem>[0][]; loteria: Parameters<typeof loteriaItem>[0][];
+  room: Parameters<typeof roomItem>[0][]; line: RawLine[]; closest: RawClosest[] };
 
 const CASE_PROMPTS = [
   "Four ancestors, four altars. Who goes where? Here are your first clues.",
@@ -99,7 +139,7 @@ function caseItems(seed: string): ContentItem[] | null {
   return ([0, 1, 2] as const).map((round) => {
     const data: CaseData = { puzzleId: p.puzzleId, seed, round, people: p.people, slots: p.slots, rounds: p.rounds };
     const clues = p.rounds.slice(0, round + 1).flat();
-    return { id: `case-${p.puzzleId}-r${round + 1}`, version: 1, family: "case" as const, difficulty: (round + 1) as 1 | 2 | 3, enabled: true,
+    return { id: `case-${p.puzzleId}-r${round + 1}`, version: 1, rating: "classic" as const, family: "case" as const, difficulty: (round + 1) as 1 | 2 | 3, enabled: true,
       prompt: CASE_PROMPTS[round], promptEs: "El Caso de la Ofrenda", detail: clues.map((c, i) => `${i + 1}. ${c}`).join("\n"),
       readingSeconds: readingSecondsFor(...clues), data: data as unknown as Record<string, unknown>, answer: p.solution,
       explanation: round === 2 ? "Every clue together leaves exactly one way to seat the family." : "Still more than one arrangement fits — the next clue narrows it down." };
@@ -118,11 +158,14 @@ export function caseSet(seed: string | number): [ContentItem, ContentItem, Conte
 
 function buildAll(): ContentItem[] {
   const items: ContentItem[] = [];
-  items.push(...[...CALAVERAS, ...CALAVERAS_2].map(calaveraItem));
-  items.push(...(lineJson as RawLine[]).map(lineItem));
-  items.push(...[...RIDDLES, ...RIDDLES_2].map(loteriaItem));
-  items.push(...[...POLLS, ...POLLS_2].map(roomItem));
-  items.push(...(closestJson as RawClosest[]).map(closestItem));
+  items.push(...[...CALAVERAS, ...CALAVERAS_2, ...APPROVED.calavera].map(calaveraItem));
+  items.push(...[...(lineJson as RawLine[]), ...APPROVED.line].map(lineItem));
+  items.push(...[...RIDDLES, ...RIDDLES_2, ...APPROVED.loteria].map(loteriaItem));
+  items.push(...[...POLLS, ...POLLS_2, ...APPROVED.room].map(roomItem));
+  items.push(...[...(closestJson as RawClosest[]), ...APPROVED.closest].map(closestItem));
+  items.push(...(dichosJson as RawDicho[]).map(dichoItem));
+  items.push(...(priceJson as RawPrice[]).map(priceItem));
+  items.push(...FIB_THEMES.map(fibItem));
   const seen = new Set<string>();
   for (let i = 0; seen.size < CASE_PUZZLES && i < 5000; i++) {
     const set = caseItems(`pool-${i}`);
@@ -181,6 +224,19 @@ function inputFor(item: ContentItem, stage: Stage): InputSpec | null {
       const C = dt as unknown as ClosestData;
       return { kind: "number", min: C.min, max: C.max, step: C.step, unit: C.unit };
     }
+    case "dichos": {
+      if (stage !== "answer") return null;
+      const D = dt as unknown as DichoData;
+      return { kind: "choice", layout: "list", options: D.options.map((text, i) => ({ label: LETTERS[i], text })) };
+    }
+    case "price": {
+      if (stage !== "answer") return null;
+      const P = dt as unknown as PriceData;
+      return { kind: "number", min: P.min, max: P.max, step: P.step, unit: "pesos" };
+    }
+    case "fib":
+      if (stage === "write") return { kind: "fib", maxLength: 80, prompt: (dt as unknown as FibData).theme };
+      return null; // vote input is built by the engine from the featured entry
     case "case": {
       if (stage !== "answer") return null; // `clue` stage: watch the TV
       const C = dt as unknown as CaseData;
@@ -204,6 +260,10 @@ function sceneFor(item: ContentItem): SceneSpec | null {
       const L = dt as unknown as LineData;
       const byId = new Map(L.items.map((x) => [x.id, x.text]));
       return { template: "line-axis", seed: item.id, data: { items: L.presented.map((id) => ({ id, text: byId.get(id)! })), lowLabel: L.lowLabel, highLabel: L.highLabel } };
+    }
+    case "price": {
+      const P = dt as unknown as PriceData;
+      return { template: "closest-numberline", seed: item.id, data: { min: P.min, max: P.max, unit: "pesos" } };
     }
     case "closest": {
       const C = dt as unknown as ClosestData;
@@ -247,6 +307,16 @@ export function revealInfo(item: ContentItem): Omit<RevealInfo, "outcomes"> {
       const L = dt as unknown as LoteriaData;
       return { ...base, correct: item.answer, detail: { card: { ...L.card }, why: L.why, answerLabel: LETTERS[item.answer as number] } };
     }
+    case "dichos": {
+      const D = dt as unknown as DichoData;
+      return { ...base, correct: item.answer, detail: { full: D.full, literal: D.literal, meaning: D.meaning, answerLabel: LETTERS[item.answer as number], options: [...D.options] } };
+    }
+    case "price": {
+      const P = dt as unknown as PriceData;
+      return { ...base, correct: P.value, detail: { value: P.value, unit: "pesos", min: P.min, max: P.max, asOf: P.asOf, checked: "2026-10-28",
+        display: `$${P.value.toLocaleString("en-US")} pesos` } };
+    }
+    case "fib": return { ...base, correct: null, detail: { theme: (dt as unknown as FibData).theme } };
     case "case": {
       const C = dt as unknown as CaseData;
       if (C.round < 2) return { ...base, correct: null, detail: { round: C.round, final: false } };

@@ -1,4 +1,4 @@
-import type { AnswerValue, GameFamily } from "@/shared/types";
+import type { AnswerValue, ContentRating, GameFamily } from "@/shared/types";
 
 export interface ContentSource { title: string; url: string; verification: string }
 
@@ -6,6 +6,8 @@ export interface ContentSource { title: string; url: string; verification: strin
 export interface ContentItem {
   id: string;
   version: number;
+  /** classic/spicy always play; after-dark only when settings.afterDark */
+  rating?: ContentRating;
   family: GameFamily;
   difficulty: 1 | 2 | 3;
   enabled: boolean;
@@ -31,3 +33,6 @@ export interface CaseData {
   slots: { id: string; label: string }[];
   rounds: [string[], string[], string[]];
 }
+export interface DichoData { start: string; options: string[]; full: string; literal: string; meaning: string }
+export interface PriceData { min: number; max: number; step: number; unit: "pesos"; value: number; asOf: string }
+export interface FibData { theme: string }

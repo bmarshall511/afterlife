@@ -4,7 +4,7 @@ import type { GameFamily, Snapshot } from "@/shared/types";
 import { FAMILY } from "./Brand";
 import { Icon } from "./Icon";
 
-const GAMES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest"];
+const GAMES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest", "dichos", "price", "fib"];
 
 function stepLabel(s: Snapshot): string {
   const k = s.phase.kind;
@@ -27,10 +27,16 @@ export function DemoBar({ s }: { s: Snapshot }) {
   const [open, setOpen] = useState(true);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ text: string; ok: boolean } | null>(null);
+  const [afterDark, setAfterDark] = useState<boolean | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/session", { cache: "no-store" }).then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
   }, []);
+  useEffect(() => {
+    if (!admin) return;
+    fetch("/api/admin/party?party=demo", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null))
+      .then((d) => setAfterDark(!!d?.party?.settings?.afterDark)).catch(() => {});
+  }, [admin]);
 
   const act = useCallback(async (body: Record<string, unknown>, done: string) => {
     setBusy(true);
@@ -101,6 +107,13 @@ export function DemoBar({ s }: { s: Snapshot }) {
             {FAMILY[g].title}
           </button>
         ))}
+      </div>
+      <div className="demobar-row">
+        <span className="demobar-lbl">After Dark</span>
+        <button className={`demobar-chip ${afterDark ? "on" : ""}`} aria-pressed={!!afterDark} disabled={busy}
+          onClick={async () => { const on = !afterDark; await act({ action: "after_dark", on }, on ? "After Dark on — adults-only questions from the next one" : "After Dark off — family-friendly only"); setAfterDark(on); }}>
+          {afterDark ? "On · adults only" : "Off · family-friendly"}
+        </button>
       </div>
       {waiting && !msg && <p className="demobar-wait">No families yet. Tap <b>Add 3 bot families</b>, join from your phone, or just pick a game below — it adds bots for you.</p>}
       {msg && <p className={`demobar-msg ${msg.ok ? "ok" : ""}`} role={msg.ok ? "status" : "alert"}>{msg.ok ? "✓ " : ""}{msg.text}</p>}

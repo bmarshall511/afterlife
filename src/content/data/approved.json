@@ -1,0 +1,1413 @@
+{
+ "calavera": [
+  {
+   "id": "cal-p-c1",
+   "difficulty": 2,
+   "setup": "Tío Rubén swore that mezcal “cleans the blood and calms the mind”;\nLa Catrina poured him six…",
+   "house": [
+    "and found his mind — but lost his shoes, his keys and his spine.",
+    "his blood is very clean now. So is his bank account, she’d find."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c2",
+   "difficulty": 2,
+   "setup": "My cousin’s ex showed up to the party with a brand-new date;\nLa Catrina took one look…",
+   "house": [
+    "and said, “Mija, you upgraded. He downgraded. Isn’t that great?”",
+    "and seated them at the kids’ table, next to the piñata, by the gate."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c3",
+   "difficulty": 2,
+   "setup": "La suegra came to visit “just a week” in 2011;\nLa Catrina came to fetch her…",
+   "house": [
+    "and the husband offered help with the suitcases — all seven.",
+    "and the whole family lit a candle, thanking every saint in heaven."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c4",
+   "difficulty": 2,
+   "setup": "Tía Coco had three husbands, and she outlived every one;\nLa Catrina asked her secret…",
+   "house": [
+    "she said, “Separate bathrooms, mija — and a very good lawyer, hun.”",
+    "she winked and said, “Never marry a man who can’t make his own fun.”"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c5",
+   "difficulty": 2,
+   "setup": "Primo Julio’s dating profile said “six foot, loves to cook”;\nLa Catrina met him for a coffee…",
+   "house": [
+    "he was five-foot-four, and “cooking” meant the microwave. Just look.",
+    "and swiped left in person. Twice. Just for fun."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c6",
+   "difficulty": 2,
+   "setup": "Don Memo sneaked a tequila while his wife was saying grace;\nLa Catrina caught him…",
+   "house": [
+    "and he toasted her with a perfectly straight face.",
+    "and his wife caught both of them. Catrina left the place."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c7",
+   "difficulty": 2,
+   "setup": "At the wedding, Tía Linda caught the bouquet — at sixty-eight;\nLa Catrina was her plus-one…",
+   "house": [
+    "and the whole room thought, “Well, she’s finally got a date.”",
+    "and caught the garter. They’ve been inseparable to date."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c8",
+   "difficulty": 2,
+   "setup": "Tío Paco said, “I’m only having one,” at half past eight;\nby midnight, La Catrina…",
+   "house": [
+    "was driving him home, and he was proposing to the gate.",
+    "was the designated skeleton, and he was the freight."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c9",
+   "difficulty": 2,
+   "setup": "My brother married someone who can’t cook, but she can dance;\nLa Catrina came for dinner…",
+   "house": [
+    "and they ordered pizza. Then they danced. That’s romance.",
+    "and left hungry, but blushing, after one very long dance."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c10",
+   "difficulty": 2,
+   "setup": "Cousin Vero swears her husband “doesn’t snore — he hums”;\nLa Catrina spent the night…",
+   "house": [
+    "and the hum woke up the neighbours, and the dead, and drums.",
+    "and now she sleeps with earplugs, and with ear muffs, and with chums."
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "cal-p-c11",
+   "difficulty": 2,
+   "setup": "Tía Rosa’s mole recipe was guarded like a vault;\nLa Catrina tried to crack it…",
+   "house": [
+    "and found the secret: love, chocolate and a fistful of salt.",
+    "and got chased out with a wooden spoon. Entirely her fault."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c12",
+   "difficulty": 2,
+   "setup": "Abuelo bought a smart TV and asked it, “Where’s the news?”\nLa Catrina showed him buttons…",
+   "house": [
+    "and he bought a radio. Problem solved. Nothing to lose.",
+    "and now he’s binge-watching telenovelas and refuses to choose."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c13",
+   "difficulty": 2,
+   "setup": "The family dog sat by the ofrenda staring at the bread;\nLa Catrina turned around…",
+   "house": [
+    "and the pan de muerto vanished — so did the dog, they said.",
+    "and found the dog had left an offering of his own instead."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c14",
+   "difficulty": 2,
+   "setup": "My cousin brought a “healthy” dish to every family feast;\nLa Catrina tried a bite…",
+   "house": [
+    "and returned to the grave to recover. At least.",
+    "it tasted like a yoga mat, and she’s a skeleton. That’s the least."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c15",
+   "difficulty": 2,
+   "setup": "Papá took the family photo, and he only took one try;\nLa Catrina saw the picture…",
+   "house": [
+    "and she was the only one whose eyes weren’t shut. Oh my.",
+    "it was mostly of his thumb, with a corner of the sky."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c16",
+   "difficulty": 2,
+   "setup": "The kids built Catrina a skeleton from macaroni and glue;\nwhen she saw her portrait…",
+   "house": [
+    "she said, “It’s a perfect likeness. Is my hip really that blue?”",
+    "she hung it in the afterlife. It’s next to a Rembrandt. True."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c17",
+   "difficulty": 2,
+   "setup": "Tío Fito lost the remote and blamed the ghosts again;\nLa Catrina checked the sofa…",
+   "house": [
+    "and found it, plus nine pesos, three tamales and a pen.",
+    "and the ghosts said, “It wasn’t us.” It was Fito. Amen."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c18",
+   "difficulty": 2,
+   "setup": "Abuela set the table for a hundred, just in case;\nLa Catrina counted heads…",
+   "house": [
+    "there were seven. Abuela said, “Eat. You’re looking thin in the face.”",
+    "and stayed for seconds, thirds and fourths. Abuela set the pace."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c19",
+   "difficulty": 2,
+   "setup": "My little sister painted sugar skulls with too much pink;\nLa Catrina saw the colours…",
+   "house": [
+    "and changed her whole wardrobe. Pink suits her, don’t you think?",
+    "and needed sunglasses. She was blinded in a blink."
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "cal-p-c20",
+   "difficulty": 2,
+   "setup": "The neighbour’s rooster crows at three, at four, at five, at six;\nLa Catrina had a word…",
+   "house": [
+    "and now he crows at noon. She taught the rooster some new tricks.",
+    "the rooster crowed at her. That’s how the feud began. It sticks."
+   ],
+   "rating": "classic"
+  }
+ ],
+ "loteria": [
+  {
+   "id": "lot-p-t1",
+   "card": "corazon",
+   "difficulty": 2,
+   "verse": "I’m drawn on the napkin he slides to her drink;\nI’m stolen at weddings, and broken — you think?",
+   "why": "Doodled on napkins, stolen at weddings, broken after: the Heart.",
+   "near": [
+    "rosa",
+    "mano",
+    "calavera"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t2",
+   "card": "musico",
+   "difficulty": 2,
+   "verse": "I’m sung in the shower by men in their prime;\nI serenade windows at quarter past time.",
+   "why": "Shower singer and window serenader: the Musician.",
+   "near": [
+    "gallo",
+    "campana",
+    "sirena"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t3",
+   "card": "arana",
+   "difficulty": 3,
+   "verse": "I’m single, I’m sharp, and I’ve buried a few;\nmy love bites are lethal — I mean it, it’s true.",
+   "why": "Single, sharp and famously deadly to her dates: the black widow.",
+   "near": [
+    "alacran",
+    "dama",
+    "sirena"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t4",
+   "card": "rosa",
+   "difficulty": 2,
+   "verse": "He brought me on date one; on date ten, I was gone;\nI came with the apology after he’d done wrong.",
+   "why": "Date-one flowers and the classic apology bouquet: the Rose.",
+   "near": [
+    "corazon",
+    "nopal",
+    "dama"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t5",
+   "card": "mano",
+   "difficulty": 3,
+   "verse": "I’m asked for in marriage, then held at the altar;\nI wander at parties — so watch me, don’t falter.",
+   "why": "Asked for in marriage, held at the altar — and wandering at parties: the Hand.",
+   "near": [
+    "corazon",
+    "bota",
+    "campana"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t6",
+   "card": "sirena",
+   "difficulty": 1,
+   "verse": "I swim through the bars and I lure in the boys;\nmy song is a trap, and my tail makes no noise.",
+   "why": "A siren song that lures the boys in: the Mermaid.",
+   "near": [
+    "pescado",
+    "dama",
+    "musico"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t7",
+   "card": "catrin",
+   "difficulty": 3,
+   "verse": "I’m dressed to impress, but my wallet’s on loan;\nI flirt with your mother, then drive myself home.",
+   "why": "All suit and no savings, flirting his way home: the Dandy.",
+   "near": [
+    "dama",
+    "valiente",
+    "musico"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t8",
+   "card": "bota",
+   "difficulty": 2,
+   "verse": "I’m kicked off at midnight when the party is through,\nand left by the bed — usually only one, too.",
+   "why": "Kicked off after the party, one left by the bed: the Boot.",
+   "near": [
+    "mano",
+    "paraguas",
+    "catrin"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "lot-p-t9",
+   "card": "calavera",
+   "difficulty": 1,
+   "verse": "I sit on the altar with sugar for bones;\nmy forehead carries a name, not a phone.",
+   "why": "Sugar skull with a name on its forehead: the Skull.",
+   "near": [
+    "catrin",
+    "corazon",
+    "dama"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "lot-p-t10",
+   "card": "nopal",
+   "difficulty": 2,
+   "verse": "I’m a fruit and a feeling, I’m cut into slices;\nI’m eaten in tacos and spared from the prices.",
+   "why": "Sliced, grilled and tucked into tacos: the nopal.",
+   "near": [
+    "arbol",
+    "rosa",
+    "alacran"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "lot-p-t11",
+   "card": "paraguas",
+   "difficulty": 2,
+   "verse": "I can hold up the sky, though I’m not very tall;\nI come out when it’s pouring and hide in the hall.",
+   "why": "It holds up the sky when it pours: the Umbrella.",
+   "near": [
+    "campana",
+    "bota",
+    "luna"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "lot-p-t12",
+   "card": "luna",
+   "difficulty": 3,
+   "verse": "I show you my face, but just one side, my dear;\nI’m full once a month, and I never touch beer.",
+   "why": "One face shown, full once a month: the Moon.",
+   "near": [
+    "sol",
+    "estrella",
+    "mundo"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "lot-p-t13",
+   "card": "gallo",
+   "difficulty": 1,
+   "verse": "I strut through the yard in my red feather crown;\nthe whole village wakes when I sing them all down.",
+   "why": "Red crown, morning alarm: the Rooster.",
+   "near": [
+    "musico",
+    "campana",
+    "venado"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "lot-p-t14",
+   "card": "escalera",
+   "difficulty": 3,
+   "verse": "Lean me just right and I’ll help you get high —\nthe painter’s best friend, and a cat’s alibi.",
+   "why": "Lean it right and it gets you high: the Ladder.",
+   "near": [
+    "arbol",
+    "campana",
+    "bota"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "lot-p-t15",
+   "card": "campana",
+   "difficulty": 2,
+   "verse": "I’m a ring with no finger, a tongue with no taste;\nI call you to weddings and parties in haste.",
+   "why": "A ring with no finger and a tongue with no taste: the Bell.",
+   "near": [
+    "musico",
+    "gallo",
+    "escalera"
+   ],
+   "rating": "classic"
+  }
+ ],
+ "room": [
+  {
+   "id": "room-p-r1",
+   "difficulty": 2,
+   "prompt": "Best place to meet a partner?",
+   "options": [
+    "A family wedding",
+    "The tamale line",
+    "A dating app",
+    "Through a meddling tía"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r2",
+   "difficulty": 2,
+   "prompt": "Biggest red flag on a first date:",
+   "options": [
+    "Rude to the waiter",
+    "Talks about their ex",
+    "Hates spicy food",
+    "Brings their mother"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r3",
+   "difficulty": 2,
+   "prompt": "When your in-laws visit, you:",
+   "options": [
+    "Deep-clean everything",
+    "Hide the good tequila",
+    "Suddenly have “work”",
+    "Love it. (Lie.)"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r4",
+   "difficulty": 2,
+   "prompt": "The ex you’d invite back from the dead — for one dance only:",
+   "options": [
+    "The great dancer",
+    "The great cook",
+    "The one with the car",
+    "Absolutely none of them"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r5",
+   "difficulty": 2,
+   "prompt": "How many drinks before Tío starts the speech?",
+   "options": [
+    "One",
+    "Three",
+    "He started sober",
+    "The speech never ends anyway"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r6",
+   "difficulty": 2,
+   "prompt": "Secret to a long marriage:",
+   "options": [
+    "Separate blankets",
+    "Never go to bed angry",
+    "Good food",
+    "Selective hearing"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r7",
+   "difficulty": 2,
+   "prompt": "La Catrina’s type:",
+   "options": [
+    "Tall, dark and dead",
+    "A dandy with a top hat",
+    "Anyone with good bone structure",
+    "She’s married to her career"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r8",
+   "difficulty": 2,
+   "prompt": "The real reason people come to family parties:",
+   "options": [
+    "The food",
+    "The gossip",
+    "The open bar",
+    "To be seen"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r9",
+   "difficulty": 2,
+   "prompt": "Who’s most likely to flirt at this party?",
+   "options": [
+    "The widowed tío with cologne",
+    "The cousin who “just got out of something”",
+    "The DJ",
+    "The abuelas, honestly"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r10",
+   "difficulty": 2,
+   "prompt": "Worst wedding gift:",
+   "options": [
+    "A blender, again",
+    "Cash in a sealed card from your ex",
+    "A framed photo of the giver",
+    "Nothing — but they ate twice"
+   ],
+   "rating": "spicy"
+  },
+  {
+   "id": "room-p-r11",
+   "difficulty": 2,
+   "prompt": "Best day of the season:",
+   "options": [
+    "Building the ofrenda",
+    "The cemetery visit",
+    "The food",
+    "The party tonight"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r12",
+   "difficulty": 2,
+   "prompt": "Who will win the dance-off tonight?",
+   "options": [
+    "The kids",
+    "The abuelas",
+    "The uncles",
+    "Nobody — we all lose"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r13",
+   "difficulty": 2,
+   "prompt": "Best pan dulce:",
+   "options": [
+    "Concha",
+    "Cuerno",
+    "Oreja",
+    "Marranito"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r14",
+   "difficulty": 2,
+   "prompt": "The ofrenda item you’d defend with your life:",
+   "options": [
+    "The photos",
+    "The candles",
+    "The marigolds",
+    "The food (it’s for them, but still)"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r15",
+   "difficulty": 2,
+   "prompt": "Ideal Día de Muertos weather:",
+   "options": [
+    "Crisp and cold",
+    "Warm night",
+    "A little foggy for drama",
+    "Whatever, I’m in the kitchen"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r16",
+   "difficulty": 2,
+   "prompt": "Best face-paint accent:",
+   "options": [
+    "Flowers",
+    "Gems",
+    "Gold leaf",
+    "A tiny moustache"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r17",
+   "difficulty": 2,
+   "prompt": "Favourite lotería card:",
+   "options": [
+    "La Sirena",
+    "El Catrín",
+    "La Luna",
+    "El Valiente"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r18",
+   "difficulty": 2,
+   "prompt": "Who in your family tells the best stories?",
+   "options": [
+    "Abuela",
+    "Abuelo",
+    "The tío who exaggerates",
+    "Me, obviously"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r19",
+   "difficulty": 2,
+   "prompt": "Spookiest sound at night:",
+   "options": [
+    "Creaking floors",
+    "A dog barking at nothing",
+    "The fridge humming",
+    "Abuela laughing in the dark"
+   ],
+   "rating": "classic"
+  },
+  {
+   "id": "room-p-r20",
+   "difficulty": 2,
+   "prompt": "Best way to end a party:",
+   "options": [
+    "Last song, everyone dancing",
+    "Leftovers to go",
+    "Group photo",
+    "Sleeping on the sofa"
+   ],
+   "rating": "classic"
+  }
+ ],
+ "line": [
+  {
+   "id": "p-l1",
+   "prompt": "Order these drinks by typical alcohol by volume",
+   "lowLabel": "Weakest",
+   "highLabel": "Strongest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Regular beer",
+     "value": 5.0,
+     "display": "5%"
+    },
+    {
+     "text": "Malt liquor",
+     "value": 7.0,
+     "display": "7%"
+    },
+    {
+     "text": "Table wine",
+     "value": 12.0,
+     "display": "12%"
+    },
+    {
+     "text": "Distilled spirits",
+     "value": 40.0,
+     "display": "40%"
+    }
+   ],
+   "explanation": "Regular beer sits at the weakest end; Distilled spirits takes the strongest spot.",
+   "source": {
+    "title": "www.niaaa.nih.gov",
+    "url": "https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink",
+    "verification": "Fetched the NIAAA \"What is a standard drink\" page directly. It gives about 5, 7, 12 and 40% ABV for these four. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l2",
+   "prompt": "Order these Champagne bottle sizes, smallest to largest",
+   "lowLabel": "Smallest",
+   "highLabel": "Largest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Magnum",
+     "value": 1.5,
+     "display": "1.5 L"
+    },
+    {
+     "text": "Jeroboam",
+     "value": 3.0,
+     "display": "3 L"
+    },
+    {
+     "text": "Methuselah",
+     "value": 6.0,
+     "display": "6 L"
+    },
+    {
+     "text": "Balthazar",
+     "value": 12.0,
+     "display": "12 L"
+    }
+   ],
+   "explanation": "Magnum sits at the smallest end; Balthazar takes the largest spot.",
+   "source": {
+    "title": "www.champagne.fr",
+    "url": "https://www.champagne.fr/en/champagne-frequently-asked-questions?nid=608",
+    "verification": "Fetched the Comité Champagne FAQ directly. Its bottle-size list gives these volumes. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l3",
+   "prompt": "Order these US alcohol-law milestones, earliest to latest",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "18th Amendment (Prohibition) ratified",
+     "value": 1919.0,
+     "display": "1919"
+    },
+    {
+     "text": "21st Amendment repeals Prohibition",
+     "value": 1933.0,
+     "display": "1933"
+    },
+    {
+     "text": "Congress declares bourbon a \"distinctive product of the US\"",
+     "value": 1964.0,
+     "display": "1964"
+    },
+    {
+     "text": "National Minimum Drinking Age Act",
+     "value": 1984.0,
+     "display": "1984"
+    }
+   ],
+   "explanation": "18th Amendment (Prohibition) ratified sits at the earliest end; National Minimum Drinking Age Act takes the latest spot.",
+   "source": {
+    "title": "guides.loc.gov",
+    "url": "https://guides.loc.gov/18th-amendment",
+    "verification": "LoC and NARA give ratification on 16 Jan 1919 and repeal on 5 Dec 1933. The govinfo Statutes at Large record dates the bourbon resolution to 1964; sources disagree on its resolution number, but the year is consistent. The NIAAA APIS page dates the drinking-age act to 1984. 2026-10-28. Also: https://www.archives.gov/founding-docs/amendments-11-27, https://www.govinfo.gov/app/details/STATUTE-78/STATUTE-78-Pg1208-2, https://alcoholpolicy.niaaa.nih.gov/the-1984-national-minimum-drinking-age-act"
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l4",
+   "prompt": "Order these romance novels by year first published",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Pride and Prejudice",
+     "value": 1813.0,
+     "display": "1813"
+    },
+    {
+     "text": "Jane Eyre",
+     "value": 1847.0,
+     "display": "1847"
+    },
+    {
+     "text": "Gone with the Wind",
+     "value": 1936.0,
+     "display": "1936"
+    },
+    {
+     "text": "Love in the Time of Cholera",
+     "value": 1985.0,
+     "display": "1985"
+    }
+   ],
+   "explanation": "Pride and Prejudice sits at the earliest end; Love in the Time of Cholera takes the latest spot.",
+   "source": {
+    "title": "www.bl.uk",
+    "url": "https://www.bl.uk/stories/blogs/posts/jane-austen-names-and-notability",
+    "verification": "The British Library confirms the 1813 first edition and an 1847 Jane Eyre. An LoC exhibit lists the 1936 Macmillan first edition. The Nobel bibliography and the Harry Ransom Center both give 1985 for the Spanish original. 2026-10-28. Also: https://www.loc.gov/item/18001222/, https://www.loc.gov/exhibits/books-that-shaped-america/1900-to-1950.html, https://www.nobelprize.org/prizes/literature/1982/marquez/bibliography/"
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l5",
+   "prompt": "Order these big-screen romances by release year",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Casablanca",
+     "value": 1942.0,
+     "display": "1942"
+    },
+    {
+     "text": "Roman Holiday",
+     "value": 1953.0,
+     "display": "1953"
+    },
+    {
+     "text": "When Harry Met Sally...",
+     "value": 1989.0,
+     "display": "1989"
+    },
+    {
+     "text": "Titanic",
+     "value": 1997.0,
+     "display": "1997"
+    }
+   ],
+   "explanation": "Casablanca sits at the earliest end; Titanic takes the latest spot.",
+   "source": {
+    "title": "www.loc.gov",
+    "url": "https://www.loc.gov/static/programs/national-film-preservation-board/documents/Registry-Titles-by-release-date.pdf",
+    "verification": "Release years come from the LoC National Film Registry list, sorted by release date, plus the 2022 announcement for When Harry Met Sally. 2026-10-28. Also: https://blogs.loc.gov/now-see-hear/2022/12/announcing-the-2022-national-film-registry/"
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l6",
+   "prompt": "US median age at first marriage: order these, youngest to oldest",
+   "lowLabel": "Youngest",
+   "highLabel": "Oldest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Women in 1960",
+     "value": 20.3,
+     "display": "20.3"
+    },
+    {
+     "text": "Women in 1890",
+     "value": 22.0,
+     "display": "22.0"
+    },
+    {
+     "text": "Men in 1960",
+     "value": 22.8,
+     "display": "22.8"
+    },
+    {
+     "text": "Men in 1890",
+     "value": 26.1,
+     "display": "26.1"
+    }
+   ],
+   "explanation": "Women in 1960 sits at the youngest end; Men in 1890 takes the oldest spot.",
+   "source": {
+    "title": "www2.census.gov",
+    "url": "https://www2.census.gov/programs-surveys/demo/tables/families/time-series/marital/ms2.xls",
+    "verification": "Downloaded Census Table MS-2 (the 1890–2025 series) and read the values directly. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l7",
+   "prompt": "Order these steamy operas by premiere year",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "La traviata",
+     "value": 1853.0,
+     "display": "1853"
+    },
+    {
+     "text": "Tristan und Isolde",
+     "value": 1865.0,
+     "display": "1865"
+    },
+    {
+     "text": "Carmen",
+     "value": 1875.0,
+     "display": "1875"
+    },
+    {
+     "text": "Madama Butterfly",
+     "value": 1904.0,
+     "display": "1904"
+    }
+   ],
+   "explanation": "La traviata sits at the earliest end; Madama Butterfly takes the latest spot.",
+   "source": {
+    "title": "www.kennedy-center.org",
+    "url": "https://www.kennedy-center.org/education/resources-for-educators/classroom-resources/media-and-interactives/media/opera/rep/early-romantic/la-traviata/",
+    "verification": "Kennedy Center and Met Opera pages give premieres of Venice 1853, Munich 1865, Paris 1875 and La Scala 1904. 2026-10-28. Also: https://www.metopera.org/user-information/old-seasons/2020-21/tristan-und-isolde/, https://www.kennedy-center.org/education/resources-for-educators/classroom-resources/media-and-interactives/media/opera/rep/late-romantic/carmen/, https://www.kennedy-center.org/education/resources-for-educators/classroom-resources/media-and-interactives/media/opera/rep/late-romantic/madam-butterfly/"
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-l8",
+   "prompt": "Order these US coins by weight, lightest to heaviest",
+   "lowLabel": "Lightest",
+   "highLabel": "Heaviest",
+   "unit": "",
+   "difficulty": 3,
+   "items": [
+    {
+     "text": "Dime",
+     "value": 2.268,
+     "display": "2.268 g"
+    },
+    {
+     "text": "Cent",
+     "value": 2.5,
+     "display": "2.500 g"
+    },
+    {
+     "text": "Nickel",
+     "value": 5.0,
+     "display": "5.000 g"
+    },
+    {
+     "text": "Quarter",
+     "value": 5.67,
+     "display": "5.670 g"
+    },
+    {
+     "text": "Half dollar",
+     "value": 11.34,
+     "display": "11.340 g"
+    }
+   ],
+   "explanation": "Dime sits at the lightest end; Half dollar takes the heaviest spot.",
+   "source": {
+    "title": "www.usmint.gov",
+    "url": "https://www.usmint.gov/learn/coins-and-medals/circulating-coins/coin-specifications",
+    "verification": "US Mint specifications. The cent weight is confirmed on the Mint's 2023 proof-set page. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-l9",
+   "prompt": "Order these coins by number of ridges (reeds) on the edge",
+   "lowLabel": "Fewest",
+   "highLabel": "Most",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Nickel",
+     "value": 0.0,
+     "display": "0"
+    },
+    {
+     "text": "Dime",
+     "value": 118.0,
+     "display": "118"
+    },
+    {
+     "text": "Quarter",
+     "value": 119.0,
+     "display": "119"
+    },
+    {
+     "text": "Half dollar",
+     "value": 150.0,
+     "display": "150"
+    }
+   ],
+   "explanation": "Nickel sits at the fewest end; Half dollar takes the most spot.",
+   "source": {
+    "title": "www.usmint.gov",
+    "url": "https://www.usmint.gov/learn/coins-and-medals/circulating-coins/coin-specifications",
+    "verification": "From the US Mint specifications; the dime page also confirms 118 reeds. This is the same coin theme as L8, so you may want to use only one of the two. 2026-10-28. Also: https://www.usmint.gov/learn/coins-and-medals/circulating-coins/dime"
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-l10",
+   "prompt": "Order these once-Mexican lands by US statehood year",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 3,
+   "items": [
+    {
+     "text": "Texas",
+     "value": 1845.0,
+     "display": "1845"
+    },
+    {
+     "text": "California",
+     "value": 1850.0,
+     "display": "1850"
+    },
+    {
+     "text": "Nevada",
+     "value": 1864.0,
+     "display": "1864"
+    },
+    {
+     "text": "Colorado",
+     "value": 1876.0,
+     "display": "1876"
+    },
+    {
+     "text": "Utah",
+     "value": 1896.0,
+     "display": "1896"
+    }
+   ],
+   "explanation": "Texas sits at the earliest end; Utah takes the latest spot.",
+   "source": {
+    "title": "www.senate.gov",
+    "url": "https://www.senate.gov/states/TX/timeline.shtml",
+    "verification": "Admission years come from Senate.gov, House History and LoC \"Today in History\" pages. The sources mix congressional and proclamation dates, but the year is the same either way. 2026-10-28. Also: https://www.senate.gov/states/NV/timeline.shtml, https://www.senate.gov/states/CO/timeline.shtml, https://history.house.gov/Blog/2019/October/10-10-Education-Statehood/, https://www.loc.gov/item/today-in-history/august-01/"
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-l11",
+   "prompt": "Order these MoMA masterpieces by year painted",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "The Starry Night",
+     "value": 1889.0,
+     "display": "1889"
+    },
+    {
+     "text": "Les Demoiselles d'Avignon",
+     "value": 1907.0,
+     "display": "1907"
+    },
+    {
+     "text": "The Persistence of Memory",
+     "value": 1931.0,
+     "display": "1931"
+    },
+    {
+     "text": "Campbell's Soup Cans",
+     "value": 1962.0,
+     "display": "1962"
+    }
+   ],
+   "explanation": "The Starry Night sits at the earliest end; Campbell's Soup Cans takes the latest spot.",
+   "source": {
+    "title": "www.moma.org",
+    "url": "https://www.moma.org/visit/itineraries/unmissables",
+    "verification": "Dates come from MoMA collection pages. 2026-10-28. Also: https://www.moma.org/collection/works/79809"
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-l12",
+   "prompt": "Order these national parks by the year they became national parks",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Yosemite",
+     "value": 1890.0,
+     "display": "1890"
+    },
+    {
+     "text": "Grand Canyon",
+     "value": 1919.0,
+     "display": "1919"
+    },
+    {
+     "text": "Big Bend",
+     "value": 1944.0,
+     "display": "1944"
+    },
+    {
+     "text": "Joshua Tree",
+     "value": 1994.0,
+     "display": "1994"
+    }
+   ],
+   "explanation": "Yosemite sits at the earliest end; Joshua Tree takes the latest spot.",
+   "source": {
+    "title": "www.nps.gov",
+    "url": "https://www.nps.gov/yose/learn/news/yose120.htm",
+    "verification": "NPS pages and the NPS index give these years. These are national-park dates; Grand Canyon and Joshua Tree were national monuments earlier. 2026-10-28. Also: https://www.nps.gov/aboutus/upload/npindex2012-2016.pdf, https://www.nps.gov/jotr/learn/historyculture/parkhistory.htm"
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-l13",
+   "prompt": "Order these US border states by 2020 census population",
+   "lowLabel": "Fewest",
+   "highLabel": "Most",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "New Mexico",
+     "value": 2117522.0,
+     "display": "2,117,522"
+    },
+    {
+     "text": "Arizona",
+     "value": 7151502.0,
+     "display": "7,151,502"
+    },
+    {
+     "text": "Texas",
+     "value": 29145505.0,
+     "display": "29,145,505"
+    },
+    {
+     "text": "California",
+     "value": 39538223.0,
+     "display": "39,538,223"
+    }
+   ],
+   "explanation": "New Mexico sits at the fewest end; California takes the most spot.",
+   "source": {
+    "title": "www2.census.gov",
+    "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/apportionment-2020-table02.pdf",
+    "verification": "Census 2020 resident-population table (Table 2). 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-l15",
+   "prompt": "Order these dog breeds by year the AKC recognized them",
+   "lowLabel": "Earliest",
+   "highLabel": "Latest",
+   "unit": "",
+   "difficulty": 2,
+   "items": [
+    {
+     "text": "Dachshund",
+     "value": 1885.0,
+     "display": "1885"
+    },
+    {
+     "text": "Chihuahua",
+     "value": 1904.0,
+     "display": "1904"
+    },
+    {
+     "text": "Labrador Retriever",
+     "value": 1917.0,
+     "display": "1917"
+    },
+    {
+     "text": "Xoloitzcuintli",
+     "value": 2011.0,
+     "display": "2011"
+    }
+   ],
+   "explanation": "Dachshund sits at the earliest end; Xoloitzcuintli takes the latest spot.",
+   "source": {
+    "title": "www.akc.org",
+    "url": "https://www.akc.org/press-center/articles-resources/facts-and-stats/breeds-year-recognized/",
+    "verification": "From the AKC \"Breeds by Year Recognized\" chart and its breed-history pages. 2026-10-28. Also: https://www.akc.org/expert-advice/dog-breeds/chihuahua-history/"
+   },
+   "rating": "classic"
+  }
+ ],
+ "closest": [
+  {
+   "id": "p-x1",
+   "prompt": "How many grams of pure alcohol are in one US \"standard drink\", per NIAAA?",
+   "value": 14,
+   "unit": "g",
+   "min": 1,
+   "max": 50,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "Fetched directly: about 14 g (0.6 fl oz).",
+   "source": {
+    "title": "www.niaaa.nih.gov",
+    "url": "https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink",
+    "verification": "Fetched directly: about 14 g (0.6 fl oz). 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x2",
+   "prompt": "An \"80-proof\" spirit is what percent alcohol by volume?",
+   "value": 40,
+   "unit": "%",
+   "min": 0,
+   "max": 100,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "NIAAA describes distilled spirits as \"about 40% ABV (80-proof)\".",
+   "source": {
+    "title": "www.niaaa.nih.gov",
+    "url": "https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink",
+    "verification": "NIAAA describes distilled spirits as \"about 40% ABV (80-proof)\". 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x3",
+   "prompt": "Minimum alcohol content for tequila under Mexico's standard, in % Alc. Vol.?",
+   "value": 35,
+   "unit": "%",
+   "min": 0,
+   "max": 100,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "The CRT states 35–55% Alc. Vol., and the NOM-006 draft table agrees. Unlike the existing tequila-agave item, this asks for alcohol content.",
+   "source": {
+    "title": "www.crt.org.mx",
+    "url": "https://www.crt.org.mx/en/our-tequila/",
+    "verification": "The CRT states 35–55% Alc. Vol., and the NOM-006 draft table agrees. Unlike the existing tequila-agave item, this asks for alcohol content. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x4",
+   "prompt": "FDA: up to how many mg of caffeine a day is generally fine for healthy adults?",
+   "value": 400,
+   "unit": "mg",
+   "min": 0,
+   "max": 1000,
+   "step": 10,
+   "difficulty": 2,
+   "explanation": "Fetched directly; the page gives 400 mg/day.",
+   "source": {
+    "title": "www.fda.gov",
+    "url": "https://www.fda.gov/consumers/consumer-updates/spilling-beans-how-much-caffeine-too-much",
+    "verification": "Fetched directly; the page gives 400 mg/day. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x5",
+   "prompt": "US men's median age at first marriage in 2024, per Census (nearest year)?",
+   "value": 30,
+   "unit": "years",
+   "min": 15,
+   "max": 45,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "Read from MS-2: 30.2 for 2024, which rounds to 30. The 2025 value is 30.8 and is flagged in the table, so the prompt pins the year to 2024.",
+   "source": {
+    "title": "www2.census.gov",
+    "url": "https://www2.census.gov/programs-surveys/demo/tables/families/time-series/marital/ms2.xls",
+    "verification": "Read from MS-2: 30.2 for 2024, which rounds to 30. The 2025 value is 30.8 and is flagged in the table, so the prompt pins the year to 2024. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x6",
+   "prompt": "NIAAA: binge drinking for a typical woman is this many drinks in about 2 hours",
+   "value": 4,
+   "unit": "drinks",
+   "min": 1,
+   "max": 12,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "The NIAAA definition is 4 or more drinks for women (5 for men) in about 2 hours, reaching a BAC of 0.08.",
+   "source": {
+    "title": "www.niaaa.nih.gov",
+    "url": "https://www.niaaa.nih.gov/alcohols-effects-health/alcohol-topics/health-topics-binge-drinking",
+    "verification": "The NIAAA definition is 4 or more drinks for women (5 for men) in about 2 hours, reaching a BAC of 0.08. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x7",
+   "prompt": "Champagne bottles are built to withstand what pressure, in bar?",
+   "value": 20,
+   "unit": "bar",
+   "min": 1,
+   "max": 50,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "Champagne.fr says the bottles are designed to withstand 20 bar, about three times the wine's own pressure. This is the bottle's rating, not the pressure inside, which sources give as a range.",
+   "source": {
+    "title": "www.champagne.fr",
+    "url": "https://www.champagne.fr/en/tasting-and-appreciation/choosing-a-champagne-wine/champagne-bottles",
+    "verification": "Champagne.fr says the bottles are designed to withstand 20 bar, about three times the wine's own pressure. This is the bottle's rating, not the pressure inside, which sources give as a range. 2026-10-28."
+   },
+   "rating": "spicy"
+  },
+  {
+   "id": "p-x8",
+   "prompt": "How heavy is the Smithsonian's Hope Diamond, in carats (nearest whole carat)?",
+   "value": 46,
+   "unit": "carats",
+   "min": 1,
+   "max": 200,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "The Smithsonian gives 45.52 ct, which rounds to 46.",
+   "source": {
+    "title": "naturalhistory.si.edu",
+    "url": "https://naturalhistory.si.edu/explore/collections/hope-diamond",
+    "verification": "The Smithsonian gives 45.52 ct, which rounds to 46. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-x9",
+   "prompt": "How far below sea level is Death Valley's Badwater Basin, in feet?",
+   "value": 282,
+   "unit": "ft",
+   "min": 0,
+   "max": 1000,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "The NPS gives 282 ft (86 m), and USGS agrees.",
+   "source": {
+    "title": "www.nps.gov",
+    "url": "https://www.nps.gov/places/badwater-basin.htm",
+    "verification": "The NPS gives 282 ft (86 m), and USGS agrees. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-x10",
+   "prompt": "In what year did Spain's envoy sign the Treaty of Córdoba, securing Mexico's independence?",
+   "value": 1821,
+   "unit": "year",
+   "min": 1700,
+   "max": 1900,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "The LoC exhibit dates the signing to 24 Aug 1821.",
+   "source": {
+    "title": "www.loc.gov",
+    "url": "https://www.loc.gov/exhibits/mexican-revolution-and-the-united-states/independence-from-spain.html",
+    "verification": "The LoC exhibit dates the signing to 24 Aug 1821. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-x11",
+   "prompt": "How many Mexican states touch the US border?",
+   "value": 6,
+   "unit": "states",
+   "min": 1,
+   "max": 15,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "EPA Border Program materials list Baja California, Sonora, Chihuahua, Coahuila, Nuevo León and Tamaulipas.",
+   "source": {
+    "title": "www.epa.gov",
+    "url": "https://www.epa.gov/usmexicoborder",
+    "verification": "EPA Border Program materials list Baja California, Sonora, Chihuahua, Coahuila, Nuevo León and Tamaulipas. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-x12",
+   "prompt": "Area of Mexico City's Zócalo, in thousands of m² (nearest thousand)?",
+   "value": 47,
+   "unit": "thousand m²",
+   "min": 1,
+   "max": 200,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "INAH gives 46,800 m², which rounds to 47 thousand.",
+   "source": {
+    "title": "lugares.inah.gob.mx",
+    "url": "https://lugares.inah.gob.mx/en/node/4833",
+    "verification": "INAH gives 46,800 m², which rounds to 47 thousand. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-x13",
+   "prompt": "In what year did electricity workers uncover the giant Coyolxauhqui stone in Mexico City?",
+   "value": 1978,
+   "unit": "year",
+   "min": 1900,
+   "max": 2025,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "INAH dates the find to 21 Feb 1978.",
+   "source": {
+    "title": "www.inah.gob.mx",
+    "url": "https://www.inah.gob.mx/boletines/el-museo-del-templo-mayor-celebra-los-45-anos-del-descubrimiento-de-coyolxauhqui",
+    "verification": "INAH dates the find to 21 Feb 1978. 2026-10-28."
+   },
+   "rating": "classic"
+  },
+  {
+   "id": "p-x15",
+   "prompt": "Grand Canyon National Park covers how many square miles?",
+   "value": 1904,
+   "unit": "sq mi",
+   "min": 100,
+   "max": 5000,
+   "step": 1,
+   "difficulty": 2,
+   "explanation": "The NPS gives 1,904 sq mi (1,218,375.54 acres).",
+   "source": {
+    "title": "www.nps.gov",
+    "url": "https://www.nps.gov/grca/learn/management/statistics.htm",
+    "verification": "The NPS gives 1,904 sq mi (1,218,375.54 acres). 2026-10-28."
+   },
+   "rating": "classic"
+  }
+ ]
+}

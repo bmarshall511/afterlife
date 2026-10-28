@@ -1,7 +1,7 @@
 import type { GameFamily } from "@/shared/types";
 import type { Settings } from "./types";
 
-export const ALL_FAMILIES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest", "case"];
+export const ALL_FAMILIES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest", "case", "dichos", "fib", "price"];
 
 /**
  * Casual-party pacing (host feedback 2026-10-27): long answer windows so nobody has to watch the TV,
@@ -16,6 +16,11 @@ export const DEFAULT_SETTINGS: Settings = {
   roomAnswerMs: 180000,
   roomGuessMs: 180000,
   closestAnswerMs: 240000,
+  dichosAnswerMs: 180000,
+  priceAnswerMs: 180000,
+  fibWriteMs: 300000,
+  fibVoteMs: 150000,
+  afterDark: false,
   caseClueMs: 20000,
   caseAnswerMs: 40000,
   revealMs: 60000,
@@ -56,6 +61,9 @@ export function validateSettingsPatch(patch: Record<string, unknown>): Partial<S
       out[k] = Math.round(v);
     } else if (k === "families") {
       if (!Array.isArray(v) || !v.every((f) => ALL_FAMILIES.includes(f))) throw new Error("bad families");
+      out[k] = v;
+    } else if (k === "afterDark") {
+      if (typeof v !== "boolean") throw new Error("bad afterDark");
       out[k] = v;
     } else if (k === "joinUrl" || k === "appName") {
       if (typeof v !== "string" || v.length > 300) throw new Error(`bad ${k}`);

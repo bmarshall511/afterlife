@@ -83,6 +83,7 @@ async function main() {
           case "choice": value = good && typeof item.answer === "number" ? item.answer : Math.floor(rand() * input.options.length); break;
           case "order": value = good ? item.answer : [...input.items.map((x: any) => x.id)].sort(() => rand() - 0.5); break;
           case "number": { const tr = Number(item.answer); value = Math.max(input.min, Math.min(input.max, Math.round((good ? tr * (0.75 + rand() * 0.3) : input.min + rand() * (input.max - input.min)) / input.step) * input.step)); break; }
+          case "fib": value = { statements: [`we once ${Math.floor(rand() * 1e5)}`, "we love tamales", rand() < 0.03 ? "s.h.i.t happens" : "we own a goat"], fib: Math.floor(rand() * 3) }; break;
           case "percent": value = Math.floor(rand() * 101); break;
           case "text": value = rand() < 0.03 ? "what the f.u.c.k" : `verse ${Math.floor(rand() * 1e6)}`; break;
           case "vote": value = input.entries[Math.floor(rand() * input.entries.length)]?.id; break;
@@ -122,7 +123,7 @@ async function main() {
   for (const r of qfam) (perSet[r.seq] ??= []).push(r.fam);
   for (let i = 1; i < qfam.length; i++) if (qfam[i].fam === qfam[i - 1].fam && qfam[i].setfam === "mixed") violations.push(`same family twice in a row at set ${qfam[i].seq} q${qfam[i].idx}`);
   for (const [seq, fs] of Object.entries(perSet)) {
-    if (fs.filter((f) => f === "calavera" || f === "room").length > 1) violations.push(`set ${seq} has >1 social question`);
+    if (fs.filter((f) => f === "calavera" || f === "room" || f === "fib").length > 1) violations.push(`set ${seq} has >1 social question`);
     if (fs.includes("case")) violations.push(`set ${seq} has case in a mixed set`);
   }
   const questionFamilies: Record<string, number> = {};

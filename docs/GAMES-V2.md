@@ -113,3 +113,41 @@ Engine owns scoring (`src/server/engine/scoring/<family>.ts`), validation of val
 (`src/server/engine/wordfilter.ts`), stage timings (settings keys `<family><Stage>Ms`), and building `outcomes`.
 UI: TV + phone per family; InputSpec-driven phone inputs (order: drag + up/down buttons; number: big stepper +
 keypad; assign: tap-to-assign grid; vote: list with own entry hidden).
+
+---
+## Additions 2026-10-28 (host-approved): three new games + After Dark
+
+Casual timings apply (answer windows several minutes, early close when all eligible families submitted).
+
+### 7. Dichos — finish the saying (objective, any team count) — family `dichos`
+- TV shows the start of a well-known Mexican dicho (Spanish) + "Finish the saying". Stage `answer` (InputSpec choice,
+  4 options): the real ending + 3 invented, funny endings (some cheeky). 100 correct / 0.
+- Reveal: full real dicho, literal English translation, what it means (1 line), source (dictionary / academic /
+  cultural institution). Only well-attested dichos; verify wording. ≥ 40 items, difficulty 1–3.
+- Settings key: `dichosAnswerMs` (default 180000).
+
+### 8. Price Is Right, Mexican edition (objective) — family `price`
+- "How much does ___ cost in Mexico?" Stage `answer` (InputSpec number, unit "pesos" or "MXN", sensible min/max/step).
+  Scoring identical to Closest Without Going Over (over = 0; accuracy brackets; +25 closest bonus with ≥2 teams).
+- Only prices from official / authoritative sources with a stated date (official fees and tickets: Metro/Metrobús fare,
+  INAH site entry, SRE passport fee, museum tickets on official sites, Banxico/INEGI/PROFECO price data). Reveal shows
+  "Price per <source>, checked <date>". ≥ 35 items. Settings key: `priceAnswerMs` (default 180000).
+
+### 9. Two Truths and a Fib (social, ≥ 3 teams) — family `fib`
+- Stage `write` (InputSpec fib: three short statements about YOUR family + which one is the fib; maxLength 80 each).
+  Word filter applies; host can hide entries.
+- Stage `vote`: the TV features ONE family's three statements (shuffled, labelled A/B/C; author shown); every other
+  family picks the fib (InputSpec choice, 3 options). The featured family cannot vote.
+- Written entries are kept for the party: a later Fib question first features a family whose entry hasn't been shown yet
+  and SKIPS the write stage (goes straight to vote) — so writing is never wasted. If no unshown entry exists, write first.
+- Scoring: each voter who finds the fib 100; featured family `round(100 × share of voters fooled)`. Fewer than 2 voters
+  → void. Reveal: which was the fib, vote split, points.
+- Content items are prompt themes ("…about your family's worst road trip"), ≥ 20. Settings keys `fibWriteMs`
+  (default 300000), `fibVoteMs` (default 150000).
+
+### After Dark rating
+- Every content item has `rating: "classic" | "spicy" | "after-dark"`. classic/spicy always play. `after-dark` items
+  play ONLY when the host turns on **After Dark** (`settings.afterDark: true`, default false; admin Party toggle and
+  demo bar toggle). Turning it off removes them from upcoming questions immediately (never mid-question).
+- After Dark content: adult, sexual innuendo / risqué humour for grown-ups; never explicit, never about minors, real
+  people, loved ones, non-consent, or slurs.

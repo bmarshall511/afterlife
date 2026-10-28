@@ -19,6 +19,13 @@ const LINES = [
   "then insisted it was a shortcut all along.",
 ];
 
+const FIBS = [
+  ["Our abuela once out-danced a mariachi band.", "We own a goat named Señor Tamal.", "Tío Beto has never been late. Ever."],
+  ["We drove 9 hours for one taco stand.", "Our cat has its own ofrenda photo.", "We once won a salsa contest with store-bought salsa."],
+  ["Mamá can name every telenovela since 1990.", "We got lost in our own neighborhood.", "Our dog is afraid of piñatas."],
+  ["We have three family members named José.", "Our car is called La Catrina.", "We've never burned the tortillas."],
+];
+
 export async function addDemoBots(partyId: string, count = 3, now = Date.now()) {
   if (partyId !== "demo") throw new EngineError("invalid", "Bots are only available on the demo party.", 403);
   const d = await db();
@@ -58,6 +65,10 @@ function botValue(input: InputSpec, seed: number, ownEntryId: string | null | un
     case "vote": {
       const others = input.entries.filter((e) => e.id !== ownEntryId);
       return others.length ? others[seed % others.length].id : null;
+    }
+    case "fib": {
+      const set = FIBS[seed % FIBS.length];
+      return { statements: set, fib: seed % 3 };
     }
     case "percent": return 15 + (seed % 70);
     case "assign": {

@@ -9,6 +9,9 @@ export const STAGES: Record<GameFamily, Stage[]> = {
   line: ["answer"],
   loteria: ["answer"],
   closest: ["answer"],
+  dichos: ["answer"],
+  price: ["answer"],
+  fib: ["write", "vote"],
 };
 
 export const firstStage = (f: GameFamily): Stage => STAGES[f][0];

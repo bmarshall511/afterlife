@@ -179,6 +179,18 @@ function PartySection({ party, run, setMsg }: Ctx) {
       </div>
 
       <div className="ad-card">
+        <h2>After Dark — adults-only questions</h2>
+        <label className="ad-row" style={{ alignItems: "flex-start", cursor: "pointer" }}>
+          <input type="checkbox" role="switch" aria-checked={!!s.afterDark} checked={!!s.afterDark} style={{ width: 22, height: 22, marginTop: 2 }}
+            onChange={(e) => act("after_dark", { on: e.target.checked }, e.target.checked ? "After Dark is ON" : "After Dark is off")} />
+          <span>
+            <strong style={{ color: s.afterDark ? "#f6a623" : "#fff" }}>{s.afterDark ? "On — risqué questions can come up" : "Off (default) — family-friendly only"}</strong>
+            <br /><span className="ad-muted">Adds cheeky, innuendo-heavy questions for grown-ups (never explicit). Kids may be in the room — only switch on once they’re in bed. Takes effect from the next question; never mid-question.</span>
+          </span>
+        </label>
+      </div>
+
+      <div className="ad-card">
         <h2>Pacing (seconds)</h2>
         <div className="ad-grid" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(150px,1fr))" }}>
           {PACING.map((k) => (

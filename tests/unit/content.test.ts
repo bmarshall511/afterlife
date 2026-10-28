@@ -7,7 +7,7 @@ import type { GameFamily, Stage } from "@/shared/types";
 
 const items = allContent();
 const fam = (f: GameFamily) => items.filter((i) => i.family === f);
-const STAGES: Record<GameFamily, Stage[]> = { calavera: ["write", "vote"], line: ["answer"], loteria: ["answer"], room: ["answer", "guess"], closest: ["answer"], case: ["clue", "answer"] };
+const STAGES: Record<GameFamily, Stage[]> = { calavera: ["write", "vote"], line: ["answer"], loteria: ["answer"], room: ["answer", "guess"], closest: ["answer"], case: ["clue", "answer"], dichos: ["answer"], price: ["answer"], fib: ["write", "vote"] };
 
 describe("v2 content pool", () => {
   it("meets GAMES-V2 minimums and validates", () => {
@@ -17,12 +17,17 @@ describe("v2 content pool", () => {
     expect(fam("room").length).toBeGreaterThanOrEqual(70);
     expect(fam("closest").length).toBeGreaterThanOrEqual(70);
     expect(new Set(fam("case").map((i) => (i.data as { puzzleId: string }).puzzleId)).size).toBeGreaterThanOrEqual(40);
+    expect(fam("dichos").length).toBeGreaterThanOrEqual(40);
+    expect(fam("price").length).toBeGreaterThanOrEqual(35);
+    expect(fam("fib").length).toBeGreaterThanOrEqual(20);
+    for (const i of items) expect(["classic", "spicy", "after-dark"]).toContain(i.rating);
+    expect(items.filter((i) => i.rating === "spicy").length).toBeGreaterThanOrEqual(40);
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
     expect(validateAll(items, publicQuestion)).toEqual([]);
   });
 
   it("factual families carry a source with verification", () => {
-    for (const i of [...fam("line"), ...fam("closest")]) {
+    for (const i of [...fam("line"), ...fam("closest"), ...fam("dichos"), ...fam("price")]) {
       expect(i.source?.url).toMatch(/^https:\/\//);
       expect(i.source?.verification.length).toBeGreaterThan(20);
     }
@@ -57,6 +62,10 @@ describe("publicQuestion", () => {
     expect(kind(fam("room")[0], "answer")).toBe("choice");
     expect(kind(fam("room")[0], "guess")).toBe("percent");
     expect(kind(fam("closest")[0], "answer")).toBe("number");
+    expect(kind(fam("dichos")[0], "answer")).toBe("choice");
+    expect(kind(fam("price")[0], "answer")).toBe("number");
+    expect(kind(fam("fib")[0], "write")).toBe("fib");
+    expect(kind(fam("fib")[0], "vote")).toBeNull();
     expect(kind(fam("case")[0], "clue")).toBeNull();
     expect(kind(fam("case")[0], "answer")).toBe("assign");
   });
@@ -83,7 +92,7 @@ describe("case puzzles", () => {
   });
   it("generateFresh: case only", () => {
     expect(generateFresh("case", 3)?.family).toBe("case");
-    for (const f of ["calavera", "line", "loteria", "room", "closest"] as GameFamily[]) expect(generateFresh(f, 3)).toBeNull();
+    for (const f of ["calavera", "line", "loteria", "room", "closest", "dichos", "price", "fib"] as GameFamily[]) expect(generateFresh(f, 3)).toBeNull();
     expect(validateAll(Array.from({ length: 30 }, (_, i) => caseSet(`t${i}`)).flat(), publicQuestion)).toEqual([]);
   });
 });

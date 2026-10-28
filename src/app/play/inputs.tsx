@@ -13,6 +13,7 @@ export function initialDraft(spec: InputSpec): Draft {
     case "assign": return {};
     case "text": return "";
     case "percent": return 50;
+    case "fib": return { statements: ["", "", ""], fib: -1 };
     default: return null;
   }
 }
@@ -26,6 +27,12 @@ export function incompleteReason(spec: InputSpec, v: Draft): string | null {
     case "number": return typeof v === "number" && v >= spec.min && v <= spec.max ? null : `Enter ${spec.min.toLocaleString("en-US")}–${spec.max.toLocaleString("en-US")}`;
     case "percent": return typeof v === "number" && v >= 0 && v <= 100 ? null : "Pick a percent";
     case "text": return typeof v === "string" && v.trim().length >= 2 ? null : "Write your line";
+    case "fib": {
+      const f = v as { statements?: string[]; fib?: number } | null;
+      const filled = (f?.statements ?? []).filter((x) => x.trim().length >= 3).length;
+      if (filled < 3) return `Write all 3 (${filled} done)`;
+      return typeof f?.fib === "number" && f.fib >= 0 && f.fib <= 2 ? null : "Mark which one is the fib";
+    }
     case "assign": {
       const n = v && typeof v === "object" && !Array.isArray(v) ? Object.keys(v).length : 0;
       return n === spec.people.length ? null : `Place all ${spec.people.length} (${n} placed)`;
@@ -44,7 +51,37 @@ export function AnswerInput({ spec, value, onChange, disabled, ownEntryId }: {
     case "percent": return <PercentEntry spec={spec} value={value} onChange={onChange} disabled={disabled} />;
     case "text": return <TextEntry spec={spec} value={value} onChange={onChange} disabled={disabled} />;
     case "assign": return <AssignBoard spec={spec} value={value} onChange={onChange} disabled={disabled} />;
+    case "fib": return <FibEntry spec={spec} value={value} onChange={onChange} disabled={disabled} />;
   }
+}
+
+function FibEntry({ spec, value, onChange, disabled }: P<"fib">) {
+  const v = (value && typeof value === "object" && "statements" in value ? value : { statements: ["", "", ""], fib: -1 }) as { statements: string[]; fib: number };
+  const set = (i: number, t: string) => { const st = v.statements.slice(); st[i] = t.replace(/\n/g, " "); onChange({ ...v, statements: st }); };
+  return (
+    <div className="ph-fib">
+      <p className="ph-fib-hint"><Icon name="eye" /> Keep it believable — two true, one fib. Short and specific works best.</p>
+      {[0, 1, 2].map((i) => {
+        const t = v.statements[i] ?? "";
+        const isFib = v.fib === i;
+        return (
+          <div key={i} className={`ph-fib-row ${isFib ? "fib" : ""}`}>
+            <label className="ph-fib-label" htmlFor={`fib-${i}`}>{String.fromCharCode(65 + i)}</label>
+            <div className="ph-fib-field">
+              <textarea id={`fib-${i}`} rows={2} maxLength={spec.maxLength} disabled={disabled} value={t} placeholder={i === 0 ? "e.g. Our abuela once out-danced a mariachi" : "Something about your family…"}
+                onChange={(e) => set(i, e.target.value)} />
+              <div className="ph-fib-foot">
+                <button type="button" role="radio" aria-checked={isFib} className={`ph-fib-mark ${isFib ? "on" : ""}`} disabled={disabled} onClick={() => onChange({ ...v, fib: i })}>
+                  <Icon name={isFib ? "x" : "check"} /> {isFib ? "This is the fib" : "Mark as the fib"}
+                </button>
+                <span className={`ph-text-count ${spec.maxLength - t.length <= 10 ? "low" : ""}`}>{t.length}/{spec.maxLength}</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 type P<K extends InputSpec["kind"]> = { spec: Extract<InputSpec, { kind: K }>; value: Draft; onChange: (v: Draft) => void; disabled: boolean };
@@ -185,7 +222,7 @@ function NumberEntry({ spec, value, onChange, disabled }: P<"number">) {
         <span>Between {spec.min.toLocaleString("en-US")} and {spec.max.toLocaleString("en-US")}{spec.unit ? ` ${spec.unit}` : ""}</span>
         <button disabled={disabled} onClick={() => set((cur ?? spec.min) + big)}>+{big.toLocaleString("en-US")}</button>
       </div>
-      <p className="ph-fine left"><Icon name="bust" /> Going over the real number scores zero.</p>
+      <p className="ph-fine left"><Icon name="bust" /> Going over the real {spec.unit === "pesos" ? "price" : "number"} scores zero.</p>
     </div>
   );
 }
@@ -290,6 +327,14 @@ export function ValueSummary({ spec, value }: { spec: InputSpec | null; value: A
     case "number": return <div className="ph-sum big">{Number(value).toLocaleString("en-US")}<small>{spec.unit}</small></div>;
     case "percent": return <div className="ph-sum big">{String(value)}<small>%</small></div>;
     case "text": return <div className="ph-sum"><b className="ital">“{String(value)}”</b></div>;
+    case "fib": {
+      const f = value as { statements: string[]; fib: number };
+      return (
+        <ul className="ph-sum-list plain">
+          {f.statements.map((t, i) => <li key={i}><span>{String.fromCharCode(65 + i)} · {t}</span><b>{i === f.fib ? "Fib" : "True"}</b></li>)}
+        </ul>
+      );
+    }
     case "assign": {
       const m = value as Record<string, string>;
       return (

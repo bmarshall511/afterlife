@@ -20,6 +20,7 @@ const TV_STATES = ["ambient", "intro", "intro-doubled",
   "q-room-answer", "q-room-guess", "reveal-room",
   "q-closest", "reveal-closest", "longnames",
   "q-case-clue", "q-case-answer", "reveal-case-mid", "reveal-case-final",
+  "q-dichos", "reveal-dichos", "q-price", "reveal-price", "q-fib-write", "q-fib-vote", "reveal-fib",
   "results", "results-doubled", "interval", "interval-tribute", "interval-slide", "interval-slide-portrait", "paused"];
 const PHONE_STATES = ["intro-doubled",
   "q-calavera-write", "q-calavera-write-saved", "q-calavera-filtered", "q-calavera-vote", "q-calavera-vote-saved", "reveal-calavera",
@@ -28,6 +29,7 @@ const PHONE_STATES = ["intro-doubled",
   "q-room-answer", "q-room-guess", "q-room-guess-noanswer", "reveal-room",
   "q-closest", "q-closest-noncaptain", "reveal-closest",
   "q-case-clue", "q-case-answer", "q-case-locked", "reveal-case-mid", "reveal-case-final",
+  "q-dichos", "reveal-dichos", "q-price", "reveal-price", "q-fib-write", "q-fib-write-saved", "q-fib-vote", "q-fib-vote-featured", "reveal-fib",
   "results", "practice", "away", "longnames"];
 
 async function main() {
@@ -40,7 +42,7 @@ async function main() {
   }
   if (which !== "tv") {
     for (const st of PHONE_STATES) shots.push([`phone-375-${st}`, `/play?mock=${st}`, 375, 812, 2]);
-    for (const st of ["q-line", "q-loteria", "q-closest", "q-room-guess", "q-case-answer", "q-calavera-vote", "longnames"]) shots.push([`phone-320-${st}`, `/play?mock=${st}`, 320, 640, 2]);
+    for (const st of ["q-line", "q-loteria", "q-closest", "q-room-guess", "q-case-answer", "q-calavera-vote", "q-fib-write", "q-price", "longnames"]) shots.push([`phone-320-${st}`, `/play?mock=${st}`, 320, 640, 2]);
     for (const st of ["q-loteria", "q-case-answer", "reveal-line"]) shots.push([`phone-430-${st}`, `/play?mock=${st}`, 430, 932, 2]);
     for (const st of ["q-line", "q-case-answer", "q-closest"]) shots.push([`phone-landscape-${st}`, `/play?mock=${st}`, 844, 390, 2]);
     shots.push(["phone-375-landing", "/", 375, 812, 2]);

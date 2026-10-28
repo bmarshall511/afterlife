@@ -1,0 +1,646 @@
+[
+  {
+    "id": "a-falta-de-pan-buenas-son-tortillas",
+    "start": "A falta de pan,",
+    "ending": "buenas son tortillas",
+    "full": "A falta de pan, buenas son tortillas",
+    "literal": "For lack of bread, tortillas are good.",
+    "meaning": "When you can't have what you want, make do with what you have.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: A falta de pan, buenas son tortillas",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/a-falta-de-pan-buenas-son-tortillas",
+      "verification": "Entry headword reads 'A falta de pan, buenas son tortillas' (case/capitalization adjusted); gloss says it advises settling for what one has when the desired thing is unavailable. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-comal-le-dijo-a-la-olla-que-tiznada-estas",
+    "start": "El comal le dijo a la olla:",
+    "ending": "¡qué tiznada estás!",
+    "full": "El comal le dijo a la olla: ¡qué tiznada estás!",
+    "literal": "The griddle said to the pot: how sooty you are!",
+    "meaning": "Said when someone mocks a flaw they share themselves (pot calling the kettle black).",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El comal le dijo a la olla: ¡qué tiznada estás!",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-comal-le-dijo-a-la-olla-que-tiznada-estas",
+      "verification": "Entry headword reads 'El comal le dijo a la olla: ¡qué tiznada estás!' (case/capitalization adjusted); gloss says it used when someone with a defect mocks another for having it. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "mas-vale-atole-con-risas-que-chocolate-con-lagri",
+    "start": "Más vale atole con risas",
+    "ending": "que chocolate con lágrimas",
+    "full": "Más vale atole con risas que chocolate con lágrimas",
+    "literal": "Better atole with laughter than chocolate with tears.",
+    "meaning": "A humble life lived happily beats a rich one full of sorrow.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Más vale atole con risas que chocolate con lágrimas",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-atole-con-risas-que-chocolate-con-lagrimas",
+      "verification": "Entry headword reads 'Más vale atole con risas que chocolate con lágrimas' (case/capitalization adjusted); gloss says it prefers a modest life lived with joy over a costly one with suffering. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "cada-chango-a-su-mecate",
+    "start": "Cada chango",
+    "ending": "a su mecate",
+    "full": "Cada chango a su mecate",
+    "literal": "Each monkey to its rope.",
+    "meaning": "Everyone should mind their own business / get back to their own place.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Cada chango a su mecate",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cada-chango-a-su-mecate",
+      "verification": "Entry headword reads 'Cada chango a su mecate' (case/capitalization adjusted); gloss says it asks that each person tend to their own affairs. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "no-se-puede-chiflar-y-beber-atole",
+    "start": "No se puede chiflar",
+    "ending": "y beber atole",
+    "full": "No se puede chiflar y beber atole",
+    "literal": "You can't whistle and drink atole.",
+    "meaning": "You can't do two incompatible things at once.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: No se puede chiflar y beber atole",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/no-se-puede-chiflar-y-beber-atole",
+      "verification": "Entry headword reads 'No se puede chiflar y beber atole' (case/capitalization adjusted); gloss says it said of someone who wants to be in everything, even mutually exclusive things. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "cuentas-claras-conservan-amistades",
+    "start": "Cuentas claras",
+    "ending": "conservan amistades",
+    "full": "Cuentas claras conservan amistades",
+    "literal": "Clear accounts preserve friendships.",
+    "meaning": "Being clear about money keeps friendships healthy.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Cuentas claras conservan amistades",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cuentas-claras-conservan-amistades",
+      "verification": "Entry headword reads 'Cuentas claras conservan amistades' (case/capitalization adjusted); gloss says it an axiom of people doing business: keep accounts clear. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "mas-vale-pedir-perdon-que-pedir-permiso",
+    "start": "Más vale pedir perdón",
+    "ending": "que pedir permiso",
+    "full": "Más vale pedir perdón que pedir permiso",
+    "literal": "Better to ask forgiveness than to ask permission.",
+    "meaning": "Act now; you can apologize later if you overstep.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Más vale pedir perdón que pedir permiso",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-pedir-perdon-que-pedir-permiso",
+      "verification": "Entry headword reads 'Más vale pedir perdón que pedir permiso' (case/capitalization adjusted); gloss says it recommends acting immediately; apologize afterwards if needed. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "mas-vale-morir-parado-que-vivir-de-rodillas",
+    "start": "Más vale morir parado",
+    "ending": "que vivir de rodillas",
+    "full": "Más vale morir parado que vivir de rodillas",
+    "literal": "Better to die standing than to live on your knees.",
+    "meaning": "Dignity and independence are worth more than submission.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Más vale morir parado que vivir de rodillas",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-morir-parado-que-vivir-de-rodillas",
+      "verification": "Entry headword reads 'Más vale morir parado que vivir de rodillas' (case/capitalization adjusted); gloss says it better to be one's own master than dependent on the powerful. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "lo-que-hace-el-mono-hace-la-mona",
+    "start": "Lo que hace el mono,",
+    "ending": "hace la mona",
+    "full": "Lo que hace el mono, hace la mona",
+    "literal": "What the male monkey does, the female monkey does.",
+    "meaning": "Mocks copycats who just imitate others.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Lo que hace el mono, hace la mona",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/lo-que-hace-el-mono-hace-la-mona",
+      "verification": "Entry headword reads 'Lo que hace el mono, hace la mona' (case/capitalization adjusted); gloss says it satirizes those without initiative who imitate others. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-muerto-a-la-sepultura-y-los-vivos-a-la-diablu",
+    "start": "El muerto a la sepultura,",
+    "ending": "y los vivos a la diablura",
+    "full": "El muerto a la sepultura, y los vivos a la diablura",
+    "literal": "The dead to the grave, and the living to mischief.",
+    "meaning": "After mourning, life goes on for the living.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El muerto a la sepultura, y los vivos a la diablura",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-muerto-a-la-sepultura-y-los-vivos-a-la-diablura",
+      "verification": "Entry headword reads 'El muerto a la sepultura, y los vivos a la diablura' (case/capitalization adjusted); gloss says it an invitation to leave mourning and carry on living. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "poco-a-poco-se-le-saca-el-agua-al-coco",
+    "start": "Poco a poco",
+    "ending": "se le saca el agua al coco",
+    "full": "Poco a poco se le saca el agua al coco",
+    "literal": "Little by little you get the water out of the coconut.",
+    "meaning": "Patience gets results.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Poco a poco se le saca el agua al coco",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/poco-a-poco-se-le-saca-el-agua-al-coco",
+      "verification": "Entry headword reads 'Poco a poco se le saca el agua al coco' (case/capitalization adjusted); gloss says it advises patience in everything. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "las-piedras-rodando-se-encuentran",
+    "start": "Las piedras",
+    "ending": "rodando se encuentran",
+    "full": "Las piedras rodando se encuentran",
+    "literal": "Stones meet each other while rolling.",
+    "meaning": "Paths cross again, so treat everyone well.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Las piedras rodando se encuentran",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/las-piedras-rodando-se-encuentran",
+      "verification": "Entry headword reads 'Las piedras rodando se encuentran' (case/capitalization adjusted); gloss says it life always brings people together again; treat all well. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "al-nopal-lo-van-a-ver-solo-cuando-tiene-tunas",
+    "start": "Al nopal lo van a ver,",
+    "ending": "sólo cuando tiene tunas",
+    "full": "Al nopal lo van a ver, sólo cuando tiene tunas",
+    "literal": "People visit the cactus only when it has prickly pears.",
+    "meaning": "Mocks those who only come around when they need something.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Al nopal lo van a ver, sólo cuando tiene tunas",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/al-nopal-lo-van-a-ver-solo-cuando-tiene-tunas",
+      "verification": "Entry headword reads 'Al nopal lo van a ver, sólo cuando tiene tunas' (case/capitalization adjusted); gloss says it mocks people who approach someone only when they need something. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "hasta-el-santo-desconfia-cuando-la-limosna-es-gr",
+    "start": "Hasta el santo desconfía",
+    "ending": "cuando la limosna es grande",
+    "full": "Hasta el santo desconfía cuando la limosna es grande",
+    "literal": "Even the saint is suspicious when the offering is big.",
+    "meaning": "An unusually generous offer is suspicious.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Hasta el santo desconfía cuando la limosna es grande",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/hasta-el-santo-desconfia-cuando-la-limosna-es-grande",
+      "verification": "Entry headword reads 'Hasta el santo desconfía cuando la limosna es grande' (case/capitalization adjusted); gloss says it unusual, disproportionate gifts are suspicious. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "muerto-el-perico-para-que-quiero-la-jaula",
+    "start": "Muerto el perico,",
+    "ending": "¿para qué quiero la jaula?",
+    "full": "Muerto el perico, ¿para qué quiero la jaula?",
+    "literal": "The parrot dead, what do I want the cage for?",
+    "meaning": "When the reason is gone, so is the need for what came with it.",
+    "difficulty": 1,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Muerto el perico, ¿para qué quiero la jaula?",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/muerto-el-perico-para-que-quiero-la-jaula",
+      "verification": "Entry headword reads 'Muerto el perico, ¿para qué quiero la jaula?' (case/capitalization adjusted); gloss says it when the cause ends, the effect ends. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-que-es-perico-dondequiera-es-verde-y-el-que-e",
+    "start": "El que es perico, dondequiera es verde,",
+    "ending": "y el que es tarugo, dondequiera pierde",
+    "full": "El que es perico, dondequiera es verde, y el que es tarugo, dondequiera pierde",
+    "literal": "Whoever is a parrot is green anywhere, and whoever is a fool loses anywhere.",
+    "meaning": "Talent shows anywhere, and so does foolishness.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El que es perico, dondequiera es verde, y el que es tarugo, dondequiera pierde",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-es-perico-dondequiera-es-verde-y-el-que-es-tarugo-dondequiera-pierde",
+      "verification": "Entry headword reads 'El que es perico, dondequiera es verde, y el que es tarugo, dondequiera pierde' (case/capitalization adjusted); gloss says it whoever has worth shows it anywhere regardless of circumstances. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "donde-lloran-esta-el-muerto",
+    "start": "Donde lloran,",
+    "ending": "está el muerto",
+    "full": "Donde lloran, está el muerto",
+    "literal": "Where they cry, there's the corpse.",
+    "meaning": "Whoever complains loudest about money usually has it.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Donde lloran, está el muerto",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/donde-lloran-esta-el-muerto",
+      "verification": "Entry headword reads 'Donde lloran, está el muerto' (case/capitalization adjusted); gloss says it said of someone who cries poverty, implying they do have money. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "de-que-el-cuchillo-es-malo-le-echan-la-culpa-al",
+    "start": "De que el cuchillo es malo,",
+    "ending": "le echan la culpa al herrero",
+    "full": "De que el cuchillo es malo, le echan la culpa al herrero",
+    "literal": "When the knife is bad, they blame the blacksmith.",
+    "meaning": "Mocks lame excuses from the incompetent.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: De que el cuchillo es malo, le echan la culpa al herrero",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/de-que-el-cuchillo-es-malo-le-echan-la-culpa-al-herrero",
+      "verification": "Entry headword reads 'De que el cuchillo es malo, le echan la culpa al herrero' (case/capitalization adjusted); gloss says it comments on the unacceptable excuses of the inept. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-arrimado-y-el-muerto-a-los-tres-dias-apestan",
+    "start": "El arrimado y el muerto,",
+    "ending": "a los tres días apestan",
+    "full": "El arrimado y el muerto, a los tres días apestan",
+    "literal": "The freeloading guest and the dead man stink after three days.",
+    "meaning": "Don't overstay your welcome or live off others.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El arrimado y el muerto, a los tres días apestan",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-arrimado-y-el-muerto-a-los-tres-dias-apestan",
+      "verification": "Entry headword reads 'El arrimado y el muerto, a los tres días apestan' (case/capitalization adjusted); gloss says it living at another's expense should be avoided. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "lo-que-se-ha-de-pelar-que-se-vaya-remojando",
+    "start": "Lo que se ha de pelar,",
+    "ending": "que se vaya remojando",
+    "full": "Lo que se ha de pelar, que se vaya remojando",
+    "literal": "Whatever is going to be peeled should start soaking.",
+    "meaning": "Prepare for what's unavoidable.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Lo que se ha de pelar, que se vaya remojando",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/lo-que-se-ha-de-pelar-que-se-vaya-remojando",
+      "verification": "Entry headword reads 'Lo que se ha de pelar, que se vaya remojando' (case/capitalization adjusted); gloss says it get ready for what can no longer be helped. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "chivo-pagado-chivo-brincado",
+    "start": "Chivo pagado,",
+    "ending": "chivo brincado",
+    "full": "Chivo pagado, chivo brincado",
+    "literal": "Goat paid, goat jumped.",
+    "meaning": "Cash on delivery: pay and you get it.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Chivo pagado, chivo brincado",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/chivo-pagado-chivo-brincado",
+      "verification": "Entry headword reads 'Chivo pagado, chivo brincado' (case/capitalization adjusted); gloss says it sale is for cash, paid on receipt. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-que-tenga-cola-de-zacate-que-no-se-acerque-a",
+    "start": "El que tenga cola de zacate,",
+    "ending": "que no se acerque a la lumbre",
+    "full": "El que tenga cola de zacate, que no se acerque a la lumbre",
+    "literal": "Whoever has a straw tail shouldn't go near the fire.",
+    "meaning": "If you have a weak spot (or a guilty secret), don't expose yourself.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El que tenga cola de zacate, que no se acerque a la lumbre",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-tenga-cola-de-zacate-que-no-se-acerque-a-la-lumbre",
+      "verification": "Entry headword reads 'El que tenga cola de zacate, que no se acerque a la lumbre' (case/capitalization adjusted); gloss says it advises anyone with a physical or moral weakness not to expose themselves. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "cuando-la-cocinera-es-mala-le-echa-la-culpa-al-m",
+    "start": "Cuando la cocinera es mala,",
+    "ending": "le echa la culpa al mole",
+    "full": "Cuando la cocinera es mala, le echa la culpa al mole",
+    "literal": "When the cook is bad, she blames the mole.",
+    "meaning": "Censures making excuses for one's own failings.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Cuando la cocinera es mala, le echa la culpa al mole",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cuando-la-cocinera-es-mala-le-echa-la-culpa-al-mole",
+      "verification": "Entry headword reads 'Cuando la cocinera es mala, le echa la culpa al mole' (case/capitalization adjusted); gloss says it censures excuses. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "entre-menos-burros-mas-olotes",
+    "start": "Entre menos burros,",
+    "ending": "más olotes",
+    "full": "Entre menos burros, más olotes",
+    "literal": "The fewer donkeys, the more corncobs.",
+    "meaning": "Fewer people, bigger shares; said when someone leaves.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Entre menos burros, más olotes",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/entre-menos-burros-mas-olotes",
+      "verification": "Entry headword reads 'Entre menos burros, más olotes' (case/capitalization adjusted); gloss says it consolation or comment when someone leaves a gathering. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-que-tiene-mas-saliva-traga-mas-pinole",
+    "start": "El que tiene más saliva,",
+    "ending": "traga más pinole",
+    "full": "El que tiene más saliva, traga más pinole",
+    "literal": "Whoever has more saliva swallows more pinole.",
+    "meaning": "The cleverest gets the most advantage.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El que tiene más saliva, traga más pinole",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-tiene-mas-saliva-traga-mas-pinole",
+      "verification": "Entry headword reads 'El que tiene más saliva, traga más pinole' (case/capitalization adjusted); gloss says it the smartest person gains the most. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "de-limpios-y-de-tragones-estan-llenos-los-panteo",
+    "start": "De limpios y de tragones,",
+    "ending": "están llenos los panteones",
+    "full": "De limpios y de tragones, están llenos los panteones",
+    "literal": "Cemeteries are full of the overly clean and the gluttons.",
+    "meaning": "Excessive fussiness and overeating both do you in.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: De limpios y de tragones, están llenos los panteones",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/de-limpios-y-de-tragones-estan-llenos-los-panteones",
+      "verification": "Entry headword reads 'De limpios y de tragones, están llenos los panteones' (case/capitalization adjusted); gloss says it popular medical-flavored refrán; means what it says. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "no-hay-que-buscarle-ruido-al-chicharron",
+    "start": "No hay que buscarle",
+    "ending": "ruido al chicharrón",
+    "full": "No hay que buscarle ruido al chicharrón",
+    "literal": "Don't go looking for noise in the pork rind.",
+    "meaning": "Don't go looking for trouble / don't provoke.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: No hay que buscarle ruido al chicharrón",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/no-hay-que-buscarle-ruido-al-chicharron",
+      "verification": "Entry headword reads 'No hay que buscarle ruido al chicharrón' (case/capitalization adjusted); gloss says it half advice, half threat, urging provokers not to provoke. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-pobre-se-estira-hasta-donde-la-cobija-le-alca",
+    "start": "El pobre se estira",
+    "ending": "hasta donde la cobija le alcanza",
+    "full": "El pobre se estira hasta donde la cobija le alcanza",
+    "literal": "The poor man stretches as far as the blanket reaches.",
+    "meaning": "You make do with the resources you have.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El pobre se estira hasta donde la cobija le alcanza",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-pobre-se-estira-hasta-donde-la-cobija-le-alcanza",
+      "verification": "Entry headword reads 'El pobre se estira hasta donde la cobija le alcanza' (case/capitalization adjusted); gloss says it the poor use all they have to survive, as far as it goes. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "al-que-nace-p-a-tamal-del-cielo-le-caen-las-hoja",
+    "start": "Al que nace p'a tamal,",
+    "ending": "del cielo le caen las hojas",
+    "full": "Al que nace p'a tamal, del cielo le caen las hojas",
+    "literal": "For whoever is born to be a tamal, the husks fall from the sky.",
+    "meaning": "What you're destined for, the means will come to you.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Al que nace p'a tamal, del cielo le caen las hojas",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/al-que-nace-p-a-tamal-del-cielo-le-caen-las-hojas",
+      "verification": "Entry headword reads 'Al que nace p'a tamal, del cielo le caen las hojas' (case/capitalization adjusted); gloss says it whoever is born for something will get the means spontaneously. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "solo-el-que-carga-el-cajon-sabe-lo-que-pesa-el-m",
+    "start": "Sólo el que carga el cajón,",
+    "ending": "sabe lo que pesa el muerto",
+    "full": "Sólo el que carga el cajón, sabe lo que pesa el muerto",
+    "literal": "Only the one carrying the coffin knows how heavy the dead man is.",
+    "meaning": "Only the one who suffers knows how much it hurts.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Sólo el que carga el cajón, sabe lo que pesa el muerto",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/solo-el-que-carga-el-cajon-sabe-lo-que-pesa-el-muerto",
+      "verification": "Entry headword reads 'Sólo el que carga el cajón, sabe lo que pesa el muerto' (case/capitalization adjusted); gloss says it only the one who bears the sorrow knows how it hurts. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "la-burra-no-era-arisca-los-palos-la-hicieron",
+    "start": "La burra no era arisca,",
+    "ending": "los palos la hicieron",
+    "full": "La burra no era arisca, los palos la hicieron",
+    "literal": "The donkey wasn't skittish; the beatings made her so.",
+    "meaning": "Distrust comes from bad experiences.",
+    "difficulty": 2,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: La burra no era arisca, los palos la hicieron",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/la-burra-no-era-arisca-los-palos-la-hicieron",
+      "verification": "Entry headword reads 'La burra no era arisca, los palos la hicieron' (case/capitalization adjusted); gloss says it distrust (like trust) is earned through experience. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "se-hace-pesado-el-muerto-cuando-siente-que-lo-ca",
+    "start": "Se hace pesado el muerto,",
+    "ending": "cuando siente que lo cargan",
+    "full": "Se hace pesado el muerto, cuando siente que lo cargan",
+    "literal": "The dead man gets heavy when he feels he's being carried.",
+    "meaning": "Give someone attention and they demand even more.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Se hace pesado el muerto, cuando siente que lo cargan",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/se-hace-pesado-el-muerto-cuando-siente-que-lo-cargan",
+      "verification": "Entry headword reads 'Se hace pesado el muerto, cuando siente que lo cargan' (case/capitalization adjusted); gloss says it someone given attention demands more and complicates things. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "peor-es-chile-y-el-agua-lejos",
+    "start": "Peor es chile",
+    "ending": "y el agua lejos",
+    "full": "Peor es chile y el agua lejos",
+    "literal": "Worse is chile with the water far away.",
+    "meaning": "Things could always be worse.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Peor es chile y el agua lejos",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/peor-es-chile-y-el-agua-lejos",
+      "verification": "Entry headword reads 'Peor es chile y el agua lejos' (case/capitalization adjusted); gloss says it culinary saying for a hard situation, from the experience of a too-spicy bite. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "en-la-vida-falta-todo-en-la-muerte-sobra-todo",
+    "start": "En la vida falta todo,",
+    "ending": "en la muerte sobra todo",
+    "full": "En la vida falta todo, en la muerte sobra todo",
+    "literal": "In life everything is lacking; in death everything is left over.",
+    "meaning": "You can't take anything with you.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: En la vida falta todo, en la muerte sobra todo",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/en-la-vida-falta-todo-en-la-muerte-sobra-todo",
+      "verification": "Entry headword reads 'En la vida falta todo, en la muerte sobra todo' (case/capitalization adjusted); gloss says it contrasts life and death via lack and surplus. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-que-tenga-miedo-a-las-espinas-que-no-entre-a",
+    "start": "El que tenga miedo a las espinas,",
+    "ending": "que no entre a la nopalera",
+    "full": "El que tenga miedo a las espinas, que no entre a la nopalera",
+    "literal": "Whoever fears thorns shouldn't enter the cactus patch.",
+    "meaning": "If you're afraid of something, don't get involved in it.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El que tenga miedo a las espinas, que no entre a la nopalera",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-tenga-miedo-a-las-espinas-que-no-entre-a-la-nopalera",
+      "verification": "Entry headword reads 'El que tenga miedo a las espinas, que no entre a la nopalera' (case/capitalization adjusted); gloss says it whoever fears something had better not get into it. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-que-hambre-tiene-en-tortillas-piensa",
+    "start": "El que hambre tiene,",
+    "ending": "en tortillas piensa",
+    "full": "El que hambre tiene, en tortillas piensa",
+    "literal": "Whoever is hungry thinks of tortillas.",
+    "meaning": "Our needs shape what we think about.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El que hambre tiene, en tortillas piensa",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-hambre-tiene-en-tortillas-piensa",
+      "verification": "Entry headword reads 'El que hambre tiene, en tortillas piensa' (case/capitalization adjusted); gloss says it how much needs influence people's thinking. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "entre-dos-cocineras-sale-aguado-el-mole",
+    "start": "Entre dos cocineras",
+    "ending": "sale aguado el mole",
+    "full": "Entre dos cocineras sale aguado el mole",
+    "literal": "Between two cooks the mole comes out watery.",
+    "meaning": "Too many cooks spoil the broth.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Entre dos cocineras sale aguado el mole",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/entre-dos-cocineras-sale-aguado-el-mole",
+      "verification": "Entry headword reads 'Entre dos cocineras sale aguado el mole' (case/capitalization adjusted); gloss says it when responsibility is spread among several, things go badly. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "vale-mas-tortilla-con-amor-que-gallina-con-dolor",
+    "start": "Vale más tortilla con amor",
+    "ending": "que gallina con dolor",
+    "full": "Vale más tortilla con amor que gallina con dolor",
+    "literal": "A tortilla with love is worth more than chicken with grief.",
+    "meaning": "A humble meal in harmony beats a feast amid quarrels.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Vale más tortilla con amor que gallina con dolor",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/vale-mas-tortilla-con-amor-que-gallina-con-dolor",
+      "verification": "Entry headword reads 'Vale más tortilla con amor que gallina con dolor' (case/capitalization adjusted); gloss says it a humble meal with love beats a banquet amid strife. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "por-las-hojas-se-conoce-el-tamal-que-es-de-mante",
+    "start": "Por las hojas se conoce",
+    "ending": "el tamal que es de manteca",
+    "full": "Por las hojas se conoce el tamal que es de manteca",
+    "literal": "By the husks you can tell the tamal made with lard.",
+    "meaning": "You can tell what people are like by outward signs.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Por las hojas se conoce el tamal que es de manteca",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/por-las-hojas-se-conoce-el-tamal-que-es-de-manteca",
+      "verification": "Entry headword reads 'Por las hojas se conoce el tamal que es de manteca' (case/capitalization adjusted); gloss says it appearances reveal what people are like. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-que-con-coyotes-anda-a-aullar-se-ensena",
+    "start": "El que con coyotes anda,",
+    "ending": "a aullar se enseña",
+    "full": "El que con coyotes anda, a aullar se enseña",
+    "literal": "Whoever runs with coyotes learns to howl.",
+    "meaning": "You pick up the habits of the company you keep.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El que con coyotes anda, a aullar se enseña",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-que-con-coyotes-anda-a-aullar-se-ensena",
+      "verification": "Entry headword reads 'El que con coyotes anda, a aullar se enseña' (case/capitalization adjusted); gloss says it customs are acquired from one's everyday surroundings. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "companeros-del-camino-pero-no-del-itacate",
+    "start": "Compañeros del camino,",
+    "ending": "pero no del itacate",
+    "full": "Compañeros del camino, pero no del itacate",
+    "literal": "Companions on the road, but not of the packed lunch.",
+    "meaning": "Friendship has limits; some things aren't shared.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Compañeros del camino, pero no del itacate",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/companeros-del-camino-pero-no-del-itacate",
+      "verification": "Entry headword reads 'Compañeros del camino, pero no del itacate' (case/capitalization adjusted); gloss says it excludes certain things from the rights of friendship. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "si-yo-supiera-mi-suerte-me-reiria-hasta-de-la-mu",
+    "start": "Si yo supiera mi suerte,",
+    "ending": "me reiría hasta de la muerte",
+    "full": "Si yo supiera mi suerte, me reiría hasta de la muerte",
+    "literal": "If I knew my fate, I'd laugh even at death.",
+    "meaning": "A lament about the uncertainty of the future.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Si yo supiera mi suerte, me reiría hasta de la muerte",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/si-yo-supiera-mi-suerte-me-reiria-hasta-de-la-muerte",
+      "verification": "Entry headword reads 'Si yo supiera mi suerte, me reiría hasta de la muerte' (case/capitalization adjusted); gloss says it a complaint about the uncertainty of the future. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "el-corazon-no-envejece-el-cuero-es-el-que-se-arr",
+    "start": "El corazón no envejece,",
+    "ending": "el cuero es el que se arruga",
+    "full": "El corazón no envejece, el cuero es el que se arruga",
+    "literal": "The heart doesn't age; it's the skin that wrinkles.",
+    "meaning": "Love and youthfulness have no age.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: El corazón no envejece, el cuero es el que se arruga",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/el-corazon-no-envejece-el-cuero-es-el-que-se-arruga",
+      "verification": "Entry headword reads 'El corazón no envejece, el cuero es el que se arruga' (case/capitalization adjusted); gloss says it love has no age; one who loves is young despite appearances. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "mas-vale-gota-que-dure-y-no-chorro-que-pare",
+    "start": "Más vale gota que dure,",
+    "ending": "y no chorro que pare",
+    "full": "Más vale gota que dure, y no chorro que pare",
+    "literal": "Better a drip that lasts than a gush that stops.",
+    "meaning": "Small and steady beats big and brief.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Más vale gota que dure, y no chorro que pare",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/mas-vale-gota-que-dure-y-no-chorro-que-pare",
+      "verification": "Entry headword reads 'Más vale gota que dure, y no chorro que pare' (case/capitalization adjusted); gloss says it a small lasting thing is better than a large momentary one. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "cuando-uno-esta-de-malas-ni-presa-le-halla-al-ta",
+    "start": "Cuando uno está de malas,",
+    "ending": "ni presa le halla al tamal",
+    "full": "Cuando uno está de malas, ni presa le halla al tamal",
+    "literal": "When you're out of luck, you can't even find the meat in your tamal.",
+    "meaning": "When luck is bad, everything goes wrong.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Cuando uno está de malas, ni presa le halla al tamal",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/cuando-uno-esta-de-malas-ni-presa-le-halla-al-tamal",
+      "verification": "Entry headword reads 'Cuando uno está de malas, ni presa le halla al tamal' (case/capitalization adjusted); gloss says it when someone is down on their luck, everything goes wrong. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  },
+  {
+    "id": "amor-viejo-y-camino-real-nunca-se-dejan-de-andar",
+    "start": "Amor viejo y camino real,",
+    "ending": "nunca se dejan de andar",
+    "full": "Amor viejo y camino real, nunca se dejan de andar",
+    "literal": "An old love and the king's highway never stop being traveled.",
+    "meaning": "People always return to an old love, like a safe road.",
+    "difficulty": 3,
+    "source": {
+      "title": "Refranero mexicano (Herón Pérez Martínez, AML/FCE 2004) – Academia Mexicana de la Lengua: Amor viejo y camino real, nunca se dejan de andar",
+      "url": "https://academia.org.mx/consultas/obras-de-consulta-en-linea/refranero-mexicano/item/amor-viejo-y-camino-real-nunca-se-dejan-de-andar",
+      "verification": "Entry headword reads 'Amor viejo y camino real, nunca se dejan de andar' (case/capitalization adjusted); gloss says it one always returns to an old love as to a safe place. Fetched page HTML with curl and read the entry text; 2026-10-28."
+    }
+  }
+]

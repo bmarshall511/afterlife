@@ -9,6 +9,10 @@
  *  room:     { options: [{label,text}], counts: number[], guesses: [{teamId,name,option,guess|null,actual}] }
  *  closest:  { unit, min, max }                                              correct = number; guesses = outcomes[].value
  *  case:     q1/q2 { locked, thinking }; q3 { final: true, people?, slots? }; correct = {personId: slotId} (only on q3)
+ *  dichos:   { full, literal, meaning }                                       correct = option index
+ *  price:    { unit?: "MXN", checked?: "2026-10-01" } + source               correct = number (pesos)
+ *  fib:      { featuredTeamId, featuredTeamName, statements, fibIndex, votes: number[3] }   correct = fib index
+ * Fib vote stage: featured family = q.scene.data {featuredTeamId, featuredTeamName}
  * Case scene data (q.scene.data): { people:[{id,name,bio,offering,icon}], slots:[{id,label}], clues?:[{text,round}] }
  * The case board is drawn here in HTML (not via SceneView) so names/bios/clues stay legible at TV distance.
  */
@@ -369,14 +373,31 @@ export function RoomR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo | n
 
 /* =============================================================== closest */
 
+export const pesos = (v: number) => `$${v.toLocaleString("en-US")} MXN`;
+const isPeso = (u?: string | null) => !!u && /^(mxn|pesos?|\$)$/i.test(u);
+
 export function ClosestQ({ s, q }: { s: Snapshot; q: PublicQuestion }) {
   const spec = inputOf(q, "number");
+  if (q.family === "price") {
+    return (
+      <div className="tv-body closest-q price-q">
+        <div className="tv-eyebrow accent">¿Cuánto cuesta? · How much in Mexico?</div>
+        <h2 className={`tv-statement ${q.prompt.length > 110 ? "sm" : ""}`}>{q.prompt}</h2>
+        <div className="closest-tags">
+          <span className="closest-unit price-tag"><b>$</b> Answer in pesos (MXN)</span>
+          <span className="closest-rule"><Icon name="bust" /> Over the real price scores zero</span>
+        </div>
+        {q.detail && <p className="room-q-small">{q.detail}</p>}
+        <Locked s={s} label="locked in" />
+      </div>
+    );
+  }
   return (
     <div className="tv-body closest-q">
       <h2 className={`tv-statement ${q.prompt.length > 110 ? "sm" : ""}`}>{q.prompt}</h2>
       <div className="closest-tags">
         {(spec?.unit || q.detail) && <span className="closest-unit">{q.detail ?? <>Answer in <b>{spec?.unit}</b></>}</span>}
-        <span className="closest-rule"><Icon name="bust" /> Over the real number scores zero</span>
+        <span className="closest-rule"><Icon name="bust" /> Over the real {(q.family as string) === "price" ? "price" : "number"} scores zero</span>
       </div>
       <Locked s={s} label="locked in" />
     </div>
@@ -404,7 +425,8 @@ export function ClosestR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo 
     laneEnd[k] = p + w / 2 + 1;
     return k;
   });
-  const fmt = (v: number) => `${v.toLocaleString("en-US")}${unit ? ` ${unit}` : ""}`;
+  const fmt = (v: number) => (q.family === "price" || isPeso(unit) ? pesos(v) : `${v.toLocaleString("en-US")}${unit ? ` ${unit}` : ""}`);
+  const checked = str(d.checked);
   return (
     <div className="tv-body closest-r">
       <h2 className="tv-prompt muted">{q.prompt}</h2>
@@ -424,6 +446,118 @@ export function ClosestR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo 
         })}
         <div className="nl-ends"><span>{fmt(lo)}</span><span>{fmt(Math.round(hi))}</span></div>
       </div>
+      <div className="tv-r-foot"><div>
+        {reveal?.explanation && <p className="tv-explain">{reveal.explanation}</p>}
+        {reveal?.source?.title && <p className="tv-source">{q.family === "price" ? "Price per " : "Source · "}{reveal.source.title}{checked ? `, checked ${checked}` : ""}</p>}
+      </div><Outcomes reveal={reveal} /></div>
+    </div>
+  );
+}
+
+/* ================================================================ dichos */
+
+export function DichosQ({ s, q }: { s: Snapshot; q: PublicQuestion }) {
+  const opts = inputOf(q, "choice")?.options ?? [];
+  return (
+    <div className="tv-body dichos">
+      <div className="tv-eyebrow accent">Termina el dicho · Finish the saying</div>
+      <h2 className="dicho-start">“{q.prompt.replace(/[….\s]+$/, "")}<span className="dicho-dots">…</span>”</h2>
+      <ol className="tv-options cols-2">
+        {opts.map((o, i) => (
+          <li key={i} className="tv-opt" style={{ animationDelay: `${0.1 * i}s` }}><span className="tv-opt-label">{o.label}</span><span className="tv-opt-text">…{o.text}</span></li>
+        ))}
+      </ol>
+      <Locked s={s} label="locked in" />
+    </div>
+  );
+}
+
+export function DichosR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo | null }) {
+  const opts = inputOf(q, "choice")?.options ?? [];
+  const c = typeof reveal?.correct === "number" ? reveal.correct : -1;
+  const d = rec(reveal?.detail);
+  const full = str(d.full) ?? `${q.prompt.replace(/[….\s]+$/, "")} ${opts[c]?.text ?? ""}`;
+  return (
+    <div className="tv-body dichos">
+      <h2 className="dicho-full">“{full}”</h2>
+      {str(d.literal) && <p className="dicho-literal"><span>Literally</span>“{str(d.literal)}”</p>}
+      {str(d.meaning) && <p className="dicho-meaning"><span>Meaning</span>{str(d.meaning)}</p>}
+      <ol className="tv-options cols-2 revealed">
+        {opts.map((o, i) => (
+          <li key={i} className={`tv-opt ${i === c ? "correct" : "dim"}`}><span className="tv-opt-label">{i === c ? <Icon name="check" /> : o.label}</span><span className="tv-opt-text">…{o.text}</span>{i === c && <span className="tv-opt-badge">Real</span>}</li>
+        ))}
+      </ol>
+      <div className="tv-r-foot"><div>{reveal?.source?.title && <p className="tv-source">Source · {reveal.source.title}</p>}</div><Outcomes reveal={reveal} /></div>
+    </div>
+  );
+}
+
+/* =================================================================== fib */
+
+export function fibFeatured(q: PublicQuestion): { teamId: string | null; name: string | null } {
+  const sd = rec(q.scene?.data);
+  return { teamId: str(sd.featuredTeamId) ?? str(sd.teamId), name: str(sd.featuredTeamName) ?? str(sd.teamName) ?? str(q.detail) };
+}
+
+export function FibQ({ s, q }: { s: Snapshot; q: PublicQuestion }) {
+  if (s.phase.stage === "write") {
+    const spec = inputOf(q, "fib");
+    return (
+      <div className="tv-body fib-write">
+        <div className="tv-eyebrow accent">Write on your phone · two truths, one fib</div>
+        <h2 className="tv-statement md">{spec?.prompt ?? q.prompt}</h2>
+        <ol className="fib-steps">
+          <li><b>1</b>Write three short things about your family</li>
+          <li><b>2</b>Make one of them a believable fib</li>
+          <li><b>3</b>Mark which one is the fib</li>
+        </ol>
+        <Locked s={s} label="done writing" />
+      </div>
+    );
+  }
+  const opts = inputOf(q, "choice")?.options ?? [];
+  const f = fibFeatured(q);
+  return (
+    <div className="tv-body fib-vote">
+      <div className="fib-feature"><span>On the spot</span><b>{f.name ?? "A mystery family"}</b></div>
+      <p className="room-q-small">{q.prompt}</p>
+      <ol className="fib-statements">
+        {opts.map((o, i) => (
+          <li key={i} style={{ animationDelay: `${0.15 * i}s` }}><span className="cal-letter">{o.label}</span><span className="cal-text">{o.text}</span></li>
+        ))}
+      </ol>
+      <Locked s={s} label="voted" />
+    </div>
+  );
+}
+
+export function FibR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo | null }) {
+  const d = rec(reveal?.detail);
+  const stmts = arr<string>(d.statements);
+  const opts = inputOf(q, "choice")?.options ?? stmts.map((t, i) => ({ label: String.fromCharCode(65 + i), text: t }));
+  const fib = typeof reveal?.correct === "number" ? reveal.correct : num(d.fibIndex) ?? num(d.fib) ?? -1;
+  const counts = arr<number>(d.votes).length ? arr<number>(d.votes) : arr<number>(d.counts);
+  const total = Math.max(1, counts.reduce((a, b) => a + b, 0));
+  const name = str(d.featuredTeamName) ?? str(d.teamName) ?? fibFeatured(q).name;
+  const fooled = fib >= 0 ? total - (counts[fib] ?? 0) : 0;
+  return (
+    <div className="tv-body fib-r">
+      {reveal?.void ? <Void reveal={reveal} /> : (
+        <div className="fib-feature"><span>{name ?? "They"} fooled</span><b>{fooled} of {counts.length ? total : "—"}</b></div>
+      )}
+      <ol className="fib-statements revealed">
+        {opts.map((o, i) => {
+          const isFib = i === fib;
+          return (
+            <li key={i} className={isFib ? "fib" : "truth"}>
+              <span className="cal-letter">{o.label}</span>
+              <span className="cal-text">{o.text}</span>
+              <span className="fib-tag">{isFib ? <><Icon name="x" /> The fib</> : <><Icon name="check" /> True</>}</span>
+              <span className="fib-votes"><span className="cal-r-bar"><i style={{ width: `${((counts[i] ?? 0) / total) * 100}%` }} /></span>{counts[i] ?? 0} {counts[i] === 1 ? "vote" : "votes"}</span>
+            </li>
+          );
+        })}
+      </ol>
       <div className="tv-r-foot"><div><Explain reveal={reveal} /></div><Outcomes reveal={reveal} /></div>
     </div>
   );
@@ -548,5 +682,8 @@ export function valueText(q: PublicQuestion, v: AnswerValue | null | undefined):
     const n = inputOf(q, "number"); if (n) return `${v}${n.unit ? ` ${n.unit}` : ""}`;
     return String(v);
   }
-  return typeof v === "string" ? v : Array.isArray(v) ? v.join(", ") : Object.keys(v).length + " assigned";
+  if (typeof v === "string") return v;
+  if (Array.isArray(v)) return v.join(", ");
+  if ("statements" in v && Array.isArray(v.statements)) return v.statements.join(" · ");
+  return Object.keys(v).length + " assigned";
 }

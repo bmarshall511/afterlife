@@ -60,11 +60,12 @@ function valueFor(input: any): unknown {
     case "number": return input.min + Math.round(((input.max - input.min) * 0.3) / input.step) * input.step;
     case "text": return "and asked where the good tamales were hidden.";
     case "percent": return 40;
+    case "fib": return { statements: ["We once drove to Oaxaca without a map", "Abuelo can juggle oranges", "Our dog speaks fluent Spanish"], fib: 2 };
   }
   return null;
 }
 
-const GAMES = [["line", "The Line"], ["loteria", "La Lotería"], ["closest", "Closest Without Going Over"], ["room", "Read the Room"], ["calavera", "La Calavera"]] as const;
+const GAMES = [["line", "The Line"], ["loteria", "La Lotería"], ["closest", "Closest Without Going Over"], ["room", "Read the Room"], ["calavera", "La Calavera"], ["dichos", "Dichos"], ["price", "¿Cuánto Cuesta?"], ["fib", "Two Truths & a Fib"]] as const;
 for (const [fam, chip] of GAMES) {
   log(`\n=== ${chip}`);
   await bar.getByRole("button", { name: chip, exact: true }).click();
@@ -93,7 +94,8 @@ for (const [fam, chip] of GAMES) {
         v = s.question.input.entries.find((e: any) => e.id !== me.current.ownEntryId)?.id;
       }
       const r = await meSubmit(v);
-      if (r.status !== 200) problems.push(`${key} phone submit failed ${r.status} ${r.body.slice(0, 160)}`);
+      const featured = s.question.scene?.data?.featuredTeamId && (await ph.evaluate(async () => (await fetch("/api/me?party=demo")).json())).team.id === s.question.scene.data.featuredTeamId;
+      if (r.status !== 200 && !(featured && /self_vote/.test(r.body))) problems.push(`${key} phone submit failed ${r.status} ${r.body.slice(0, 160)}`);
       const t0 = Date.now();
       let closed = false;
       for (let i = 0; i < 25; i++) {

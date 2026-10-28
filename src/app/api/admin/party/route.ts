@@ -24,7 +24,7 @@ export const GET = adminRoute(async (req, { db }) => {
   });
 });
 
-const ACTIONS = ["demo_next", "demo_game", "demo_bots", "demo_photos", "demo_break", "start", "pause", "resume", "skip", "invalidate", "extend", "mode", "settings", "end", "reset", "final_round"] as const;
+const ACTIONS = ["demo_next", "demo_game", "demo_bots", "demo_photos", "demo_break", "start", "pause", "resume", "skip", "invalidate", "extend", "mode", "settings", "end", "reset", "final_round", "after_dark"] as const;
 
 export const POST = adminRoute(async (req, { db, admin }) => {
   const b = await body(req);
@@ -51,7 +51,7 @@ export const POST = adminRoute(async (req, { db, admin }) => {
       // Demo only: play one chosen game next (or `null` to go back to the normal mix), jumping straight to its intro.
       if (party !== "demo") throw new HttpError(403, "demo_only", "Only available on the demo party.");
       // The Ofrenda Case is retired from the party, so it isn't offered here.
-      const fams = ["calavera", "line", "loteria", "room", "closest"];
+      const fams = ["calavera", "line", "loteria", "room", "closest", "dichos", "fib", "price"];
       const fam = typeof b.family === "string" && fams.includes(b.family) ? b.family : null;
       await callControl("updateSettings", party, { families: fam ? [fam] : fams }, actor);
       // One tap should get the host playing: start the demo and add stand-in families if nobody has joined yet.
@@ -100,6 +100,11 @@ export const POST = adminRoute(async (req, { db, admin }) => {
       result = await callControl("updateSettings", party, clean, actor);
       break;
     }
+    case "after_dark":
+      // {on:boolean}: include "after-dark" rated content from the next question on (audited).
+      if (typeof b.on !== "boolean") throw new HttpError(400, "invalid", "Send on: true or false.");
+      result = await callControl("setAfterDark", party, actor, b.on);
+      break;
     case "final_round":
       // Marks the NEXT set "Last chance" (points ×2). {on:false} cancels a pending mark.
       result = await callControl("markFinalRound", party, actor, b.on !== false);

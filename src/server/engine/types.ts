@@ -1,4 +1,4 @@
-import type { AnswerValue, GameFamily, PartyId, PublicQuestion, PublicTribute, PublicSlide, RevealInfo, Stage } from "@/shared/types";
+import type { ContentRating, AnswerValue, GameFamily, PartyId, PublicQuestion, PublicTribute, PublicSlide, RevealInfo, Stage } from "@/shared/types";
 import type { Q } from "@/server/db";
 
 /** Mirror of the v2 content contract (docs/GAMES-V2.md "Shared module interfaces"). */
@@ -17,6 +17,8 @@ export interface ContentItem {
   /** secret */
   answer: AnswerValue | null;
   explanation: string;
+  /** "after-dark" plays only with settings.afterDark */
+  rating?: ContentRating;
   source?: { title: string; url: string; verification: string };
 }
 
@@ -58,6 +60,12 @@ export interface Settings {
   remembranceMaxChars: number;
   /** families allowed to be scheduled (admin can disable some) */
   families: GameFamily[];
+  dichosAnswerMs: number;
+  priceAnswerMs: number;
+  fibWriteMs: number;
+  fibVoteMs: number;
+  /** After Dark: include content rated "after-dark" (default false) */
+  afterDark: boolean;
   joinUrl: string;
   appName: string;
 }

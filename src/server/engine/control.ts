@@ -338,3 +338,14 @@ export function demoJumpToPhotos(partyId: string, actor: string, now = Date.now(
     p.phase = { kind: "interval", startsAt: now - s.intervalTributeMs, endsAt: now + Math.max(120_000, s.intervalMs - s.intervalTributeMs), tribute: null, slide: null };
   });
 }
+
+/**
+ * After Dark toggle (settings.afterDark). Applies to the next question chosen: an already planned after-dark
+ * question is swapped before it opens when switched off; never changes a question mid-way.
+ */
+export function setAfterDark(partyId: string, actor: string, on: boolean, now = Date.now()) {
+  return withParty<{ afterDark: boolean }>(partyId, actor, "after_dark", { on: !!on }, now, async (_q, p) => {
+    p.settings = { ...p.settings, afterDark: !!on };
+    return { afterDark: !!on };
+  });
+}

@@ -13,6 +13,8 @@ export const MOCK_STATES = [
   "q-room-answer", "q-room-guess", "q-room-guess-noanswer", "reveal-room",
   "q-closest", "q-closest-noncaptain", "reveal-closest",
   "q-case-clue", "q-case-answer", "q-case-locked", "reveal-case-mid", "reveal-case-final",
+  "q-dichos", "reveal-dichos", "q-price", "reveal-price",
+  "q-fib-write", "q-fib-write-saved", "q-fib-vote", "q-fib-vote-featured", "reveal-fib",
   "results", "results-doubled", "interval", "interval-slide", "interval-slide-portrait", "interval-tribute", "interval-tribute-wide", "paused", "offline", "practice", "away", "longnames",
 ] as const;
 
@@ -94,6 +96,19 @@ function question(fam: GameFamily, stage: Stage, index: number, round = index + 
     case "closest": return { id: "q-close", family: fam, index, difficulty: 2,
       prompt: "How tall is the Pyramid of the Sun at Teotihuacan?", detail: "In meters",
       input: { kind: "number", min: 0, max: 200, step: 1, unit: "m" } };
+    case "dichos": return { id: "q-dicho", family: fam, index, difficulty: 1, prompt: "Camarón que se duerme…",
+      input: { kind: "choice", layout: "list", options: [
+        { label: "A", text: "se lo lleva la corriente" }, { label: "B", text: "despierta en un taco" },
+        { label: "C", text: "sueña con limones" }, { label: "D", text: "pierde la siesta y el lugar" } ] } };
+    case "price": return { id: "q-price", family: fam, index, difficulty: 2, prompt: "A single ride on the Mexico City Metro.",
+      input: { kind: "number", min: 0, max: 100, step: 0.5, unit: "MXN" } };
+    case "fib": return { id: "q-fib", family: fam, index, difficulty: 1, prompt: "…about your family’s worst road trip",
+      scene: stage === "vote" ? { template: "fib-featured", seed: "f", data: { featuredTeamId: "t3", featuredTeamName: "Tía Carmen's Table" } } : null,
+      input: stage === "write" ? { kind: "fib", maxLength: 80, prompt: "Three things about your family’s worst road trip" }
+        : { kind: "choice", layout: "list", options: [
+          { label: "A", text: "We drove to Puebla with a live turkey in the back seat." },
+          { label: "B", text: "Tío Beto got us lost for six hours using a paper map from 1987." },
+          { label: "C", text: "We once left Abuela at a gas station in Querétaro." } ] } };
     case "case": return { id: `q-case-${round}`, family: fam, index: round - 1, difficulty: 3,
       prompt: "Four ancestors. Four altars. Who goes where?",
       detail: caseClues.filter((c) => c.round <= round).map((c) => c.text).join("\n"),
@@ -103,6 +118,18 @@ function question(fam: GameFamily, stage: Stage, index: number, round = index + 
 }
 
 const reveals: Record<GameFamily, (round?: number) => RevealInfo> = {
+  dichos: () => ({ correct: 0, explanation: "",
+    source: { title: "Real Academia Española · Refranero", url: "https://www.rae.es" },
+    detail: { full: "Camarón que se duerme se lo lleva la corriente", literal: "The shrimp that falls asleep gets carried away by the current", meaning: "If you’re not paying attention, you’ll miss out." },
+    outcomes: [{ ...T(0), points: 100 }, { ...T(1), points: 100 }, { ...T(2), points: 100 }, { ...T(3), points: 0 }, { ...T(4), points: 100 }, { ...T(5), points: 0 }] }),
+  price: () => ({ correct: 5, explanation: "One flat fare covers any trip, transfers included.",
+    source: { title: "Sistema de Transporte Colectivo Metro", url: "https://www.metro.cdmx.gob.mx" },
+    detail: { unit: "MXN", min: 0, max: 100, checked: "2026-10-01" },
+    outcomes: [{ ...T(2), points: 100, value: 5, note: "Exact" }, { ...T(0), points: 75, value: 4.5 }, { ...T(1), points: 0, value: 12, note: "Over" },
+      { ...T(3), points: 25, value: 3 }, { ...T(4), points: 0, value: 25, note: "Over" }, { ...T(5), points: 50, value: 3.5 }] }),
+  fib: () => ({ correct: 0, explanation: "No turkeys were harmed. There was never a turkey.",
+    detail: { featuredTeamId: "t3", featuredTeamName: "Tía Carmen's Table", fibIndex: 0, votes: [1, 3, 1] },
+    outcomes: [{ ...T(2), points: 80, note: "Fooled 4 of 5" }, { ...T(0), points: 100 }, { ...T(1), points: 0 }, { ...T(3), points: 0 }, { ...T(4), points: 0 }, { ...T(5), points: 0 }] }),
   calavera: () => ({ correct: null, explanation: "The house would have said…",
     detail: {
       entries: [
@@ -152,7 +179,7 @@ function base(now: number): Snapshot {
 
 interface Parsed { fam: GameFamily; stage: Stage; index: number; round: number; reveal: boolean }
 function parse(name: string): Parsed | null {
-  const m = /^(q|reveal)-(calavera|line|loteria|room|closest|case)(?:-(.*))?$/.exec(name);
+  const m = /^(q|reveal)-(calavera|line|loteria|room|closest|case|dichos|price|fib)(?:-(.*))?$/.exec(name);
   if (!m) {
     if (name === "practice" || name === "offline" || name === "paused") return { fam: "line", stage: "answer", index: 1, round: 2, reveal: false };
     if (name === "longnames") return { fam: "closest", stage: "answer", index: 0, round: 1, reveal: false };
@@ -160,7 +187,7 @@ function parse(name: string): Parsed | null {
   }
   const fam = m[2] as GameFamily, rest = m[3] ?? "", rev = m[1] === "reveal";
   let stage: Stage = "answer";
-  if (fam === "calavera") stage = rest.startsWith("vote") || rev ? "vote" : "write";
+  if (fam === "calavera" || fam === "fib") stage = rest.startsWith("vote") || rev ? "vote" : "write";
   if (fam === "room") stage = rest.startsWith("guess") || rev ? "guess" : "answer";
   if (fam === "case") stage = rest === "clue" ? "clue" : "answer";
   const round = fam === "case" ? (rest === "locked" || rest === "final" ? 3 : 2) : 1;
@@ -229,12 +256,14 @@ export function mockMe(name: string): MeView {
   let reasonCannot: MeView["current"]["reasonCannot"];
   if (name === "q-calavera-write-saved") saved = { stage: "write", value: "Now he’s six feet under — still twenty minutes late." };
   if (name === "q-calavera-vote-saved") saved = { stage: "vote", value: "e2" };
+  if (name === "q-fib-write-saved") saved = { stage: "write", value: { statements: ["We once drove 14 hours for one taco stand.", "Abuela navigates by churches, not streets.", "Our car has a name: La Tortuga."], fib: 0 } };
   if (name === "q-line-saved") saved = { stage: "answer", value: ["l1", "l3", "l4", "l2"] };
   if (name === "q-room-guess") prior = { stage: "answer", value: 3 };
   if (name === "q-room-guess-noanswer") reasonCannot = "need_answer";
   if (name === "q-case-locked") { prior = { stage: "answer", value: { p1: "s1", p2: "s2", p3: "s3", p4: "s4" } }; reasonCannot = "already_locked"; }
   if (name === "q-case-clue") reasonCannot = "watching";
   if (name === "q-loteria-late") reasonCannot = "late_join";
+  if (name === "q-fib-vote-featured") reasonCannot = "watching";
   if (!captain) reasonCannot = "not_captain";
   const fam = p?.fam;
   const max = fam === "case" ? 300 : 100;
@@ -246,11 +275,13 @@ export function mockMe(name: string): MeView {
       : fam === "room" ? { points: 85, max, note: "You guessed 45% · actual 50%" }
       : fam === "calavera" ? { points: 60, max, note: "2 votes + 10 for voting" }
       : fam === "line" ? { points: 100, max, note: "Perfect order" }
+      : fam === "price" ? { points: 75, max, note: "$4.50 MXN — just under" }
+      : fam === "fib" ? { points: 100, max, note: "You spotted the fib" }
       : { points: 100, max }
     : null;
   return {
     member: { id: "m1", name: "Ben", isCaptain: captain },
-    team: { ...teams[0], name: name === "longnames" ? "The Extremely Long Family Name Of Great-Grandma Esperanza" : teams[0].name,
+    team: { ...(name === "q-fib-vote-featured" ? teams[2] : teams[0]), name: name === "q-fib-vote-featured" ? teams[2].name : name === "longnames" ? "The Extremely Long Family Name Of Great-Grandma Esperanza" : teams[0].name,
       status: name === "away" ? "away" : "active", inviteCode: "MARI-7Q", captainName: captain ? "Ben" : "Lucía", memberCount: 3 },
     current: {
       questionId: live ? question(live.fam, live.stage, live.index, live.round).id : p ? question(p.fam, p.stage, p.index, p.round).id : null,

@@ -175,6 +175,9 @@ export async function submitAnswer(partyId: string, memberId: string, input: Ans
       const own = (await q.query(`SELECT id FROM answer WHERE question_id=$1 AND team_id=$2 AND kind='write'`, [questionId, m.team_id]))[0];
       if (own && entryId(questionId, own.id) === value) throw new EngineError("self_vote", "You can't vote for your own verse", 409);
     }
+    if (ph.family === "fib" && stage === "vote" && qrow.private?.featured?.teamId === m.team_id)
+      throw new EngineError("self_vote", "Your family is on the TV — others are guessing", 409);
+    if (spec.kind === "fib" && (value as { statements: string[] }).statements.some((x) => isFiltered(x))) throw new EngineError("filtered", "Keep it family-friendly", 422);
     if (spec.kind === "text" && isFiltered(value as string)) throw new EngineError("filtered", "Keep it family-friendly", 422);
     const ins = await q.query(
       `INSERT INTO answer (id, party_id, question_id, team_id, member_id, kind, choice, value, request_id, created_at) VALUES ($1,$2,$3,$4,$5,$6,NULL,$7,$8,$9)

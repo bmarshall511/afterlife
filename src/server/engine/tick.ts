@@ -7,7 +7,8 @@ import { chooseMixed, chooseSet, markExposed, mixedFamilies, pickReplacement } f
 import { settingsOf } from "./settings";
 import { firstStage, isWatchStage, nextStage, questionMax, revealMsFor, stageMs } from "./stages";
 import { asIds, audit, loadParty, saveParty } from "./store";
-import { roomActual, roomVoid, scoreCalavera, scoreCase, correctPairs, scoreClosest, scoreLine, scoreLoteria, scoreRoom } from "./scoring";
+import { makeFeatured, unshownEntry, type Featured } from "./fib";
+import { scoreFib, fibVoid, roomActual, roomVoid, scoreCalavera, scoreCase, correctPairs, scoreClosest, scoreLine, scoreLoteria, scoreRoom } from "./scoring";
 import type { ContentItem, ContentSource, PartyRow, PhaseState, Settings, StoredOutcome, VoteEntry } from "./types";
 
 /**
@@ -29,7 +30,7 @@ export async function tick(partyId: string, now: number = Date.now()): Promise<{
 }
 
 const SET_KINDS = new Set(["intro", "question", "reveal"]);
-const SOCIAL = new Set<GameFamily>(["calavera", "room"]);
+const SOCIAL = new Set<GameFamily>(["calavera", "room", "fib"]);
 
 async function activeTeamIds(q: Q, partyId: string): Promise<string[]> {
   const r = await q.query(`SELECT id FROM team WHERE party_id=$1 AND status='active' ORDER BY created_at, id`, [partyId]);
@@ -329,8 +330,19 @@ async function openQuestion(q: Q, p: PartyRow, s: Settings, idx: number, t: numb
       if (Number(n) < 3) f = await replaceQuestion(q, p, s, row.id, idx, t);
     }
   }
+  // After Dark switched off since the set was planned: never show an after-dark item (swap before it opens).
+  if (row.private?.item?.rating === "after-dark" && !s.afterDark) f = await replaceQuestion(q, p, s, row.id, idx, t);
   await q.query(`UPDATE question SET status='open', opened_at=$2 WHERE id=$1`, [row.id, iso(t)]);
-  const st = firstStage(f);
+  let st = firstStage(f);
+  if (f === "fib") {
+    // Written entries are kept for the party: feature an unshown one and skip straight to the vote.
+    const e = await unshownEntry(q, p.id);
+    if (e) {
+      const r = await qPrivate(q, row.id);
+      await setPrivate(q, row.id, { ...r.private, featured: makeFeatured(row.id, e) });
+      st = "vote";
+    }
+  }
   p.phase = { kind: "question", startsAt: t, endsAt: t + stageMs(s, f, st), setId: ph.setId, setSeq: ph.setSeq, family: f, qIndex: idx, stage: st, stageStartsAt: t, questionId: row.id, ...(ph.doubled ? { doubled: true } : {}) };
 }
 
@@ -397,6 +409,29 @@ async function endStage(q: Q, p: PartyRow, s: Settings, t: number) {
     }
     entries = shuffle(entries, qid);
     await setPrivate(q, qid, { ...r.private, voteEntries: entries });
+  } else if (f === "fib" && st === "write") {
+    const r = await qPrivate(q, qid);
+    const ans = await q.query(
+      `SELECT a.id, a.team_id, a.value, t.status FROM answer a JOIN team t ON t.id=a.team_id WHERE a.question_id=$1 AND a.kind='write' AND NOT a.hidden ORDER BY a.created_at, a.id`,
+      [qid],
+    );
+    const active = ans.filter((a) => a.status === "active");
+    const pool = active.length ? active : ans;
+    if (!pool.length) {
+      await voidQuestion(q, qid, "too_few_fibs", t);
+      return toReveal(p, s, t);
+    }
+    const pick = shuffle(pool, `${qid}:feature`)[0];
+    await setPrivate(q, qid, { ...r.private, featured: makeFeatured(qid, pick) });
+  } else if (f === "fib" && st === "vote") {
+    const r = await qPrivate(q, qid);
+    const fe = r.private.featured as Featured | undefined;
+    const hidden = fe ? (await q.query(`SELECT hidden FROM answer WHERE id=$1`, [fe.answerId]))[0]?.hidden : true;
+    const voters = fe ? (await q.query(`SELECT COUNT(*)::int n FROM answer WHERE question_id=$1 AND kind='vote' AND team_id<>$2`, [qid, fe.teamId]))[0].n : 0;
+    if (!fe || hidden || fibVoid(Number(voters))) {
+      await voidQuestion(q, qid, !fe || hidden ? "entry_hidden" : "too_few_voters", t);
+      return toReveal(p, s, t);
+    }
   } else if (f === "room" && st === "answer") {
     const r = await qPrivate(q, qid);
     const eligible = await eligibleOf(q, r.set_id);
@@ -452,11 +487,26 @@ export async function scoreQuestion(q: Q, partyId: string, setId: string, qid: s
       }
       break;
     case "loteria":
+    case "dichos":
       for (const a of byKind("answer")) {
         pts.set(a.team_id, scoreLoteria(a.value, item.answer as number));
         outcomes.set(a.team_id, { teamId: a.team_id, points: 0, value: a.value });
       }
       break;
+    case "fib": {
+      const fe = priv.featured as Featured;
+      const votes = byKind("vote").map((a) => ({ teamId: a.team_id as string, choice: Number(a.value) }));
+      const res = scoreFib(fe.teamId, fe.fibShown, votes);
+      teams.add(fe.teamId);
+      for (const [tm, pt] of res.points) pts.set(tm, pt);
+      const split = [0, 0, 0];
+      for (const v of votes) if (v.teamId !== fe.teamId && split[v.choice] != null) split[v.choice]++;
+      for (const v of votes) if (v.teamId !== fe.teamId) outcomes.set(v.teamId, { teamId: v.teamId, points: 0, value: v.choice, note: v.choice === fe.fibShown ? "spotted the fib" : "fooled" });
+      outcomes.set(fe.teamId, { teamId: fe.teamId, points: 0, value: null, note: `featured: fooled ${res.fooled} of ${res.voters}` });
+      detail = { featuredTeamId: fe.teamId, statements: fe.statements, fibIndex: fe.fibShown, votes: split };
+      break;
+    }
+    case "price":
     case "closest": {
       const g = byKind("answer").map((a) => ({ teamId: a.team_id as string, guess: Number(a.value) }));
       const res = scoreClosest(g, Number(item.answer));
@@ -599,6 +649,10 @@ export async function maybeEarlyClose(q: Q, p: PartyRow, now: number): Promise<b
   const eligible = await eligibleOf(q, ph.setId!);
   let need = (await q.query(`SELECT id FROM team WHERE id = ANY($1::uuid[]) AND status='active'`, [eligible])).map((r) => r.id as string);
   const got = new Set((await q.query(`SELECT team_id FROM answer WHERE question_id=$1 AND kind=$2`, [ph.questionId, ph.stage])).map((r) => r.team_id as string));
+  if (ph.family === "fib" && ph.stage === "vote") {
+    const fe = (await qPrivate(q, ph.questionId!)).private.featured as Featured | undefined;
+    need = need.filter((id) => id !== fe?.teamId);
+  }
   if (ph.family === "room" && ph.stage === "guess") {
     const ans = new Set((await q.query(`SELECT team_id FROM answer WHERE question_id=$1 AND kind='answer'`, [ph.questionId])).map((r) => r.team_id));
     need = need.filter((id) => ans.has(id));

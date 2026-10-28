@@ -2,11 +2,11 @@
 import type { Stage } from "@/shared/types";
 import { isFiltered } from "@/server/engine/wordfilter";
 import { solveCount, type CasePuzzle } from "./case";
-import type { CalaveraData, CaseData, ClosestData, ContentItem, LineData, LoteriaData, RoomData } from "./types";
+import type { CalaveraData, CaseData, ClosestData, ContentItem, DichoData, FibData, LineData, LoteriaData, PriceData, RoomData } from "./types";
 
-export const MINIMUMS = { calavera: 70, line: 70, loteria: 80, room: 70, closest: 70, case: 120 } as const;
-const FACTUAL = new Set(["line", "closest"]);
-const STAGES: Record<string, Stage[]> = { calavera: ["write", "vote"], line: ["answer"], loteria: ["answer"], room: ["answer", "guess"], closest: ["answer"], case: ["clue", "answer"] };
+export const MINIMUMS = { calavera: 70, line: 70, loteria: 80, room: 70, closest: 70, case: 120, dichos: 40, price: 35, fib: 20 } as const;
+const FACTUAL = new Set(["line", "closest", "dichos", "price"]);
+const STAGES: Record<string, Stage[]> = { calavera: ["write", "vote"], line: ["answer"], loteria: ["answer"], room: ["answer", "guess"], closest: ["answer"], case: ["clue", "answer"], dichos: ["answer"], price: ["answer"], fib: ["write", "vote"] };
 
 /** Strings that must never appear in a publicQuestion payload for this item. */
 export function secretsOf(it: ContentItem): string[] {
@@ -14,7 +14,8 @@ export function secretsOf(it: ContentItem): string[] {
   switch (it.family) {
     case "calavera": return (dt as unknown as CalaveraData).house;
     case "line": return [...(dt as unknown as LineData).items.map((x) => x.display), it.explanation, it.source!.verification];
-    case "closest": return [it.explanation, it.source!.verification];
+    case "closest": case "price": return [it.explanation, it.source!.verification];
+    case "dichos": { const D = dt as unknown as DichoData; return [D.full, D.literal, D.meaning, it.explanation]; }
     case "loteria": { const L = dt as unknown as LoteriaData; return [L.card.es, L.why]; }
     case "case": { const s = it.answer as Record<string, string>; return Object.entries(s).map(([p, v]) => `"${p}":"${v}"`); }
     default: return [];
@@ -25,6 +26,7 @@ export function validateItem(it: ContentItem, publicQuestion?: (i: ContentItem, 
   const e: string[] = [];
   const err = (m: string) => e.push(`${it.id}: ${m}`);
   if (!it.prompt?.trim()) err("empty prompt");
+  if (!["classic", "spicy", "after-dark"].includes(it.rating as string)) err("missing rating");
   if (![1, 2, 3].includes(it.difficulty)) err("bad difficulty");
   if (!(it.readingSeconds > 0)) err("readingSeconds");
   const texts = [it.prompt, it.detail ?? "", it.explanation];
@@ -32,7 +34,7 @@ export function validateItem(it: ContentItem, publicQuestion?: (i: ContentItem, 
   switch (it.family) {
     case "calavera": {
       const h = (it.data as unknown as CalaveraData).house;
-      if (h.length !== 4 || new Set(h).size !== 4) err("needs 4 distinct house punchlines");
+      if (h.length < 2 || h.length > 4 || new Set(h).size !== h.length) err("needs 2-4 distinct house punchlines");
       texts.push(...h); break;
     }
     case "line": {
@@ -65,6 +67,23 @@ export function validateItem(it: ContentItem, publicQuestion?: (i: ContentItem, 
       if (it.prompt.toLowerCase().includes(L.card.en.replace(/^The /, "").toLowerCase())) err("riddle names its own card");
       break;
     }
+    case "dichos": {
+      const D = it.data as unknown as DichoData;
+      const a = it.answer as number;
+      if (D.options.length !== 4 || new Set(D.options.map((o) => o.toLowerCase())).size !== 4) err("dichos needs 4 distinct options");
+      if (!(Number.isInteger(a) && a >= 0 && a < 4)) err("answer out of range");
+      else if (!D.full.toLowerCase().replace(/[¡!¿?,.:;]/g, "").includes(D.options[a].toLowerCase().replace(/[¡!¿?,.:;]/g, ""))) err("answer is not the real ending");
+      texts.push(...D.options, D.meaning); break;
+    }
+    case "price": {
+      const P = it.data as unknown as PriceData;
+      if (!(P.value > 0 && P.value >= P.min && P.value < P.max)) err("price out of range");
+      if (!Number.isInteger((P.value - P.min) / P.step)) err("price not step-aligned");
+      if (it.answer !== P.value) err("answer mismatch"); break;
+    }
+    case "fib": {
+      if (!(it.data as unknown as FibData).theme?.trim()) err("fib needs theme"); break;
+    }
     case "room": {
       const R = it.data as unknown as RoomData;
       if (R.options.length !== 4 || new Set(R.options).size !== 4) err("needs 4 distinct options");
@@ -86,7 +105,7 @@ export function validateItem(it: ContentItem, publicQuestion?: (i: ContentItem, 
     for (const stage of STAGES[it.family]) {
       const json = JSON.stringify(publicQuestion(it, { stage, round: 0, index: 0 })).replace(/":-?\d+(\.\d+)?/g, "\":#");
       for (const s of secretsOf(it)) if (s && json.includes(s)) err(`publicQuestion(${stage}) leaks secret "${s.slice(0, 30)}"`);
-      if (it.family === "closest" && new RegExp(`(^|[^0-9])${(it.answer as number)}([^0-9]|$)`).test(it.prompt + (it.detail ?? ""))) err("prompt contains the answer");
+      if ((it.family === "closest" || it.family === "price") && new RegExp(`(^|[^0-9])${(it.answer as number)}([^0-9]|$)`).test(it.prompt + (it.detail ?? ""))) err("prompt contains the answer");
       if (it.family === "case" && stage === "clue" && json.includes('"input":{')) err("clue stage must have null input");
     }
   }

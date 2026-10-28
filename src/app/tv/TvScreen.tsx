@@ -9,7 +9,7 @@ import { JoinQR, shortUrl } from "@/components/JoinQR";
 import { Standings } from "@/components/Standings";
 import { DemoBar } from "@/components/DemoBar";
 import { Icon } from "@/components/Icon";
-import { CalaveraQ, CalaveraR, CaseQ, CaseR, ClosestQ, ClosestR, LineQ, LineR, LoteriaQ, LoteriaR, RoomQ, RoomR, rememberInput } from "./families";
+import { CalaveraQ, CalaveraR, CaseQ, CaseR, ClosestQ, ClosestR, LineQ, LineR, LoteriaQ, LoteriaR, RoomQ, RoomR, DichosQ, DichosR, FibQ, FibR, rememberInput } from "./families";
 
 export function TvScreen({ party, mock }: { party: PartyId; mock: string | null }) {
   const { snapshot: s, online, offsetMs } = useSnapshot(party, { intervalMs: 1000, mock, audience: "tv" });
@@ -162,6 +162,9 @@ function QuestionView({ s, q, offsetMs, paused }: { s: Snapshot; q: PublicQuesti
       case "room": return <RoomQ s={s} q={q} />;
       case "closest": return <ClosestQ s={s} q={q} />;
       case "case": return <CaseQ s={s} q={q} />;
+      case "dichos": return <DichosQ s={s} q={q} />;
+      case "price": return <ClosestQ s={s} q={q} />;
+      case "fib": return <FibQ s={s} q={q} />;
     }
   })();
   return (
@@ -182,9 +185,12 @@ function RevealView({ s, q, reveal, offsetMs }: { s: Snapshot; q: PublicQuestion
       case "room": return <RoomR q={q} reveal={reveal} />;
       case "closest": return <ClosestR q={q} reveal={reveal} />;
       case "case": return <CaseR s={s} q={q} reveal={reveal} />;
+      case "dichos": return <DichosR q={q} reveal={reveal} />;
+      case "price": return <ClosestR q={q} reveal={reveal} />;
+      case "fib": return <FibR q={q} reveal={reveal} />;
     }
   })();
-  const title = q.family === "calavera" ? "The votes are in" : q.family === "room" ? "The room has spoken" : q.family === "case" ? FAMILY.case.title : "The answer";
+  const title = q.family === "calavera" ? "The votes are in" : q.family === "room" ? "The room has spoken" : q.family === "case" ? FAMILY.case.title : q.family === "fib" ? "The fib was…" : q.family === "dichos" ? "El dicho" : q.family === "price" ? "The price" : "The answer";
   return (
     <div className={`tv-q tv-reveal tv-r-${q.family}`}>
       <QHeader s={s} offsetMs={offsetMs} paused={false} title={title} />

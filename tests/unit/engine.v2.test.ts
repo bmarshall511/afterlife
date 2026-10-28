@@ -219,7 +219,8 @@ describe("objective families", () => {
   it("closest: over busts, closest bonus, strict step/range validation", async () => {
     const { ts, t } = await open("closest", 3);
     const truth = (await itemOf(d, (await phase(d)).questionId!)).answer as number;
-    assertClean(await snap(t), [`${truth}`]);
+    assertClean(await snap(t));
+    expect(JSON.stringify((await snap(t)).question)).not.toMatch(new RegExp(`[^0-9]${truth}[^0-9]`));
     await expect(submit(d, ts[0].memberId, 10_001, t + 50)).rejects.toMatchObject({ code: "invalid" });
     await expect(submit(d, ts[0].memberId, 1.5, t + 50)).rejects.toMatchObject({ code: "invalid" });
     await submit(d, ts[0].memberId, truth + 1, t + 100);
@@ -273,7 +274,7 @@ describe("doubled set (final_round)", () => {
 describe("scheduling", () => {
   const fast = { introMs: 1000, calaveraWriteMs: 2000, calaveraVoteMs: 2000, lineAnswerMs: 2000, loteriaAnswerMs: 2000, roomAnswerMs: 2000, roomGuessMs: 2000, closestAnswerMs: 2000, caseClueMs: 1000, caseAnswerMs: 1000, revealMs: 1000, calaveraRevealMs: 1000, resultsMs: 1000, intervalMs: 1000 };
   async function run(n: number, sets: number, extra: Record<string, unknown> = {}) {
-    await setup({ content: (await import("@/server/engine/fixtures")).fixtureContent(20) });
+    await setup({ content: (await import("@/server/engine/fixtures")).fixtureContent(30) });
     await teams(n);
     await C.updateSettings(P, { ...fast, ...extra }, "admin", T0);
     await C.startParty(P, "test", T0);

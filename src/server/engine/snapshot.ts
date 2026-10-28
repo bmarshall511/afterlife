@@ -8,6 +8,7 @@ import { asIds, loadParty } from "./store";
 import type { ContentItem, PartyRow, StoredOutcome, VoteEntry } from "./types";
 import { isWatchStage, lastStage, questionMax } from "./stages";
 import { caseLockedTeams, entryId } from "./tick";
+import { fibOptions, type Featured } from "./fib";
 import { ms } from "./rng";
 
 /**
@@ -50,6 +51,9 @@ export async function computeStandings(q: Q, partyId: string): Promise<StandingR
 const VOID_TEXT: Record<string, string> = {
   too_few_answers: "Not enough families answered, so this one doesn't count.",
   too_few_entries: "Not enough epitaphs were written, so this one doesn't count.",
+  too_few_fibs: "Nobody wrote their statements, so this one doesn't count.",
+  too_few_voters: "Not enough families voted, so this one doesn't count.",
+  entry_hidden: "The host removed these statements, so this one doesn't count.",
   outage: "We lost connection for a moment, so this doesn't count for anyone.",
   skipped: "The host skipped this one, so it doesn't count for anyone.",
   insufficient_teams: "Not enough families for this game, so it doesn't count.",
@@ -76,6 +80,10 @@ export function publicPhase(p: PartyRow): PublicPhase {
 export async function stageInput(q: Q, _p: PartyRow, qid: string, qrow: { idx?: unknown; private?: any }, stage: Stage): Promise<InputSpec | null> {
   const item = qrow.private?.item as ContentItem | undefined;
   if (!item) return null;
+  if (item.family === "fib" && stage === "vote") {
+    const fe = qrow.private?.featured as Featured | undefined;
+    return fe ? { kind: "choice", options: fibOptions(fe) } : null;
+  }
   if (item.family === "calavera" && stage === "vote") return { kind: "vote", entries: await voteList(q, qid, qrow.private) };
   const c = await content();
   let input: InputSpec | null = null;
@@ -93,6 +101,7 @@ export async function stageInput(q: Q, _p: PartyRow, qid: string, qrow: { idx?: 
     } catch { /* ignore */ }
     input = { kind: "percent", optionText: input?.kind === "percent" && input.optionText ? input.optionText : "your answer", options };
   }
+  if (item.family === "fib" && stage === "write" && input?.kind !== "fib") input = { kind: "fib", maxLength: 80, prompt: item.prompt };
   if (isWatchStage(item.family, stage)) input = null;
   return input;
 }
@@ -124,6 +133,12 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
   const question: PublicQuestion = { ...pq, id: ph.questionId, family: item.family, index: row.idx, difficulty: item.difficulty };
   question.input = ph.kind === "question" ? await stageInput(q, p, ph.questionId, row, stage) : null;
   // Scene seeds can embed content ids; send only an opaque hash to clients.
+  // Fib: the TV shows whose statements are featured (author is public; which one is the fib is not).
+  const fe = row.private.featured as Featured | undefined;
+  if (item.family === "fib" && fe && (ph.kind === "reveal" || ph.stage === "vote")) {
+    const nm = (await q.query(`SELECT name FROM team WHERE id=$1`, [fe.teamId]))[0]?.name ?? null;
+    question.scene = { template: "fib-featured", seed: ph.questionId, data: { featuredTeamId: fe.teamId, featuredTeamName: nm } };
+  }
   if (question.scene) question.scene = { ...question.scene, seed: createHash("sha256").update(String(question.scene.seed)).digest("hex").slice(0, 12) };
   if (ph.kind !== "reveal") return { question, reveal: null };
   const priv = row.private;
@@ -134,6 +149,7 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
     .sort((a, b) => b.points - a.points || a.name.localeCompare(b.name));
   let reveal: RevealInfo;
   const extra: Record<string, unknown> = { ...(priv.revealDetail ?? {}) };
+  if (extra.featuredTeamId) extra.featuredTeamName = names.get(String(extra.featuredTeamId)) ?? null;
   if (Array.isArray(extra.entries)) extra.entries = (extra.entries as any[]).map((e) => ({ ...e, teamName: e.teamId ? names.get(e.teamId) ?? null : null }));
   if (item.family === "room" && !extra.split && priv.tally) extra.split = priv.tally;
   if (item.family === "room") {
@@ -151,11 +167,12 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
   if (item.family === "room" && Array.isArray(reveal.detail?.options))
     reveal.detail!.options = (reveal.detail!.options as unknown[]).map((o, k) => (typeof o === "string" ? { label: "ABCDEFGHIJKL"[k], text: o } : o));
   if (item.family === "room") reveal.correct = null;
+  if (item.family === "fib") reveal.correct = typeof extra.fibIndex === "number" ? (extra.fibIndex as number) : null;
   if (row.status === "void") {
     reveal.void = true;
     reveal.voidReason = VOID_TEXT[row.void_reason as string] ?? "This one doesn't count.";
     reveal.correct = item.family === "case" && row.idx < 2 ? null : reveal.correct;
-    if (item.family === "room" || item.family === "calavera") reveal.correct = null;
+    if (item.family === "room" || item.family === "calavera" || item.family === "fib") reveal.correct = null;
   }
   return { question, reveal };
 }
@@ -261,6 +278,7 @@ export async function buildMe(q: Q, partyId: string, memberId: string, now: numb
     const late = ms(t.created_at) > ms(qrow.opened_at);
     if (ph.kind !== "question" || p.status !== "running" || (ph.endsAt ?? 0) <= now) current.reasonCannot = "closed";
     else if (isWatchStage(f, stage)) current.reasonCannot = "watching";
+    else if (f === "fib" && stage === "vote" && (qrow.private?.featured as Featured | undefined)?.teamId === t.id) current.reasonCannot = "watching"; // "Your family is on the TV — others are guessing"
     else if (t.status === "away") current.reasonCannot = "away";
     else if (late) current.reasonCannot = "late_join";
     else if (!isCaptain) current.reasonCannot = "not_captain";

@@ -10,6 +10,7 @@ import { POLLS_2 } from "./room2";
 import approvedJson from "./data/approved.json";
 import dichosJson from "./data/dichos.json";
 import priceJson from "./data/price.json";
+import afterDarkJson from "./data/afterdark.json";
 import { FAKES } from "./dichosFakes";
 import { FIB_THEMES, type FibTheme } from "./fib";
 import { tryPuzzle } from "./case";
@@ -127,6 +128,8 @@ function fibItem(r: FibTheme): ContentItem {
 const APPROVED = approvedJson as unknown as { calavera: Parameters<typeof calaveraItem>[0][]; loteria: Parameters<typeof loteriaItem>[0][];
   room: Parameters<typeof roomItem>[0][]; line: RawLine[]; closest: RawClosest[] };
 
+const AFTER_DARK = afterDarkJson as unknown as { room: Parameters<typeof roomItem>[0][]; loteria: Parameters<typeof loteriaItem>[0][]; fib: FibTheme[] };
+
 const CASE_PROMPTS = [
   "Four ancestors, four altars. Who goes where? Here are your first clues.",
   "A new clue arrives. Lock now for more points — or wait for more.",
@@ -160,12 +163,12 @@ function buildAll(): ContentItem[] {
   const items: ContentItem[] = [];
   items.push(...[...CALAVERAS, ...CALAVERAS_2, ...APPROVED.calavera].map(calaveraItem));
   items.push(...[...(lineJson as RawLine[]), ...APPROVED.line].map(lineItem));
-  items.push(...[...RIDDLES, ...RIDDLES_2, ...APPROVED.loteria].map(loteriaItem));
-  items.push(...[...POLLS, ...POLLS_2, ...APPROVED.room].map(roomItem));
+  items.push(...[...RIDDLES, ...RIDDLES_2, ...APPROVED.loteria, ...AFTER_DARK.loteria].map(loteriaItem));
+  items.push(...[...POLLS, ...POLLS_2, ...APPROVED.room, ...AFTER_DARK.room].map(roomItem));
   items.push(...[...(closestJson as RawClosest[]), ...APPROVED.closest].map(closestItem));
   items.push(...(dichosJson as RawDicho[]).map(dichoItem));
   items.push(...(priceJson as RawPrice[]).map(priceItem));
-  items.push(...FIB_THEMES.map(fibItem));
+  items.push(...[...FIB_THEMES, ...AFTER_DARK.fib].map(fibItem));
   const seen = new Set<string>();
   for (let i = 0; seen.size < CASE_PUZZLES && i < 5000; i++) {
     const set = caseItems(`pool-${i}`);

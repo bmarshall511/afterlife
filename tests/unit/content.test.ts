@@ -22,6 +22,9 @@ describe("v2 content pool", () => {
     expect(fam("fib").length).toBeGreaterThanOrEqual(20);
     for (const i of items) expect(["classic", "spicy", "after-dark"]).toContain(i.rating);
     expect(items.filter((i) => i.rating === "spicy").length).toBeGreaterThanOrEqual(40);
+    const ad = (f: GameFamily) => fam(f).filter((i) => i.rating === "after-dark").length;
+    expect([ad("room"), ad("loteria"), ad("fib")]).toEqual([20, 10, 10]);
+    expect(items.filter((i) => i.rating === "after-dark").every((i) => ["room", "loteria", "fib"].includes(i.family))).toBe(true);
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
     expect(validateAll(items, publicQuestion)).toEqual([]);
   });

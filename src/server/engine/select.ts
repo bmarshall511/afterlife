@@ -2,7 +2,7 @@ import type { Q } from "@/server/db";
 import type { GameFamily } from "@/shared/types";
 import { OBJECTIVE_FAMILIES, SOCIAL_FAMILIES } from "@/shared/types";
 import type { ContentItem, ContentSource, PartyRow, Settings } from "./types";
-import { shuffle } from "./rng";
+import { rng, shuffle } from "./rng";
 
 /**
  * Scheduling + content selection (docs/GAMES-V2.md global rules).
@@ -60,7 +60,14 @@ function pickFor(family: GameFamily, all: ContentItem[], exp: Map<string, any>, 
     return null;
   }
   const pool = all.filter((i) => i.family === family && i.enabled && !off.has(i.id));
-  let items = pickThree(shuffle(pool.filter((i) => !exp.has(i.id)), seed));
+  const candidates = shuffle(pool.filter((i) => !exp.has(i.id)), seed);
+  let items = pickThree(candidates);
+  // After Dark on: each of the 3 slots becomes an after-dark item ~60% of the time (when the game has them).
+  const ad = candidates.filter((i) => i.rating === "after-dark" && !items.includes(i));
+  if (ad.length) {
+    const r = rng(`${seed}:after-dark`);
+    items = items.map((it) => (it.rating !== "after-dark" && ad.length && r() < 0.6 ? ad.shift()! : it));
+  }
   for (let k = 0; items.length < 3 && k < 12; k++) {
     let g: ContentItem | null = null;
     try {
@@ -130,6 +137,10 @@ const isSocial = (f: GameFamily) => SOCIAL_FAMILIES.includes(f);
 function pickOne(family: GameFamily, difficulty: number, all: ContentItem[], exp: Map<string, any>, off: Set<string>, used: Set<string>, c: ContentSource, seed: string, allowEncore: boolean, exact = false): { item: ContentItem; encore: boolean } | null {
   const pool = all.filter((i) => i.family === family && i.enabled && !off.has(i.id) && !used.has(i.id));
   const fresh = shuffle(pool.filter((i) => !exp.has(i.id)), seed);
+  // After Dark on (only then are "after-dark" items in the pool): make them noticeably frequent (~60% of picks
+  // in games that have them), regardless of the difficulty ramp.
+  const adFresh = fresh.filter((i) => i.rating === "after-dark");
+  if (adFresh.length && rng(`${seed}:after-dark`)() < 0.6) return { item: adFresh[0], encore: false };
   const exactHit = fresh.find((i) => i.difficulty === difficulty);
   if (exact) return exactHit ? { item: exactHit, encore: false } : null;
   const hit = exactHit ?? fresh.sort((a, b) => Math.abs(a.difficulty - difficulty) - Math.abs(b.difficulty - difficulty))[0];

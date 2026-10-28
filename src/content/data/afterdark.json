@@ -1,0 +1,438 @@
+{
+ "room": [
+  {
+   "id": "room-ad-21",
+   "difficulty": 2,
+   "prompt": "Best aphrodisiac at a Mexican table:",
+   "options": [
+    "Chocolate",
+    "Oysters with lime",
+    "Chiles — sweat is sexy",
+    "Someone else doing the dishes"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-22",
+   "difficulty": 2,
+   "prompt": "Sexiest thing a partner can do:",
+   "options": [
+    "Cook your abuela’s recipe perfectly",
+    "Dance a slow bolero",
+    "Fix something without YouTube",
+    "Leave the party early with you"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-23",
+   "difficulty": 2,
+   "prompt": "Worst thing to say after a first kiss:",
+   "options": [
+    "“My mom would love you”",
+    "“That was… fine”",
+    "“Are you related to my cousin?”",
+    "“Same time next year?”"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-24",
+   "difficulty": 2,
+   "prompt": "La Catrina’s favourite pickup line:",
+   "options": [
+    "“Are you a skeleton? Because I can see right through you”",
+    "“I’d die for you — again”",
+    "“You’ve got the best bones here”",
+    "“Let’s get spooky”"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-25",
+   "difficulty": 2,
+   "prompt": "Where do couples sneak off to at family parties?",
+   "options": [
+    "The car",
+    "The kitchen pantry",
+    "“Getting more ice”",
+    "They don’t — they just stare at each other across the room"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-26",
+   "difficulty": 2,
+   "prompt": "Most dangerous drink for your love life:",
+   "options": [
+    "Tequila",
+    "Mezcal",
+    "Champagne",
+    "A text after 1 a.m."
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-27",
+   "difficulty": 2,
+   "prompt": "The ultimate turn-off:",
+   "options": [
+    "Bad breath",
+    "Talks about their ex",
+    "Rude to the waiter",
+    "Owns no salsa"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-28",
+   "difficulty": 2,
+   "prompt": "In the bedroom, the most important feature is:",
+   "options": [
+    "Good pillows",
+    "Blackout curtains",
+    "A lock that works",
+    "No abuela in the next room"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-29",
+   "difficulty": 2,
+   "prompt": "Which costume is secretly the sexiest?",
+   "options": [
+    "La Catrina",
+    "El Catrín",
+    "A mariachi",
+    "A sexy marigold (yes, it exists)"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-30",
+   "difficulty": 2,
+   "prompt": "Best way to spice up a long marriage:",
+   "options": [
+    "A trip without the kids",
+    "Dance lessons",
+    "Role-play as strangers at a bar",
+    "Separate bedrooms, honestly"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-31",
+   "difficulty": 2,
+   "prompt": "What should you never bring on a third date?",
+   "options": [
+    "Your mother",
+    "Your ex’s photo",
+    "A ring",
+    "Tupperware"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-32",
+   "difficulty": 2,
+   "prompt": "Your flirting style:",
+   "options": [
+    "Eye contact",
+    "Bad jokes",
+    "Feeding them",
+    "Total panic"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-33",
+   "difficulty": 2,
+   "prompt": "The sexiest accent:",
+   "options": [
+    "Spanish",
+    "French",
+    "Italian",
+    "Abuela’s when she’s angry"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-34",
+   "difficulty": 2,
+   "prompt": "Most romantic Mexican food to share:",
+   "options": [
+    "A churro, Lady-and-the-Tramp style",
+    "Mole — messy, intimate",
+    "Tamales in bed",
+    "Elote, very carefully"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-35",
+   "difficulty": 2,
+   "prompt": "Honeymoon destination of the afterlife:",
+   "options": [
+    "Mictlán all-inclusive",
+    "Cancún, but haunted",
+    "A candlelit cemetery",
+    "Anywhere without the in-laws"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-36",
+   "difficulty": 2,
+   "prompt": "Who is most likely to have a secret admirer here tonight?",
+   "options": [
+    "The DJ",
+    "The quiet cousin",
+    "Tía in the red dress",
+    "The person reading this"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-37",
+   "difficulty": 2,
+   "prompt": "What makes a slow dance actually romantic?",
+   "options": [
+    "The song",
+    "The dim lights",
+    "The tequila",
+    "The fact that Abuela isn’t watching"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-38",
+   "difficulty": 2,
+   "prompt": "Best excuse to stay over at someone’s place:",
+   "options": [
+    "“It’s too late to drive”",
+    "“I lost my keys”",
+    "“The tamales need me”",
+    "No excuse needed"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-39",
+   "difficulty": 2,
+   "prompt": "Lingerie colour for Día de Muertos:",
+   "options": [
+    "Marigold orange",
+    "Black, obviously",
+    "Catrina white and red",
+    "Whatever is clean"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "room-ad-40",
+   "difficulty": 2,
+   "prompt": "Which ancestor would be most scandalised by this party?",
+   "options": [
+    "Bisabuela",
+    "The tío who judged everyone",
+    "The very proper great-aunt",
+    "None — they were wilder than us"
+   ],
+   "rating": "after-dark"
+  }
+ ],
+ "loteria": [
+  {
+   "id": "lot-ad-51",
+   "card": "corazon",
+   "difficulty": 2,
+   "verse": "I’m kissed on the dance floor and missed in the bed;\nI’m pierced every February, and I always go red.",
+   "why": "Kissed, missed, pierced by Cupid and always red: the Heart.",
+   "near": [
+    "rosa",
+    "mano",
+    "calavera"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-52",
+   "card": "bota",
+   "difficulty": 2,
+   "verse": "I’m peeled off at midnight, unlaced with a grin;\nthe higher my heel, the more trouble you’re in.",
+   "why": "Unlaced at midnight, high heels and trouble: the Boot.",
+   "near": [
+    "mano",
+    "paraguas",
+    "catrin"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-53",
+   "card": "sirena",
+   "difficulty": 3,
+   "verse": "My tail’s an invitation, my song is a lure;\nI’ve broken more sailors than storms, to be sure.",
+   "why": "A tail and a song that wreck sailors: the Mermaid.",
+   "near": [
+    "pescado",
+    "dama",
+    "musico"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-54",
+   "card": "catrin",
+   "difficulty": 3,
+   "verse": "My suit is impeccable, my intentions are not;\nI’ll walk you home slowly — and stay for a shot.",
+   "why": "Impeccable suit, questionable intentions: the Dandy.",
+   "near": [
+    "dama",
+    "valiente",
+    "musico"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-55",
+   "card": "mano",
+   "difficulty": 2,
+   "verse": "I’m wandering, wandering, under the table;\nI hold yours at dinner — and more, if I’m able.",
+   "why": "Wandering under the table: the Hand.",
+   "near": [
+    "corazon",
+    "bota",
+    "campana"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-56",
+   "card": "escalera",
+   "difficulty": 3,
+   "verse": "I climb to your window when your parents are out;\nI’m a step-by-step plan for what love’s all about.",
+   "why": "Up to the window while the parents are out: the Ladder.",
+   "near": [
+    "arbol",
+    "campana",
+    "bota"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-57",
+   "card": "luna",
+   "difficulty": 2,
+   "verse": "I’m out every night but I never get caught;\nlovers swear by me and do what they ought.",
+   "why": "Out every night, the lovers’ witness: the Moon.",
+   "near": [
+    "sol",
+    "estrella",
+    "mundo"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-58",
+   "card": "arana",
+   "difficulty": 3,
+   "verse": "I spin my web slowly and wait in my lair;\nmy date ends at breakfast — but he won’t be there.",
+   "why": "Spins her web and eats her date: the Spider.",
+   "near": [
+    "alacran",
+    "dama",
+    "sirena"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-59",
+   "card": "rosa",
+   "difficulty": 1,
+   "verse": "Thrown at the singer by fans in the front;\ngiven with thorns as a romantic stunt.",
+   "why": "Thrown at singers and given with thorns: the Rose.",
+   "near": [
+    "corazon",
+    "nopal",
+    "dama"
+   ],
+   "rating": "after-dark"
+  },
+  {
+   "id": "lot-ad-60",
+   "card": "musico",
+   "difficulty": 2,
+   "verse": "I serenade windows at quarter past two;\nif the lights go off, I know what to do.",
+   "why": "Serenading at 2 a.m., knows when the lights go off: the Musician.",
+   "near": [
+    "gallo",
+    "campana",
+    "sirena"
+   ],
+   "rating": "after-dark"
+  }
+ ],
+ "fib": [
+  {
+   "id": "fib-ad-61",
+   "difficulty": 3,
+   "theme": "your most embarrassing first-date moment",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-62",
+   "difficulty": 3,
+   "theme": "the cheesiest pickup line you’ve used (or fallen for)",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-63",
+   "difficulty": 3,
+   "theme": "where you’ve been kissed (places, not body parts)",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-64",
+   "difficulty": 3,
+   "theme": "the most romantic thing a partner has done for you",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-65",
+   "difficulty": 3,
+   "theme": "your wildest wedding or bachelor/ette party story",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-66",
+   "difficulty": 3,
+   "theme": "things you’ve done to impress a crush",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-67",
+   "difficulty": 3,
+   "theme": "the worst-timed interruption of a romantic moment",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-68",
+   "difficulty": 3,
+   "theme": "your honeymoon (or dream honeymoon)",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-69",
+   "difficulty": 3,
+   "theme": "secret talents that “come in handy” in a relationship",
+   "rating": "after-dark"
+  },
+  {
+   "id": "fib-ad-70",
+   "difficulty": 3,
+   "theme": "the most scandalous thing your family doesn’t know about you",
+   "rating": "after-dark"
+  }
+ ]
+}

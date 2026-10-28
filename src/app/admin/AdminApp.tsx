@@ -429,7 +429,7 @@ function ContentSection({ party, run }: Ctx) {
       {items.filter((i) => !family || i.family === family).map((i) => (
         <details key={i.id} className="ad-card">
           <summary>
-            <span className={`ad-pill ${i.enabled ? "ok" : "warn"}`}>{i.enabled ? "on" : "off"}</span> <span className="ad-pill">{i.family}</span> {i.prompt}
+            <span className={`ad-pill ${i.enabled ? "ok" : "warn"}`}>{i.enabled ? "on" : "off"}</span> <span className="ad-pill">{i.family}</span>{i.rating && i.rating !== "classic" ? <> <span className={`ad-pill ${i.rating === "after-dark" ? "warn" : ""}`}>{i.rating === "after-dark" ? "After Dark" : "spicy"}</span></> : null} {i.prompt}
           </summary>
           <div style={{ marginTop: 8 }}>
             {i.promptEs ? <p className="ad-muted">{i.promptEs}</p> : null}

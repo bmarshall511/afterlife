@@ -44,7 +44,7 @@ export const GET = adminRoute(async (req, { db }) => {
   return json({
     disabledFamilies,
     items: await Promise.all(items.map(async (it) => ({
-      id: it.id, family: it.family, difficulty: it.difficulty, prompt: it.prompt, promptEs: it.promptEs ?? null, detail: it.detail ?? null,
+      id: it.id, family: it.family, difficulty: it.difficulty, rating: it.rating ?? "classic", prompt: it.prompt, promptEs: it.promptEs ?? null, detail: it.detail ?? null,
       ...(await describe(it)), explanation: it.explanation, source: it.source ?? null,
       enabled: overrides.has(it.id) ? overrides.get(it.id) : it.enabled !== false,
     }))),

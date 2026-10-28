@@ -1,4 +1,7 @@
-# After Dark — proposed items (DRAFT, not in the game)
+# After Dark items — host decision 2026-10-28
+
+**ADDED** (rating `after-dark`, in `src/content/data/afterdark.json`): Read the Room A21–A40, La Lotería A51–A60, Two Truths and a Fib A61–A70 (40 items).
+**REJECTED** (not in the game): Calavera A1–A20, Dichos A41–A50.
 
 For the adults-only segment behind the **After Dark** switch (`rating: "after-dark"`). Approve or reject by number.
 Flirty, risqué and full of innuendo, but never explicit or graphic. Nothing about minors, real people, loved ones or the dead being remembered, non-consent, or slurs. Every item is tagged **[after-dark]**.

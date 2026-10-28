@@ -124,6 +124,10 @@ export function validateAll(items: ContentItem[], publicQuestion?: Parameters<ty
     const lot = items.filter((i) => i.family === "loteria").map((i) => (i.data as unknown as LoteriaData).card.id);
     const cards = new Map<string, number>(); for (const c of lot) cards.set(c, (cards.get(c) ?? 0) + 1);
     if ([...cards.values()].filter((n) => n >= 2).length < 12) errs.push("loteria: need >=12 cards used >=2 times");
+    const ad = (f: string) => items.filter((i) => i.family === f && i.rating === "after-dark").length;
+    if (ad("room") < 20 || ad("loteria") < 10 || ad("fib") < 10) errs.push(`after-dark: need room>=20, loteria>=10, fib>=10 (have ${ad("room")}/${ad("loteria")}/${ad("fib")})`);
+    for (const i of items) if (/-ad-\d+$/.test(i.id) !== (i.rating === "after-dark")) errs.push(`${i.id}: after-dark id/rating mismatch`);
+    if (items.some((i) => i.rating === "after-dark" && !["room", "loteria", "fib"].includes(i.family))) errs.push("after-dark only approved for room/loteria/fib");
     const pz = new Set(items.filter((i) => i.family === "case").map((i) => (i.data as unknown as CaseData).puzzleId));
     if (pz.size < 40) errs.push(`case: ${pz.size} puzzles < 40`);
   }

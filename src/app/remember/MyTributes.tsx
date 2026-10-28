@@ -1,20 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Icon } from "@/components/Icon";
 import EditTribute from "./edit/[id]/EditTribute";
-import { forgetTribute, loadSaved, saveTribute } from "./store";
+import { loadSaved, saveTribute } from "./store";
+import { fetchMine, type MyTribute } from "./useMine";
 
-export interface MyTribute {
-  id: string;
-  personName: string;
-  remembrance: string;
-  attribution: string;
-  status: "published" | "hidden";
-  thumbUrl: string;
-  createdAt: string;
-  canEdit: boolean;
-  via: "team" | "token";
-}
+export type { MyTribute } from "./useMine";
 
 /** Extracts {id, token} from a pasted private edit link like https://…/remember/edit/<id>#<token>. */
 export function parseEditLink(text: string): { id: string; token: string } | null {
@@ -27,75 +19,28 @@ export function parseEditLink(text: string): { id: string; token: string } | nul
   }
 }
 
-async function fetchMine(party: string, items: { id: string; token: string }[]) {
-  const r = await fetch("/api/tributes/mine", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ party, items }),
-    cache: "no-store",
-  });
-  const d = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(d.error || "Couldn't load your tributes.");
-  return d as { tributes: MyTribute[]; unknown: string[]; hasSession: boolean };
-}
-
 /**
- * "Your tributes": tributes this family submitted (guest team session) or that this device holds edit links for.
- * Edit opens inline (no navigation); Remove confirms, then removes the card.
+ * MANAGE state: list of the family's / this device's tributes. Tapping a card opens its detail/edit view in place.
  */
 export default function MyTributes({
-  party,
-  refreshKey,
-  hideWhenEmpty,
-  onAdd,
-  onEditingChange,
+  party, list, setList, reload, error, onAdd, openId, onOpenChange,
 }: {
   party: "live" | "demo";
-  refreshKey?: unknown;
-  hideWhenEmpty?: boolean;
-  onAdd?: () => void;
-  onEditingChange?: (editing: boolean) => void;
+  list: MyTribute[] | null;
+  setList: (fn: (l: MyTribute[] | null) => MyTribute[] | null) => void;
+  reload: () => Promise<void>;
+  error?: string | null;
+  onAdd: () => void;
+  openId?: string | null;
+  onOpenChange?: (id: string | null) => void;
 }) {
-  const [list, setList] = useState<MyTribute[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [editing, setEditing] = useState<string | null>(null);
-  const [confirmId, setConfirmId] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
+  const [open, setOpenState] = useState<string | null>(openId ?? null);
+  const [showPaste, setShowPaste] = useState(false);
   const [paste, setPaste] = useState("");
   const [pasteMsg, setPasteMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  const [showPaste, setShowPaste] = useState(false);
-
-  const load = useCallback(async () => {
-    try {
-      const d = await fetchMine(party, loadSaved().map(({ id, token }) => ({ id, token })));
-      setList(d.tributes);
-      setError(null);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Couldn't load your tributes.");
-      setList((l) => l ?? []);
-    }
-  }, [party]);
-
-  useEffect(() => { load(); }, [load, refreshKey]);
-  useEffect(() => { onEditingChange?.(!!editing); }, [editing, onEditingChange]);
-
+  useEffect(() => { if (openId !== undefined) setOpenState(openId); }, [openId]);
+  const setOpen = (id: string | null) => { setOpenState(id); onOpenChange?.(id); };
   const tokenFor = (id: string) => loadSaved().find((s) => s.id === id)?.token ?? null;
-
-  async function remove(t: MyTribute) {
-    setBusy(true);
-    try {
-      const tok = tokenFor(t.id);
-      const r = await fetch(`/api/tributes/${t.id}`, { method: "DELETE", headers: tok ? { authorization: `Bearer ${tok}` } : {} });
-      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || "Couldn't remove it. Please try again.");
-      forgetTribute(t.id);
-      setList((l) => (l ?? []).filter((x) => x.id !== t.id));
-      setConfirmId(null);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Couldn't remove it.");
-    } finally {
-      setBusy(false);
-    }
-  }
 
   async function importLink() {
     setPasteMsg(null);
@@ -108,87 +53,71 @@ export default function MyTributes({
       saveTribute({ id: p.id, token: p.token, name: found.personName, createdAt: found.createdAt });
       setPaste("");
       setPasteMsg({ ok: true, text: `Added ${found.personName} to this device.` });
-      await load();
+      await reload();
     } catch (e) {
       setPasteMsg({ ok: false, text: e instanceof Error ? e.message : "Couldn't check that link." });
     }
   }
 
-  if (editing) {
+  if (open) {
     return (
-      <div className="mt-section">
+      <div className="rv-pane">
         <EditTribute
-          id={editing}
-          token={tokenFor(editing)}
+          id={open}
+          token={tokenFor(open)}
           embedded
-          onClose={() => { setEditing(null); load(); }}
+          onClose={() => { setOpen(null); reload(); }}
           onSaved={(t) => setList((l) => (l ?? []).map((x) => (x.id === t.id ? { ...x, personName: t.personName, remembrance: t.remembrance, attribution: t.attribution } : x)))}
-          onRemoved={(id) => { setList((l) => (l ?? []).filter((x) => x.id !== id)); setEditing(null); }}
+          onRemoved={(id) => { setList((l) => (l ?? []).filter((x) => x.id !== id)); setOpen(null); }}
         />
       </div>
     );
   }
 
-  if (list === null) return hideWhenEmpty ? null : <p className="rm-muted">Loading your tributes…</p>;
-
-  const pasteBox = (
-    <div style={{ marginTop: 8 }}>
-      {!showPaste ? (
-        <button type="button" className="rm-btn2" style={{ fontSize: 14 }} onClick={() => setShowPaste(true)}>Have a private edit link? Paste it</button>
-      ) : (
-        <>
-          <label className="rm-muted" htmlFor="mt-paste">Paste a private edit link to manage that tribute here</label>
-          <div className="mt-paste">
-            <input id="mt-paste" className="rm-input" value={paste} onChange={(e) => setPaste(e.target.value)} placeholder="https://…/remember/edit/…#…" autoComplete="off" autoCapitalize="off" spellCheck={false} />
-            <button type="button" className="rm-btn2" onClick={importLink} disabled={!paste.trim()}>Add</button>
-          </div>
-        </>
-      )}
-      {pasteMsg ? <div className={pasteMsg.ok ? "rm-ok" : "rm-error"} role="status">{pasteMsg.text}</div> : null}
-    </div>
-  );
-
-  if (!list.length && hideWhenEmpty) return <div className="mt-section">{pasteBox}</div>;
-
   return (
-    <section className="mt-section" aria-label="Your tributes">
-      <div className="mt-head">
-        <h2>Your tributes{list.length ? ` · ${list.length}` : ""}</h2>
-        {onAdd && list.length ? <button type="button" className="rm-btn2" onClick={onAdd}>Add another</button> : null}
-      </div>
+    <section className="rv-pane" aria-label="Your tributes">
       {error ? <div className="rm-error" role="alert">{error}</div> : null}
-      {!list.length ? (
-        <div className="mt-empty">Nothing here yet. When you add someone, they&apos;ll appear here so you can edit or remove them anytime.</div>
+      {list === null ? (
+        <p className="rm-muted">Loading…</p>
+      ) : !list.length ? (
+        <div className="rv-empty">
+          <span className="rv-empty-icon" aria-hidden="true"><Icon name="candle" size={28} /></span>
+          <p>No tributes yet. Add someone you love and they&apos;ll appear here, ready to edit anytime.</p>
+          <button type="button" className="rm-btn" onClick={onAdd}>Add someone</button>
+        </div>
       ) : (
-        <ul className="mt-list">
+        <ul className="rv-list">
           {list.map((t) => (
-            <li key={t.id} className="mt-card">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="mt-thumb" src={t.thumbUrl} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />
-              <div style={{ minWidth: 0 }}>
-                <div className="mt-name">{t.personName}</div>
-                <span className={`mt-badge${t.status === "hidden" ? " hidden" : ""}`}>{t.status === "hidden" ? "Hidden by host" : "On the TV"}</span>
-                {t.remembrance ? <div className="mt-rem">{t.remembrance}</div> : null}
-                {confirmId === t.id ? (
-                  <div className="rm-notice" style={{ margin: "8px 0 0", padding: 10 }}>
-                    <p style={{ margin: "0 0 8px" }}>Remove {t.personName}? The photo and words are deleted for good.</p>
-                    <div className="mt-actions" style={{ marginTop: 0 }}>
-                      <button type="button" className="rm-btn2 danger" disabled={busy} onClick={() => remove(t)}>Yes, remove</button>
-                      <button type="button" className="rm-btn2" onClick={() => setConfirmId(null)}>Keep</button>
-                    </div>
-                  </div>
-                ) : t.canEdit ? (
-                  <div className="mt-actions">
-                    <button type="button" className="rm-btn2" onClick={() => setEditing(t.id)} aria-label={`Edit ${t.personName}`}>Edit</button>
-                    <button type="button" className="rm-btn2 danger" onClick={() => setConfirmId(t.id)} aria-label={`Remove ${t.personName}`}>Remove</button>
-                  </div>
-                ) : null}
-              </div>
+            <li key={t.id}>
+              <button type="button" className="rv-card" onClick={() => setOpen(t.id)} aria-label={`Open ${t.personName}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="rv-thumb" src={t.thumbUrl} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />
+                <span className="rv-card-body">
+                  <span className="rv-card-name">{t.personName}</span>
+                  {t.remembrance ? <span className="rv-card-rem">{t.remembrance}</span> : null}
+                  <span className={`rv-pill${t.status === "hidden" ? " hidden" : ""}`}>{t.status === "hidden" ? "Hidden by host" : "On the TV"}</span>
+                </span>
+                <span className="rv-chev" aria-hidden="true"><Icon name="chev" size={20} /></span>
+              </button>
             </li>
           ))}
         </ul>
       )}
-      {pasteBox}
+
+      <div className="rv-paste">
+        {!showPaste ? (
+          <button type="button" className="rv-link-btn" onClick={() => setShowPaste(true)}>Have a private edit link? Paste it</button>
+        ) : (
+          <>
+            <label className="rm-muted" htmlFor="rv-paste">Paste a private edit link to manage that tribute here</label>
+            <div className="rv-paste-row">
+              <input id="rv-paste" className="rm-input" value={paste} onChange={(e) => setPaste(e.target.value)} placeholder="https://…/remember/edit/…#…" autoComplete="off" autoCapitalize="off" spellCheck={false} />
+              <button type="button" className="rm-btn2" onClick={importLink} disabled={!paste.trim()}>Add</button>
+            </div>
+          </>
+        )}
+        {pasteMsg ? <div className={pasteMsg.ok ? "rm-ok" : "rm-error"} role="status">{pasteMsg.text}</div> : null}
+      </div>
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import TributePreview from "../../TributePreview";
+import { Icon } from "@/components/Icon";
 import { forgetTribute, saveTribute } from "../../store";
 
 interface T {
@@ -67,7 +68,7 @@ export default function EditTribute({ id, token: tokenProp, embedded, onClose, o
     }
   }
 
-  const back = embedded && onClose ? <button type="button" className="rm-btn2" onClick={onClose} style={{ marginBottom: 12 }}>← Your tributes</button> : null;
+  const back = embedded && onClose ? <button type="button" className="rv-back" onClick={onClose}><span aria-hidden="true" className="rv-back-chev">‹</span>Your tributes</button> : null;
   if (state === "loading") return <>{back}<p className="rm-muted">Loading…</p></>;
   if (state === "removed")
     return (
@@ -117,10 +118,10 @@ export default function EditTribute({ id, token: tokenProp, embedded, onClose, o
       ) : null}
       <div className="rm-row" style={{ marginTop: 10 }}>
         {[["Rotate left", 270], ["Rotate right", 90]].map(([label, d]) => (
-          <button key={label} type="button" className="rm-btn2" disabled={busy} onClick={async () => {
+          <button key={label} type="button" className="rv-icon-btn" aria-label={label as string} title={label as string} disabled={busy} onClick={async () => {
             const r = await send("PATCH", { rotation: (t.rotation + (d as number)) % 360 });
             if (r) set({ rotation: r.tribute.rotation, photoUrl: r.tribute.photoUrl });
-          }}>{label}</button>
+          }}><Icon name="reset" size={20} className={d === 270 ? "rv-flip" : undefined} /></button>
         ))}
       </div>
 
@@ -146,7 +147,7 @@ export default function EditTribute({ id, token: tokenProp, embedded, onClose, o
 
       <div style={{ marginTop: 32 }}>
         {!confirmRemove ? (
-          <button className="rm-btn2 danger" onClick={() => setConfirmRemove(true)}>Remove this tribute</button>
+          <button className="rm-btn2 danger" onClick={() => setConfirmRemove(true)}>Remove tribute</button>
         ) : (
           <div className="rm-notice">
             <p style={{ marginTop: 0 }}>Remove {t.personName}&apos;s tribute? The photo and words will be deleted and can&apos;t be recovered.</p>

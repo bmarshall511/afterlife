@@ -18,7 +18,7 @@ const star = (cx: number, cy: number, R: number, r: number, n = 5) =>
 
 export const ICONS: Record<string, ReactNode> = {
   "lot-sol": <g>{rays(50, 50, 28, 42, 12, gold)}<circle cx={50} cy={50} r={22} fill={gold} {...S} /><circle cx={42} cy={46} r={2.5} fill={ink} /><circle cx={58} cy={46} r={2.5} fill={ink} /><path d="M41 57 Q50 64 59 57" fill="none" {...S} /></g>,
-  "lot-luna": <g><path d="M62 14 A36 36 0 1 0 62 86 A28 28 0 1 1 62 14Z" fill={cream} {...S} /><circle cx={42} cy={44} r={2.5} fill={ink} /><path d="M36 60 Q42 64 48 60" fill="none" {...S} /><polygon points={star(78, 30, 6, 2.5)} fill={gold} /></g>,
+  "lot-luna": <g><path d="M62 14 A36 36 0 1 0 62 86 A62 62 0 0 1 62 14Z" fill={cream} {...S} /><circle cx={42} cy={44} r={2.5} fill={ink} /><path d="M36 60 Q42 64 48 60" fill="none" {...S} /><polygon points={star(78, 30, 6, 2.5)} fill={gold} /></g>,
   "lot-estrella": <g><polygon points={star(50, 52, 40, 17)} fill={gold} {...S} /><circle cx={50} cy={52} r={6} fill={cream} {...S} /></g>,
   "lot-corazon": <g><path d="M50 84 C20 62 12 44 22 30 C32 18 46 22 50 34 C54 22 68 18 78 30 C88 44 80 62 50 84Z" fill={red} {...S} /><path d="M50 34 L50 14 M44 18 L56 18" {...S} fill="none" /><path d="M30 38 Q34 30 40 32" stroke={cream} strokeWidth={3} fill="none" strokeLinecap="round" /></g>,
   "lot-sirena": <g><circle cx={42} cy={26} r={11} fill={cream} {...S} /><path d="M31 24 Q28 46 36 52 M53 24 Q58 40 54 48" stroke={brown} strokeWidth={5} fill="none" strokeLinecap="round" /><path d="M36 40 Q50 36 56 46 Q60 62 50 74 Q44 82 56 88 L40 90 Q38 80 42 72 Q30 58 36 40Z" fill={teal} {...S} /><path d="M56 88 L70 82 L66 94Z" fill={teal} {...S} /><path d="M40 60 h10 M42 68 h8" stroke={cream} strokeWidth={2} /></g>,

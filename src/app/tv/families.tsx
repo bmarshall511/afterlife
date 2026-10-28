@@ -83,7 +83,7 @@ function Explain({ reveal }: { reveal: RevealInfo | null }) {
 function Void({ reveal }: { reveal: RevealInfo }) {
   return (
     <div className="tv-void">
-      <Icon name="alert" /> <span>This one doesn’t count — {reveal.voidReason ?? "not enough families answered"}.</span>
+      <Icon name="alert" /> <span>{reveal.voidReason ?? "Not enough families answered, so this one doesn’t count."}</span>
     </div>
   );
 }

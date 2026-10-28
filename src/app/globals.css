@@ -645,7 +645,7 @@ button { font: inherit; color: inherit; }
 .ph-order { display: flex; flex-direction: column; gap: 8px; }
 .ph-order-end { display: flex; gap: 6px; align-items: center; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold); font-weight: 700; }
 .ph-order-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.ph-order-list li { display: flex; align-items: center; gap: 8px; min-height: 64px; padding: 6px 6px 6px 4px; border-radius: 14px; background: rgba(22,18,28,0.9);
+.ph-order-list li { user-select: none; -webkit-user-select: none; display: flex; align-items: center; gap: 8px; min-height: 64px; padding: 6px 6px 6px 4px; border-radius: 14px; background: rgba(22,18,28,0.9);
   border: 1.5px solid rgba(255,255,255,0.18); transition: box-shadow 0.15s, border-color 0.15s; position: relative; }
 .ph-order-list li.dragging { z-index: 2; border-color: var(--marigold); box-shadow: 0 12px 30px rgba(0,0,0,0.6); transition: none; }
 .ph-order-grip { flex: none; display: grid; place-items: center; width: 34px; align-self: stretch; color: var(--ink-3); touch-action: none; cursor: grab; font-size: 1.3rem; }

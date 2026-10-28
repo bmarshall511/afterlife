@@ -21,12 +21,17 @@ export async function adminAction(a: APIRequestContext, action: string, extra: R
   return { status: r.status(), body: await r.json().catch(() => null) };
 }
 
-export const FAST = {
-  introMs: 8000, questionMs: 15000, memoryExposeMs: 3000, revealMs: 3000, resultsMs: 3000,
-  intervalMs: 6000, minViewMs: 1500, familyPreferMs: 5000, tributeDwellMinMs: 4000, tributeDwellMaxMs: 5000,
+export const ALBUM = process.env.ALBUM_INVITE_TOKEN ?? "e2e-album-token-123456";
+
+/** v2 pacing: every stage >= 6 s so presence/eligibility works. */
+export const FAST: Record<string, number> = {
+  introMs: 7000, revealMs: 7000, calaveraRevealMs: 7000, resultsMs: 7000, intervalMs: 8000, minViewMs: 1500,
+  lineAnswerMs: 30000, closestAnswerMs: 30000, loteriaAnswerMs: 30000, roomAnswerMs: 25000, roomGuessMs: 25000,
+  calaveraWriteMs: 45000, calaveraVoteMs: 30000, caseClueMs: 6000, caseAnswerMs: 30000,
+  tributeDwellMinMs: 6000, tributeDwellMaxMs: 7000, intervalTributeMs: 7000,
 };
 
-export async function resetDemo(a: APIRequestContext, settings: Record<string, number> = FAST) {
+export async function resetDemo(a: APIRequestContext, settings: Record<string, unknown> = FAST) {
   const r = await adminAction(a, "reset", { confirm: true });
   expect(r.status, JSON.stringify(r.body)).toBe(200);
   const s = await adminAction(a, "settings", { patch: settings });
@@ -65,7 +70,8 @@ export async function waitPhase(ctx: APIRequestContext, pred: (s: any) => boolea
   throw new Error("waitPhase timeout; last=" + JSON.stringify(s?.phase));
 }
 
-export const isAnswerStage = (s: any) => s.phase.kind === "question" && !!s.question && (s.phase.stage === "answer" || s.phase.stage == null) && s.question.options?.length > 0;
+/** a question stage where phones have an input */
+export const isAnswerStage = (s: any) => s.phase.kind === "question" && !!s.question && !!s.question.input;
 
 export async function newPhone(browser: Browser, opts: Parameters<Browser["newContext"]>[0] = {}): Promise<BrowserContext> {
   return browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, extraHTTPHeaders: { "x-forwarded-for": fakeIp() }, ...opts });

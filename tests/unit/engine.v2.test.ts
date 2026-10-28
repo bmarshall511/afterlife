@@ -91,7 +91,7 @@ describe("calavera", () => {
     await submit(d, ts[0].memberId, "only one", t + 100);
     let tr = await runUntil(d, t, (x) => x.kind === "reveal");
     const r = (await snap(tr)).reveal!;
-    expect(r).toMatchObject({ void: true, voidReason: "too_few_entries", correct: null });
+    expect(r).toMatchObject({ void: true, voidReason: expect.stringContaining("Not enough epitaphs"), correct: null });
     expect((await buildMe(d, P, ts[0].memberId, tr)).current.result).toEqual({ points: 0, max: 0, note: "void" });
     let t2 = await runUntil(d, tr, (x) => x.kind === "question" && x.qIndex === 1);
     await submit(d, ts[0].memberId, "a", t2 + 100);
@@ -146,7 +146,7 @@ describe("read the room", () => {
     await submit(d, ts[1].memberId, 1, t3 + 100);
     t3 = await runUntil(d, t3, (x) => x.kind === "reveal" || x.stage === "guess");
     expect((await phase(d)).kind).toBe("reveal");
-    expect((await snap(t3)).reveal).toMatchObject({ void: true, voidReason: "too_few_answers" });
+    expect((await snap(t3)).reveal).toMatchObject({ void: true, voidReason: expect.stringContaining("Not enough families") });
   });
 });
 

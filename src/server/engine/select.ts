@@ -84,7 +84,9 @@ export function familyOrder(p: Pick0, s: Settings, teams: number, seed: string):
   const enabled = new Set(s.families);
   const last = p.lastFamily ?? null;
   const socialOk = teams >= 3 && !p.forceObjective && !(last && SOCIAL_FAMILIES.includes(last));
-  const allowed = [...OBJECTIVE_FAMILIES, ...(socialOk ? SOCIAL_FAMILIES : [])].filter((f) => enabled.has(f) && f !== last);
+  let allowed = [...OBJECTIVE_FAMILIES, ...(socialOk ? SOCIAL_FAMILIES : [])].filter((f) => enabled.has(f) && f !== last);
+  // Host enabled a single game: honour it even though that means repeating the same game back to back.
+  if (!allowed.length) allowed = [...OBJECTIVE_FAMILIES, ...(teams >= 3 && !p.forceObjective ? SOCIAL_FAMILIES : [])].filter((f) => enabled.has(f));
   const played = p.played ?? {};
   return shuffle(allowed, seed + ":fam").sort((a, b) => (played[a] ?? 0) - (played[b] ?? 0));
 }

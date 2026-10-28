@@ -1,6 +1,6 @@
 import { expect, request, test } from "@playwright/test";
 import sharp from "sharp";
-import { admin, adminAction, apiGuest, apiJoin, BASE, INVITE, isAnswerStage, resetDemo, snapshot, waitPhase } from "./helpers";
+import { admin, adminAction, apiGuest, apiJoin, BASE, FAST, INVITE, isAnswerStage, resetDemo, snapshot, waitPhase } from "./helpers";
 
 test.describe.configure({ mode: "serial" });
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -15,6 +15,12 @@ const ROUTES: [string, string][] = [
   ["PATCH", "/api/admin/tributes/00000000-0000-0000-0000-000000000000"],
   ["DELETE", "/api/admin/tributes/00000000-0000-0000-0000-000000000000?confirm=1"],
   ["GET", "/api/admin/tributes/00000000-0000-0000-0000-000000000000/download"],
+  ["GET", "/api/admin/album?party=demo"], ["GET", "/api/admin/album/qr?party=demo"],
+  ["GET", "/api/admin/album/00000000-0000-0000-0000-000000000000"],
+  ["PATCH", "/api/admin/album/00000000-0000-0000-0000-000000000000"],
+  ["DELETE", "/api/admin/album/00000000-0000-0000-0000-000000000000?confirm=1"],
+  ["GET", "/api/admin/album/00000000-0000-0000-0000-000000000000/download"],
+  ["GET", "/api/admin/answers?party=demo"], ["POST", "/api/admin/answers"],
 ];
 
 test("5a. every admin route rejects unauthenticated callers; bad password rejected", async () => {
@@ -36,9 +42,10 @@ test("5a. every admin route rejects unauthenticated callers; bad password reject
 
 test("5b. pause freezes countdown, resume restores remaining; skip advances", async () => {
   const a = await admin();
-  await resetDemo(a, { introMs: 8000, questionMs: 30000, revealMs: 3000, minViewMs: 1500, memoryExposeMs: 3000, memoryAnswerMs: 30000 });
+  await resetDemo(a, { ...FAST, families: ["closest"], closestAnswerMs: 30000 });
   const g = await apiGuest();
   await apiJoin(g, "Pausa");
+  await sleep(6500);
   await adminAction(a, "start");
   const s = await waitPhase(a, isAnswerStage, 30_000);
   const before = s.phase.endsAt - s.serverNow;
@@ -69,4 +76,13 @@ test("5c. demo reset leaves live tributes intact", async () => {
   const list = await (await a.get("/api/admin/tributes?party=live")).text();
   expect(list).toContain(id);
   expect((await g.get(`/api/tributes/photo/${id}?size=thumb`)).status()).toBe(200);
+});
+
+test("5d. admin settings reject unknown/retired-only patches gracefully; families forced", async () => {
+  const a = await admin();
+  await resetDemo(a);
+  const ok = await adminAction(a, "settings", { patch: { families: ["line"] } });
+  expect(ok.status).toBe(200);
+  const bad = await adminAction(a, "settings", { patch: { families: ["memory"] } });
+  expect(bad.status).toBeGreaterThanOrEqual(400);
 });

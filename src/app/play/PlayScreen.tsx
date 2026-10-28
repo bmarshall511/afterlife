@@ -374,7 +374,7 @@ function RevealState({ s, q, me }: { s: Snapshot; q: PublicQuestion; me: MeView 
           <div className="ph-result-txt"><b>Case still open</b><span>{me.current.prior || me.current.saved ? "Your lock is in. Points arrive after round 3." : "More clues next round — locking later is worth less."}</span></div>
         </div>
       ) : <div className="ph-eyebrow">The answer</div>}
-      {rv?.void && <p className="ph-p">This one doesn’t count — {rv.voidReason ?? "not enough families answered"}.</p>}
+      {rv?.void && <p className="ph-p">{rv.voidReason ?? "Not enough families answered, so this one doesn’t count."}</p>}
       {answer && <div className="ph-answer"><span>{q.family === "calavera" ? "Winning line" : q.family === "room" ? "The room picked" : "Answer"}</span>{answer}</div>}
       {rv?.explanation && !caseMid && <p className="ph-p dim">{rv.explanation}</p>}
     </div>

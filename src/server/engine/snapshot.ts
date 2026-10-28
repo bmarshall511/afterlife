@@ -45,6 +45,16 @@ export async function computeStandings(q: Q, partyId: string): Promise<StandingR
   return [...qual, ...prov];
 }
 
+/** Guest-facing wording for internal void codes (never show raw codes on the TV or phones). */
+const VOID_TEXT: Record<string, string> = {
+  too_few_answers: "Not enough families answered, so this one doesn't count.",
+  too_few_entries: "Not enough epitaphs were written, so this one doesn't count.",
+  outage: "We lost connection for a moment, so this doesn't count for anyone.",
+  skipped: "The host skipped this one, so it doesn't count for anyone.",
+  insufficient_teams: "Not enough families for this game, so it doesn't count.",
+  ended: "The party ended before this finished.",
+};
+
 export function backdropOf(kind: string): BackdropState {
   return kind === "question" || kind === "reveal" ? "violet" : kind === "results" ? "magenta" : "amber";
 }
@@ -142,7 +152,7 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
   if (item.family === "room") reveal.correct = null;
   if (row.status === "void") {
     reveal.void = true;
-    reveal.voidReason = row.void_reason ?? "void";
+    reveal.voidReason = VOID_TEXT[row.void_reason as string] ?? "This one doesn't count.";
     reveal.correct = item.family === "case" && row.idx < 2 ? null : reveal.correct;
     if (item.family === "room" || item.family === "calavera") reveal.correct = null;
   }

@@ -15,6 +15,10 @@ never crude, never about real loved ones or grief. Types: `src/shared/types.ts`.
   `settings.families`.
 - Answers: one per team per stage (`answer.kind` = stage), value in `answer.value` jsonb, captain only, lock on submit
   (no edits), idempotent by requestId, server validates shape strictly against the question's InputSpec.
+- **Cancelled (void) questions in social sets** (Calavera, Read the Room): the set score is rescaled over the questions
+  that counted — `round(sum × 3 / countedQuestions)` — so a technical void doesn't punish anyone. Fewer than 2 counted
+  questions invalidates the whole set for everyone and the next set is an objective game.
+- **A single enabled game** is honoured even if that means the same game back to back.
 - No speed bonus anywhere. Case rewards locking at an earlier *clue round*, not seconds.
 
 ## 1. Calavera — "Write the epitaph" (social, ≥3 teams)

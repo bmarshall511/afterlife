@@ -19,9 +19,15 @@ export async function POST(req: Request) {
     if (storageKind() !== "vercel-blob") throw new HttpError(409, "local_mode", "Direct uploads are not configured; use /api/album/upload.");
     const body = (await req.json().catch(() => null)) as HandleUploadPresignedBody | null;
     if (!body || typeof body !== "object") throw new HttpError(400, "invalid", "Invalid request.");
+    // We never register upload-completed callbacks (the browser calls /api/album/finalize), so only
+    // presigned-URL requests are accepted here.
+    if ((body as { type?: unknown }).type !== "blob.generate-presigned-url") throw new HttpError(400, "invalid", "Invalid request.");
     const db = await getDb();
     const result = await handleUploadPresigned({
       body,
+      // The SDK requires a webhook key up front even though it is only used to verify upload-completed
+      // callbacks, which are rejected above. A real key can be supplied via BLOB_WEBHOOK_PUBLIC_KEY.
+      webhookPublicKey: process.env.BLOB_WEBHOOK_PUBLIC_KEY || "unused:no-upload-completed-callbacks",
       request: req,
       getSignedToken: async (pathname, clientPayload) => {
         let p: { token?: unknown; party?: unknown } = {};

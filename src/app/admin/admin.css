@@ -30,7 +30,22 @@ textarea.ad-in{width:100%;min-height:80px}
 .ad-pill.ok{background:#12301a;color:#9be3a8}
 .ad-table{width:100%;border-collapse:collapse;font-size:14px}
 .ad-table td,.ad-table th{border-bottom:1px solid #222;padding:6px 4px;text-align:left;vertical-align:top}
-.ad-login{max-width:360px;margin:15vh auto;padding:16px}
+.ad{display:flow-root}
+.ad-login-page{min-height:100dvh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(1200px 600px at 50% -10%,#2a1a08 0%,#0b0b0d 60%)}
+.ad-login{width:100%;max-width:400px;padding:32px 28px;border:1px solid #2a2a30;border-radius:20px;background:#121216;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.ad-login-mark{font-family:var(--display,inherit);letter-spacing:.42em;font-size:13px;color:#fff;display:flex;align-items:center;gap:6px;margin-bottom:22px}
+.ad-login-mark span{width:7px;height:7px;border-radius:50%;background:#f6a623;display:inline-block}
+.ad-login h1{margin:0;font-family:var(--display,inherit);font-size:28px;line-height:1.15;color:#fff}
+.ad-login-sub{margin:6px 0 22px;color:#9a9aa3}
+.ad-login-field{display:block}
+.ad-login-field>span{display:block;font-size:13px;color:#b8b8c0;margin-bottom:6px}
+.ad-login-pw{display:flex;align-items:stretch;border:1px solid #33333a;border-radius:12px;background:#0b0b0d;overflow:hidden}
+.ad-login-pw:focus-within{border-color:#f6a623;box-shadow:0 0 0 3px rgba(246,166,35,.2)}
+.ad-login-pw input{flex:1;min-width:0;border:0;background:transparent;color:#fff;font:16px/1.2 inherit;padding:14px 14px;outline:none}
+.ad-login-pw button{border:0;background:transparent;color:#ffc35a;font:600 14px inherit;padding:0 14px;cursor:pointer}
+.ad-login-err{margin:10px 0 0;color:#ffb3a8}
+.ad-login-btn{width:100%;margin-top:18px;min-height:50px;border:0;border-radius:12px;background:#f6a623;color:#1a1006;font:700 16px inherit;cursor:pointer}
+.ad-login-btn:disabled{opacity:.45;cursor:default}
 details.ad-card summary{cursor:pointer;font-weight:600}
 .ad-album{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
 .ad-album .ad-card{padding:8px;margin:0}

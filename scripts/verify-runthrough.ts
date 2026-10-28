@@ -5,6 +5,8 @@
  * that The Ofrenda Case never appears, and runs the text-overflow probe on every real TV/phone screen.
  * Usage: npx tsx scripts/verify-runthrough.ts [baseUrl]   (resets the DEMO party only)
  */
+import { readFileSync as __r } from "node:fs";
+const LOCAL_PW = process.env.ADMIN_PASSWORD ?? (() => { try { return __r(".env.local", "utf8").match(/^ADMIN_PASSWORD=(.*)$/m)?.[1]?.trim(); } catch { return undefined; } })() ?? "afterlife-dev";
 import { chromium, devices, type Page } from "@playwright/test";
 import fs from "node:fs";
 
@@ -26,7 +28,7 @@ const b = await chromium.launch();
 const tvCtx = await b.newContext({ viewport: { width: 1920, height: 1080 }, reducedMotion: "reduce" });
 const tv = await tvCtx.newPage();
 tv.on("pageerror", (e) => problems.push("TV page error: " + e.message));
-await tv.request.post(`${B}/api/admin/login`, { data: { password: "afterlife-dev" } });
+await tv.request.post(`${B}/api/admin/login`, { data: { password: LOCAL_PW } });
 const adm = (body: object) => tv.request.post(`${B}/api/admin/party`, { data: { party: "demo", ...body } });
 await adm({ action: "reset", confirm: true });
 

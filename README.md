@@ -18,7 +18,7 @@ Development-only defaults (disabled when `NODE_ENV=production`):
 
 | What | Value |
 |---|---|
-| Admin password | `afterlife-dev` |
+| Admin password | `ADMIN_PASSWORD` in `.env.local` (git-ignored); falls back to `afterlife-dev` only if unset |
 | Tribute upload link | `/remember/dev-ofrenda-2026` |
 
 ### Demo / test party

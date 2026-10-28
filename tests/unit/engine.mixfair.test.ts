@@ -8,7 +8,7 @@ function play(fams: GameFamily[], socialOk: boolean, n: number) {
   let prev: GameFamily | null = null;
   const seq: GameFamily[] = [];
   for (let i = 0; i < n; i++) {
-    const f = questionFamilyOrder(fams, prev, socialOk, played, `seed:${Math.floor(i / 3)}:q${i % 3}`)[0];
+    const f: GameFamily = questionFamilyOrder(fams, prev, socialOk, played, `seed:${Math.floor(i / 3)}:q${i % 3}`)[0];
     seq.push(f); played[f] = (played[f] ?? 0) + 1; prev = f;
   }
   return { seq, played };

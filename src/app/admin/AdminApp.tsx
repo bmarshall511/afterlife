@@ -86,28 +86,39 @@ type Ctx = { party: Party; run: (fn: () => Promise<unknown>, ok?: string) => Pro
 
 function Login({ onDone }: { onDone: () => void }) {
   const [pw, setPw] = useState("");
+  const [show, setShow] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   return (
-    <form className="ad-login ad-card" onSubmit={async (e) => {
-      e.preventDefault();
-      setBusy(true);
-      setErr(null);
-      try {
-        await api("/api/admin/login", { method: "POST", json: { password: pw } });
-        setPw("");
-        onDone();
-      } catch (e: any) {
-        setErr(e.message);
-      } finally {
-        setBusy(false);
-      }
-    }}>
-      <h2>Host sign-in</h2>
-      <input className="ad-in" style={{ width: "100%" }} type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)} aria-label="Admin password" placeholder="Password" />
-      {err ? <p className="ad-muted" style={{ color: "#ffb3a8" }} role="alert">{err}</p> : null}
-      <button className="ad-btn primary" style={{ marginTop: 10, width: "100%" }} disabled={busy || !pw}>Sign in</button>
-    </form>
+    <main className="ad-login-page">
+      <form className="ad-login" onSubmit={async (e) => {
+        e.preventDefault();
+        setBusy(true);
+        setErr(null);
+        try {
+          await api("/api/admin/login", { method: "POST", json: { password: pw } });
+          setPw("");
+          onDone();
+        } catch (e: any) {
+          setErr(e?.status === 401 ? "That password didn’t work. Try again." : e?.status === 429 || /too many/i.test(String(e?.message)) ? "Too many tries — wait a minute, then try again." : e.message);
+        } finally {
+          setBusy(false);
+        }
+      }}>
+        <div className="ad-login-mark" aria-hidden="true">AFTERLIFE<span /></div>
+        <h1>Host admin</h1>
+        <p className="ad-login-sub">Run the party, tributes, photos and teams.</p>
+        <label className="ad-login-field">
+          <span>Password</span>
+          <div className="ad-login-pw">
+            <input type={show ? "text" : "password"} autoComplete="current-password" autoFocus value={pw} onChange={(e) => setPw(e.target.value)} />
+            <button type="button" onClick={() => setShow((v) => !v)} aria-label={show ? "Hide password" : "Show password"}>{show ? "Hide" : "Show"}</button>
+          </div>
+        </label>
+        {err ? <p className="ad-login-err" role="alert">{err}</p> : null}
+        <button className="ad-login-btn" disabled={busy || !pw}>{busy ? "Signing in…" : "Sign in"}</button>
+      </form>
+    </main>
   );
 }
 

@@ -1,4 +1,6 @@
 /** Plays mixed rounds on the demo party (TV + phone + bots) and checks games vary per question, never repeat back to back, no Case. */
+import { readFileSync as __r } from "node:fs";
+const LOCAL_PW = process.env.ADMIN_PASSWORD ?? (() => { try { return __r(".env.local", "utf8").match(/^ADMIN_PASSWORD=(.*)$/m)?.[1]?.trim(); } catch { return undefined; } })() ?? "afterlife-dev";
 import { chromium, devices } from "@playwright/test";
 import fs from "node:fs";
 const B = process.argv[2] ?? "http://localhost:3000";
@@ -10,7 +12,7 @@ const ph = await (await b.newContext({ ...devices["iPhone 13"], reducedMotion: "
 const problems: string[] = []; for (const pg of [tv, ph]) pg.on("pageerror", (e) => problems.push(e.message));
 const adm = (body: object) => tv.request.post(`${B}/api/admin/party`, { data: { party: "demo", ...body } });
 const st = async () => (await tv.request.get(`${B}/api/state?party=demo&audience=tv`)).json();
-await tv.request.post(`${B}/api/admin/login`, { data: { password: "afterlife-dev" } });
+await tv.request.post(`${B}/api/admin/login`, { data: { password: LOCAL_PW } });
 await adm({ action: "reset", confirm: true });
 await ph.goto(`${B}/join?party=demo`); await ph.locator("input").first().fill("Ben");
 await ph.getByRole("button", { name: /^Join/ }).first().click(); await ph.waitForURL(/\/play/);

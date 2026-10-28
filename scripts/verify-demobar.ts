@@ -1,10 +1,12 @@
 /** Clicks every demo-bar control in a real browser from a freshly reset demo and checks the result of each. */
+import { readFileSync as __r } from "node:fs";
+const LOCAL_PW = process.env.ADMIN_PASSWORD ?? (() => { try { return __r(".env.local", "utf8").match(/^ADMIN_PASSWORD=(.*)$/m)?.[1]?.trim(); } catch { return undefined; } })() ?? "afterlife-dev";
 import { chromium } from "@playwright/test";
 const B = process.argv[2] ?? "http://localhost:3000";
 const b = await chromium.launch();
 const p = await (await b.newContext({ viewport: { width: 1920, height: 1080 } })).newPage();
 const errs: string[] = []; p.on("pageerror", (e) => errs.push(e.message));
-await p.request.post(`${B}/api/admin/login`, { data: { password: "afterlife-dev" } });
+await p.request.post(`${B}/api/admin/login`, { data: { password: LOCAL_PW } });
 await p.request.post(`${B}/api/admin/party`, { data: { party: "demo", action: "reset", confirm: true } });
 await p.goto(`${B}/tv?party=demo`); await p.waitForTimeout(3000);
 const bar = p.locator(".demobar");

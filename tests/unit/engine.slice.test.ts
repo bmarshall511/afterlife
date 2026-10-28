@@ -31,7 +31,7 @@ describe("vertical slice", () => {
     expect(snap.reveal).toBeNull();
     expect(snap.eligibleCount).toBe(1);
     expect(JSON.stringify(snap)).not.toMatch(/"(answer|private)":/);
-    expect(JSON.stringify(snap)).not.toContain("secretIndex");
+    expect(JSON.stringify(snap)).not.toContain("SECRET");
 
     // non-captain cannot submit
     await expect(answer(d, b.me.member.id, true, t + 500)).rejects.toMatchObject({ code: "not_captain" });
@@ -41,9 +41,9 @@ describe("vertical slice", () => {
     const r1 = await answer(d, a.memberId, true, t + 1000, "req-1");
     expect(r1.ok).toBe(true);
     // retry same requestId → ok; different choice → already
-    const r2 = await submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: ph.stage, choice: r1.saved.choice, requestId: "req-1" }, t + 1200);
+    const r2 = await submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: ph.stage, value: r1.saved.value, requestId: "req-1" }, t + 1200);
     expect(r2.ok).toBe(true);
-    await expect(submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: ph.stage, choice: (r1.saved.choice + 1) % 2, requestId: "req-2" }, t + 1300)).rejects.toMatchObject({ code: "already" });
+    await expect(submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: ph.stage, value: ((r1.saved.value as number) + 1) % 9, requestId: "req-2" }, t + 1300)).rejects.toMatchObject({ code: "already" });
 
     // all eligible answered → early close after minViewMs
     const tr = await runUntil(d, t + 1000, (x) => x.kind === "reveal", 500);
@@ -55,15 +55,16 @@ describe("vertical slice", () => {
     await tick(P, tr + 200);
     expect((await d.query("SELECT COUNT(*)::int n FROM score_ledger")) [0].n).toBe(1);
     const snapR = await buildSnapshot(d, P, tr, "tv");
-    expect(snapR.reveal?.correct).toBe(r1.saved.choice);
+    expect(snapR.reveal?.correct).toBe(r1.saved.value);
+    expect(snapR.reveal?.outcomes).toEqual([{ teamId: a.teamId, name: "Ana's Family", points: 100, value: r1.saved.value }]);
 
     // refresh: buildMe again restores saved answer and result
     const me = await buildMe(d, P, a.memberId, tr + 300);
-    expect(me.current.saved?.choice).toBe(r1.saved.choice);
-    expect(me.current.result).toEqual({ correct: true, points: 100 });
+    expect(me.current.saved).toEqual({ stage: "answer", value: r1.saved.value });
+    expect(me.current.result).toEqual({ points: 100, max: 100 });
 
     // stale control after deadline → closed
-    await expect(submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: "answer", choice: 0, requestId: "late" }, tr + 400)).rejects.toMatchObject({ code: "already" });
+    await expect(submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: "answer", value: ((r1.saved.value as number) + 1) % 9, requestId: "late" }, tr + 400)).rejects.toMatchObject({ code: "already" });
   });
 
   it("version-based 204: tick reports unchanged version when nothing due", async () => {
@@ -79,7 +80,7 @@ describe("vertical slice", () => {
     const a = await newTeam("Ana");
     let t = await startAndOpen(d);
     for (let i = 0; i < 3; i++) {
-      t = await runUntil(d, t, (x) => x.kind === "question" && x.stage !== "expose" && x.qIndex === i);
+      t = await runUntil(d, t, (x) => x.kind === "question" && x.qIndex === i);
       await answer(d, a.memberId, i !== 1, t + 100);
       t = await runUntil(d, t + 100, (x) => x.kind === "reveal" && x.qIndex === i);
     }

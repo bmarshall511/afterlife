@@ -260,3 +260,44 @@ export function setTeamStatus(partyId: string, teamId: string, status: "active" 
     await q.query(`UPDATE team SET status=$2, away_since=$3 WHERE id=$1 AND status IN ('active','away')`, [teamId, status, status === "away" ? new Date(now).toISOString() : null]);
   });
 }
+
+/**
+ * Host "Last chance": marks the NEXT set doubled (every ledger row ×2, max 600). One-shot.
+ * `on=false` cancels a pending mark. Returns {doubleNext}.
+ */
+export function markFinalRound(partyId: string, actor: string, on: boolean = true, now = Date.now()) {
+  return withParty<{ doubleNext: boolean }>(partyId, actor, "final_round", { on }, now, async (_q, p) => {
+    p.engine.doubleNext = !!on;
+    return { doubleNext: !!on };
+  });
+}
+
+/**
+ * Hide / unhide a calavera entry (answer row of kind 'write'). Hidden entries vanish from the vote list,
+ * votes for them are discarded at scoring. Allowed any time; after scoring it only affects display.
+ */
+export function hideEntry(partyId: string, answerId: string, hidden: boolean, actor: string, now = Date.now()) {
+  return withParty<{ answerId: string; hidden: boolean }>(partyId, actor, "hide_entry", { answerId, hidden }, now, async (q) => {
+    if (!/^[0-9a-f-]{36}$/i.test(String(answerId))) throw new EngineError("invalid", "bad entry id", 400);
+    const r = await q.query(`UPDATE answer SET hidden=$3 WHERE id=$1 AND party_id=$2 AND kind='write' RETURNING id`, [answerId, partyId, !!hidden]);
+    if (!r.length) throw new EngineError("not_found", "entry not found", 404);
+    return { answerId, hidden: !!hidden };
+  });
+}
+
+/** Admin list of calavera entries of the current (or given) set, with authors and hidden flags. */
+export async function listEntries(partyId: string, setId?: string | null) {
+  const d = await db();
+  const sid = setId ?? (await loadParty(d, partyId, false)).phase.setId ?? null;
+  if (!sid) return { setId: null, entries: [] };
+  const rows = await d.query(
+    `SELECT a.id, a.question_id, qq.idx, a.team_id, t.name AS team_name, a.value, a.hidden, a.created_at
+       FROM answer a JOIN question qq ON qq.id=a.question_id JOIN team t ON t.id=a.team_id
+      WHERE qq.set_id=$1 AND a.party_id=$2 AND a.kind='write' ORDER BY qq.idx, a.created_at`,
+    [sid, partyId],
+  );
+  return {
+    setId: sid,
+    entries: rows.map((r) => ({ answerId: r.id, questionId: r.question_id, qIndex: r.idx, teamId: r.team_id, teamName: r.team_name, text: r.value, hidden: r.hidden })),
+  };
+}

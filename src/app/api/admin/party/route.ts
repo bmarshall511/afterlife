@@ -24,7 +24,7 @@ export const GET = adminRoute(async (req, { db }) => {
   });
 });
 
-const ACTIONS = ["start", "pause", "resume", "skip", "invalidate", "extend", "mode", "settings", "end", "reset"] as const;
+const ACTIONS = ["start", "pause", "resume", "skip", "invalidate", "extend", "mode", "settings", "end", "reset", "final_round"] as const;
 
 export const POST = adminRoute(async (req, { db, admin }) => {
   const b = await body(req);
@@ -73,6 +73,10 @@ export const POST = adminRoute(async (req, { db, admin }) => {
       result = await callControl("updateSettings", party, clean, actor);
       break;
     }
+    case "final_round":
+      // Marks the NEXT set "Last chance" (points ×2). {on:false} cancels a pending mark.
+      result = await callControl("markFinalRound", party, actor, b.on !== false);
+      break;
     case "end":
       if (b.confirm !== true) throw new HttpError(400, "confirm_required", "Please confirm ending the party.");
       result = await callControl("endParty", party, actor);
@@ -84,6 +88,10 @@ export const POST = adminRoute(async (req, { db, admin }) => {
       const ts = await db.query("SELECT id, photo_key, thumb_key, original_key FROM tribute WHERE party_id = 'demo'");
       for (const t of ts) await Promise.all([deleteObject(t.photo_key), deleteObject(t.thumb_key), deleteObject(t.original_key)].map((p) => p.catch(() => {})));
       await db.query("DELETE FROM tribute WHERE party_id = 'demo'");
+      // Demo album photos too (live photos are never touched here).
+      const ps = await db.query("SELECT full_key, display_key, thumb_key FROM album_photo WHERE party_id = 'demo'");
+      for (const a of ps) await Promise.all([deleteObject(a.full_key), deleteObject(a.display_key), deleteObject(a.thumb_key)].map((p) => p.catch(() => {})));
+      await db.query("DELETE FROM album_photo WHERE party_id = 'demo'");
       result = await callControl("resetParty", "demo", actor);
       break;
     }

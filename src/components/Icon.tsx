@@ -22,6 +22,20 @@ const P: Record<string, string> = {
   heart: "M12 20s-7-4.4-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 5C19 15.6 12 20 12 20z",
   arrow: "M5 12h14M13 6l6 6-6 6",
   spinner: "M12 3a9 9 0 1 0 9 9",
+  up: "M6 15l6-6 6 6",
+  down: "M6 9l6 6 6-6",
+  grip: "M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01",
+  lock: "M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4",
+  plus: "M12 5v14M5 12h14",
+  minus: "M5 12h14",
+  quill: "M20 4C13 5 8 10 6 17l-2 3M6 17c4.5 0 9-2.5 11-7",
+  ruler: "M3 12h18M6 9v6M10 10v4M14 10v4M18 9v6",
+  cards: "M4 5h10v14H4zM14 7.5l5.5 1L17.5 20l-3.5-.6",
+  target: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 12h.01",
+  search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5",
+  flame: "M12 21c-3.9 0-7-2.9-7-6.8 0-3.6 3.4-5.4 4-10.2 3 1.8 4.4 4.6 4.4 6.8 1-.7 1.8-1.9 2-3.6 2 1.9 3.6 4.4 3.6 7 0 3.9-3.1 6.8-7 6.8z",
+  reset: "M4 12a8 8 0 1 0 2.3-5.7L4 8.5M4 3.5v5h5",
+  bust: "M12 3v10M12 17.5h.01M5 21h14",
 };
 export function Icon({ name, size = "1em", className }: { name: string; size?: string | number; className?: string }) {
   return (

@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { PartyId, PublicQuestion, PublicTribute, RevealInfo, Snapshot } from "@/shared/types";
-import { useSnapshot, useServerNow } from "@/client/store";
+import { useSnapshot } from "@/client/store";
 import { Backdrop, type Dim } from "@/components/Backdrop";
 import { Wordmark, FAMILY } from "@/components/Brand";
 import { Countdown } from "@/components/Countdown";
 import { JoinQR, shortUrl } from "@/components/JoinQR";
 import { Standings } from "@/components/Standings";
 import { Icon } from "@/components/Icon";
-import { SceneView } from "@/games/scenes/SceneView";
+import { CalaveraQ, CalaveraR, CaseQ, CaseR, ClosestQ, ClosestR, LineQ, LineR, LoteriaQ, LoteriaR, RoomQ, RoomR, rememberInput } from "./families";
 
 export function TvScreen({ party, mock }: { party: PartyId; mock: string | null }) {
   const { snapshot: s, online, offsetMs } = useSnapshot(party, { intervalMs: 1000, mock, audience: "tv" });
@@ -74,35 +74,9 @@ function SetLabel({ s }: { s: Snapshot }) {
   );
 }
 
-function Locked({ s }: { s: Snapshot }) {
-  if (!s.eligibleCount) return null;
-  const n = Math.min(s.answeredCount, s.eligibleCount);
-  return (
-    <div className="tv-locked" aria-live="polite">
-      <span className="tv-locked-dots" aria-hidden="true">
-        {Array.from({ length: Math.min(s.eligibleCount, 12) }, (_, i) => <i key={i} className={i < n ? "on" : ""} />)}
-      </span>
-      {n} of {s.eligibleCount} {s.eligibleCount === 1 ? "family" : "families"} locked in
-    </div>
-  );
-}
-
-function Options({ q, reveal, cols = 2 }: { q: PublicQuestion; reveal?: RevealInfo | null; cols?: 1 | 2 | 4 }) {
-  const correct = reveal ? (Array.isArray(reveal.correct) ? reveal.correct : reveal.correct == null ? [] : [reveal.correct]) : null;
-  return (
-    <ol className={`tv-options cols-${cols} ${correct ? "revealed" : ""}`}>
-      {q.options.map((o, i) => {
-        const ok = correct?.includes(i);
-        return (
-          <li key={i} className={`tv-opt ${ok ? "correct" : correct ? "dim" : ""}`}>
-            <span className="tv-opt-label">{o.label === o.text ? <Icon name={o.icon ?? (i === 0 ? "check" : "x")} /> : o.label}</span>
-            <span className="tv-opt-text">{o.text}</span>
-            {ok && <span className="tv-opt-badge"><Icon name="check" /> Correct</span>}
-          </li>
-        );
-      })}
-    </ol>
-  );
+function DoubleBadge({ s }: { s: Snapshot }) {
+  if (!s.phase.doubled) return null;
+  return <span className="tv-double"><Icon name="flame" /> Double points</span>;
 }
 
 /* ----------------------------- views ----------------------------- */
@@ -122,11 +96,12 @@ function AmbientView({ s }: { s: Snapshot }) {
 }
 
 function IntroView({ s, offsetMs, paused }: { s: Snapshot; offsetMs: number; paused: boolean }) {
-  const f = FAMILY[s.phase.family ?? "memory"];
+  const f = FAMILY[s.phase.family ?? "line"];
   return (
-    <div className="tv-col tv-intro">
+    <div className={`tv-col tv-intro ${s.phase.doubled ? "doubled" : ""}`}>
       <Wordmark size="md" />
       <SetLabel s={s} />
+      {s.phase.doubled && <div className="tv-lastchance"><Icon name="flame" /><span>Last chance</span><b>Double points</b></div>}
       {s.phase.encore && <div className="tv-eyebrow accent">Encore round</div>}
       <h1 className="tv-title">{f.title}</h1>
       <p className="tv-sub">{f.sub}</p>
@@ -138,11 +113,11 @@ function IntroView({ s, offsetMs, paused }: { s: Snapshot; offsetMs: number; pau
 }
 
 function QHeader({ s, offsetMs, paused, title }: { s: Snapshot; offsetMs: number; paused: boolean; title?: string }) {
-  const f = FAMILY[s.question?.family ?? "memory"];
+  const f = FAMILY[s.question?.family ?? s.phase.family ?? "line"];
   return (
     <header className="tv-qhead">
       <div>
-        <div className="tv-fam">{title ?? f.title}</div>
+        <div className="tv-fam">{title ?? f.title} <DoubleBadge s={s} /></div>
         <SetLabel s={s} />
       </div>
       <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} paused={paused} className="tv-count-sm" />
@@ -150,121 +125,43 @@ function QHeader({ s, offsetMs, paused, title }: { s: Snapshot; offsetMs: number
   );
 }
 
-function useElapsed(s: Snapshot, offsetMs: number) {
-  const now = useServerNow(offsetMs);
-  return Math.max(0, now - s.phase.startsAt);
-}
-
-function Scene({ s, q, offsetMs, reveal, spec }: { s: Snapshot; q: PublicQuestion; offsetMs: number; reveal?: RevealInfo | null; spec?: PublicQuestion["scene"] }) {
-  const elapsedMs = useElapsed(s, offsetMs);
-  const sc = spec ?? q.scene ?? null;
-  if (!sc && !reveal?.highlight?.scene) return null;
-  return (
-    <div className="tv-scene">
-      <SceneView spec={sc} audience="tv" stage={s.phase.stage ?? "answer"} elapsedMs={elapsedMs} reveal={reveal ?? null} />
-    </div>
-  );
-}
-
 function QuestionView({ s, q, offsetMs, paused }: { s: Snapshot; q: PublicQuestion; offsetMs: number; paused: boolean }) {
-  const stage = s.phase.stage ?? "answer";
-  const common = { s, offsetMs, paused };
-
-  if (q.family === "memory" && stage === "expose") {
-    return (
-      <div className="tv-q tv-q-expose">
-        <QHeader {...common} />
-        <h2 className="tv-statement sm">Remember everything.</h2>
-        <Scene s={s} q={q} offsetMs={offsetMs} />
-        <p className="tv-caption">The scene disappears when the timer ends — it won’t be on your phones.</p>
-      </div>
-    );
-  }
-  if (q.family === "truth") {
-    return (
-      <div className="tv-q tv-q-truth">
-        <QHeader {...common} />
-        <h2 className="tv-statement">{q.prompt}</h2>
-        <Options q={q} cols={2} />
-        <Locked s={s} />
-      </div>
-    );
-  }
-  if (q.family === "difference") {
-    return (
-      <div className="tv-q tv-q-diff">
-        <QHeader {...common} />
-        <h2 className="tv-prompt">{q.prompt}</h2>
-        <Scene s={s} q={q} offsetMs={offsetMs} />
-        <Options q={q} cols={4} />
-        <Locked s={s} />
-      </div>
-    );
-  }
-  if (q.family === "family") {
-    const prefer = stage === "prefer";
-    return (
-      <div className="tv-q tv-q-family">
-        <QHeader {...common} />
-        <div className="tv-eyebrow accent">{prefer ? "Step 1 · Each family: pick your favorite" : "Step 2 · What did most families pick?"}</div>
-        <h2 className="tv-statement md">{q.prompt}</h2>
-        <Options q={q} cols={2} />
-        <Locked s={s} />
-      </div>
-    );
-  }
-  // memory answer, reveal, altar
-  const hasScene = !!q.scene && q.family !== "memory";
+  rememberInput(q);
+  const body = (() => {
+    switch (q.family) {
+      case "calavera": return <CalaveraQ s={s} q={q} />;
+      case "line": return <LineQ s={s} q={q} />;
+      case "loteria": return <LoteriaQ s={s} q={q} />;
+      case "room": return <RoomQ s={s} q={q} />;
+      case "closest": return <ClosestQ s={s} q={q} />;
+      case "case": return <CaseQ s={s} q={q} />;
+    }
+  })();
   return (
     <div className={`tv-q tv-q-${q.family}`}>
-      <QHeader {...common} />
-      {hasScene ? (
-        <div className="tv-split">
-          <Scene s={s} q={q} offsetMs={offsetMs} />
-          <div className="tv-side">
-            <h2 className="tv-prompt">{q.prompt}</h2>
-            <Options q={q} cols={1} />
-            <Locked s={s} />
-          </div>
-        </div>
-      ) : (
-        <>
-          <h2 className="tv-statement md">{q.prompt}</h2>
-          <Options q={q} cols={2} />
-          <Locked s={s} />
-        </>
-      )}
+      <QHeader s={s} offsetMs={offsetMs} paused={paused} />
+      {body}
     </div>
   );
 }
 
 function RevealView({ s, q, reveal, offsetMs }: { s: Snapshot; q: PublicQuestion; reveal: RevealInfo | null; offsetMs: number }) {
-  const hiScene = reveal?.highlight?.scene ? true : false;
-  const showScene = (!!q.scene || hiScene) && q.family !== "truth" && q.family !== "family";
+  rememberInput(q);
+  const body = (() => {
+    switch (q.family) {
+      case "calavera": return <CalaveraR q={q} reveal={reveal} />;
+      case "line": return <LineR q={q} reveal={reveal} />;
+      case "loteria": return <LoteriaR q={q} reveal={reveal} />;
+      case "room": return <RoomR q={q} reveal={reveal} />;
+      case "closest": return <ClosestR q={q} reveal={reveal} />;
+      case "case": return <CaseR s={s} q={q} reveal={reveal} />;
+    }
+  })();
+  const title = q.family === "calavera" ? "The votes are in" : q.family === "room" ? "The room has spoken" : q.family === "case" ? FAMILY.case.title : "The answer";
   return (
-    <div className="tv-q tv-reveal">
-      <QHeader s={s} offsetMs={offsetMs} paused={false} title="The answer" />
-      <div className={showScene ? "tv-split" : ""}>
-        {showScene && <Scene s={s} q={q} offsetMs={offsetMs} reveal={reveal} />}
-        <div className="tv-side wide">
-          <h2 className="tv-prompt muted">{q.prompt}</h2>
-          {reveal?.void ? <p className="tv-sub">This question doesn’t count — {reveal.voidReason ?? "not enough votes"}.</p> : <Options q={q} reveal={reveal} cols={showScene ? 1 : 2} />}
-          {reveal?.tallies && <Tallies q={q} t={reveal.tallies} />}
-          {reveal?.explanation && <p className="tv-explain">{reveal.explanation}</p>}
-          {reveal?.source?.title && <p className="tv-source">Source · {reveal.source.title}</p>}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Tallies({ q, t }: { q: PublicQuestion; t: { prefer: number[]; predict: number[] } }) {
-  const max = Math.max(1, ...t.prefer);
-  return (
-    <div className="tv-tallies">
-      {q.options.map((o, i) => (
-        <div key={i} className="tv-tally"><span>{o.label}</span><div><i style={{ width: `${(t.prefer[i] ?? 0) / max * 100}%` }} /></div><b>{t.prefer[i] ?? 0}</b></div>
-      ))}
+    <div className={`tv-q tv-reveal tv-r-${q.family}`}>
+      <QHeader s={s} offsetMs={offsetMs} paused={false} title={title} />
+      {body}
     </div>
   );
 }
@@ -276,7 +173,7 @@ function ResultsView({ s, offsetMs }: { s: Snapshot; offsetMs: number }) {
   const headline = names.length > 1 ? `${names.slice(0, -1).join(", ")} & ${names.at(-1)}` : names[0] ?? "No winner this set";
   return (
     <div className="tv-col tv-results">
-      <div className="tv-qhead"><div><div className="tv-fam">{set ? FAMILY[set.family].title : "Results"}</div><div className="tv-eyebrow">Set {s.phase.setSeq ?? ""} results</div></div>
+      <div className="tv-qhead"><div><div className="tv-fam">{set ? FAMILY[set.family].title : "Results"} <DoubleBadge s={s} /></div><div className="tv-eyebrow">Set {s.phase.setSeq ?? ""} results</div></div>
         <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} className="tv-count-sm" /></div>
       <div className="tv-eyebrow accent">{names.length > 1 ? "Shared win" : "Set winner"}</div>
       <h1 className="tv-title sm">{headline}</h1>

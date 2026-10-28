@@ -10,9 +10,9 @@ import type { ContentSource, TributeSource } from "@/server/engine/types";
 export const P = "demo";
 export const T0 = Date.UTC(2026, 10, 1, 18, 0, 0);
 
-export async function setup(opts: { content?: ContentSource; tributes?: TributeSource } = {}): Promise<Db> {
+export async function setup(opts: { content?: ContentSource; tributes?: TributeSource; album?: import("@/server/engine/deps").AlbumSource } = {}): Promise<Db> {
   const d = await getDb();
-  setEngineDeps({ content: opts.content ?? fixtureContent(10), tributes: opts.tributes ?? { nextTribute: async () => null, isTributeVisible: async () => false } });
+  setEngineDeps({ content: opts.content ?? fixtureContent(10), tributes: opts.tributes ?? { nextTribute: async () => null, isTributeVisible: async () => false }, album: opts.album ?? { nextAlbumSlide: async () => null, isAlbumPhotoVisible: async () => false } });
   await resetParty("demo", "test", {}, T0);
   await resetParty("live", "test", { confirm: true }, T0);
   await d.query("UPDATE party SET settings='{}'");
@@ -44,21 +44,45 @@ export async function runUntil(d: Db, from: number, pred: (ph: any) => boolean, 
   throw new Error("runUntil: condition never met");
 }
 
-export async function correctOf(d: Db, qid: string): Promise<number> {
-  return (await d.query("SELECT private FROM question WHERE id=$1", [qid]))[0].private.answer;
+export async function itemOf(d: Db, qid: string): Promise<any> {
+  return (await d.query("SELECT private FROM question WHERE id=$1", [qid]))[0].private.item;
+}
+export async function correctOf(d: Db, qid: string): Promise<any> {
+  return (await itemOf(d, qid)).answer;
+}
+
+/** Restrict scheduling (first set picks from these families). */
+export async function families(d: Db, fams: string[]) {
+  await d.query(`UPDATE party SET settings = settings || $2::jsonb WHERE id=$1`, [P, JSON.stringify({ families: fams })]);
+}
+
+/** A right / wrong value for the current objective question (loteria/line/closest). */
+export async function valueFor(d: Db, correct: boolean): Promise<unknown> {
+  const ph = await phase(d);
+  const it = await itemOf(d, ph.questionId!);
+  switch (it.family) {
+    case "loteria": return correct ? it.answer : (it.answer + 1) % it.data.cards.length;
+    case "line": return correct ? it.answer : [...it.answer].reverse();
+    case "closest": return correct ? it.answer : it.answer + 1;
+    default: throw new Error("valueFor: unsupported family " + it.family);
+  }
 }
 
 export async function answer(d: Db, memberId: string, correct: boolean, now: number, requestId = Math.random().toString(36)) {
   const ph = await phase(d);
-  const c = await correctOf(d, ph.questionId!);
-  const nOpts = (await d.query("SELECT public FROM question WHERE id=$1", [ph.questionId]))[0].public.options.length;
-  return submitAnswer(P, memberId, { questionId: ph.questionId, stage: ph.stage, choice: correct ? c : (c + 1) % nOpts, requestId }, now);
+  return submitAnswer(P, memberId, { questionId: ph.questionId, stage: ph.stage, value: await valueFor(d, correct), requestId }, now);
 }
 
-/** Start the party and get into the first open question (answer stage). */
-export async function startAndOpen(d: Db, t = T0): Promise<number> {
+export async function submit(d: Db, memberId: string, value: unknown, now: number, requestId = Math.random().toString(36)) {
+  const ph = await phase(d);
+  return submitAnswer(P, memberId, { questionId: ph.questionId, stage: ph.stage, value, requestId }, now);
+}
+
+/** Start the party and get into the first open question with a submittable stage. */
+export async function startAndOpen(d: Db, t = T0, fams: string[] = ["loteria"]): Promise<number> {
+  await families(d, fams);
   await startParty(P, "test", t);
-  return runUntil(d, t, (ph) => ph.kind === "question" && (ph.stage === "answer" || ph.stage === "prefer"));
+  return runUntil(d, t, (ph) => ph.kind === "question" && ph.stage !== "clue");
 }
 
 export { join, submitAnswer, tick };

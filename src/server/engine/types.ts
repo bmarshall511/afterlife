@@ -1,7 +1,7 @@
-import type { GameFamily, PartyId, PublicQuestion, PublicTribute, QuestionOption, RevealInfo, SceneSpec, Stage } from "@/shared/types";
+import type { AnswerValue, GameFamily, PartyId, PublicQuestion, PublicTribute, PublicSlide, RevealInfo, Stage } from "@/shared/types";
 import type { Q } from "@/server/db";
 
-/** Mirror of the content contract in docs/CONTRACTS.md (src/content/index.ts). */
+/** Mirror of the v2 content contract (docs/GAMES-V2.md "Shared module interfaces"). */
 export interface ContentItem {
   id: string;
   version: number;
@@ -10,23 +10,24 @@ export interface ContentItem {
   enabled: boolean;
   prompt: string;
   promptEs?: string;
-  options: QuestionOption[];
-  answer: number | null;
+  detail?: string;
+  readingSeconds: number;
+  /** family-specific, may include secrets (never sent raw to clients) */
+  data: Record<string, unknown>;
+  /** secret */
+  answer: AnswerValue | null;
   explanation: string;
   source?: { title: string; url: string; verification: string };
-  scene?: SceneSpec;
-  readingSeconds: number;
 }
 
 export interface ContentSource {
   allContent(): ContentItem[];
-  publicQuestion(item: ContentItem, ctx: { stage: Stage; elapsedMs: number; audience: "tv" | "phone"; index?: number }): PublicQuestion;
-  /** Optional: answer-free record stored in question.public (src/content provides it). */
-  toPublicRecord?(item: ContentItem): object;
-  /** Optional: ms offsets within a reveal-family answer stage at which the public payload changes. */
-  revealStageMs?: readonly number[];
-  revealInfo(item: ContentItem): RevealInfo;
+  /** Must never include secrets. `round` = case clue round (0..2); `index` = question index in set. */
+  publicQuestion(item: ContentItem, ctx: { stage: Stage; round: number; index: number }): PublicQuestion;
+  revealInfo(item: ContentItem): Omit<RevealInfo, "outcomes">;
   generateFresh(family: GameFamily, seed: string): ContentItem | null;
+  /** three clue-round items for one Ofrenda Case puzzle */
+  caseSet(seed: string): ContentItem[];
 }
 
 export interface TributeSource {
@@ -36,18 +37,23 @@ export interface TributeSource {
 
 export interface Settings {
   introMs: number;
-  questionMs: number;
-  memoryExposeMs: number;
-  memoryAnswerMs: number;
-  familyPreferMs: number;
-  familyPredictMs: number;
+  calaveraWriteMs: number;
+  calaveraVoteMs: number;
+  lineAnswerMs: number;
+  loteriaAnswerMs: number;
+  roomAnswerMs: number;
+  roomGuessMs: number;
+  closestAnswerMs: number;
+  caseClueMs: number;
+  caseAnswerMs: number;
   revealMs: number;
+  calaveraRevealMs: number;
   resultsMs: number;
   intervalMs: number;
   minViewMs: number;
   catchUpGraceMs: number;
-  socialEvery: number;
   tributeDwellMinMs: number;
+  intervalTributeMs: number; // first part of each break is for tributes; the rest shows party photos
   tributeDwellMaxMs: number;
   remembranceMaxChars: number;
   /** families allowed to be scheduled (admin can disable some) */
@@ -68,17 +74,21 @@ export interface PhaseState {
   stage?: Stage;
   stageStartsAt?: number;
   questionId?: string;
+  doubled?: boolean;
   tribute?: PublicTribute | null;
   tributeUntil?: number;
-  /** reveal family: index of the progressive-reveal step last published (version bumps on change) */
-  revealStep?: number;
+  slide?: PublicSlide | null;
+  slideUntil?: number;
 }
 
 /** Stored in party.engine (jsonb). */
 export interface EngineState {
   lastFamily?: GameFamily | null;
-  objectiveSinceSocial?: number;
+  /** families played so far (rotation fairness) */
+  played?: Partial<Record<GameFamily, number>>;
   forceObjective?: boolean;
+  /** host "final_round": next set is doubled (one-shot) */
+  doubleNext?: boolean;
   pausedRemainingMs?: number | null;
   pausedAt?: number | null;
   encore?: boolean;
@@ -94,6 +104,23 @@ export interface PartyRow {
   set_seq: number;
   rng_seed: string;
   engine: EngineState;
+}
+
+/** Calavera vote entry as stored in question.private (authors never leave the server before reveal). */
+export interface VoteEntry {
+  id: string; // opaque, public
+  text: string;
+  answerId: string | null; // null = house filler
+  teamId: string | null;
+  house: boolean;
+}
+
+/** Per-team outcome stored in question.private.outcomes (names joined at snapshot time). */
+export interface StoredOutcome {
+  teamId: string;
+  points: number;
+  value?: AnswerValue | null;
+  note?: string;
 }
 
 /** Error thrown by engine actions; routes map it to {error, code} + status. */

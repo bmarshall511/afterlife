@@ -10,11 +10,11 @@ export function Wordmark({ size = "md", tagline = true }: { size?: "sm" | "md" |
   );
 }
 
-export const FAMILY: Record<GameFamily, { title: string; sub: string; how: string; icon: string }> = {
-  memory: { title: "La Memoria", sub: "Look closely. Remember everything.", how: "A scene appears for a few seconds. Then it vanishes — and we ask about it.", icon: "eye" },
-  truth: { title: "¿Verdad o Inventado?", sub: "True, or invented?", how: "Read the statement. Decide with your family: real tradition, or made up?", icon: "scale" },
-  difference: { title: "Las Diferencias", sub: "Something changed.", how: "Compare the two altars. Pick the region where they differ.", icon: "split" },
-  reveal: { title: "La Revelación", sub: "Watch it appear.", how: "The picture sharpens over time. Lock in as soon as you know.", icon: "sparkle" },
-  altar: { title: "El Altar", sub: "Read the ofrenda.", how: "Study the altar and the clue. Find the offering that belongs.", icon: "candle" },
-  family: { title: "La Familia", sub: "Know your crowd.", how: "First, pick your family's favorite. Then guess what most families chose.", icon: "people" },
+export const FAMILY: Record<GameFamily, { title: string; es: string; sub: string; how: string; icon: string }> = {
+  calavera: { title: "La Calavera", es: "Write the epitaph", sub: "Finish the verse. Make the room laugh.", how: "Write a cheeky last line for the verse on the TV — then vote for the best one that isn’t yours.", icon: "quill" },
+  line: { title: "The Line", es: "La Línea", sub: "Put it in order.", how: "Arrange the cards from one end to the other. Every pair in the right order scores.", icon: "ruler" },
+  loteria: { title: "La Lotería", es: "Riddle → card", sub: "Read the riddle. Find the card.", how: "A verse describes one card on the board. Pick it on your phone.", icon: "cards" },
+  room: { title: "Read the Room", es: "Lee al público", sub: "Know your crowd.", how: "Pick your answer. Then guess what share of the room picked the same.", icon: "people" },
+  closest: { title: "Closest Without Going Over", es: "Sin pasarse", sub: "Get close. Don’t go over.", how: "Guess the number. The closer the better — but over the true value scores nothing.", icon: "target" },
+  case: { title: "The Ofrenda Case", es: "El misterio de la ofrenda", sub: "Whose altar is whose?", how: "Clues arrive over three rounds. Lock in early for more points — a lock is final.", icon: "search" },
 };

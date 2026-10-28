@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import type { Db } from "@/server/db";
 import { buildMe, buildSnapshot, computeStandings, teamAction } from "@/server/engine";
 import { pauseParty, resumeParty, startParty, setCaptain } from "@/server/engine/control";
+import * as C2 from "@/server/engine/control";
 import { fixtureContent } from "@/server/engine/fixtures";
 import { P, T0, answer, newTeam, phase, runUntil, setup, startAndOpen, submitAnswer, tick } from "./engine-helpers";
 
@@ -13,7 +14,7 @@ beforeEach(async () => {
 
 async function fakeSet(seq: number, scores: Record<string, number>, opts: { status?: string; ranked?: boolean } = {}) {
   const id = randomUUID();
-  await d.query(`INSERT INTO game_set (id, party_id, seq, family, status, seed) VALUES ($1,$2,$3,'truth',$4,'s')`, [id, P, seq, opts.status ?? "complete"]);
+  await d.query(`INSERT INTO game_set (id, party_id, seq, family, status, seed) VALUES ($1,$2,$3,'line',$4,'s')`, [id, P, seq, opts.status ?? "complete"]);
   for (const [team, score] of Object.entries(scores))
     await d.query(`INSERT INTO set_score (party_id, set_id, team_id, score, ranked, perfect) VALUES ($1,$2,$3,$4,$5,$6)`, [P, id, team, score, opts.ranked ?? true, score === 300]);
   return id;
@@ -83,9 +84,9 @@ describe("answers", () => {
     const a = await newTeam("Ana");
     const t = await startAndOpen(d);
     const ph = await phase(d);
-    const input = { questionId: ph.questionId, stage: ph.stage, choice: 0, requestId: "x", clientNow: t, endsAt: t + 999999 } as any;
+    const input = { questionId: ph.questionId, stage: ph.stage, value: 0, requestId: "x", clientNow: t, endsAt: t + 999999 } as any;
     await expect(submitAnswer(P, a.memberId, { ...input, questionId: randomUUID() }, t + 1)).rejects.toMatchObject({ code: "closed" });
-    await expect(submitAnswer(P, a.memberId, { ...input, choice: 9 }, t + 1)).rejects.toMatchObject({ code: "invalid" });
+    await expect(submitAnswer(P, a.memberId, { ...input, value: 99 }, t + 1)).rejects.toMatchObject({ code: "invalid" });
     await expect(submitAnswer(P, a.memberId, input, ph.endsAt! + 1)).rejects.toMatchObject({ code: "closed" });
   });
 
@@ -114,7 +115,7 @@ describe("participation", () => {
     await expect(answer(d, late.memberId, true, t + 2500)).rejects.toMatchObject({ code: "late_join" });
     expect((await buildMe(d, P, late.memberId, t + 2500)).current).toMatchObject({ reasonCannot: "late_join", ranked: false });
     await answer(d, a.memberId, true, t + 2600);
-    t = await runUntil(d, t + 2600, (x) => x.kind === "question" && x.qIndex === 1 && x.stage !== "expose");
+    t = await runUntil(d, t + 2600, (x) => x.kind === "question" && x.qIndex === 1);
     expect((await answer(d, late.memberId, true, t + 100)).ok).toBe(true);
     t = await runUntil(d, t, (x) => x.kind === "results");
     const snap = await buildSnapshot(d, P, t);
@@ -130,7 +131,7 @@ describe("participation", () => {
     await answer(d, b.memberId, true, t + 100);
     await teamAction(P, b.memberId, { action: "away" }, t + 200);
     await expect(answer(d, b.memberId, false, t + 300)).rejects.toMatchObject({ code: "already" });
-    t = await runUntil(d, t, (x) => x.kind === "question" && x.qIndex === 1 && x.stage !== "expose");
+    t = await runUntil(d, t, (x) => x.kind === "question" && x.qIndex === 1);
     await expect(answer(d, b.memberId, true, t + 100)).rejects.toMatchObject({ code: "away" });
     t = await runUntil(d, t, (x) => x.kind === "results");
     const snap = await buildSnapshot(d, P, t);
@@ -156,84 +157,14 @@ describe("participation", () => {
   });
 
   it("1–2 teams: objective families only, never the same family twice in a row", async () => {
+    await C2.updateSettings(P, { introMs: 1000, lineAnswerMs: 2000, loteriaAnswerMs: 2000, closestAnswerMs: 2000, caseClueMs: 1000, caseAnswerMs: 1000, revealMs: 1000, resultsMs: 1000, intervalMs: 1000 }, "admin", T0);
     await newTeam("Ana");
     await newTeam("Beto");
     await startParty(P, "test", T0);
     await runUntil(d, T0, (x) => x.kind === "intro" && x.setSeq === 8, 2000);
     const fams = (await d.query("SELECT family FROM game_set ORDER BY seq")).map((r) => r.family);
-    expect(fams).not.toContain("family");
+    expect(fams.some((f: string) => f === "calavera" || f === "room")).toBe(false);
     for (let i = 1; i < fams.length; i++) expect(fams[i]).not.toBe(fams[i - 1]);
-  });
-});
-
-describe("family set", () => {
-  async function familySetup(n: number) {
-    const teams = [];
-    for (let i = 0; i < n; i++) teams.push(await newTeam(`T${i}`));
-    await d.query(`UPDATE party SET engine='{"objectiveSinceSocial":4,"lastFamily":"truth"}' WHERE id=$1`, [P]);
-    await startParty(P, "test", T0);
-    const t = await runUntil(d, T0, (x) => x.kind === "question");
-    expect((await phase(d)).family).toBe("family");
-    return { teams, t };
-  }
-  const sub = (m: string, stage: string, choice: number, now: number) =>
-    phase(d).then((ph) => submitAnswer(P, m, { questionId: ph.questionId, stage, choice, requestId: `${m}${stage}${now}` }, now));
-
-  it("tie → any tied option scores; prediction requires preference; <3 prefs void; normalization", async () => {
-    const { teams, t: t0 } = await familySetup(4);
-    let t = t0;
-    // Q0: prefs 0,0,1,1 → tie between 0 and 1
-    for (let i = 0; i < 4; i++) await sub(teams[i].memberId, "prefer", i < 2 ? 0 : 1, t + 100);
-    t = await runUntil(d, t, (x) => x.stage === "predict");
-    const snapP = await buildSnapshot(d, P, t);
-    expect(snapP.reveal).toBeNull();
-    await sub(teams[0].memberId, "predict", 0, t + 100);
-    await sub(teams[1].memberId, "predict", 1, t + 100);
-    await sub(teams[2].memberId, "predict", 2, t + 100);
-    t = await runUntil(d, t, (x) => x.kind === "reveal");
-    const r0 = await buildSnapshot(d, P, t);
-    expect(r0.reveal?.tallies?.prefer).toEqual([2, 2, 0, 0]);
-    expect(r0.reveal?.correct).toEqual([0, 1]);
-    // Q1: only 2 preferences → void; predict stage skipped
-    t = await runUntil(d, t, (x) => x.kind === "question" && x.qIndex === 1);
-    await sub(teams[0].memberId, "prefer", 2, t + 100);
-    await sub(teams[1].memberId, "prefer", 2, t + 100);
-    t = await runUntil(d, t, (x) => x.kind === "reveal" && x.qIndex === 1);
-    const r1 = await buildSnapshot(d, P, t);
-    expect(r1.reveal).toMatchObject({ void: true, correct: null });
-    // Q2: team3 tries to predict without preference
-    t = await runUntil(d, t, (x) => x.kind === "question" && x.qIndex === 2);
-    for (let i = 0; i < 3; i++) await sub(teams[i].memberId, "prefer", 3, t + 100);
-    t = await runUntil(d, t, (x) => x.stage === "predict");
-    await expect(sub(teams[3].memberId, "predict", 3, t + 100)).rejects.toMatchObject({ code: "need_preference" });
-    await sub(teams[0].memberId, "predict", 3, t + 100);
-    t = await runUntil(d, t, (x) => x.kind === "results");
-    const res = (await buildSnapshot(d, P, t)).lastSet!;
-    const sc = (i: number) => res.scores.find((s) => s.teamId === teams[i].teamId)?.score;
-    // team0: 100 + 100 over 2 nonvoid → 300 ; team1: 100 → 150 ; team2: 0 ; team3: 0
-    expect([sc(0), sc(1), sc(2), sc(3)]).toEqual([300, 150, 0, 0]);
-    const me = await buildMe(d, P, teams[1].memberId, t);
-    expect(me.history[0]).toMatchObject({ normalized: true, score: 150 });
-  });
-
-  it("<2 nonvoid questions invalidates the set and forces an objective set next", async () => {
-    const { t: t0 } = await familySetup(3);
-    let t = await runUntil(d, t0, (x) => x.kind === "interval");
-    const set = (await d.query("SELECT status, invalid_reason FROM game_set WHERE seq=1"))[0];
-    expect(set).toMatchObject({ status: "invalidated", invalid_reason: "family_void" });
-    t = await runUntil(d, t, (x) => x.kind === "intro");
-    expect((await phase(d)).family).not.toBe("family");
-  });
-
-  it("family set with <3 eligible at intro end swaps to objective before questions open", async () => {
-    const teams = [];
-    for (let i = 0; i < 3; i++) teams.push(await newTeam(`T${i}`));
-    await d.query(`UPDATE party SET engine='{"objectiveSinceSocial":4}' WHERE id=$1`, [P]);
-    await startParty(P, "test", T0 + 10_000);
-    await runUntil(d, T0 + 10_000, (x) => x.kind === "question", 1000, 3600_000, [teams[0].memberId]);
-    const ph = await phase(d);
-    expect(ph.family).not.toBe("family");
-    expect((await d.query("SELECT family FROM game_set"))[0].family).toBe(ph.family);
   });
 });
 
@@ -266,22 +197,6 @@ describe("time control", () => {
     expect(sets).toEqual([{ status: "invalidated", invalid_reason: "outage" }]);
   });
 
-  it("memory: phones never get scene; TV only during expose; answers only in answer stage", async () => {
-    await setupMemoryOnly();
-    const a = await newTeam("Ana");
-    await startParty(P, "test", T0);
-    const t = await runUntil(d, T0, (x) => x.stage === "expose");
-    expect((await buildSnapshot(d, P, t, "tv")).question?.scene).toBeTruthy();
-    expect((await buildSnapshot(d, P, t, "phone")).question?.scene).toBeFalsy();
-    const ph = await phase(d);
-    await expect(submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: "expose", choice: 0 }, t + 1)).rejects.toMatchObject({ code: "invalid" });
-    await expect(submitAnswer(P, a.memberId, { questionId: ph.questionId, stage: "answer", choice: 0 }, t + 1)).rejects.toMatchObject({ code: "closed" });
-    const t2 = await runUntil(d, t, (x) => x.stage === "answer");
-    expect((await buildSnapshot(d, P, t2, "tv")).question?.scene).toBeFalsy();
-  });
 });
 
-function setupMemoryOnly() {
-  return d.query(`UPDATE party SET settings='{"families":["memory"]}' WHERE id=$1`, [P]);
-}
 void fixtureContent;

@@ -1,5 +1,5 @@
 "use client";
-import type { MeView, PartyId, Stage, ApiError } from "@/shared/types";
+import type { AnswerValue, MeView, PartyId, Stage, ApiError } from "@/shared/types";
 
 export class ApiFailure extends Error {
   constructor(public status: number, public code: string, message: string) { super(message); }
@@ -30,9 +30,9 @@ export const api = {
   me: (party: PartyId) => call<MeView>(`/api/me?party=${party}`),
   join: (party: PartyId, name: string, inviteCode?: string) =>
     call<MeView>("/api/join", { method: "POST", body: JSON.stringify({ party, name, inviteCode: inviteCode || undefined }) }),
-  answer: (party: PartyId, questionId: string, stage: Stage, choice: number, requestId: string) =>
-    call<{ ok: true; saved: { kind: string; choice: number } }>("/api/answer", {
-      method: "POST", body: JSON.stringify({ party, questionId, stage, choice, requestId }) }),
+  answer: (party: PartyId, questionId: string, stage: Stage, value: AnswerValue, requestId: string) =>
+    call<{ ok: true; saved: { stage: Stage; value: AnswerValue } }>("/api/answer", {
+      method: "POST", body: JSON.stringify({ party, questionId, stage, value, requestId }) }),
   team: (party: PartyId, action: "away" | "resume" | "claim_captain", extra: Record<string, unknown> = {}) =>
     call<MeView>("/api/team", { method: "POST", body: JSON.stringify({ party, action, confirm: true, ...extra }) }),
 };

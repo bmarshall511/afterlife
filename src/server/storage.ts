@@ -61,3 +61,34 @@ export async function deleteObject(key: string | null | undefined): Promise<void
   }
   await fs.rm(path.join(localDir(), key), { force: true });
 }
+
+/* ---- Additive helpers (album workstream). Existing functions above are unchanged. ---- */
+
+/** Like getObject, but bypasses the Blob CDN cache (read-after-write for fresh client uploads). */
+export async function getObjectFresh(key: string): Promise<Buffer | null> {
+  safeKey(key);
+  if (storageKind() !== "vercel-blob") return getObject(key);
+  const { get } = await import("@vercel/blob");
+  try {
+    const r = await get(key, { access: "private", useCache: false });
+    if (!r || r.statusCode !== 200) return null;
+    return Buffer.from(await new Response(r.stream).arrayBuffer());
+  } catch (e) {
+    if ((e as { name?: string })?.name === "BlobNotFoundError") return null;
+    throw e;
+  }
+}
+
+/**
+ * Short-lived presigned GET URL for a private blob (Vercel Signed URLs: issueSignedToken + presignUrl).
+ * Returns null in local mode (callers stream the file instead).
+ */
+export async function signedGetUrl(key: string, ttlMs = 10 * 60 * 1000): Promise<string | null> {
+  safeKey(key);
+  if (storageKind() !== "vercel-blob") return null;
+  const { issueSignedToken, presignUrl } = await import("@vercel/blob");
+  const validUntil = Date.now() + ttlMs;
+  const token = await issueSignedToken({ pathname: key, operations: ["get"], validUntil });
+  const { presignedUrl } = await presignUrl(token, { operation: "get", pathname: key, access: "private", validUntil });
+  return presignedUrl;
+}

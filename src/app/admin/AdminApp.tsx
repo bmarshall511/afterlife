@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 import TributePreview from "../remember/TributePreview";
+import AlbumSection from "../album/AdminAlbumSection";
 
 type Party = "live" | "demo";
 type Any = Record<string, any>;
-const TABS = ["Party", "Tributes", "Teams", "Content", "Diagnostics"] as const;
+const TABS = ["Party", "Tributes", "Album", "Teams", "Content", "Diagnostics"] as const;
 type Tab = (typeof TABS)[number];
 
 async function api(path: string, init?: RequestInit & { json?: unknown }) {
@@ -71,6 +72,7 @@ export default function AdminApp() {
         {party === "demo" ? <p className="ad-pill warn" style={{ marginBottom: 12 }}>Demo party: isolated test data</p> : null}
         {tab === "Party" && <PartySection {...ctx} />}
         {tab === "Tributes" && <TributesSection {...ctx} />}
+        {tab === "Album" && <AlbumSection {...ctx} api={api} copy={(t: string) => copy(t, setMsg)} />}
         {tab === "Teams" && <TeamsSection {...ctx} />}
         {tab === "Content" && <ContentSection {...ctx} />}
         {tab === "Diagnostics" && <DiagnosticsSection {...ctx} />}
@@ -408,7 +410,9 @@ function ContentSection({ party, run }: Ctx) {
           </summary>
           <div style={{ marginTop: 8 }}>
             {i.promptEs ? <p className="ad-muted">{i.promptEs}</p> : null}
-            <ol type="A">{i.options.map((o: Any, k: number) => <li key={k} style={{ fontWeight: i.answer === k ? 700 : 400 }}>{o.text}{i.answer === k ? " ✓" : ""}</li>)}</ol>
+            {i.detail ? <p className="ad-muted" style={{ whiteSpace: "pre-line" }}>{i.detail}</p> : null}
+            {i.choices?.length ? <ol type="A">{i.choices.map((t: string, k: number) => <li key={k}>{t}</li>)}</ol> : null}
+            {i.answerText ? <p><b>Answer:</b> {i.answerText}</p> : <p className="ad-muted">No single correct answer (opinion / written game).</p>}
             <p>{i.explanation}</p>
             {i.source ? <p className="ad-muted">Source: <a href={i.source.url} target="_blank" rel="noreferrer noopener" style={{ color: "#f5a524" }}>{i.source.title}</a> — {i.source.verification}</p> : null}
             <p className="ad-muted">id {i.id} · difficulty {i.difficulty}</p>

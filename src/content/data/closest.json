@@ -1,0 +1,546 @@
+[
+ {
+  "id": "mexico-states",
+  "prompt": "How many states (federal entities, counting Mexico City) make up Mexico?",
+  "value": 32,
+  "unit": "entities",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Mexico is split into 32 federal entities: 31 states plus Mexico City.",
+  "source": {
+   "title": "INEGI Anuario estadístico y geográfico por entidad federativa 2020",
+   "url": "https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/nueva_estruc/889463901846.pdf",
+   "verification": "INEGI yearbook divides the country into 32 federal entities; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mexico-population-2020",
+  "prompt": "What was Mexico's population in the 2020 INEGI census, in millions (to the nearest million)?",
+  "value": 126,
+  "unit": "million people",
+  "min": 0,
+  "max": 400,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "INEGI counted 126,014,024 people in 2020, making Mexico 11th in the world.",
+  "source": {
+   "title": "INEGI press release: En México somos 126 014 024 habitantes",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Nal.pdf",
+   "verification": "INEGI's definitive 2020 census total is 126,014,024 inhabitants; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mexico-unesco-sites",
+  "prompt": "How many UNESCO World Heritage properties does Mexico have?",
+  "value": 36,
+  "unit": "sites",
+  "min": 0,
+  "max": 120,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "36 World Heritage properties, the most of any country in the Americas; the Wixárika Route joined in 2025.",
+  "source": {
+   "title": "UNESCO World Heritage Centre: Mexico",
+   "url": "https://whc.unesco.org/en/statesparties/mx",
+   "verification": "Lists 36 properties for Mexico (28 cultural, 6 natural, 2 mixed), most recent inscribed 2025; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mexico-coastline",
+  "prompt": "How long is Mexico's continental coastline according to INEGI, in kilometres?",
+  "value": 11122,
+  "unit": "km",
+  "min": 0,
+  "max": 40000,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "INEGI measures 11,122 km of mainland coast, 7,828 km of it on the Pacific side.",
+  "source": {
+   "title": "INEGI Anuario estadístico y geográfico por entidad federativa 2020",
+   "url": "https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/nueva_estruc/702825197513.pdf",
+   "verification": "Gives continental coastline of 11,122 km (7,828 Pacific, 3,294 Gulf/Caribbean); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mexico-area",
+  "prompt": "What is Mexico's total land area in thousands of square kilometres (to the nearest thousand)?",
+  "value": 1964,
+  "unit": "thousand km²",
+  "min": 0,
+  "max": 6000,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "Mexico covers 1,964,375 km², including a bit over 5,000 km² of islands.",
+  "source": {
+   "title": "INEGI Anuario estadístico y geográfico por entidad federativa 2020 (versión actualizada)",
+   "url": "https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/nueva_estruc/889463901846.pdf",
+   "verification": "Table 1.1 gives territorial surface of 1,964,375 km²; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "pico-de-orizaba",
+  "prompt": "How high is Pico de Orizaba (Citlaltépetl), Mexico's highest peak, in metres above sea level?",
+  "value": 5610,
+  "unit": "m",
+  "min": 0,
+  "max": 15000,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Citlaltépetl tops out at 5,610 m, the roof of Mexico.",
+  "source": {
+   "title": "INEGI: Montañas 2014 statistical note",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/aproposito/2014/monta%C3%B1as2014_0.pdf",
+   "verification": "INEGI lists Citlaltépetl at 5,610 metres above sea level as the country's highest point; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "pyramid-of-the-sun",
+  "prompt": "How tall is the Pyramid of the Sun at Teotihuacan, in metres (to the nearest metre)?",
+  "value": 65,
+  "unit": "m",
+  "min": 0,
+  "max": 250,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "About 65 m tall on a base roughly 222 x 225 m, Teotihuacan's biggest building.",
+  "source": {
+   "title": "INAH Visita Teotihuacán: Pyramid of the Sun",
+   "url": "https://visitateotihuacan.inah.gob.mx/en/explore/pyramid-of-the-sun/",
+   "verification": "INAH gives a height of about 65 m and a base of about 222 x 225 m; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "castillo-steps",
+  "prompt": "How many steps are on EACH of the four staircases of El Castillo at Chichén Itzá?",
+  "value": 91,
+  "unit": "steps",
+  "min": 0,
+  "max": 300,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "91 per side: four sides make 364, and the top platform makes 365, one for each day of the year.",
+  "source": {
+   "title": "INAH: El Castillo de Chichén Itzá, arquitectura, astronomía y tiempo",
+   "url": "https://www.inah.gob.mx/foto-del-dia/el-castillo-de-chichen-itza-arquitectura-astronomia-y-tiempo",
+   "verification": "States each of the four staircases has 91 steps (364), with the upper platform giving 365; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "cdmx-metro-year",
+  "prompt": "In what year did the Mexico City Metro open?",
+  "value": 1969,
+  "unit": "year",
+  "min": 1900,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Line 1 opened on 4 September 1969 with 16 stations, the same year humans walked on the Moon.",
+  "source": {
+   "title": "Metro CDMX: El Metro conmemora 55 años de servicio",
+   "url": "https://www.metro.cdmx.gob.mx/comunicacion/nota/el-metro-conmemora-55-anos-de-servicio-con-la-consolidacion-de-instalaciones-estrategicas-en-beneficio-de-mas-de-4-millones-de-usuarios-al-dia",
+   "verification": "States the Metro began operating 4 September 1969 with Line 1, Zaragoza to Chapultepec, 16 stations; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "cdmx-metro-stations",
+  "prompt": "How many stations does the Mexico City Metro have across its 12 lines?",
+  "value": 195,
+  "unit": "stations",
+  "min": 0,
+  "max": 600,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "195 stations on 12 lines and some 226 km of track, moving over 4 million riders a day.",
+  "source": {
+   "title": "Metro CDMX: El Metro conmemora 55 años de servicio",
+   "url": "https://www.metro.cdmx.gob.mx/comunicacion/nota/el-metro-conmemora-55-anos-de-servicio-con-la-consolidacion-de-instalaciones-estrategicas-en-beneficio-de-mas-de-4-millones-de-usuarios-al-dia",
+   "verification": "Metro states the system has 12 lines, 195 stations and a 226 km network; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "ddlm-unesco-year",
+  "prompt": "In what year was Mexico's indigenous Day of the Dead festivity inscribed on UNESCO's Intangible Cultural Heritage list?",
+  "value": 2008,
+  "unit": "year",
+  "min": 1950,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "Inscribed in 2008 (first proclaimed a Masterpiece in 2003): officially world-class partying with ancestors.",
+  "source": {
+   "title": "UNESCO ICH: Indigenous festivity dedicated to the dead",
+   "url": "https://ich.unesco.org/en/RL/indigenous-festivity-dedicated-to-the-dead-00054",
+   "verification": "Inscribed 2008 on the Representative List; originally proclaimed 2003; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mexico-indigenous-languages",
+  "prompt": "How many indigenous language variants does INALI officially recognise in Mexico?",
+  "value": 364,
+  "unit": "variants",
+  "min": 0,
+  "max": 1200,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "364 variants, grouped into 68 language groups and 11 families.",
+  "source": {
+   "title": "INALI Atlas de las Lenguas Indígenas de México",
+   "url": "https://atlas.inali.gob.mx/inicio",
+   "verification": "Describes 11 language families containing 68 groupings and 364 indigenous languages/variants; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "tenochtitlan-founded",
+  "prompt": "In what year, traditionally, was the Aztec capital Tenochtitlan founded?",
+  "value": 1325,
+  "unit": "year",
+  "min": 1000,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "Around 1325, where an eagle perched on a cactus, the scene now on Mexico's flag.",
+  "source": {
+   "title": "Britannica: Huitzilopochtli",
+   "url": "https://www.britannica.com/topic/Huitzilopochtli",
+   "verification": "States the Mexica founded Tenochtitlan in 1325 where they saw the eagle sign; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "frida-born",
+  "prompt": "In what year was Frida Kahlo born?",
+  "value": 1907,
+  "unit": "year",
+  "min": 1800,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Born 6 July 1907 in Coyoacán, in the house that's now her museum.",
+  "source": {
+   "title": "Britannica: Frida Kahlo",
+   "url": "https://www.britannica.com/biography/Frida-Kahlo",
+   "verification": "Gives birth date 6 July 1907, Coyoacán; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "grito-de-dolores",
+  "prompt": "In what year did Miguel Hidalgo give the Grito de Dolores, launching Mexico's independence movement?",
+  "value": 1810,
+  "unit": "year",
+  "min": 1500,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "16 September 1810: one ringing church bell, eleven years later a new country (1821).",
+  "source": {
+   "title": "Britannica: Mexican Independence Day",
+   "url": "https://www.britannica.com/topic/Mexican-Independence-Day",
+   "verification": "Hidalgo's call on 16 September 1810; independence secured 1821; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "battle-of-puebla",
+  "prompt": "Cinco de Mayo celebrates the Battle of Puebla. In what year was it fought?",
+  "value": 1862,
+  "unit": "year",
+  "min": 1500,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "5 May 1862: an outgunned Mexican army beat the French. Not Independence Day!",
+  "source": {
+   "title": "Britannica: Cinco de Mayo",
+   "url": "https://www.britannica.com/topic/Cinco-de-Mayo",
+   "verification": "Commemorates Mexican victory over French at Puebla on 5 May 1862; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "eiffel-height",
+  "prompt": "How tall is the Eiffel Tower today, in metres, including antennas?",
+  "value": 330,
+  "unit": "m",
+  "min": 0,
+  "max": 1000,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "330 m since a 2022 radio antenna added 6 m; it was 312 m at its 1889 debut.",
+  "source": {
+   "title": "Official Eiffel Tower site: From 300 to 330 meters",
+   "url": "https://www.toureiffel.paris/en/news/history-and-culture/300-330-meters-story-towers-height",
+   "verification": "States tower measures 330 m including antennas added in 1957, 2000 and 2022; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "everest-height",
+  "prompt": "How high is Mount Everest, in metres (to the nearest metre)?",
+  "value": 8849,
+  "unit": "m",
+  "min": 0,
+  "max": 25000,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "8,848.86 m per the 2020 China-Nepal survey, rounding to 8,849.",
+  "source": {
+   "title": "Britannica: Mount Everest",
+   "url": "https://www.britannica.com/place/Mount-Everest",
+   "verification": "Gives 8,849 m; China and Nepal declared 8,848.86 m in 2020; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "moon-distance",
+  "prompt": "What is the average distance from Earth to the Moon, in kilometres (to the nearest 100 km)?",
+  "value": 384400,
+  "unit": "km",
+  "min": 0,
+  "max": 1500000,
+  "step": 100,
+  "difficulty": 2,
+  "explanation": "An average of 384,400 km, roughly 30 Earths lined up.",
+  "source": {
+   "title": "NASA Science: Moon Facts",
+   "url": "https://science.nasa.gov/moon/facts/",
+   "verification": "States the Moon is an average of 238,855 miles (384,400 km) away; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "statue-of-liberty",
+  "prompt": "How tall is the Statue of Liberty from the ground to the tip of the torch, in feet (to the nearest foot)?",
+  "value": 305,
+  "unit": "ft",
+  "min": 0,
+  "max": 1000,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "305 ft 1 in, and the pedestal (154 ft) is taller than the lady herself (151 ft).",
+  "source": {
+   "title": "NPS: Statue Statistics",
+   "url": "https://www.nps.gov/stli/learn/historyculture/statue-statistics.htm",
+   "verification": "Ground to tip of torch 305 ft 1 in (92.99 m); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "golden-gate-span",
+  "prompt": "How long is the main span of the Golden Gate Bridge, in feet?",
+  "value": 4200,
+  "unit": "ft",
+  "min": 0,
+  "max": 15000,
+  "step": 100,
+  "difficulty": 3,
+  "explanation": "A 4,200 ft main span, the world's longest from 1937 until 1964.",
+  "source": {
+   "title": "Golden Gate Bridge: Facts & Figures",
+   "url": "https://www.goldengate.org/exhibits/facts-and-figures-about-the-bridge/",
+   "verification": "Bridge is 1.7 miles long with a 4,200 ft main span; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "empire-state-height",
+  "prompt": "How tall is the Empire State Building to the tip of its antenna, in feet?",
+  "value": 1454,
+  "unit": "ft",
+  "min": 0,
+  "max": 5000,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "1,454 ft to the antenna tip; 1,250 ft to the top occupied floor.",
+  "source": {
+   "title": "Empire State Building: Facts & Figures",
+   "url": "https://www.esbnyc.com/about/facts-figures",
+   "verification": "States 1,454 feet to the top of the antenna, 1,250 to highest occupied floor; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "cheetah-speed",
+  "prompt": "What is a cheetah's top sprinting speed, in miles per hour, per the Smithsonian's National Zoo?",
+  "value": 70,
+  "unit": "mph",
+  "min": 0,
+  "max": 250,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "Up to about 70 mph, but only for roughly 300 yards before needing a breather.",
+  "source": {
+   "title": "Smithsonian's National Zoo: Cheetah",
+   "url": "https://nationalzoo.si.edu/animals/cheetah",
+   "verification": "Gives top speeds of about 60 to 70 mph, sustained for only around 300 yards; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "adult-bones",
+  "prompt": "How many bones are in a typical adult human skeleton?",
+  "value": 206,
+  "unit": "bones",
+  "min": 0,
+  "max": 800,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "206 in a typical adult; babies start with many more that fuse over time.",
+  "source": {
+   "title": "Britannica: Human body",
+   "url": "https://www.britannica.com/science/human-body",
+   "verification": "Says an adult human typically has 206 bones; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mars-year",
+  "prompt": "How many Earth days long is one year on Mars?",
+  "value": 687,
+  "unit": "days",
+  "min": 0,
+  "max": 2500,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "687 Earth days, so a Martian birthday comes about every 1.9 years.",
+  "source": {
+   "title": "NASA Science: Mars Facts",
+   "url": "https://science.nasa.gov/mars/facts/",
+   "verification": "A Mars year is 669.6 sols, the same as 687 Earth days; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "rushmore-head",
+  "prompt": "How tall is George Washington's head on Mount Rushmore, in feet?",
+  "value": 60,
+  "unit": "ft",
+  "min": 0,
+  "max": 250,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "60 ft tall, with a 21 ft nose.",
+  "source": {
+   "title": "NPS: How Big Are The Heads?",
+   "url": "https://www.nps.gov/moru/learn/kidsyouth/how-big-are-the-heads.htm",
+   "verification": "Washington's head is 60 ft (18.3 m) tall, nose 21 ft; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "octopus-hearts",
+  "prompt": "How many hearts does an octopus have?",
+  "value": 3,
+  "unit": "hearts",
+  "min": 0,
+  "max": 12,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Three: two pump blood through the gills, one pumps it round the body.",
+  "source": {
+   "title": "Smithsonian Ocean: Cephalopods",
+   "url": "https://ocean.si.edu/ocean-life/invertebrates/octopuses-squids-and-relatives",
+   "verification": "States cephalopods have three hearts: two branchial, one systemic; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "piano-keys",
+  "prompt": "How many keys are on a standard modern piano?",
+  "value": 88,
+  "unit": "keys",
+  "min": 0,
+  "max": 300,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "88 keys spanning just over seven octaves.",
+  "source": {
+   "title": "Britannica: Keyboard instrument",
+   "url": "https://www.britannica.com/art/keyboard-instrument",
+   "verification": "Usual modern piano keyboard has 88 keys, seven octaves and a third; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "speed-of-light",
+  "prompt": "What is the speed of light in a vacuum, in kilometres per second (to the nearest km/s)?",
+  "value": 299792,
+  "unit": "km/s",
+  "min": 0,
+  "max": 1000000,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "Exactly 299,792.458 km/s, fixed by definition since the metre is defined by it.",
+  "source": {
+   "title": "NIST: Meter (SI redefinition)",
+   "url": "https://www.nist.gov/si-redefinition/meter",
+   "verification": "Metre defined by fixing c at 299,792,458 m/s; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "burj-khalifa",
+  "prompt": "How tall is the Burj Khalifa, in metres?",
+  "value": 828,
+  "unit": "m",
+  "min": 0,
+  "max": 3000,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "828 m, about 2.5 Eiffel Towers stacked.",
+  "source": {
+   "title": "Burj Khalifa official site",
+   "url": "https://www.burjkhalifa.ae/en/the-tower/the-stories.aspx",
+   "verification": "Official site gives height of 828 m (2,716.5 ft); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "sun-vs-earth",
+  "prompt": "How many Earths would fit side by side across the Sun's diameter (to the nearest whole number)?",
+  "value": 109,
+  "unit": "Earths",
+  "min": 0,
+  "max": 400,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "About 109 Earths wide; by volume it could swallow roughly 1.3 million.",
+  "source": {
+   "title": "NASA Space Place: How Does Our Sun Compare With Other Stars?",
+   "url": "https://spaceplace.nasa.gov/sun-compare/en/",
+   "verification": "Sun is 864,000 miles (1,392,000 km) across, 109 times wider than Earth; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "disneyland-opened",
+  "prompt": "In what year did Disneyland open in Anaheim, California?",
+  "value": 1955,
+  "unit": "year",
+  "min": 1900,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "17 July 1955, after just a year of construction.",
+  "source": {
+   "title": "Britannica: Disneyland",
+   "url": "https://www.britannica.com/place/Disneyland",
+   "verification": "Construction began July 1954 and completed/opened 17 July 1955; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "apollo-11",
+  "prompt": "In what year did Apollo 11 land the first humans on the Moon?",
+  "value": 1969,
+  "unit": "year",
+  "min": 1900,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "20 July 1969, watched by an estimated 650 million people.",
+  "source": {
+   "title": "NASA: Apollo 11 Mission Overview",
+   "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+   "verification": "Lunar landing on 20 July 1969; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "big-ben-steps",
+  "prompt": "How many steps does it take to climb the Elizabeth Tower up to Big Ben's belfry?",
+  "value": 334,
+  "unit": "steps",
+  "min": 0,
+  "max": 1000,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "334 steps to the belfry of the 96 m tower; leg day included.",
+  "source": {
+   "title": "UK Parliament: Facts and figures, Big Ben and Elizabeth Tower",
+   "url": "https://www.parliament.uk/about/living-heritage/building/palace/big-ben/facts-figures/",
+   "verification": "334 steps to the belfry, 281 to the clock faces; checked 2026-10-27"
+  }
+ }
+]

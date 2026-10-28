@@ -18,18 +18,19 @@ async function main() {
   const { loadParty } = await import("../src/server/engine/store");
   const d = await getDb();
   let contentLabel = "src/content";
+  const { content } = await import("../src/server/engine/deps");
+  const { buildSnapshot } = await import("../src/server/engine");
   if (process.argv.includes("--fixture")) {
-    setEngineDeps({ content: fixtureContent(10, { fresh: true }) });
-    contentLabel = "fixture(10/family, fresh)";
+    setEngineDeps({ content: fixtureContent(12) });
+    contentLabel = "fixture(12/family)";
   } else {
-    try {
-      // @ts-ignore -- optional at time of writing
-      await import("../src/content/index");
-    } catch {
-      setEngineDeps({ content: fixtureContent(10, { fresh: true }) });
-      contentLabel = "fixture (src/content missing)";
+    const m: any = await import("../src/content/index").catch(() => ({}));
+    if (typeof m.caseSet !== "function") {
+      setEngineDeps({ content: fixtureContent(12) });
+      contentLabel = "fixture (src/content has no v2 API yet)";
     }
   }
+  await content();
   setEngineDeps({ tributes: { nextTribute: async () => null, isTributeVisible: async () => false } });
   const P = "demo";
   const T0 = Date.UTC(2026, 10, 1, 18);
@@ -45,6 +46,9 @@ async function main() {
   const errors: Record<string, number> = {};
   let answers = 0;
   let lastQ = "";
+  let snap: any = null;
+  let item: any = null;
+  let doubledMarked = false;
   const started = Date.now();
   for (let t = T0; t < end; t += 1000) {
     for (const tm of teams) {
@@ -59,17 +63,37 @@ async function main() {
     await tick(P, t);
     const p = await loadParty(d, P, false);
     const ph = p.phase;
-    if (ph.kind === "question" && ph.stage && ph.stage !== "expose") {
+    if (!doubledMarked && t >= T0 + (hours * 3600_000) / 2) {
+      await C.markFinalRound(P, "sim", true, t);
+      doubledMarked = true;
+    }
+    if (ph.kind === "question" && ph.stage && ph.stage !== "clue") {
       const key = ph.questionId + ph.stage;
-      if (key !== lastQ) lastQ = key;
-      const qrow = (await d.query("SELECT private, public FROM question WHERE id=$1", [ph.questionId]))[0];
-      const n = qrow.public.options.length;
+      if (key !== lastQ) {
+        lastQ = key;
+        snap = await buildSnapshot(d, P, t);
+        item = (await d.query("SELECT private FROM question WHERE id=$1", [ph.questionId]))[0].private.item;
+      }
+      const input: any = snap?.question?.input;
       for (const tm of teams) {
-        if (!tm.joined || tm.away || rand() > 0.12) continue;
-        const correct = qrow.private.answer;
-        const choice = correct != null && rand() < tm.skill ? correct : Math.floor(rand() * n);
+        if (!input || !tm.joined || tm.away || rand() > 0.12) continue;
+        const good = rand() < tm.skill;
+        let value: unknown;
+        switch (input.kind) {
+          case "choice": value = good && typeof item.answer === "number" ? item.answer : Math.floor(rand() * input.options.length); break;
+          case "order": value = good ? item.answer : [...input.items.map((x: any) => x.id)].sort(() => rand() - 0.5); break;
+          case "number": { const tr = Number(item.answer); value = Math.max(input.min, Math.min(input.max, Math.round((good ? tr * (0.75 + rand() * 0.3) : input.min + rand() * (input.max - input.min)) / input.step) * input.step)); break; }
+          case "percent": value = Math.floor(rand() * 101); break;
+          case "text": value = rand() < 0.03 ? "what the f.u.c.k" : `verse ${Math.floor(rand() * 1e6)}`; break;
+          case "vote": value = input.entries[Math.floor(rand() * input.entries.length)]?.id; break;
+          case "assign": {
+            if (good && rand() < 0.5) value = item.answer;
+            else { const sl = [...input.slots.map((x: any) => x.id)].sort(() => rand() - 0.5); value = Object.fromEntries(input.people.map((pp: any, k: number) => [pp.id, sl[k]])); }
+            break;
+          }
+        }
         try {
-          await submitAnswer(P, tm.memberId, { questionId: ph.questionId, stage: ph.stage, choice, requestId: `${tm.memberId}:${key}` }, t);
+          await submitAnswer(P, tm.memberId, { questionId: ph.questionId, stage: ph.stage, value, requestId: `${tm.memberId}:${key}` }, t);
           answers++;
         } catch (e: any) {
           errors[e.code ?? "error"] = (errors[e.code ?? "error"] ?? 0) + 1;
@@ -88,15 +112,32 @@ async function main() {
   // a short outage then catch-up
   await tick(P, end + 600_000);
 
-  const sets = await d.query("SELECT seq, family, status, invalid_reason, eligible FROM game_set WHERE party_id=$1 ORDER BY seq", [P]);
+  const sets = await d.query("SELECT id, seq, family, status, invalid_reason, eligible, doubled FROM game_set WHERE party_id=$1 ORDER BY seq", [P]);
   const fam: Record<string, number> = {};
   for (const s of sets) fam[s.family] = (fam[s.family] ?? 0) + 1;
   const violations: string[] = [];
   for (let i = 1; i < sets.length; i++) if (sets[i].family === sets[i - 1].family) violations.push(`same family twice at seq ${sets[i].seq}`);
-  for (const s of sets) if (s.family === "family" && s.status === "complete" && (s.eligible as string[]).length < 3) violations.push(`family set ${s.seq} with <3 eligible`);
+  const social = (f: string) => f === "calavera" || f === "room";
+  for (let i = 1; i < sets.length; i++) if (social(sets[i].family) && social(sets[i - 1].family)) violations.push(`social sets back-to-back at seq ${sets[i].seq}`);
+  for (const s of sets) if (social(s.family) && s.status === "complete" && (s.eligible as string[]).length < 3) violations.push(`social set ${s.seq} with <3 eligible`);
+  const doubledSets = sets.filter((s) => s.doubled).map((s) => s.seq);
+  if (doubledSets.length !== 1) violations.push(`expected exactly one doubled set, got ${doubledSets}`);
+  const overQ = await d.query(
+    `SELECT COUNT(*)::int n FROM score_ledger l JOIN game_set g ON g.id=l.set_id JOIN question q ON q.id=l.question_id
+      WHERE l.kind='question' AND (l.points < 0 OR l.points > (CASE WHEN g.family='case' THEN 300 ELSE 100 END) * (CASE WHEN g.doubled THEN 2 ELSE 1 END))`,
+  );
+  if (overQ[0].n) violations.push(`${overQ[0].n} ledger rows out of range`);
+  const multiLock = await d.query(
+    `SELECT COUNT(*)::int n FROM (SELECT a.team_id, q.set_id FROM answer a JOIN question q ON q.id=a.question_id JOIN game_set g ON g.id=q.set_id
+      WHERE g.family='case' AND a.kind='answer' GROUP BY 1,2 HAVING COUNT(*) > 1) x`,
+  );
+  if (multiLock[0].n) violations.push(`${multiLock[0].n} case double-locks`);
+  const clueAns = await d.query(`SELECT COUNT(*)::int n FROM answer WHERE kind='clue'`);
+  if (clueAns[0].n) violations.push("answers in case clue stage");
+  const voided = await d.query(`SELECT void_reason, COUNT(*)::int n FROM question WHERE party_id=$1 AND status='void' GROUP BY 1`, [P]);
   const dup = await d.query("SELECT question_id, team_id, COUNT(*) n FROM score_ledger WHERE kind='question' GROUP BY 1,2 HAVING COUNT(*) > 1");
   if (dup.length) violations.push(`${dup.length} duplicate ledger rows`);
-  const badScore = await d.query("SELECT COUNT(*)::int n FROM set_score WHERE score < 0 OR score > 300 OR score % 50 <> 0 AND NOT normalized");
+  const badScore = await d.query("SELECT COUNT(*)::int n FROM set_score s JOIN game_set g ON g.id=s.set_id WHERE s.score < 0 OR s.score > (CASE WHEN g.doubled THEN 600 ELSE 300 END)");
   if (badScore[0].n) violations.push(`${badScore[0].n} set scores out of range`);
   const incomplete = await d.query(
     "SELECT g.seq FROM game_set g WHERE g.status='complete' AND (SELECT COUNT(*) FROM question q WHERE q.set_id=g.id AND q.status IN ('revealed','void')) <> 3",
@@ -109,7 +150,7 @@ async function main() {
   const generated = (await d.query("SELECT COUNT(*)::int n FROM question WHERE content_id LIKE '%gen%' OR content_id LIKE '%fresh%'"))[0].n;
   const encores = (await d.query("SELECT COUNT(*)::int n FROM audit WHERE party_id=$1 AND action='encore'", [P]))[0].n;
   const standings = await computeStandings(d, P);
-  if (standings.some((s) => s.total > 1500 || s.setsCounted > 5)) violations.push("standings over max");
+  if (standings.some((s) => s.total > 1800 || s.setsCounted > 5)) violations.push("standings over max");
   const lateEarly = await d.query(
     "SELECT COUNT(*)::int n FROM answer a JOIN question q ON q.id=a.question_id JOIN team t ON t.id=a.team_id WHERE t.created_at > q.opened_at",
   );
@@ -125,6 +166,8 @@ async function main() {
     setsComplete: sets.filter((s) => s.status === "complete").length,
     invalidated: sets.filter((s) => s.status === "invalidated").map((s) => `${s.seq}:${s.invalid_reason}`),
     families: fam,
+    doubledSets,
+    voidQuestions: Object.fromEntries(voided.map((r) => [r.void_reason, r.n])),
     answersAccepted: answers,
     rejectedByCode: errors,
     contentRepeats: repeats.length,

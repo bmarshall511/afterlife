@@ -8,7 +8,7 @@ import { body, err, handle, json } from "@/server/http";
 import { LIMITS, consume } from "@/server/ratelimit";
 import { cookieName, memberForSecret } from "@/server/session";
 
-/** POST /api/answer {party, questionId, stage, choice, requestId} → {ok, saved} | {error, code}. */
+/** POST /api/answer {party, questionId, stage, value, requestId} → {ok, saved:{stage,value}} | {error, code}. */
 export async function POST(req: Request) {
   try {
     const b = await body(req);

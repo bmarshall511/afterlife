@@ -15,7 +15,7 @@ beforeEach(async () => {
 
 async function fakeSet(seq: number, scores: Record<string, [number, boolean]>) {
   const id = randomUUID();
-  await d.query(`INSERT INTO game_set (id, party_id, seq, family, status, seed) VALUES ($1,$2,$3,'truth','complete','s')`, [id, P, seq]);
+  await d.query(`INSERT INTO game_set (id, party_id, seq, family, status, seed) VALUES ($1,$2,$3,'line','complete','s')`, [id, P, seq]);
   for (const [team, [score, ranked]] of Object.entries(scores))
     await d.query(`INSERT INTO set_score (party_id, set_id, team_id, score, ranked) VALUES ($1,$2,$3,$4,$5)`, [P, id, team, score, ranked]);
   return id;
@@ -80,24 +80,20 @@ describe("admin control", () => {
 });
 
 describe("content pool", () => {
-  it("no repeats until exhausted, then generateFresh, then explicit encore", async () => {
-    await setup({ content: fixtureContent(3, { fresh: true }) });
+  it("no repeats until exhausted, then explicit encore; case always fresh", async () => {
+    await setup({ content: fixtureContent(3) });
     await newTeam("Ana");
-    await C.updateSettings(P, { introMs: 1000, questionMs: 2000, memoryExposeMs: 1000, memoryAnswerMs: 1000, revealMs: 1000, resultsMs: 1000, intervalMs: 1000 }, "admin", T0);
+    await C.updateSettings(P, { introMs: 1000, lineAnswerMs: 1000, loteriaAnswerMs: 1000, closestAnswerMs: 1000, caseClueMs: 1000, caseAnswerMs: 1000, revealMs: 1000, resultsMs: 1000, intervalMs: 1000 }, "admin", T0);
     await C.startParty(P, "admin", T0);
-    await runUntil(d, T0, (x) => x.setSeq === 16 && x.kind === "intro", 500);
-    const qs = await d.query("SELECT q.content_id, g.seq FROM question q JOIN game_set g ON g.id=q.set_id ORDER BY g.seq, q.idx");
-    const pool = qs.filter((r) => r.content_id.startsWith("fx-") && !r.content_id.startsWith("fx-gen"));
-    // 5 objective families x 3 items = 15 unique; first 5 sets use them all with no repeat
-    const first = qs.filter((r) => r.seq <= 5).map((r) => r.content_id);
+    await runUntil(d, T0, (x) => x.setSeq === 12 && x.kind === "intro", 500);
+    const qs = await d.query("SELECT q.content_id, g.seq, g.family FROM question q JOIN game_set g ON g.id=q.set_id ORDER BY g.seq, q.idx");
+    // 3 objective pools x 3 items = 9 unique + case; the first 4 sets never repeat
+    const first = qs.filter((r) => r.seq <= 4).map((r) => r.content_id);
     expect(new Set(first).size).toBe(first.length);
-    expect(qs.some((r) => r.content_id.startsWith("fx-gen"))).toBe(true);
-    const party = (await d.query("SELECT engine FROM party WHERE id=$1", [P]))[0].engine;
-    const encoreAudit = await d.query("SELECT 1 FROM audit WHERE action='encore'");
-    // fixture fresh generation supports only memory/difference/reveal; truth/altar fall to encore eventually
-    expect(pool.length).toBeGreaterThan(0);
-    expect(typeof party.encore).toBe("boolean");
-    void encoreAudit;
+    expect(new Set(qs.filter((r) => r.seq <= 4).map((r) => r.family)).size).toBe(4);
+    const caseIds = qs.filter((r) => r.family === "case").map((r) => r.content_id);
+    expect(new Set(caseIds).size).toBe(caseIds.length);
+    expect((await d.query("SELECT COUNT(*)::int n FROM audit WHERE action='encore'"))[0].n).toBeGreaterThan(0);
   });
 });
 

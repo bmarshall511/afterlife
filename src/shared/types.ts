@@ -42,6 +42,7 @@ export interface PublicPhase {
   tribute?: PublicTribute | null; // interval/ambient: tribute currently on TV
   encore?: boolean;        // content pool exhausted; repeating questions
   doubled?: boolean;       // host-triggered "last chance" set: points x2
+  slide?: PublicSlide | null; // interval/ambient: party album photo on TV (never at the same time as a tribute)
 }
 
 /** Public question payload: everything clients may see before reveal. NEVER contains the answer. */
@@ -107,6 +108,17 @@ export interface PublicTribute {
   fit: "contain" | "cover";
   focalX: number;
   focalY: number;
+  dwellMs: number;
+}
+
+/** Party album photo shown on TV during breaks. */
+export interface PublicSlide {
+  id: string;
+  url: string;
+  width: number;
+  height: number;
+  caption: string;
+  takenBy: string;
   dwellMs: number;
 }
 
@@ -177,6 +189,8 @@ export interface MeView {
   history: { setId: string; seq: number; family: GameFamily; score: number; max: number; ranked: boolean; counted: boolean; doubled: boolean; invalidated: boolean }[];
   total: number;
   setsCounted: number;
+  /** Private party album link (path), or null when the album is not open. Only given to joined guests. */
+  albumUrl?: string | null;
 }
 
 export type ApiError = { error: string; code: string };

@@ -35,8 +35,8 @@ describe("admin routes (authenticated)", () => {
     const id = g.items[0].id;
     expect((await content.POST(req("/api/admin/content", "POST", { contentId: id, enabled: false }))).status).toBe(200);
     expect((await db.query("SELECT enabled FROM content_override WHERE content_id=$1", [id]))[0].enabled).toBe(false);
-    const f = await content.POST(req("/api/admin/content", "POST", { party: "demo", family: "truth", enabled: false }));
-    expect((await f.json()).disabledFamilies).toContain("truth");
+    const f = await content.POST(req("/api/admin/content", "POST", { party: "demo", family: "closest", enabled: false }));
+    expect((await f.json()).disabledFamilies).toContain("closest");
   });
 
   it("QR png/svg and diagnostics", async () => {

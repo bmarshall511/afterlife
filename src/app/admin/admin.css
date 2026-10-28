@@ -32,3 +32,8 @@ textarea.ad-in{width:100%;min-height:80px}
 .ad-table td,.ad-table th{border-bottom:1px solid #222;padding:6px 4px;text-align:left;vertical-align:top}
 .ad-login{max-width:360px;margin:15vh auto;padding:16px}
 details.ad-card summary{cursor:pointer;font-weight:600}
+.ad-album{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.ad-album .ad-card{padding:8px;margin:0}
+.ad-album img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block;background:#000}
+.ad-album .hidden img{opacity:.35}
+.ad-qr{width:160px;height:160px;background:#fff;border-radius:8px}

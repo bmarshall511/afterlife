@@ -1,22 +1,20 @@
 import { createHash, randomInt, randomUUID } from "node:crypto";
 import type { Q } from "@/server/db";
-import type { MeView, Stage } from "@/shared/types";
+import type { AnswerValue, MeView, Stage } from "@/shared/types";
 import { hashSecret, newSecret } from "@/server/session";
 import { db } from "./deps";
 import { iso, ms } from "./rng";
-import { buildMe } from "./snapshot";
+import { buildMe, stageInput } from "./snapshot";
+import { isWatchStage } from "./stages";
+import { isFiltered } from "./wordfilter";
+import { cleanText, sameValue, validateValue } from "./validate";
 import { audit, loadParty, saveParty } from "./store";
-import { advance, maybeEarlyClose, tick } from "./tick";
+import { advance, caseLockedTeams, entryId, maybeEarlyClose, tick } from "./tick";
 import { EngineError } from "./types";
 
 export const TEAM_COLORS = ["#F2A33A", "#E0457B", "#8E5BD9", "#2FA39A", "#E8623A", "#4F7FE0", "#C9A227", "#D94FB0", "#5BB85B", "#B5532F", "#3FB6D9", "#A66CE0"];
 export const TEAM_AVATARS = ["calavera", "marigold", "candle", "papel-picado", "catrina", "alebrije", "pan-de-muerto", "butterfly", "sugar-skull", "xolo", "hummingbird", "guitar"];
 const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-function cleanText(v: unknown, max: number): string {
-  if (typeof v !== "string") return "";
-  return v.replace(/[\u0000-\u001f\u007f]/g, "").replace(/\s+/g, " ").trim().slice(0, max);
-}
 
 function pickByHash(s: string, arr: string[]) {
   return arr[createHash("sha256").update(s).digest().readUInt32LE(0) % arr.length];
@@ -74,24 +72,23 @@ async function bump(q: Q, partyId: string) {
 export interface AnswerInput {
   questionId: unknown;
   stage: unknown;
-  choice: unknown;
+  value: unknown;
   requestId?: unknown;
 }
 
-const KIND: Record<string, "answer" | "prefer" | "predict"> = { answer: "answer", prefer: "prefer", predict: "predict" };
+const STAGE_SET = new Set<Stage>(["write", "vote", "answer", "guess", "clue"]);
 
 /**
- * Captain submits for the current stage. All validation is server-side against server time.
- * Idempotent: unique (question_id, team_id, kind); a retry with the same choice/requestId returns ok,
- * a different choice after lock returns `already`.
+ * Captain submits for the current stage. All validation is server-side against server time and the stage's
+ * InputSpec. One answer per team per stage (answer.kind = stage), locked on submit.
+ * Idempotent: a retry with the same value or the same requestId returns ok; a different value → `already`.
+ * Codes: invalid | closed | not_captain | away | late_join | already | need_answer | already_locked | filtered | self_vote.
  */
 export async function submitAnswer(partyId: string, memberId: string, input: AnswerInput, now: number = Date.now()) {
   const stage = String(input.stage ?? "") as Stage;
-  const kind = KIND[stage];
-  const choice = input.choice;
   const questionId = typeof input.questionId === "string" ? input.questionId : "";
   const requestId = typeof input.requestId === "string" ? input.requestId.slice(0, 80) : null;
-  if (!kind || !Number.isInteger(choice) || !/^[0-9a-f-]{36}$/i.test(questionId)) throw new EngineError("invalid", "invalid submission", 400);
+  if (!STAGE_SET.has(stage) || !/^[0-9a-f-]{36}$/i.test(questionId) || input.value === undefined) throw new EngineError("invalid", "invalid submission", 400);
   await tick(partyId, now);
   const d = await db();
   return d.tx(async (q) => {
@@ -99,9 +96,9 @@ export async function submitAnswer(partyId: string, memberId: string, input: Ans
     const m = (await q.query(`SELECT m.id, m.team_id, t.captain_member_id, t.status, t.created_at FROM member m JOIN team t ON t.id=m.team_id WHERE m.id=$1 AND m.party_id=$2`, [memberId, partyId]))[0];
     if (!m || (m.status !== "active" && m.status !== "away")) throw new EngineError("invalid", "not a team member", 401);
     await q.query(`UPDATE member SET last_seen=$2 WHERE id=$1`, [memberId, iso(now)]);
-    const existing = (await q.query(`SELECT choice, request_id FROM answer WHERE question_id=$1 AND team_id=$2 AND kind=$3`, [questionId, m.team_id, kind]))[0];
+    const existing = (await q.query(`SELECT value, request_id FROM answer WHERE question_id=$1 AND team_id=$2 AND kind=$3`, [questionId, m.team_id, stage]))[0];
     if (existing) {
-      if (existing.choice === choice || (requestId && existing.request_id === requestId)) return { ok: true, saved: { kind, choice: existing.choice } };
+      if (sameValue(existing.value, input.value) || (requestId && existing.request_id === requestId)) return { ok: true, saved: { stage, value: existing.value as AnswerValue } };
       throw new EngineError("already", "Your team's answer is already locked", 409);
     }
     if (m.captain_member_id !== memberId) throw new EngineError("not_captain", "Only the team captain can submit", 403);
@@ -109,24 +106,36 @@ export async function submitAnswer(partyId: string, memberId: string, input: Ans
     const ph = p.phase;
     if (p.status !== "running" || ph.kind !== "question" || ph.questionId !== questionId || ph.stage !== stage || ph.endsAt == null || now >= ph.endsAt || now < (ph.stageStartsAt ?? ph.startsAt))
       throw new EngineError("closed", "This question is closed", 409);
-    const qrow = (await q.query(`SELECT opened_at, public FROM question WHERE id=$1`, [questionId]))[0];
+    if (isWatchStage(ph.family!, stage)) throw new EngineError("invalid", "Nothing to submit right now - watch the TV", 400);
+    const qrow = (await q.query(`SELECT opened_at, idx, private FROM question WHERE id=$1`, [questionId]))[0];
     if (ms(m.created_at) > ms(qrow.opened_at)) throw new EngineError("late_join", "You'll join in from the next question", 409);
-    const nOpts = (qrow.public.options ?? []).length;
-    if ((choice as number) < 0 || (choice as number) >= nOpts) throw new EngineError("invalid", "invalid choice", 400);
-    if (kind === "predict") {
-      const pref = await q.query(`SELECT 1 FROM answer WHERE question_id=$1 AND team_id=$2 AND kind='prefer'`, [questionId, m.team_id]);
-      if (!pref.length) throw new EngineError("need_preference", "A personal choice is needed before predicting", 409);
+    if (ph.family === "room" && stage === "guess") {
+      const a = await q.query(`SELECT 1 FROM answer WHERE question_id=$1 AND team_id=$2 AND kind='answer'`, [questionId, m.team_id]);
+      if (!a.length) throw new EngineError("need_answer", "Your team needs to answer first", 409);
     }
+    if (ph.family === "case" && stage === "answer") {
+      const locked = await caseLockedTeams(q, ph.setId!);
+      if (locked.has(m.team_id)) throw new EngineError("already_locked", "Your team already locked its answer for this case", 409);
+    }
+    const spec = await stageInput(q, p, questionId, qrow, stage);
+    if (!spec) throw new EngineError("invalid", "Nothing to submit right now", 400);
+    let value = validateValue(spec, input.value);
+    if (ph.family === "calavera" && stage === "vote") {
+      const own = (await q.query(`SELECT id FROM answer WHERE question_id=$1 AND team_id=$2 AND kind='write'`, [questionId, m.team_id]))[0];
+      if (own && entryId(questionId, own.id) === value) throw new EngineError("self_vote", "You can't vote for your own verse", 409);
+    }
+    if (spec.kind === "text" && isFiltered(value as string)) throw new EngineError("filtered", "Keep it family-friendly", 422);
     const ins = await q.query(
-      `INSERT INTO answer (id, party_id, question_id, team_id, member_id, kind, choice, request_id, created_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+      `INSERT INTO answer (id, party_id, question_id, team_id, member_id, kind, choice, value, request_id, created_at) VALUES ($1,$2,$3,$4,$5,$6,NULL,$7,$8,$9)
        ON CONFLICT (question_id, team_id, kind) DO NOTHING RETURNING id`,
-      [randomUUID(), partyId, questionId, m.team_id, memberId, kind, choice, requestId, iso(now)],
+      [randomUUID(), partyId, questionId, m.team_id, memberId, stage, JSON.stringify(value), requestId, iso(now)],
     );
     if (!ins.length) throw new EngineError("already", "Your team's answer is already locked", 409);
     await maybeEarlyClose(q, p, now);
     await advance(q, p, now);
     await saveParty(q, p);
-    return { ok: true, saved: { kind, choice: choice as number } };
+    value = value as AnswerValue;
+    return { ok: true, saved: { stage, value } };
   });
 }
 

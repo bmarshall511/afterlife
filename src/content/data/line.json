@@ -1,0 +1,1286 @@
+[
+ {
+  "id": "mx-milestones",
+  "prompt": "Order these moments in Mexican history from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Mexica found Tenochtitlan",
+    "value": 1325,
+    "display": "1325"
+   },
+   {
+    "text": "Fall of Tenochtitlan to Cortés and allies",
+    "value": 1521,
+    "display": "1521"
+   },
+   {
+    "text": "Hidalgo's Grito de Dolores",
+    "value": 1810,
+    "display": "1810"
+   },
+   {
+    "text": "Battle of Puebla (the original Cinco de Mayo)",
+    "value": 1862,
+    "display": "1862"
+   },
+   {
+    "text": "Madero's call to revolt starts the Mexican Revolution",
+    "value": 1910,
+    "display": "1910"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Nearly six centuries in five steps: an island city, a conquest, a shout for independence, a surprise win over France, then a revolution.",
+  "source": {
+   "title": "Gob.mx / Memórica: fundación de México-Tenochtitlan",
+   "url": "https://www.gob.mx/bancodelbienestar/articulos/693-aniversario-de-la-fundacion-de-mexico-tenochtitlan?idiom=es",
+   "verification": "Gob.mx page says historians agree the founding was in 1325. Ciencia UNAM (ciencia.unam.mx/leer/1102) dates the fall with Cuauhtémoc's capture on 13 Aug 1521. gob.mx/defensa document dates the Grito to the early hours of 16 Sep 1810. INAH Museo del Caracol (lugares.inah.gob.mx/en/node/4240) and bicentenariobc.gob.mx chronology describe Zaragoza's 1862 victory at Puebla. Library of Congress timeline (loc.gov/exhibits/mexican-revolution-and-the-united-states/timeline.html) says Madero's Plan of San Luis Potosí called for an uprising on 20 Nov 1910. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "cdmx-landmarks",
+  "prompt": "Order these Mexico City landmarks by the year they were completed or inaugurated",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Metropolitan Cathedral finished",
+    "value": 1813,
+    "display": "1813"
+   },
+   {
+    "text": "Angel of Independence column inaugurated",
+    "value": 1910,
+    "display": "1910"
+   },
+   {
+    "text": "Palacio de Bellas Artes inaugurated",
+    "value": 1934,
+    "display": "1934"
+   },
+   {
+    "text": "Torre Latinoamericana completed",
+    "value": 1956,
+    "display": "1956"
+   },
+   {
+    "text": "National Museum of Anthropology opens",
+    "value": 1964,
+    "display": "1964"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The cathedral took about 240 years to finish, so it wins 'earliest' despite starting in the 1500s; the museum went up in a brisk 19 months.",
+  "source": {
+   "title": "INAH Catálogo Nacional de Monumentos Históricos: Conjunto Catedral Metropolitana",
+   "url": "https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/84725",
+   "verification": "INAH catalogue: cathedral construction began 1573 and was concluded 1813. Secretaría de Cultura / gob.mx (gob.mx/cultura/prensa/la-columna-de-la-independencia-...) : Columna de la Independencia inaugurated by Porfirio Díaz 16 Sep 1910. INBA (inba.gob.mx/prensa/22803) : Palacio de Bellas Artes inaugurated 29 Sep 1934. CDMX tourism (mexicocity.cdmx.gob.mx/venues/torre-latinoamericana) : construction 1948 to 1956, tallest in the city from 1956. Chapultepec/Cultura and INAH (mna.inah.gob.mx) : museum inaugurated 17 Sep 1964, built in 19 months. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "unesco-ich-mexico",
+  "prompt": "Order these Mexican traditions by the year UNESCO inscribed them as Intangible Cultural Heritage",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Indigenous festivity dedicated to the dead (Día de Muertos)",
+    "value": 2008,
+    "display": "2008"
+   },
+   {
+    "text": "Mariachi",
+    "value": 2011,
+    "display": "2011"
+   },
+   {
+    "text": "Charrería (Mexican equestrian tradition)",
+    "value": 2016,
+    "display": "2016"
+   },
+   {
+    "text": "Talavera ceramics of Puebla and Tlaxcala",
+    "value": 2019,
+    "display": "2019"
+   },
+   {
+    "text": "Bolero",
+    "value": 2023,
+    "display": "2023"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The ofrenda got listed first; the serenades, cowboys, pottery and love songs followed. (Día de Muertos was proclaimed a Masterpiece in 2003, then moved onto the list in 2008.)",
+  "source": {
+   "title": "UNESCO Intangible Cultural Heritage: Mexico, elements on the lists",
+   "url": "https://ich.unesco.org/en/state/mexico-MX?info=elements-on-the-lists",
+   "verification": "UNESCO ICH page lists: Indigenous festivity dedicated to the dead 2008; Mariachi 2011; Charrería 2016; Talavera (shared with Spain) 2019; Bolero (shared) 2023. sic.cultura.gob.mx notes the 2003 Masterpiece proclamation preceding the 2008 inscription. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "whc-mexico-cultural",
+  "prompt": "Order these Mexican sites by the year they joined the UNESCO World Heritage List",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Historic Centre of Mexico City and Xochimilco",
+    "value": 1987,
+    "display": "1987"
+   },
+   {
+    "text": "Hospicio Cabañas, Guadalajara",
+    "value": 1997,
+    "display": "1997"
+   },
+   {
+    "text": "Luis Barragán House and Studio",
+    "value": 2004,
+    "display": "2004"
+   },
+   {
+    "text": "UNAM Central University City Campus",
+    "value": 2007,
+    "display": "2007"
+   },
+   {
+    "text": "Padre Tembleque Aqueduct",
+    "value": 2015,
+    "display": "2015"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The canals came first; a modernist house and a university campus proved UNESCO also loves concrete.",
+  "source": {
+   "title": "INAH Dirección de Patrimonio Mundial: listado de sitios",
+   "url": "https://patrimoniomundialmexico.inah.gob.mx/publico/listado_pm.php",
+   "verification": "INAH list gives inscription years: Centro Histórico de México y Xochimilco 1987; Hospicio Cabañas 1997; Casa-estudio de Luis Barragán 2004 (UNESCO nomination file whc.unesco.org/uploads/nominations/1136.pdf also gives July 2004); Campus Central de Ciudad Universitaria UNAM 2007; Acueducto del Padre Tembleque 2015. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-rivers",
+  "prompt": "Order these Mexican rivers by length, shortest to longest",
+  "lowLabel": "Shortest",
+  "highLabel": "Longest",
+  "unit": "km",
+  "items": [
+   {
+    "text": "Río Pánuco",
+    "value": 510,
+    "display": "510 km"
+   },
+   {
+    "text": "Río Balsas",
+    "value": 770,
+    "display": "770 km"
+   },
+   {
+    "text": "Río Culiacán",
+    "value": 875,
+    "display": "875 km"
+   },
+   {
+    "text": "Río Nazas-Aguanaval",
+    "value": 1081,
+    "display": "1,081 km"
+   },
+   {
+    "text": "Río Grijalva-Usumacinta",
+    "value": 1521,
+    "display": "1,521 km"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The Grijalva-Usumacinta carries the crown; the desert-draining Nazas-Aguanaval is a sneaky second.",
+  "source": {
+   "title": "SEMARNAT Boletín Estadístico y Geográfico: dimensión y escurrimiento de ríos principales, 2018",
+   "url": "https://gisviewer.semarnat.gob.mx/bol/20_03/",
+   "verification": "SEMARNAT table (citing CONAGUA) lists length in km: Pánuco 510, Balsas 770, Culiacán 875, Nazas-Aguanaval 1,081, Grijalva-Usumacinta 1,521 (Mexican portion). Column is labelled as length; Bravo is N.D. so excluded. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "tech-firsts",
+  "prompt": "Order these technology milestones from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Eiffel Tower opens",
+    "value": 1889,
+    "display": "1889"
+   },
+   {
+    "text": "Wright brothers' first powered flight",
+    "value": 1903,
+    "display": "1903"
+   },
+   {
+    "text": "Sputnik 1 launched",
+    "value": 1957,
+    "display": "1957"
+   },
+   {
+    "text": "Apollo 11 lands on the Moon",
+    "value": 1969,
+    "display": "1969"
+   },
+   {
+    "text": "Tim Berners-Lee proposes the World Wide Web",
+    "value": 1989,
+    "display": "1989"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Only 66 years separate a 12-second hop at Kitty Hawk from boots on the Moon.",
+  "source": {
+   "title": "Smithsonian NASM: The Wright Brothers Made History at Kitty Hawk",
+   "url": "https://airandspace.si.edu/stories/editorial/wright-brothers-made-history-kitty-hawk",
+   "verification": "Smithsonian: first powered flights 17 Dec 1903. NASA history (nasa.gov/history/65-years-ago-sputnik-ushers-in-the-space-age) : Sputnik launched 4 Oct 1957; NASA lunar history: Apollo 11 landed 20 Jul 1969. CERN (home.cern/science/computing/the-birth-of-the-web/short-history-web) : Berners-Lee invented the Web in 1989. toureiffel.paris: tower about 312 m at its 1889 opening. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-artists-born",
+  "prompt": "Order these Mexican artists by birth year",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "José Guadalupe Posada (creator of the calavera prints)",
+    "value": 1851,
+    "display": "1851"
+   },
+   {
+    "text": "Diego Rivera",
+    "value": 1886,
+    "display": "1886"
+   },
+   {
+    "text": "Rufino Tamayo",
+    "value": 1899,
+    "display": "1899"
+   },
+   {
+    "text": "Frida Kahlo",
+    "value": 1907,
+    "display": "1907"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Posada's skeletons predate the muralists by a generation; Frida was 21 years younger than Diego.",
+  "source": {
+   "title": "Art Institute of Chicago: José Guadalupe Posada",
+   "url": "https://www.artic.edu/artists/36247/jose-guadalupe-posada",
+   "verification": "Art Institute of Chicago and Britannica give Posada's birth as 1851 (MoMA lists 1852; either way first). Art Institute of Chicago (artic.edu/artists/36397) : Rivera born 1886. Britannica and artic.edu/artists/36878 and cultura.gob.mx: Tamayo born 1899. Britannica: Kahlo born 6 Jul 1907. Checked 2026-10-27 via search results from these pages."
+  }
+ },
+ {
+  "id": "mx-volcanoes",
+  "prompt": "Order these Mexican peaks by elevation, lowest to highest",
+  "lowLabel": "Lowest",
+  "highLabel": "Highest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Volcán de Colima (Nevado de Colima)",
+    "value": 4260,
+    "display": "4,260 m"
+   },
+   {
+    "text": "La Malinche",
+    "value": 4420,
+    "display": "4,420 m"
+   },
+   {
+    "text": "Popocatépetl",
+    "value": 5500,
+    "display": "5,500 m"
+   },
+   {
+    "text": "Pico de Orizaba (Citlaltépetl)",
+    "value": 5610,
+    "display": "5,610 m"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Smoky Popo is famous, but quiet Citlaltépetl tops the country.",
+  "source": {
+   "title": "INEGI: Estadísticas a propósito del Día Internacional de las Montañas (8 Dec 2014)",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/aproposito/2014/monta%C3%B1as2014_0.pdf",
+   "verification": "INEGI document gives Pico de Orizaba 5,610 m, Popocatépetl 5,500 m, La Malinche 4,420 m, Nevado/Volcán de Colima 4,260 m. Other agencies quote slightly different heights (e.g. 5,636 for Orizaba) but ordering is unchanged. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-institutions",
+  "prompt": "Order these Mexican institutions by the year they were founded or opened",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Royal and Pontifical University of Mexico (UNAM's forerunner) decreed",
+    "value": 1551,
+    "display": "1551"
+   },
+   {
+    "text": "Banco de México opens",
+    "value": 1925,
+    "display": "1925"
+   },
+   {
+    "text": "Pemex created",
+    "value": 1938,
+    "display": "1938"
+   },
+   {
+    "text": "Mexico City Metro opens",
+    "value": 1969,
+    "display": "1969"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mexico had a university nearly four centuries before it had a central bank.",
+  "source": {
+   "title": "UNAM DGCS boletín: aniversario de la Real y Pontificia Universidad",
+   "url": "https://www.dgcs.unam.mx/boletin/bdboletin/2024_052.html",
+   "verification": "UNAM sources: university founded by royal decree 21 Sep 1551. Banxico (banxico.org.mx/conociendo-banxico/semblanza-historica-historia-.html) : opened 1 Sep 1925. Pemex (pemex.com/acerca/historia) : created by decree 7 Jun 1938. Metro CDMX chronology (metro.cdmx.gob.mx/cronologia-del-metro) : Line 1 opened 4 Sep 1969. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "revolution-timeline",
+  "prompt": "Order these Mexican Revolution events from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Díaz tells a US magazine Mexico is ready for democracy",
+    "value": 1908,
+    "display": "1908"
+   },
+   {
+    "text": "Villa and Orozco capture Ciudad Juárez",
+    "value": 1911,
+    "display": "1911"
+   },
+   {
+    "text": "Pancho Villa raids Columbus, New Mexico",
+    "value": 1916,
+    "display": "1916"
+   },
+   {
+    "text": "Obregón sworn in, ending the Revolution",
+    "value": 1920,
+    "display": "1920"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "One magazine interview in 1908 helped kick off twelve years of upheaval.",
+  "source": {
+   "title": "Library of Congress: The Mexican Revolution and the United States, timeline",
+   "url": "https://www.loc.gov/exhibits/mexican-revolution-and-the-united-states/timeline.html",
+   "verification": "LOC timeline: Creelman interview with Díaz published March 1908; Orozco and Villa take Ciudad Juárez 10 May 1911; Villa raids Columbus NM 9 Mar 1916; Obregón sworn in 30 Nov 1920, Revolution over. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "heights-pyramid-to-eiffel",
+  "prompt": "Order these structures by height, shortest to tallest",
+  "lowLabel": "Shortest",
+  "highLabel": "Tallest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Pyramid of the Sun, Teotihuacan",
+    "value": 65,
+    "display": "~65 m"
+   },
+   {
+    "text": "Statue of Liberty (ground to torch)",
+    "value": 93,
+    "display": "93 m"
+   },
+   {
+    "text": "Washington Monument",
+    "value": 169,
+    "display": "169 m (555 ft)"
+   },
+   {
+    "text": "Eiffel Tower (with antennas)",
+    "value": 330,
+    "display": "330 m"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Teotihuacan's giant is wide (about 225 m a side) rather than tall; the Eiffel Tower keeps growing antennas.",
+  "source": {
+   "title": "INAH Visita Teotihuacán: Pyramid of the Sun",
+   "url": "https://visitateotihuacan.inah.gob.mx/en/explore/pyramid-of-the-sun/",
+   "verification": "INAH: height about 65 m, base ~222 x 225 m. NPS (nps.gov/stli/learn/historyculture/statue-statistics.htm) : ground to torch 305 ft 1 in (93 m). NPS (nps.gov/wamo/faqs.htm) : 555 ft 5 1/8 in (~169 m). toureiffel.paris: 330 m including antennas since 2022. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-heroes-born",
+  "prompt": "Order these Mexican leaders by birth year",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Miguel Hidalgo y Costilla",
+    "value": 1753,
+    "display": "1753"
+   },
+   {
+    "text": "Benito Juárez",
+    "value": 1806,
+    "display": "1806"
+   },
+   {
+    "text": "Porfirio Díaz",
+    "value": 1830,
+    "display": "1830"
+   },
+   {
+    "text": "Lázaro Cárdenas",
+    "value": 1895,
+    "display": "1895"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Díaz was once Juárez's student in Oaxaca; Cárdenas arrived midway through Díaz's long rule.",
+  "source": {
+   "title": "Gob.mx: Porfirio Díaz (1830-1915)",
+   "url": "https://www.gob.mx/epn/es/articulos/porfirio-diaz-1830-1915",
+   "verification": "gob.mx: Díaz born in Oaxaca 15 Sep 1830. gob.mx/defensa: Hidalgo born 8 May 1753. gob.mx (agroasemex): Juárez born 21 Mar 1806 in San Pablo Guelatao. INEHRM (inehrm.gob.mx/es/inehrm/Cronologias_Cardenas) : Cárdenas born 21 May 1895 in Jiquilpan. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-big-events",
+  "prompt": "Order these global sporting events hosted in Mexico from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Summer Olympic Games in Mexico City",
+    "value": 1968,
+    "display": "1968"
+   },
+   {
+    "text": "First FIFA World Cup final at Estadio Azteca (Pelé's Brazil)",
+    "value": 1970,
+    "display": "1970"
+   },
+   {
+    "text": "Second World Cup final at Estadio Azteca (Maradona's Argentina)",
+    "value": 1986,
+    "display": "1986"
+   },
+   {
+    "text": "Azteca hosts a record third World Cup opening match",
+    "value": 2026,
+    "display": "2026"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Azteca is the only stadium to stage three World Cup openers, the latest this June.",
+  "source": {
+   "title": "FIFA: Estadio Azteca Mexico City to host opening match for World Cup 2026",
+   "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/estadio-azteca-mexico-city-host-opening-match-world-cup-2026",
+   "verification": "FIFA: Azteca staged the 1970 and 1986 finals (Pelé and Maradona lifted the trophy there) and hosts the 2026 opener, a third, record. Olympics.com: Mexico beat South Africa in the 11 Jun 2026 opener; Olympics.com (olympics.com/en/olympic-games/mexico-city-1968) and CONADE: Games held 12-27 Oct 1968. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-global-honors",
+  "prompt": "Order these Mexican wins of top international awards from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Alfonso García Robles, Nobel Peace Prize",
+    "value": 1982,
+    "display": "1982"
+   },
+   {
+    "text": "Octavio Paz, Nobel Prize in Literature",
+    "value": 1990,
+    "display": "1990"
+   },
+   {
+    "text": "Mario Molina, Nobel Prize in Chemistry",
+    "value": 1995,
+    "display": "1995"
+   },
+   {
+    "text": "Alfonso Cuarón, Oscar for Best Director (Gravity)",
+    "value": 2014,
+    "display": "2014"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Disarmament, poetry, the ozone layer, then outer space: a very Mexican range of talents.",
+  "source": {
+   "title": "NobelPrize.org: Alfonso García Robles biographical",
+   "url": "https://www.nobelprize.org/prizes/peace/1982/robles/biographical/",
+   "verification": "NobelPrize.org: García Robles Peace 1982 (Treaty of Tlatelolco); Paz Literature 1990 (nobelprize.org/prizes/literature/1990/summary); Molina Chemistry 1995 (nobelprize.org/prizes/chemistry/1995/molina/facts). Oscars.org (oscars.org/oscars/ceremonies/2014) : Cuarón won Directing for Gravity at the 86th Oscars, 2 Mar 2014. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "mx-constitutions",
+  "prompt": "Order these Mexican constitutions from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Constitution of Apatzingán (never really took effect)",
+    "value": 1814,
+    "display": "1814"
+   },
+   {
+    "text": "First Federal Constitution",
+    "value": 1824,
+    "display": "1824"
+   },
+   {
+    "text": "Liberal Constitution of the Reform era",
+    "value": 1857,
+    "display": "1857"
+   },
+   {
+    "text": "Current Constitution, born of the Revolution",
+    "value": 1917,
+    "display": "1917"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mexico drafted a constitution before it had even won independence.",
+  "source": {
+   "title": "Museo de las Constituciones (UNAM): Historia constitucional de México",
+   "url": "https://museodelasconstituciones.unam.mx/tema-historia-constitucional/",
+   "verification": "gob.mx/defensa: Apatzingán promulgated 22 Oct 1814; UNAM sources: Federal Constitution promulgated 4 Oct 1824, and the 1857 Constitution; LOC timeline: Mexico adopts the Constitution of 1917 on 5 Feb 1917. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "whc-mexico-natural",
+  "prompt": "Order these Mexican natural wonders by the year UNESCO made them World Heritage",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Sian Ka'an (Quintana Roo)",
+    "value": 1987,
+    "display": "1987"
+   },
+   {
+    "text": "Whale Sanctuary of El Vizcaíno",
+    "value": 1993,
+    "display": "1993"
+   },
+   {
+    "text": "Monarch Butterfly Biosphere Reserve",
+    "value": 2008,
+    "display": "2008"
+   },
+   {
+    "text": "Revillagigedo Archipelago",
+    "value": 2016,
+    "display": "2016"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "The butterflies who arrive around Día de Muertos waited 21 years behind Sian Ka'an's reefs.",
+  "source": {
+   "title": "INAH Dirección de Patrimonio Mundial: listado de sitios",
+   "url": "https://patrimoniomundialmexico.inah.gob.mx/publico/listado_pm.php",
+   "verification": "INAH list: Sian Ka'an 1987; Santuario de ballenas de El Vizcaíno 1993; Reserva de la biósfera de la Mariposa Monarca 2008; Archipiélago de Revillagigedo 2016. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "whc-mexico-ancient",
+  "prompt": "Order these ancient cities by the year UNESCO listed them as World Heritage",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Teotihuacan",
+    "value": 1987,
+    "display": "1987"
+   },
+   {
+    "text": "El Tajín",
+    "value": 1992,
+    "display": "1992"
+   },
+   {
+    "text": "Paquimé (Casas Grandes)",
+    "value": 1998,
+    "display": "1998"
+   },
+   {
+    "text": "Calakmul",
+    "value": 2002,
+    "display": "2002"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Teotihuacan was in the first wave; jungle-swallowed Calakmul took 15 more years.",
+  "source": {
+   "title": "INAH Dirección de Patrimonio Mundial: listado de sitios",
+   "url": "https://patrimoniomundialmexico.inah.gob.mx/publico/listado_pm.php",
+   "verification": "INAH list: Ciudad Prehispánica de Teotihuacán 1987; El Tajín 1992; Paquimé 1998; Calakmul 2002 (extended 2014). Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "day-length",
+  "prompt": "Order these worlds by the length of one solar day",
+  "lowLabel": "Shortest",
+  "highLabel": "Longest",
+  "unit": "hours",
+  "items": [
+   {
+    "text": "Mars",
+    "value": 24.7,
+    "display": "24.7 hours"
+   },
+   {
+    "text": "Pluto",
+    "value": 153.3,
+    "display": "153.3 hours"
+   },
+   {
+    "text": "Earth's Moon",
+    "value": 708.7,
+    "display": "708.7 hours"
+   },
+   {
+    "text": "Venus",
+    "value": 2802.0,
+    "display": "2,802 hours"
+   },
+   {
+    "text": "Mercury",
+    "value": 4222.6,
+    "display": "4,222.6 hours"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Mercury's sunrise-to-sunrise takes about 176 Earth days, so a single day there lasts longer than two of its own years.",
+  "source": {
+   "title": "NASA NSSDCA Planetary Fact Sheet - Metric",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+   "verification": "Length of Day row: Mars 24.7 h, Pluto 153.3 h, Moon 708.7 h, Venus 2,802.0 h, Mercury 4,222.6 h. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "planet-temps",
+  "prompt": "Order these planets by mean surface temperature",
+  "lowLabel": "Coldest",
+  "highLabel": "Hottest",
+  "unit": "°C",
+  "items": [
+   {
+    "text": "Jupiter",
+    "value": -110,
+    "display": "-110 °C"
+   },
+   {
+    "text": "Mars",
+    "value": -65,
+    "display": "-65 °C"
+   },
+   {
+    "text": "Mercury",
+    "value": 167,
+    "display": "167 °C"
+   },
+   {
+    "text": "Venus",
+    "value": 464,
+    "display": "464 °C"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mercury is closer to the Sun, but Venus's runaway greenhouse makes it the solar system's real oven.",
+  "source": {
+   "title": "NASA NSSDCA Planetary Fact Sheet - Metric",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+   "verification": "Mean Temperature row: Jupiter -110 C, Mars -65 C, Mercury 167 C, Venus 464 C. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "planet-gravity",
+  "prompt": "Order these worlds by surface gravity",
+  "lowLabel": "Weakest",
+  "highLabel": "Strongest",
+  "unit": "m/s²",
+  "items": [
+   {
+    "text": "Mars",
+    "value": 3.7,
+    "display": "3.7 m/s²"
+   },
+   {
+    "text": "Uranus",
+    "value": 8.7,
+    "display": "8.7 m/s²"
+   },
+   {
+    "text": "Earth",
+    "value": 9.8,
+    "display": "9.8 m/s²"
+   },
+   {
+    "text": "Neptune",
+    "value": 11.0,
+    "display": "11.0 m/s²"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Giant Uranus would actually make you feel a bit lighter than Earth does, while Neptune would weigh you down.",
+  "source": {
+   "title": "NASA NSSDCA Planetary Fact Sheet - Metric",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+   "verification": "Gravity row: Mars 3.7, Uranus 8.7, Earth 9.8, Neptune 11.0 m/s^2. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "small-worlds",
+  "prompt": "Order these worlds by diameter",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "km",
+  "items": [
+   {
+    "text": "Pluto",
+    "value": 2376,
+    "display": "2,376 km"
+   },
+   {
+    "text": "Earth's Moon",
+    "value": 3475,
+    "display": "3,475 km"
+   },
+   {
+    "text": "Mercury",
+    "value": 4879,
+    "display": "4,879 km"
+   },
+   {
+    "text": "Mars",
+    "value": 6792,
+    "display": "6,792 km"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Pluto is smaller than our own Moon, which takes some of the sting out of its demotion.",
+  "source": {
+   "title": "NASA NSSDCA Planetary Fact Sheet - Metric",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+   "verification": "Diameter row: Pluto 2,376 km, Moon 3,475 km, Mercury 4,879 km, Mars 6,792 km. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "moon-count",
+  "prompt": "Order these planets by number of known moons",
+  "lowLabel": "Fewest",
+  "highLabel": "Most",
+  "unit": "moons",
+  "items": [
+   {
+    "text": "Neptune",
+    "value": 16,
+    "display": "16"
+   },
+   {
+    "text": "Uranus",
+    "value": 28,
+    "display": "28"
+   },
+   {
+    "text": "Jupiter",
+    "value": 95,
+    "display": "95"
+   },
+   {
+    "text": "Saturn",
+    "value": 274,
+    "display": "274"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Saturn has pulled so far ahead in the moon count that Jupiter's 95 looks modest next to it.",
+  "source": {
+   "title": "NASA NSSDCA Planetary Fact Sheet - Metric",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+   "verification": "Number of Moons row: Neptune 16, Uranus 28, Jupiter 95, Saturn 274. Counts change as discoveries are confirmed. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "seven-summits",
+  "prompt": "Order these continental high points by elevation",
+  "lowLabel": "Lowest",
+  "highLabel": "Highest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Mont Blanc (Europe/Alps)",
+    "value": 4807,
+    "display": "4,807 m"
+   },
+   {
+    "text": "Kilimanjaro (Africa)",
+    "value": 5895,
+    "display": "5,895 m"
+   },
+   {
+    "text": "Denali (North America)",
+    "value": 6190,
+    "display": "6,190 m"
+   },
+   {
+    "text": "Aconcagua (South America)",
+    "value": 6959,
+    "display": "6,959 m"
+   },
+   {
+    "text": "Mount Everest (Asia)",
+    "value": 8849,
+    "display": "8,849 m"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Aconcagua is the tallest peak anywhere outside Asia, and Denali clears Kilimanjaro by about 300 m.",
+  "source": {
+   "title": "Britannica: Mount Everest",
+   "url": "https://www.britannica.com/place/Mount-Everest",
+   "verification": "Britannica Everest: 29,032 ft (8,849 m). Britannica Mount Aconcagua (britannica.com/place/Mount-Aconcagua): official 22,831 ft (6,959 m). USGS 'New Elevation for Nation's Highest Peak' (usgs.gov/news/national-news-release/new-elevation-nations-highest-peak) and NPS fact sheet: Denali 20,310 ft / 6,190 m. Britannica Kilimanjaro (britannica.com/place/Kilimanjaro): Kibo 19,340 ft (5,895 m). Britannica Mont Blanc (britannica.com/place/Mont-Blanc-mountain-Europe): 15,771 ft (4,807 m). Britannica pages confirmed via search excerpts (direct fetch blocked). Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "na-rivers",
+  "prompt": "Order these North American rivers by length",
+  "lowLabel": "Shortest",
+  "highLabel": "Longest",
+  "unit": "miles",
+  "items": [
+   {
+    "text": "Ohio",
+    "value": 1310,
+    "display": "1,310 mi"
+   },
+   {
+    "text": "Colorado",
+    "value": 1450,
+    "display": "1,450 mi"
+   },
+   {
+    "text": "Yukon",
+    "value": 1980,
+    "display": "1,980 mi"
+   },
+   {
+    "text": "Mississippi",
+    "value": 2340,
+    "display": "2,340 mi"
+   },
+   {
+    "text": "Missouri",
+    "value": 2540,
+    "display": "2,540 mi"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The Missouri outruns the Mississippi it feeds into, making the famous river a runner-up in its own system.",
+  "source": {
+   "title": "USGS Water Science School: Rivers of the World - World's Longest Rivers",
+   "url": "https://www.usgs.gov/special-topics/water-science-school/science/rivers-world-worlds-longest-rivers",
+   "verification": "US/Canada table: Missouri 2,540 mi, Mississippi 2,340 mi, Yukon 1,980 mi, Colorado 1,450 mi, Ohio 1,310 mi. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "latin-rivers",
+  "prompt": "Order these Latin American rivers by length",
+  "lowLabel": "Shortest",
+  "highLabel": "Longest",
+  "unit": "km",
+  "items": [
+   {
+    "text": "Orinoco",
+    "value": 2740,
+    "display": "about 2,740 km"
+   },
+   {
+    "text": "Rio Grande / Río Bravo",
+    "value": 3060,
+    "display": "about 3,060 km"
+   },
+   {
+    "text": "Paraná",
+    "value": 4880,
+    "display": "4,880 km"
+   },
+   {
+    "text": "Amazon",
+    "value": 6400,
+    "display": "6,400+ km"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "The border river Mexicans call the Río Bravo is longer than Venezuela's mighty Orinoco.",
+  "source": {
+   "title": "Britannica: South America - Rivers",
+   "url": "https://www.britannica.com/place/South-America/Rivers",
+   "verification": "Britannica South America/Rivers: Paraná 3,032 mi (4,880 km); Orinoco some 1,700 mi (2,740 km). Britannica Rio Grande summary (britannica.com/summary/Rio-Grande-river-United-States-Mexico): 1,900 mi (3,060 km); USGS rivers page also lists Rio Grande 1,900 mi. Britannica 'How Long Is the Amazon River?' (britannica.com/story/how-long-is-the-amazon-river): at least 4,000 mi (6,400 km); USGS lists Amazon 4,000 mi. Britannica confirmed via search excerpts. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "skyscrapers",
+  "prompt": "Order these skyscrapers by architectural height",
+  "lowLabel": "Shortest",
+  "highLabel": "Tallest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Empire State Building (New York)",
+    "value": 381,
+    "display": "381 m"
+   },
+   {
+    "text": "Taipei 101",
+    "value": 508,
+    "display": "508 m"
+   },
+   {
+    "text": "One World Trade Center (New York)",
+    "value": 541,
+    "display": "541 m"
+   },
+   {
+    "text": "Shanghai Tower",
+    "value": 632,
+    "display": "632 m"
+   },
+   {
+    "text": "Burj Khalifa (Dubai)",
+    "value": 828,
+    "display": "828 m"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Burj Khalifa tops Shanghai Tower by nearly 200 m, which is about half an Empire State Building.",
+  "source": {
+   "title": "CTBUH Skyscraper Center - 100 Tallest Completed Buildings",
+   "url": "https://www.skyscrapercenter.com/buildings",
+   "verification": "Burj Khalifa 828 m, Shanghai Tower 632 m, One World Trade Center 541 m, Taipei 101 508 m, Empire State Building 381 m. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "skyscraper-years",
+  "prompt": "Order these skyscrapers by year completed",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Willis (Sears) Tower, Chicago",
+    "value": 1974,
+    "display": "1974"
+   },
+   {
+    "text": "Petronas Twin Towers, Kuala Lumpur",
+    "value": 1998,
+    "display": "1998"
+   },
+   {
+    "text": "Shanghai World Financial Center",
+    "value": 2008,
+    "display": "2008"
+   },
+   {
+    "text": "One World Trade Center, New York",
+    "value": 2014,
+    "display": "2014"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "The Petronas Towers took the 'world's tallest' crown from Chicago in 1998, ending a 24-year American reign.",
+  "source": {
+   "title": "CTBUH Skyscraper Center - 100 Tallest Completed Buildings",
+   "url": "https://www.skyscrapercenter.com/buildings",
+   "verification": "Completion years listed: Willis Tower 1974, Petronas Twin Towers 1998, Shanghai World Financial Center 2008, One World Trade Center 2014. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "zoo-lifespans",
+  "prompt": "Order these animals by how long they can live in human care",
+  "lowLabel": "Shortest",
+  "highLabel": "Longest",
+  "unit": "years",
+  "items": [
+   {
+    "text": "Cheetah",
+    "value": 15,
+    "display": "up to ~15 years"
+   },
+   {
+    "text": "Giant panda",
+    "value": 30,
+    "display": "~30 years"
+   },
+   {
+    "text": "Asian elephant",
+    "value": 55,
+    "display": "mid-50s"
+   },
+   {
+    "text": "Ostrich",
+    "value": 70,
+    "display": "almost 70 years"
+   },
+   {
+    "text": "Aldabra tortoise",
+    "value": 150,
+    "display": "100-150 years"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "An ostrich in a zoo can outlive an elephant, which is a strange thing to learn about a bird.",
+  "source": {
+   "title": "Smithsonian's National Zoo: Ostrich",
+   "url": "https://nationalzoo.si.edu/animals/ostrich",
+   "verification": "Ostrich: 30-40 yrs wild, almost 70 in human care. Cheetah page (nationalzoo.si.edu/animals/cheetah): 12-15 yrs in human care. Giant panda (nationalzoo.si.edu/animals/giant-panda): about 30 in human care. Asian elephant (nationalzoo.si.edu/animals/asian-elephant): typically live into mid-50s. Aldabra tortoise (nationalzoo.si.edu/animals/aldabra-tortoise): more than 100, up to 150 years. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "zoo-weights",
+  "prompt": "Order these animals by maximum adult weight",
+  "lowLabel": "Lightest",
+  "highLabel": "Heaviest",
+  "unit": "lb",
+  "items": [
+   {
+    "text": "Cheetah",
+    "value": 140,
+    "display": "up to 140 lb"
+   },
+   {
+    "text": "Giant panda (male)",
+    "value": 250,
+    "display": "up to 250 lb"
+   },
+   {
+    "text": "Ostrich",
+    "value": 300,
+    "display": "up to 300 lb"
+   },
+   {
+    "text": "Aldabra tortoise (male)",
+    "value": 550,
+    "display": "up to 550 lb"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "A big ostrich outweighs a giant panda, and a male Aldabra tortoise outweighs them both combined.",
+  "source": {
+   "title": "Smithsonian's National Zoo: Aldabra tortoise",
+   "url": "https://nationalzoo.si.edu/animals/aldabra-tortoise",
+   "verification": "Aldabra: males up to 550 lb (250 kg). Ostrich (nationalzoo.si.edu/animals/ostrich): 200-300 lb. Giant panda (nationalzoo.si.edu/animals/giant-panda): males up to 250 lb. Cheetah (nationalzoo.si.edu/animals/cheetah): 75-140 lb. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "inventions",
+  "prompt": "Order these inventions by the year they appeared",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Telephone (Bell)",
+    "value": 1876,
+    "display": "1876"
+   },
+   {
+    "text": "Modern zipper (Sundback)",
+    "value": 1912,
+    "display": "1912"
+   },
+   {
+    "text": "Ballpoint pen patent (Bíró)",
+    "value": 1938,
+    "display": "1938"
+   },
+   {
+    "text": "Microwave oven (Spencer)",
+    "value": 1947,
+    "display": "1947"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Bíró, a Hungarian who later lived in Argentina, patented his ballpoint less than a decade before a melted candy bar inspired the microwave.",
+  "source": {
+   "title": "Britannica: Inventors and Inventions of the Industrial Revolution",
+   "url": "https://www.britannica.com/list/inventors-and-inventions-of-the-industrial-revolution",
+   "verification": "Britannica: Bell demonstrated telephone, first call March 10, 1876. Britannica Zipper (britannica.com/art/zipper): Sundback's Hookless #2 in 1912. Britannica Pen (britannica.com/technology/pen-writing-implement): Bíró ballpoint patented 1938. Britannica Students 'invention' (kids.britannica.com/students/article/invention/275080): microwave oven 1947, Percy L. Spencer. Confirmed via search excerpts. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "andean-capitals",
+  "prompt": "Order these Latin American capitals by elevation",
+  "lowLabel": "Lowest",
+  "highLabel": "Highest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Mexico City",
+    "value": 2240,
+    "display": "2,240 m"
+   },
+   {
+    "text": "Bogotá",
+    "value": 2640,
+    "display": "2,640 m"
+   },
+   {
+    "text": "Quito",
+    "value": 2850,
+    "display": "2,850 m"
+   },
+   {
+    "text": "La Paz",
+    "value": 3250,
+    "display": "3,250-4,100 m"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mexico City is high enough to have shaped the 1968 Olympics, yet it's the lowlander of this group.",
+  "source": {
+   "title": "Britannica: La Paz",
+   "url": "https://www.britannica.com/place/La-Paz-Bolivia",
+   "verification": "Britannica La Paz: 10,650-13,250 ft (3,250-4,100 m), world's highest national capital (value uses lower bound). Britannica Quito (britannica.com/place/Quito): 9,350 ft (2,850 m). Britannica Bogotá (britannica.com/place/Bogota): 8,660 ft (2,640 m). Britannica Mexico City (britannica.com/summary/Mexico-City): 7,350 ft (2,240 m). Confirmed via search excerpts. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "latam-areas",
+  "prompt": "Order these countries by total area",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "km²",
+  "items": [
+   {
+    "text": "Colombia",
+    "value": 1141748,
+    "display": "1,141,748 km²"
+   },
+   {
+    "text": "Peru",
+    "value": 1285216,
+    "display": "1,285,216 km²"
+   },
+   {
+    "text": "Mexico",
+    "value": 1964375,
+    "display": "1,964,375 km²"
+   },
+   {
+    "text": "Argentina",
+    "value": 2704789,
+    "display": "2,704,789 km²"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mexico feels huge, but Argentina has about 740,000 km² more room.",
+  "source": {
+   "title": "Britannica: Argentina",
+   "url": "https://www.britannica.com/place/Argentina",
+   "verification": "Britannica country entries: Argentina 2,704,789 sq km; Mexico 1,964,375 sq km (britannica.com/place/Mexico); Peru 1,285,216 sq km (britannica.com/place/Peru); Colombia 1,141,748 sq km (britannica.com/place/Colombia). CIA World Factbook was retired Feb 2026, so Britannica used. Confirmed via search excerpts. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "scoville",
+  "prompt": "Order these chiles by the top of their heat range",
+  "lowLabel": "Mildest",
+  "highLabel": "Hottest",
+  "unit": "SHU",
+  "items": [
+   {
+    "text": "Jalapeño",
+    "value": 5000,
+    "display": "up to 5,000 SHU"
+   },
+   {
+    "text": "Serrano",
+    "value": 15000,
+    "display": "up to 15,000 SHU"
+   },
+   {
+    "text": "Cayenne",
+    "value": 50000,
+    "display": "up to 50,000 SHU"
+   },
+   {
+    "text": "Rocoto (Andean)",
+    "value": 175000,
+    "display": "175,000 SHU"
+   },
+   {
+    "text": "Bhut jolokia (ghost pepper)",
+    "value": 1000000,
+    "display": "1,000,000 SHU"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The furry-leafed Andean rocoto is roughly 35 times hotter than a jalapeño, and the ghost pepper makes even that look polite.",
+  "source": {
+   "title": "NDSU Extension: From the Garden to the Table - Salsa!",
+   "url": "https://ndsu.edu/agriculture/node/8324",
+   "verification": "NDSU: jalapeño 2,500-5,000; serrano 5,000-15,000; cayenne 30,000-50,000 SHU. NMSU Chile Pepper Institute heat page (cpi.nmsu.edu/chile-info/heat.html): rocoto 175,000 SHU; bhut jolokia 1 million SHU. Checked 2026-10-27."
+  }
+ },
+ {
+  "id": "chocolate-milestones",
+  "prompt": "Order these milestones in turning Mesoamerican cacao into modern chocolate",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Van Houten's cocoa-powder press",
+    "value": 1828,
+    "display": "1828"
+   },
+   {
+    "text": "Fry's sweet eating chocolate",
+    "value": 1847,
+    "display": "1847"
+   },
+   {
+    "text": "Daniel Peter's milk chocolate",
+    "value": 1876,
+    "display": "1876"
+   },
+   {
+    "text": "Lindt's conche (smooth chocolate)",
+    "value": 1879,
+    "display": "1879"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Cacao was drunk in Mesoamerica for millennia, but Europe only got smooth, melt-in-your-mouth bars in 1879.",
+  "source": {
+   "title": "Britannica: Chocolate",
+   "url": "https://www.britannica.com/topic/chocolate",
+   "verification": "Britannica Chocolate/Cocoa: van Houten patented cocoa-butter press 1828; Fry and Sons first combined cocoa butter, liquor and sugar into sweet chocolate in 1847; Daniel Peter added dried milk in 1876. Smithsonian Magazine (smithsonianmag.com/smart-news/lindt-opens-worlds-biggest-chocolate-museum-switzerland-180975919/): Lindt invented the conche in 1879. Confirmed via search excerpts. Checked 2026-10-27."
+  }
+ }
+]

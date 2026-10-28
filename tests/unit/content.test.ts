@@ -1,128 +1,98 @@
 import { describe, expect, it } from "vitest";
-import { allContent, generateFresh, publicQuestion, revealInfo, toPublicRecord, validateAll, validateItem, type ContentItem } from "@/content";
-import { genDifference, genMemory, genReveal } from "@/content/generators";
-import { OBJECTS, isKind, matchKind } from "@/games/scenes/library";
+import { allContent, caseSet, generateFresh, publicQuestion, revealInfo, validateAll, type ContentItem } from "@/content";
+import { ALL_PERMS } from "@/content/case";
+import { secretsOf } from "@/content/validate";
+import { ICON_IDS } from "@/games/scenes/icons";
 import type { GameFamily, Stage } from "@/shared/types";
 
 const items = allContent();
-const stagesFor = (f: GameFamily): Stage[] => (f === "memory" ? ["expose", "answer"] : f === "family" ? ["prefer", "predict"] : ["answer"]);
+const fam = (f: GameFamily) => items.filter((i) => i.family === f);
+const STAGES: Record<GameFamily, Stage[]> = { calavera: ["write", "vote"], line: ["answer"], loteria: ["answer"], room: ["answer", "guess"], closest: ["answer"], case: ["clue", "answer"] };
 
-describe("content pool", () => {
-  it("has >=150 unique validated items across all six families, visual-heavy", () => {
-    expect(items.length).toBeGreaterThanOrEqual(150);
+describe("v2 content pool", () => {
+  it("meets GAMES-V2 minimums and validates", () => {
+    expect(fam("calavera").length).toBeGreaterThanOrEqual(30);
+    expect(fam("line").length).toBeGreaterThanOrEqual(30);
+    expect(fam("loteria").length).toBeGreaterThanOrEqual(36);
+    expect(fam("room").length).toBeGreaterThanOrEqual(30);
+    expect(fam("closest").length).toBeGreaterThanOrEqual(30);
+    expect(new Set(fam("case").map((i) => (i.data as { puzzleId: string }).puzzleId)).size).toBeGreaterThanOrEqual(40);
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
-    const by = (f: GameFamily) => items.filter((i) => i.family === f).length;
-    for (const f of ["memory", "truth", "difference", "reveal", "altar", "family"] as GameFamily[]) expect(by(f)).toBeGreaterThan(10);
-    expect(by("memory") + by("difference") + by("reveal") + by("altar")).toBeGreaterThan(by("truth") * 2);
-    expect(validateAll(items)).toEqual([]);
+    expect(validateAll(items, publicQuestion)).toEqual([]);
   });
 
-  it("mixes difficulty and gives every item readingSeconds", () => {
-    expect(new Set(items.map((i) => i.difficulty))).toEqual(new Set([1, 2, 3]));
-    for (const i of items) expect(i.readingSeconds).toBeGreaterThan(0);
+  it("factual families carry a source with verification", () => {
+    for (const i of [...fam("line"), ...fam("closest")]) {
+      expect(i.source?.url).toMatch(/^https:\/\//);
+      expect(i.source?.verification.length).toBeGreaterThan(20);
+    }
   });
 
-  it("every factual item has a source with verification note; truth has both answers", () => {
-    const truth = items.filter((i) => i.family === "truth");
-    for (const t of truth) expect(t.source?.url).toMatch(/^https:\/\//);
-    expect(truth.some((t) => t.answer === 0) && truth.some((t) => t.answer === 1)).toBe(true);
-    for (const a of items.filter((i) => i.family === "altar" && (i.scene!.data.q as { type: string }).type === "clue")) expect(a.source?.verification).toBeTruthy();
+  it("lotería uses >=12 cards at least twice, all with icons", () => {
+    const counts = new Map<string, number>();
+    for (const i of fam("loteria")) { const c = (i.data as { card: { id: string } }).card.id; counts.set(c, (counts.get(c) ?? 0) + 1); }
+    expect([...counts.values()].filter((n) => n >= 2).length).toBeGreaterThanOrEqual(12);
+    for (const i of fam("loteria")) for (const o of (publicQuestion(i, { stage: "answer", index: 0 }).input as { options: { icon: string }[] }).options) expect(ICON_IDS).toContain(o.icon);
   });
 });
 
-describe("determinism & generators", () => {
-  it("same seed -> same item; allContent stable", () => {
-    expect(genMemory("x1")).toEqual(genMemory("x1"));
-    expect(genDifference("x1")).toEqual(genDifference("x1"));
-    expect(genReveal("x1")).toEqual(genReveal("x1"));
-    for (const f of ["memory", "difference", "reveal", "altar"] as GameFamily[]) expect(generateFresh(f, 42)).toEqual(generateFresh(f, 42));
-    expect(JSON.stringify(allContent())).toBe(JSON.stringify(items));
+describe("publicQuestion", () => {
+  it("never leaks secrets for any item × stage × round", () => {
+    for (const it of items) for (const stage of STAGES[it.family]) for (const round of [0, 1, 2]) {
+      const q = publicQuestion(it, { stage, round, index: 1 });
+      const json = JSON.stringify(q).replace(/":-?\d+(\.\d+)?/g, '":#');
+      for (const s of secretsOf(it)) expect(json.includes(s), `${it.id} ${stage} leaks ${s}`).toBe(false);
+      expect(json).not.toMatch(/"answer"|"house"|"solution"|"value"|"why"|"verification"/);
+    }
   });
-  it("generateFresh returns null for non-generated families", () => {
-    expect(generateFresh("truth", 1)).toBeNull();
-    expect(generateFresh("family", 1)).toBeNull();
+
+  it("gives the right InputSpec per stage", () => {
+    const kind = (it: ContentItem, stage: Stage) => publicQuestion(it, { stage, round: 0, index: 0 }).input?.kind ?? null;
+    expect(kind(fam("calavera")[0], "write")).toBe("text");
+    expect(kind(fam("calavera")[0], "vote")).toBe("vote");
+    expect(kind(fam("line")[0], "answer")).toBe("order");
+    expect(kind(fam("loteria")[0], "answer")).toBe("choice");
+    expect(kind(fam("room")[0], "answer")).toBe("choice");
+    expect(kind(fam("room")[0], "guess")).toBe("percent");
+    expect(kind(fam("closest")[0], "answer")).toBe("number");
+    expect(kind(fam("case")[0], "clue")).toBeNull();
+    expect(kind(fam("case")[0], "answer")).toBe("assign");
   });
-  it("fresh instances are valid and mostly unique", () => {
-    for (const f of ["memory", "difference", "reveal", "altar"] as GameFamily[]) {
-      const gen = Array.from({ length: 60 }, (_, i) => generateFresh(f, i)!);
-      expect(validateAll(gen)).toEqual([]);
-      const sigs = new Set(gen.map((g) => JSON.stringify([g.prompt, g.options, g.scene?.data, g.scene?.variant])));
-      expect(sigs.size).toBeGreaterThan(50);
+
+  it("line items are presented out of true order", () => {
+    for (const it of fam("line")) {
+      const q = publicQuestion(it, { stage: "answer", index: 0 }).input as { items: { id: string }[] };
+      expect(q.items.map((x) => x.id)).not.toEqual(it.answer);
+      expect([...q.items.map((x) => x.id)].sort()).toEqual([...(it.answer as string[])].sort());
     }
   });
 });
 
-describe("no answer leakage", () => {
-  it("publicQuestion never carries answer/explanation/source/hidden rule", () => {
-    for (const it of items) for (const stage of stagesFor(it.family)) for (const audience of ["tv", "phone"] as const)
-      for (const elapsedMs of [0, 13000, 30000]) {
-        const pq = publicQuestion(it, { stage, elapsedMs, audience });
-        const json = JSON.stringify(pq);
-        expect(json).not.toMatch(/"(answer|correct|explanation|source|verification|q|changed|subject|highlight)"/);
-        expect(json).not.toContain(it.explanation);
-        if (it.family === "memory" && (audience === "phone" || stage === "answer")) expect(pq.scene).toBeNull();
-        if (it.family === "truth" || it.family === "family") expect(pq.scene).toBeNull();
-        if (it.family === "reveal") {
-          expect(pq.scene!.template).toBe("reveal-stage");
-          expect(json).not.toContain("reveal-object");
-          expect(matchKind(pq.scene!.data.shapes)).toBeNull(); // never the full verified art before reveal
-          for (const k of Object.keys(OBJECTS)) expect(json).not.toContain(`"${k}"`); // no kind ids in reveal payloads
-        }
-      }
+describe("case puzzles", () => {
+  it("caseSet is deterministic, 3 rounds, shared puzzle, clues accumulate", () => {
+    const a = caseSet("party-7"), b = caseSet("party-7");
+    expect(a).toEqual(b);
+    expect(new Set(a.map((i) => (i.data as { puzzleId: string }).puzzleId)).size).toBe(1);
+    const n = a.map((i) => i.detail!.split("\n").length);
+    expect(n[0]).toBeLessThan(n[1]); expect(n[1]).toBeLessThan(n[2]);
+    expect(revealInfo(a[0]).correct).toBeNull();
+    expect(revealInfo(a[2]).correct).toEqual(a[2].answer);
+    expect(ALL_PERMS.length).toBe(24);
   });
-  it("memory scene only for TV during expose", () => {
-    const m = items.find((i) => i.family === "memory")!;
-    expect(publicQuestion(m, { stage: "expose", elapsedMs: 0, audience: "tv" }).scene).toBeTruthy();
-    expect(publicQuestion(m, { stage: "expose", elapsedMs: 0, audience: "phone" }).scene).toBeNull();
-  });
-  it("reveal payload grows over three stages", () => {
-    const r = items.find((i) => i.family === "reveal")!;
-    const st = [0, 13000, 25000].map((e) => publicQuestion(r, { stage: "answer", elapsedMs: e, audience: "tv" }).scene!.data.stage);
-    expect(st).toEqual([0, 1, 2]);
-  });
-  it("public record is JSON-safe, answer-free and re-renders identically", () => {
-    for (const it of items) {
-      const rec = JSON.parse(JSON.stringify(toPublicRecord(it)));
-      expect(rec).not.toHaveProperty("answer");
-      expect(rec).not.toHaveProperty("explanation");
-      expect(publicQuestion(rec, { stage: stagesFor(it.family)[0], elapsedMs: 0, audience: "tv" })).toEqual(publicQuestion(it, { stage: stagesFor(it.family)[0], elapsedMs: 0, audience: "tv" }));
-    }
+  it("generateFresh: case only", () => {
+    expect(generateFresh("case", 3)?.family).toBe("case");
+    for (const f of ["calavera", "line", "loteria", "room", "closest"] as GameFamily[]) expect(generateFresh(f, 3)).toBeNull();
+    expect(validateAll(Array.from({ length: 30 }, (_, i) => caseSet(`t${i}`)).flat(), publicQuestion)).toEqual([]);
   });
 });
 
-describe("reveal info", () => {
-  it("gives correct index and highlight", () => {
-    const d = items.find((i) => i.family === "difference")!;
-    expect(revealInfo(d).correct).toBe(d.answer);
-    expect(revealInfo(d).highlight?.regionIndex).toBe(d.answer);
-    const f = items.find((i) => i.family === "family")!;
-    expect(revealInfo(f).correct).toBeNull();
-    const r = items.find((i) => i.family === "reveal")!;
-    const full = (revealInfo(r).highlight!.scene as { data: { shapes: unknown[]; stage: number } }).data;
-    expect(full.stage).toBe(3);
-    expect(full.shapes.length).toBe((r.scene!.data.shapes as unknown[]).length);
-  });
-});
-
-describe("validation rejects malformed content", () => {
-  const base = () => structuredClone(items.find((i) => i.family === "memory" && (i.scene!.data.q as { type: string }).type === "count")!) as ContentItem;
-  it("duplicate ids / options, bad answers, bad scenes, ambiguity, missing sources", () => {
-    const a = base();
-    expect(validateAll([a, structuredClone(a)]).some((e) => e.includes("duplicate id"))).toBe(true);
-    const dup = base(); dup.options[1] = { ...dup.options[0], label: "B" }; expect(validateItem(dup).length).toBeGreaterThan(0);
-    const oob = base(); oob.answer = 7; expect(validateItem(oob)).toContainEqual(expect.stringContaining("answer"));
-    const miss = base(); miss.answer = null; expect(validateItem(miss).length).toBeGreaterThan(0);
-    const tpl = base(); tpl.scene!.template = "nope"; expect(validateItem(tpl)).toContainEqual(expect.stringContaining("template"));
-    const amb = base(); const n = amb.options[amb.answer!].text; amb.options[(amb.answer! + 1) % 4].text = n + " "; expect(validateItem(amb).length).toBeGreaterThan(0);
-    const diff = structuredClone(items.find((i) => i.family === "difference")!);
-    diff.scene!.variant = { regions: diff.scene!.data.regions }; expect(validateItem(diff)).toContainEqual(expect.stringContaining("exactly 1"));
-    const two = structuredClone(items.find((i) => i.family === "difference")!);
-    const regs = (two.scene!.variant!.regions as string[][]); const k = (two.answer! + 1) % 4; regs[k] = [regs[k][0] === "candle" ? "guitar" : "candle"];
-    expect(validateItem(two)).toContainEqual(expect.stringContaining("exactly 1"));
-    const t = structuredClone(items.find((i) => i.family === "truth")!); delete t.source; expect(validateItem(t)).toContainEqual(expect.stringContaining("source"));
-    const rv = structuredClone(items.find((i) => i.family === "reveal")!); rv.answer = (rv.answer! + 1) % 4; expect(validateItem(rv)).toContainEqual(expect.stringContaining("match"));
-  });
-  it("option icons reference library objects", () => {
-    for (const i of items) for (const o of i.options) if (o.icon) expect(isKind(o.icon)).toBe(true);
+describe("revealInfo", () => {
+  it("returns family-specific detail", () => {
+    expect((revealInfo(fam("calavera")[0]).detail as { house: string[] }).house).toHaveLength(4);
+    expect(revealInfo(fam("room")[0]).correct).toBeNull();
+    const l = revealInfo(fam("line")[0]);
+    expect(l.correct).toEqual(fam("line")[0].answer); expect(l.source?.url).toMatch(/^https/);
+    expect(revealInfo(fam("closest")[0]).correct).toBe(fam("closest")[0].answer);
+    expect((revealInfo(fam("loteria")[0]).detail as { card: { es: string } }).card.es).toBeTruthy();
   });
 });

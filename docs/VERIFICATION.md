@@ -39,3 +39,9 @@ hash); presence throttle could mark teams practice-only with short intros.
 
 Fixed after review: raw void codes shown to guests; single enabled game not honoured; lotería moon icon too dark; text selection while dragging.
 Not verified: real Vercel Blob presigned upload + signed full-size download (local fallback only), HEIC from Safari, physical phones/TV.
+
+## Live checks after v2 deploy (2026-10-27, https://afterlife-weld.vercel.app, demo party)
+- Migrations applied; 316 questions load in admin Content; admin login works with the host-set password (old dev password rejected).
+- Album, real browser (iPhone 13 emulation): presigned upload straight to the private Blob store → finalize → published; display copy 1920×1080 and full copy 2000×1125 both have no EXIF/GPS; full-size link 302s to a short-lived private Blob URL; in-page fetch used by "Download all" succeeds (no CORS block). Test photo deleted afterwards.
+- Fixed during live check: Blob SDK demanded a webhook key for presigned uploads (callbacks unused; now rejected explicitly).
+- /install shows "Install the AFTERLIFE app"; controller "Party photos" opens in the same tab with "Back to the game".

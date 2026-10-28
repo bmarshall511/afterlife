@@ -52,3 +52,11 @@ Not verified: real Vercel Blob presigned upload + signed full-size download (loc
 - `npx tsx scripts/ui-overflow-audit.ts`: 0 text-overflow issues across 43 screen states × 6 sizes (TV 720p/1080p/4K, phone 320/375/landscape), incl. long-name stress cases.
 - `npx tsx scripts/verify-runthrough.ts`: every game played on the demo party with TV + phone + 3 bot families: stage windows 150–240 s as configured, every step closed early within 3–5 s once all families answered, all reveals rendered, The Ofrenda Case never scheduled, 0 overflow issues on real screens, no page errors.
 - Join → "Already playing? Get back in" → pick team → pick name restores the person (captain moves to the new phone).
+
+## Live deploy 2026-10-28 (https://afterlife-weld.vercel.app)
+Pushed main (auto-deploy). Live checks, demo party only (live party untouched: idle, 1 team, default settings):
+- 743 questions load (incl. 40 After Dark); admin sign-in with host password; /admin, /preview, /install, /join 200.
+- `scripts/verify-demobar.ts` against live: 22/22 PASS (incl. sample photos into the private Blob store, photo break on TV, phone photos card + album sheet).
+- `scripts/verify-mixed.ts` against live: mixed rounds use all 8 games, no back-to-back repeats, 0 problems.
+- `scripts/verify-runthrough.ts` against live: all 8 games end to end with phone + bots, 0 problems.
+- Demo party reset afterwards with the sample tribute and 6 sample party photos; After Dark off.

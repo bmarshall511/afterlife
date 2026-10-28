@@ -12,7 +12,7 @@ export const TEST_SETTINGS = {
   introMs: 15000, calaveraWriteMs: 75000, calaveraVoteMs: 30000, lineAnswerMs: 45000, loteriaAnswerMs: 40000,
   roomAnswerMs: 20000, roomGuessMs: 25000, closestAnswerMs: 40000, caseClueMs: 20000, caseAnswerMs: 40000,
   revealMs: 10000, calaveraRevealMs: 15000, resultsMs: 30000, intervalMs: 120000, minViewMs: 4000,
-  catchUpGraceMs: 45000, intervalTributeMs: 70000,
+  catchUpGraceMs: 45000, intervalTributeMs: 70000, tributeDwellMinMs: 20000, tributeDwellMaxMs: 35000,
   families: ["calavera", "line", "loteria", "room", "closest", "case"],
 };
 export const T0 = Date.UTC(2026, 10, 1, 18, 0, 0);

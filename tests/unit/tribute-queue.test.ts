@@ -65,13 +65,13 @@ describe("tribute queue", () => {
     expect(await isTributeVisible(db, "live", d.id)).toBe(false);
   });
 
-  it("dwell is 20-35s by text length, 25s typical", async () => {
-    expect(dwellFor(0)).toBe(20000);
-    expect(dwellFor(100)).toBe(25000);
-    expect(dwellFor(300)).toBe(35000);
+  it("dwell is 45-75s by text length (casual pacing)", async () => {
+    expect(dwellFor(0)).toBe(45000);
+    expect(dwellFor(100)).toBe(55000);
+    expect(dwellFor(300)).toBe(75000);
     await add("Long", "live", "y".repeat(300));
     const t = await nextTribute(db, "live", Date.now());
-    expect(t!.dwellMs).toBe(35000);
+    expect(t!.dwellMs).toBe(75000);
     expect(t!.photoUrl).toMatch(/^\/api\/tributes\/photo\/[0-9a-f-]+\?size=display&v=\d+$/);
   });
 });

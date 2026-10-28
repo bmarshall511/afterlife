@@ -11,7 +11,7 @@ import fs from "node:fs";
 const B = process.argv[2] ?? "http://localhost:3000";
 const OUT = "docs/screenshots/runthrough";
 fs.mkdirSync(OUT, { recursive: true });
-const EXPECT: Record<string, number> = { "line:answer": 180000, "loteria:answer": 150000, "closest:answer": 150000, "room:answer": 90000, "room:guess": 90000, "calavera:write": 240000, "calavera:vote": 120000 };
+const EXPECT: Record<string, number> = { "line:answer": 300000, "loteria:answer": 240000, "closest:answer": 240000, "room:answer": 180000, "calavera:write": 360000 };
 const problems: string[] = [];
 const log = (...a: unknown[]) => console.log(...a);
 

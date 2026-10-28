@@ -24,7 +24,7 @@ export const GET = adminRoute(async (req, { db }) => {
   });
 });
 
-const ACTIONS = ["demo_next", "demo_game", "demo_bots", "start", "pause", "resume", "skip", "invalidate", "extend", "mode", "settings", "end", "reset", "final_round"] as const;
+const ACTIONS = ["demo_next", "demo_game", "demo_bots", "demo_photos", "demo_break", "start", "pause", "resume", "skip", "invalidate", "extend", "mode", "settings", "end", "reset", "final_round"] as const;
 
 export const POST = adminRoute(async (req, { db, admin }) => {
   const b = await body(req);
@@ -40,6 +40,13 @@ export const POST = adminRoute(async (req, { db, admin }) => {
     case "skip": result = await callControl("skipQuestion", party, actor); break;
     case "demo_next": result = await callControl("demoAdvance", party, actor); break;
     case "demo_bots": result = await callControl("addDemoBots", party, 3); break;
+    case "demo_photos": {
+      if (party !== "demo") throw new HttpError(403, "demo_only", "Only available on the demo party.");
+      const { addDemoPhotos } = await import("@/server/album/demo");
+      result = await addDemoPhotos(db);
+      break;
+    }
+    case "demo_break": result = await callControl("demoJumpToPhotos", party, actor); break;
     case "demo_game": {
       // Demo only: play one chosen game next (or `null` to go back to the normal mix), jumping straight to its intro.
       if (party !== "demo") throw new HttpError(403, "demo_only", "Only available on the demo party.");
@@ -47,8 +54,13 @@ export const POST = adminRoute(async (req, { db, admin }) => {
       const fams = ["calavera", "line", "loteria", "room", "closest"];
       const fam = typeof b.family === "string" && fams.includes(b.family) ? b.family : null;
       await callControl("updateSettings", party, { families: fam ? [fam] : fams }, actor);
-      const cur = await db.query("SELECT phase, status FROM party WHERE id='demo'");
-      if (cur[0]?.status !== "running") throw new HttpError(409, "not_running", "Press Start on the demo party first.");
+      // One tap should get the host playing: start the demo and add stand-in families if nobody has joined yet.
+      let cur = await db.query("SELECT phase, status FROM party WHERE id='demo'");
+      if (cur[0]?.status === "paused") throw new HttpError(409, "paused", "Resume the demo first.");
+      if (cur[0]?.status !== "running") await callControl("startParty", party, actor);
+      const active = (await db.query("SELECT count(*)::int AS n FROM team WHERE party_id='demo' AND status='active'"))[0]?.n ?? 0;
+      if (!active) await callControl("addDemoBots", party, 3);
+      cur = await db.query("SELECT phase, status FROM party WHERE id='demo'");
       if (["intro", "question", "reveal"].includes(cur[0]?.phase?.kind)) await callControl("skipQuestion", party, actor);
       result = await callControl("demoAdvance", party, actor);
       break;

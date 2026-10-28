@@ -119,7 +119,7 @@ function enterInterval(p: PartyRow, s: Settings, t: number) {
 }
 
 /** Album photos never interrupt a tribute; a break shows tributes first, then party photos. */
-const AMBIENT_CYCLE_MS = 135_000, AMBIENT_TRIBUTE_MS = 90_000;
+const AMBIENT_CYCLE_MS = 300_000, AMBIENT_TRIBUTE_MS = 180_000; // idle TV: 3 min tributes, then 2 min party photos
 function wantsAlbum(p: PartyRow, s: Settings, now: number): boolean {
   const ph = p.phase;
   if (ph.kind === "interval") return now - ph.startsAt >= s.intervalTributeMs;

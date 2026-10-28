@@ -131,7 +131,7 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
           <div className="ph-practice"><Icon name="clock" /> Practice set — your ranked play starts next set</div>
         )}
         {!s || !me ? <Loading /> : <Stateful s={s} me={me} offsetMs={offsetMs} sub={sub && sub.key === stageKey ? sub : null}
-          submit={submit} openCaptain={() => setSheet("captain")} />}
+          submit={submit} openCaptain={() => setSheet("captain")} openPhotos={me.album ? () => setSheet("photos") : undefined} />}
       </div>
 
       {me && (
@@ -192,8 +192,19 @@ function TeamChip({ me }: { me: MeView }) {
   );
 }
 
-function Stateful({ s, me, offsetMs, sub, submit, openCaptain }: {
-  s: Snapshot; me: MeView; offsetMs: number; sub: SubmitState | null; submit: (v: AnswerValue) => void; openCaptain: () => void;
+function PhotosCard({ onOpen }: { onOpen?: () => void }) {
+  if (!onOpen) return null;
+  return (
+    <button className="ph-photos" onClick={onOpen}>
+      <span className="ph-photos-ic" aria-hidden="true"><Icon name="share" /></span>
+      <span><strong>Party photos</strong><small>Add yours and see everyone’s — they show on the TV during breaks.</small></span>
+      <Icon name="arrow" />
+    </button>
+  );
+}
+
+function Stateful({ s, me, offsetMs, sub, submit, openCaptain, openPhotos }: {
+  s: Snapshot; me: MeView; offsetMs: number; sub: SubmitState | null; submit: (v: AnswerValue) => void; openCaptain: () => void; openPhotos?: () => void;
 }) {
   const kind = s.phase.kind;
   if (s.status === "paused") return <Card icon="pause" title="Paused" text="The host paused the game. Hang tight." />;
@@ -201,7 +212,12 @@ function Stateful({ s, me, offsetMs, sub, submit, openCaptain }: {
     return <Card icon="pause" title="Taking a break" text="Your family sits out upcoming sets. Tap “We’re back” when you’re ready — you rejoin at the next set." />;
   }
   if (kind === "ambient" || s.status === "idle") {
-    return <Card icon="clock" title="Starting soon" text="You’re in. When the first set begins, watch the TV — your choices appear here." />;
+    return (
+      <>
+        <Card icon="clock" title="Starting soon" text="You’re in. When the first set begins, watch the TV — your choices appear here." />
+        <PhotosCard onOpen={openPhotos} />
+      </>
+    );
   }
   if (kind === "intro") {
     const f = FAMILY[s.phase.family ?? "line"];
@@ -238,6 +254,7 @@ function Stateful({ s, me, offsetMs, sub, submit, openCaptain }: {
       <h1 className="ph-h1">{t ? "Look at the TV" : "Stretch, refill, mingle"}</h1>
       <p className="ph-p">{t ? `Remembering ${t.personName}.` : "The next set starts on its own."}</p>
       {s.mode !== "tribute_only" && <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} className="ph-count sm" />}
+      <PhotosCard onOpen={openPhotos} />
       <p className="ph-p dim">Want to remember someone on the TV? Ask your host for the upload link.</p>
     </div>
   );

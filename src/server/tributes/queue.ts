@@ -1,12 +1,12 @@
 import type { Q } from "@/server/db";
 import type { PublicTribute } from "@/shared/types";
 
-const DEFAULT_MIN = 20000;
-const DEFAULT_MAX = 35000;
+const DEFAULT_MIN = 45000;
+const DEFAULT_MAX = 75000;
 
-/** 25s for ~100 chars, 20s for photo+name only, up to 35s for a full 300-char remembrance. */
+/** Casual pacing: 45s for photo+name only, ~55s for ~100 chars, up to 75s for a full 300-char remembrance. */
 export function dwellFor(textLength: number, minMs = DEFAULT_MIN, maxMs = DEFAULT_MAX) {
-  const ms = 25000 + (textLength - 100) * 50;
+  const ms = 45000 + textLength * 100;
   return Math.round(Math.min(maxMs, Math.max(minMs, ms)));
 }
 

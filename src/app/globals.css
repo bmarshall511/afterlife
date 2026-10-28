@@ -823,3 +823,14 @@ a.chip-btn { text-decoration: none; color: inherit; }
 .rj-cap { display: inline-flex; align-items: center; gap: 4px; color: var(--marigold-2); font-size: 13px; font-weight: 700; white-space: nowrap; }
 .rj-new { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
 .rj-av { width: 40px; height: 40px; flex: none; font-size: 20px; }
+.demobar-msg.ok { color: var(--ok); }
+.demobar-wait { margin: 0 0 8px; color: var(--marigold-2); font-size: 14px; line-height: 1.4; }
+.demobar-btn:not(:disabled):active, .demobar-chip:not(:disabled):active { transform: scale(0.97); }
+
+/* Phone: party photos card during waiting/breaks */
+.ph-photos { display: flex; align-items: center; gap: 14px; width: 100%; margin-top: 14px; padding: 16px; border-radius: 16px; text-align: left; cursor: pointer;
+  border: 1px solid rgba(246,166,35,0.45); background: linear-gradient(135deg, rgba(246,166,35,0.14), rgba(255,79,163,0.08)); color: var(--ink); font-family: var(--ui); }
+.ph-photos > span:nth-child(2) { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.ph-photos strong { font-family: var(--display); font-size: 18px; }
+.ph-photos small { color: var(--ink-2); font-size: 14px; line-height: 1.35; }
+.ph-photos-ic { width: 44px; height: 44px; flex: none; border-radius: 12px; display: grid; place-items: center; background: var(--marigold); color: #1a1006; }

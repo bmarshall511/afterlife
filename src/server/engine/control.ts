@@ -314,6 +314,10 @@ export function demoAdvance(partyId: string, actor: string, now = Date.now()) {
     if (p.status === "paused") throw new EngineError("invalid", "Resume the demo first.", 409);
     if (p.status !== "running") throw new EngineError("invalid", "Press Start on the demo party first.", 409);
     const ph = p.phase;
+    if (ph.kind === "ambient") {
+      const n = (await _q.query(`SELECT count(*)::int AS n FROM team WHERE party_id=$1 AND status='active'`, [partyId]))[0]?.n ?? 0;
+      if (!n) throw new EngineError("invalid", "No families yet — join from a phone, or tap “Add 3 bot families”.", 409);
+    }
     if (ph.tribute) ph.tributeUntil = now;
     if (ph.slide) ph.slideUntil = now;
     if (ph.endsAt != null) ph.endsAt = now;
@@ -321,3 +325,16 @@ export function demoAdvance(partyId: string, actor: string, now = Date.now()) {
 }
 
 export { addDemoBots } from "./demobots";
+
+/** Demo party only: jump straight to the party-photo part of a break (skipping the current set for the demo). */
+export function demoJumpToPhotos(partyId: string, actor: string, now = Date.now()) {
+  if (partyId !== "demo") throw new EngineError("invalid", "Only available on the demo party.", 403);
+  return withParty(partyId, actor, "demo.photos", {}, now, async (q, p) => {
+    if (p.status !== "running") throw new EngineError("invalid", "Press Start on the demo party first.", 409);
+    const n = (await q.query(`SELECT count(*)::int AS n FROM album_photo WHERE party_id=$1 AND status='published'`, [partyId]))[0]?.n ?? 0;
+    if (!n) throw new EngineError("invalid", "No party photos yet — tap “Add sample party photos” or upload some from your phone.", 409);
+    if (p.phase.setId && ["intro", "question", "reveal"].includes(p.phase.kind)) await invalidateSetRow(q, partyId, p.phase.setId, "skipped", actor);
+    const s = settingsOf(p.settings);
+    p.phase = { kind: "interval", startsAt: now - s.intervalTributeMs, endsAt: now + Math.max(120_000, s.intervalMs - s.intervalTributeMs), tribute: null, slide: null };
+  });
+}

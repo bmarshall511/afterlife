@@ -12,7 +12,7 @@ export interface AlbumSlide {
   dwellMs: number;
 }
 
-export const ALBUM_DWELL_MS = 7000;
+export const ALBUM_DWELL_MS = 15000;
 
 /**
  * Fair rotation for TV breaks. Persistent counters (queue_round/display_count/last_shown_at).

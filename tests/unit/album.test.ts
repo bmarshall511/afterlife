@@ -191,7 +191,7 @@ describe("hidden/deleted, queue and isolation", () => {
     expect(shown.slice(0, 3)).toEqual([c, b, a]); // never-shown, newest first
     for (const id of [a, b, c]) expect(shown.filter((x) => x === id).length).toBe(2);
     const s = (await nextAlbumSlide(db, "live", (t += 1000)))!;
-    expect(s).toMatchObject({ caption: "c", dwellMs: 7000 });
+    expect(s).toMatchObject({ caption: "c", dwellMs: 15000 });
     expect(s.url).toMatch(/^\/api\/album\/photo\/.+size=display/);
     const fresh = await mk();
     expect((await nextAlbumSlide(db, "live", (t += 1000)))!.id).toBe(fresh); // new photo shown promptly

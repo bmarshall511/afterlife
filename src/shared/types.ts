@@ -5,8 +5,12 @@
 
 export type PartyId = "live" | "demo";
 
-export type GameFamily = "memory" | "truth" | "difference" | "reveal" | "altar" | "family";
-export const OBJECTIVE_FAMILIES: GameFamily[] = ["memory", "truth", "difference", "reveal", "altar"];
+/** v2 lineup (2026-10-27). Old v1 families are retired. */
+export type GameFamily = "calavera" | "line" | "loteria" | "room" | "closest" | "case";
+/** Playable with any number of teams. */
+export const OBJECTIVE_FAMILIES: GameFamily[] = ["line", "loteria", "closest", "case"];
+/** Need >= 3 eligible teams (votes / room percentages). */
+export const SOCIAL_FAMILIES: GameFamily[] = ["calavera", "room"];
 
 export type BackdropState = "amber" | "violet" | "magenta";
 
@@ -20,12 +24,11 @@ export type PhaseKind =
   | "interval"; // social / tribute interval (120s)
 
 /**
- * Question sub-stages.
- *  memory:  expose (scene visible, no answering) -> answer
- *  family:  prefer (personal choice) -> predict (guess most popular)
- *  others:  answer
+ * Question sub-stages (see docs/GAMES-V2.md):
+ *  calavera: write -> vote          line/loteria/closest: answer
+ *  room:     answer -> guess        case: clue (read-only) -> answer
  */
-export type Stage = "expose" | "answer" | "prefer" | "predict";
+export type Stage = "write" | "vote" | "answer" | "guess" | "clue";
 
 export interface PublicPhase {
   kind: PhaseKind;
@@ -38,26 +41,40 @@ export interface PublicPhase {
   stage?: Stage;
   tribute?: PublicTribute | null; // interval/ambient: tribute currently on TV
   encore?: boolean;        // content pool exhausted; repeating questions
+  doubled?: boolean;       // host-triggered "last chance" set: points x2
 }
 
 /** Public question payload: everything clients may see before reveal. NEVER contains the answer. */
 export interface PublicQuestion {
   id: string;
   family: GameFamily;
-  index: number;            // 0..2
-  prompt: string;           // English prompt
-  promptEs?: string;        // optional Spanish heading
-  options: QuestionOption[]; // 2 (truth) or 4
-  /** Visual payload for TV rendering. Absent on phones during memory 'answer' stage. */
-  scene?: SceneSpec | null;
-  /** reveal family: which stage (0..2) of progressive reveal is visible, derived from time on client */
+  index: number;              // 0..2
+  difficulty: 1 | 2 | 3;      // sets ramp easy -> hard
+  prompt: string;             // English prompt (large on TV)
+  promptEs?: string;          // optional Spanish heading
+  detail?: string;            // secondary text (case clue list, line axis "earliest -> latest", units)
+  input: InputSpec | null;    // what the phone collects in the current stage; null = watch the TV
+  scene?: SceneSpec | null;   // optional TV visual (lotería cards, case altars)
   readingSeconds?: number;
 }
 
+/** What a captain submits in the current stage. `value` shape per kind is in AnswerValue. */
+export type InputSpec =
+  | { kind: "choice"; options: QuestionOption[]; layout?: "list" | "grid" }   // loteria (grid of cards), room answer
+  | { kind: "order"; items: { id: string; text: string; icon?: string }[]; lowLabel: string; highLabel: string } // line
+  | { kind: "number"; min: number; max: number; step: number; unit?: string } // closest
+  | { kind: "text"; maxLength: number; placeholder: string }                  // calavera write
+  | { kind: "vote"; entries: { id: string; text: string }[] }                 // calavera vote; own entry excluded per team by /api/me
+  | { kind: "percent"; optionText: string }                                   // room guess: % of room that picked your answer
+  | { kind: "assign"; people: { id: string; name: string }[]; slots: { id: string; label: string }[] }; // case
+
+/** choice/vote -> index or entry id; order -> item ids in order; number/percent -> number; text -> string; assign -> {personId: slotId} */
+export type AnswerValue = number | string | string[] | Record<string, string>;
+
 export interface QuestionOption {
-  label: string;           // "A" | "B" | ... or "True"/"Invented"
+  label: string;           // "A".."L"
   text: string;
-  icon?: string;           // optional icon id rendered by SceneView/OptionIcon
+  icon?: string;           // card/illustration id rendered by OptionIcon
 }
 
 /** Opaque deterministic scene description rendered by src/games/scenes/SceneView. */
@@ -65,18 +82,16 @@ export interface SceneSpec {
   template: string;        // renderer id
   seed: string;
   data: Record<string, unknown>;
-  /** for difference: render second (changed) variant data */
-  variant?: Record<string, unknown>;
 }
 
-/** Revealed after the question closes. */
+/** Revealed after the question closes. `detail` is family-specific (see docs/GAMES-V2.md). */
 export interface RevealInfo {
-  correct: number | number[] | null; // option index(es); null for void
+  correct: AnswerValue | null;   // null for opinion/void
   explanation: string;
   source?: { title: string; url: string } | null;
-  /** difference: region that changed; reveal: unblurred scene; family: tallies */
-  highlight?: Record<string, unknown> | null;
-  tallies?: { prefer: number[]; predict: number[] } | null;
+  detail?: Record<string, unknown> | null;
+  /** per-team outcome for the TV leaderboard strip (names public; no secrets) */
+  outcomes?: { teamId: string; name: string; points: number; value?: AnswerValue | null; note?: string }[];
   void?: boolean;
   voidReason?: string;
 }
@@ -150,13 +165,16 @@ export interface MeView {
     questionId: string | null;
     stage: Stage | null;
     canSubmit: boolean;
-    reasonCannot?: "not_captain" | "late_join" | "away" | "closed" | "watching" | "need_preference";
-    saved: { kind: "answer" | "prefer" | "predict"; choice: number } | null;
-    savedPrefer: number | null;
+    reasonCannot?: "not_captain" | "late_join" | "away" | "closed" | "watching" | "need_answer" | "already_locked";
+    saved: { stage: Stage; value: AnswerValue } | null;
+    /** team's earlier-stage answer this question (room answer during guess; case lock from an earlier clue round) */
+    prior: { stage: Stage; value: AnswerValue } | null;
+    /** calavera vote: this team's own entry id (phone hides it) */
+    ownEntryId?: string | null;
     ranked: boolean;        // false => practice set label
-    result?: { correct: boolean; points: number } | null; // after reveal
+    result?: { points: number; max: number; note?: string } | null; // after reveal
   };
-  history: { setId: string; seq: number; family: GameFamily; score: number; ranked: boolean; counted: boolean; normalized: boolean; invalidated: boolean }[];
+  history: { setId: string; seq: number; family: GameFamily; score: number; max: number; ranked: boolean; counted: boolean; doubled: boolean; invalidated: boolean }[];
   total: number;
   setsCounted: number;
 }

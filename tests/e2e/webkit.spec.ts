@@ -20,7 +20,7 @@ test("webkit iPhone: join -> controller (no install step), refresh restores", as
   await page.reload();
   await expect(page.getByText("Safari's Family").first()).toBeVisible();
   await noOverflow(page);
-  await expect(page.getByRole("link", { name: /Add to home screen/i })).toHaveAttribute("href", /\/install/);
+  await expect(page.getByRole("link", { name: /Install app/i })).toHaveAttribute("href", /\/install/);
   const ok = await page.evaluate(() => { try { (navigator as any).vibrate?.(50); return true; } catch { return false; } });
   expect(ok).toBe(true);
 });

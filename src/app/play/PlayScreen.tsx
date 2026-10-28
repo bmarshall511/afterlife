@@ -142,7 +142,7 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
             <Icon name={sound ? "sound" : "mute"} /> {sound ? (canVibrate() ? "Sound & buzz on" : "Sound on") : "Sound off"}
           </button>
           {me.albumUrl && <a className="chip-btn" href={me.albumUrl + (me.albumUrl.includes("?") ? "&" : "?") + "from=play"}><Icon name="share" /> Party photos</a>}
-          <Link className="chip-btn" href={`/install${partyQs}`}><Icon name="arrow" /> Add to home screen</Link>
+          <Link className="chip-btn" href={`/install${partyQs}`}><Icon name="arrow" /> Install app</Link>
         </nav>
       )}
 

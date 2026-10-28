@@ -37,7 +37,7 @@ test("P2 Android (Pixel 7): /install shows Android steps; no horizontal overflow
 
 test("P3 landing links to /install; join form has no install step", async ({ page }) => {
   await page.goto("/?party=demo");
-  await expect(page.getByRole("link", { name: /Add to home screen/i })).toHaveAttribute("href", /\/install/);
+  await expect(page.getByRole("link", { name: /Install app/i })).toHaveAttribute("href", /\/install/);
   await page.goto("/join?party=demo");
   await expect(page.locator("main")).not.toContainText(/home screen|install/i);
 });

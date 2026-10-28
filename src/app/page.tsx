@@ -18,7 +18,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
             <summary><Icon name="heart" /> Remember someone</summary>
             <p>Your host shares a private upload link before the party. Open it to add a photo and a few words — it will appear on the TV between rounds. No game account needed.</p>
           </details>
-          <Link className="landing-install" href={`/install${qs}`}>Add to home screen</Link>
+          <Link className="landing-install" href={`/install${qs}`}>Install app</Link>
         </div>
       </div>
     </main>

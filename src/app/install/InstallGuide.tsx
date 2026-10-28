@@ -100,14 +100,14 @@ export default function InstallGuide() {
     <main className="ig">
       <div className="ig-head">
         <img src="/icons/icon-192.png" alt="" width={72} height={72} className="ig-icon" />
-        <h1>Put AFTERLIFE on your home screen</h1>
-        <p className="ig-lead">One tap to open the games, the photo album and the tributes — like an app. It’s optional, free, and takes about 20 seconds. Nothing is downloaded from an app store.</p>
+        <h1>Install the AFTERLIFE app</h1>
+        <p className="ig-lead">Get an AFTERLIFE icon on your phone, so the games, photo album and tributes open with one tap — just like an app. It’s optional, free, and takes about 20 seconds. No app store needed.</p>
       </div>
 
       {installed ? (
         <section className="ig-card ig-done" aria-live="polite">
           <h2>You’re all set</h2>
-          <p>You’re using AFTERLIFE from your home screen.</p>
+          <p>The app is installed and you’re using it now.</p>
           <a className="ig-btn" href={back}>Continue</a>
         </section>
       ) : (
@@ -118,7 +118,7 @@ export default function InstallGuide() {
                 className="ig-btn"
                 onClick={async () => { await deferred.prompt(); const c = await deferred.userChoice; if (c.outcome === "accepted") setInstalled(true); setDeferred(null); }}
               >
-                Add to home screen
+                Install app
               </button>
               <p className="ig-small">Tap the button, then tap <b>Install</b>.</p>
             </section>
@@ -127,7 +127,7 @@ export default function InstallGuide() {
           {teamCode && (platform === "ios-safari" || platform === "ios-other") && (
             <section className="ig-card ig-note">
               <h2>Already playing?</h2>
-              <p>On iPhone, the home-screen app starts fresh. After you open it, tap <b>Join an existing team</b> and enter your team code:</p>
+              <p>On iPhone, the installed app starts fresh. After you open it, tap <b>Join an existing team</b> and enter your team code:</p>
               <p className="ig-code" aria-label={`Team code ${teamCode.split("").join(" ")}`}>{teamCode}</p>
               <p className="ig-small">Write it down or take a screenshot before you continue. Your team’s points are safe either way.</p>
             </section>

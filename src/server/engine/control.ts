@@ -301,3 +301,19 @@ export async function listEntries(partyId: string, setId?: string | null) {
     entries: rows.map((r) => ({ answerId: r.id, questionId: r.question_id, qIndex: r.idx, teamId: r.team_id, teamName: r.team_name, text: r.value, hidden: r.hidden })),
   };
 }
+
+/**
+ * Demo party only: end the current step right now so the host can click through every screen
+ * (intro → each question stage → reveal → results → break → next set). Scoring still runs normally.
+ */
+export function demoAdvance(partyId: string, actor: string, now = Date.now()) {
+  if (partyId !== "demo") throw new EngineError("invalid", "Step-through is only available on the demo party.", 403);
+  return withParty(partyId, actor, "demo.advance", {}, now, async (_q, p) => {
+    if (p.status === "paused") throw new EngineError("invalid", "Resume the demo first.", 409);
+    if (p.status !== "running") throw new EngineError("invalid", "Press Start on the demo party first.", 409);
+    const ph = p.phase;
+    if (ph.tribute) ph.tributeUntil = now;
+    if (ph.slide) ph.slideUntil = now;
+    if (ph.endsAt != null) ph.endsAt = now;
+  });
+}

@@ -67,3 +67,8 @@
 
 .al-back{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;margin:0 0 6px;color:var(--marigold-2,#ffc35a);font-weight:600;font-size:16px;text-decoration:none}
 .al-back:focus-visible{outline:3px solid var(--marigold-2,#ffc35a);outline-offset:3px;border-radius:8px}
+
+/* Embedded in the controller's Party photos sheet */
+.al-root.al-in-sheet{min-height:0;background:transparent}
+.al-wrap.al-embedded{padding:0}
+.al-embedded .al-head{margin:0 0 16px}

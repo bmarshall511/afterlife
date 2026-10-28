@@ -1,4 +1,5 @@
 "use client";
+import "./install.css";
 
 import { useEffect, useState } from "react";
 
@@ -68,7 +69,8 @@ const STEPS: Record<Platform, { title: string; steps: React.ReactNode[] }> = {
   },
 };
 
-export default function InstallGuide() {
+/** `embedded`: shown inside an in-app sheet (no page header/back link; the sheet has its own title and close). */
+export default function InstallGuide({ embedded = false, onDone }: { embedded?: boolean; onDone?: () => void }) {
   const [platform, setPlatform] = useState<Platform | null>(null);
   const [installed, setInstalled] = useState(false);
   const [deferred, setDeferred] = useState<InstallEvent | null>(null);
@@ -97,10 +99,10 @@ export default function InstallGuide() {
   const back = party === "demo" ? "/?party=demo" : "/";
 
   return (
-    <main className="ig">
+    <main className={`ig${embedded ? " ig-embedded" : ""}`}>
       <div className="ig-head">
         <img src="/icons/icon-192.png" alt="" width={72} height={72} className="ig-icon" />
-        <h1>Install the AFTERLIFE app</h1>
+        {!embedded && <h1>Install the AFTERLIFE app</h1>}
         <p className="ig-lead">Get an AFTERLIFE icon on your phone, so the games, photo album and tributes open with one tap — just like an app. It’s optional, free, and takes about 20 seconds. No app store needed.</p>
       </div>
 
@@ -108,7 +110,7 @@ export default function InstallGuide() {
         <section className="ig-card ig-done" aria-live="polite">
           <h2>You’re all set</h2>
           <p>The app is installed and you’re using it now.</p>
-          <a className="ig-btn" href={back}>Continue</a>
+          {embedded ? <button className="ig-btn" onClick={onDone}>Continue</button> : <a className="ig-btn" href={back}>Continue</a>}
         </section>
       ) : (
         <>
@@ -143,7 +145,7 @@ export default function InstallGuide() {
       )}
 
       <p className="ig-small ig-foot">
-        Don’t want to? No problem — everything works in your normal web browser too. <a href={back}>Back</a>
+        Don’t want to? No problem — everything works in your normal web browser too.{!embedded && <> <a href={back}>Back</a></>}
       </p>
     </main>
   );

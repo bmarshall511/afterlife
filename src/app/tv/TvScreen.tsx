@@ -7,6 +7,7 @@ import { Wordmark, FAMILY } from "@/components/Brand";
 import { Countdown } from "@/components/Countdown";
 import { JoinQR, shortUrl } from "@/components/JoinQR";
 import { Standings } from "@/components/Standings";
+import { DemoBar } from "@/components/DemoBar";
 import { Icon } from "@/components/Icon";
 import { CalaveraQ, CalaveraR, CaseQ, CaseR, ClosestQ, ClosestR, LineQ, LineR, LoteriaQ, LoteriaR, RoomQ, RoomR, rememberInput } from "./families";
 
@@ -52,6 +53,7 @@ export function TvScreen({ party, mock }: { party: PartyId; mock: string | null 
       </div>
       {paused && <div className="tv-paused" role="status"><Icon name="pause" /><div><strong>Paused</strong><span>Back in a moment</span></div></div>}
       {!online && <div className="tv-offline" role="status"><Icon name="wifi" /> Reconnecting…</div>}
+      {party === "demo" && !mock && <DemoBar s={s} />}
     </main>
   );
 }

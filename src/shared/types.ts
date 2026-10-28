@@ -191,6 +191,8 @@ export interface MeView {
   setsCounted: number;
   /** Private party album link (path), or null when the album is not open. Only given to joined guests. */
   albumUrl?: string | null;
+  /** Everything the in-app Party photos sheet needs (same secret as albumUrl; joined guests only). */
+  album?: { token: string; mode: "blob" | "local"; maxCaption: number } | null;
 }
 
 export type ApiError = { error: string; code: string };

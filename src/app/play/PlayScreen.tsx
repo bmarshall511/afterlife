@@ -12,6 +12,9 @@ import { Countdown } from "@/components/Countdown";
 import { Icon } from "@/components/Icon";
 import { JoinQR } from "@/components/JoinQR";
 import { Avatar } from "@/components/Avatar";
+import { Sheet } from "@/components/Sheet";
+import AlbumApp from "@/app/album/AlbumApp";
+import InstallGuide from "@/app/install/InstallGuide";
 import { AnswerInput, ValueSummary, incompleteReason, initialDraft, type Draft } from "./inputs";
 import { CASE_MAX, inputOf, lines, rememberInput, valueText } from "@/app/tv/families";
 
@@ -29,12 +32,12 @@ const ERR: Record<string, string> = {
   no_session: "This phone lost its team — rejoin from the TV QR.",
   late_join: "You joined mid-question — play from the next one.",
 };
-type Sheet = null | "invite" | "history" | "captain";
+type SheetKind = null | "invite" | "history" | "captain" | "photos" | "install";
 
 export function PlayScreen({ party, mock }: { party: PartyId; mock: string | null }) {
   const { snapshot: s, online, offsetMs } = useSnapshot(party, { intervalMs: 1500, mock });
   const { me, status, refresh, setMe } = useMe(party, s?.version, mock);
-  const [sheet, setSheet] = useState<Sheet>(null);
+  const [sheet, setSheet] = useState<SheetKind>(null);
   const [sub, setSub] = useState<SubmitState | null>(null);
   const [sound, setSound] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -141,26 +144,35 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
           <button className="chip-btn" aria-pressed={sound} onClick={() => { const v = !sound; setCues(v); setSound(v); }}>
             <Icon name={sound ? "sound" : "mute"} /> {sound ? (canVibrate() ? "Sound & buzz on" : "Sound on") : "Sound off"}
           </button>
-          {me.albumUrl && <a className="chip-btn" href={me.albumUrl + (me.albumUrl.includes("?") ? "&" : "?") + "from=play"}><Icon name="share" /> Party photos</a>}
-          <Link className="chip-btn" href={`/install${partyQs}`}><Icon name="arrow" /> Install app</Link>
+          {me.album && <button className="chip-btn" onClick={() => setSheet("photos")}><Icon name="share" /> Party photos</button>}
+          <button className="chip-btn" onClick={() => setSheet("install")}><Icon name="arrow" /> Install app</button>
         </nav>
       )}
 
-      {sheet && me && (
-        <div className="sheet-scrim" onClick={() => setSheet(null)}>
-          <section className="sheet" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
-            {sheet === "invite" && <InviteSheet me={me} party={party} />}
-            {sheet === "history" && <HistorySheet me={me} />}
-            {sheet === "captain" && (
-              <>
-                <h2 className="ph-h2">Make this phone the captain?</h2>
-                <p className="ph-p">{me.team.captainName ?? "The current captain"} will no longer be able to submit. Only do this if you’re sitting together.</p>
-                <button className="btn btn-primary" disabled={busy} onClick={async () => { await teamAction("claim_captain"); setSheet(null); }}><Icon name="crown" /> Yes, make me captain</button>
-              </>
-            )}
-            <button className="btn btn-ghost" onClick={() => setSheet(null)}>Close</button>
-          </section>
-        </div>
+      {me && (
+        <>
+          <Sheet open={sheet === "invite"} onClose={() => setSheet(null)} title="Invite your family">
+            <InviteSheet me={me} party={party} />
+          </Sheet>
+          <Sheet open={sheet === "history"} onClose={() => setSheet(null)} title="Your scores">
+            <HistorySheet me={me} />
+          </Sheet>
+          <Sheet open={sheet === "captain"} onClose={() => setSheet(null)} title="Captain" role="alertdialog">
+            <p className="ph-p">Make this phone the captain? {me.team.captainName ?? "The current captain"} will no longer be able to submit. Only do this if you’re sitting together.</p>
+            <button className="btn btn-primary" disabled={busy} onClick={async () => { await teamAction("claim_captain"); setSheet(null); }}><Icon name="crown" /> Yes, make me captain</button>
+            <button className="btn btn-ghost" onClick={() => setSheet(null)}>Cancel</button>
+          </Sheet>
+          {me.album && (
+            <Sheet open={sheet === "photos"} onClose={() => setSheet(null)} title="Party photos" size="full">
+              <div className="al-root al-in-sheet">
+                <AlbumApp embedded token={me.album.token} party={party} initialPhotos={[]} defaultTakenBy={me.team.name} mode={me.album.mode} maxCaption={me.album.maxCaption} />
+              </div>
+            </Sheet>
+          )}
+          <Sheet open={sheet === "install"} onClose={() => setSheet(null)} title="Install the app" size="full">
+            <InstallGuide embedded onDone={() => setSheet(null)} />
+          </Sheet>
+        </>
       )}
     </main>
   );
@@ -340,16 +352,13 @@ function QuestionState({ s, q, me, offsetMs, sub, submit, openCaptain }: {
         </>
       )}
 
-      {confirm && spec && (
-        <div className="sheet-scrim" onClick={() => setConfirm(false)}>
-          <section className="sheet" role="alertdialog" aria-modal="true" aria-labelledby="lock-h" onClick={(e) => e.stopPropagation()}>
-            <h2 className="ph-h2" id="lock-h">Lock this case?</h2>
-            <p className="ph-p">This is <strong>final for the whole set</strong> — you can’t change it in later rounds. Locking in round {round} is worth up to <strong>{CASE_MAX[round - 1] ?? 150}</strong> if every altar is right.</p>
-            <ValueSummary spec={spec} value={draft as AnswerValue} />
-            <button className="btn btn-primary" onClick={() => { setConfirm(false); submit(draft as AnswerValue); }}><Icon name="lock" /> Yes, lock it</button>
-            <button className="btn btn-ghost" onClick={() => setConfirm(false)}>Keep thinking</button>
-          </section>
-        </div>
+      {spec && (
+        <Sheet open={confirm} onClose={() => setConfirm(false)} title="Lock this case?" role="alertdialog">
+          <p className="ph-p">This is <strong>final for the whole set</strong> — you can’t change it in later rounds. Locking in round {round} is worth up to <strong>{CASE_MAX[round - 1] ?? 150}</strong> if every altar is right.</p>
+          <ValueSummary spec={spec} value={draft as AnswerValue} />
+          <button className="btn btn-primary" onClick={() => { setConfirm(false); submit(draft as AnswerValue); }}><Icon name="lock" /> Yes, lock it</button>
+          <button className="btn btn-ghost" onClick={() => setConfirm(false)}>Keep thinking</button>
+        </Sheet>
       )}
     </div>
   );

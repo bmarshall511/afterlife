@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import "./album.css";
 import { finalize, prepare, uploadRaw, UploadError, type UploadMode } from "./upload";
 import { downloadAllAsZip, zipName, type ZipProgress } from "./zip";
 
@@ -36,11 +37,13 @@ interface Props {
   defaultTakenBy: string;
   mode: UploadMode;
   maxCaption: number;
+  /** Rendered inside the controller's Party photos sheet: no page header, no back link. */
+  embedded?: boolean;
 }
 
 const CONCURRENCY = 2;
 
-export default function AlbumApp({ token, party, initialPhotos, defaultTakenBy, mode, maxCaption }: Props) {
+export default function AlbumApp({ token, party, initialPhotos, defaultTakenBy, mode, maxCaption, embedded = false }: Props) {
   const [photos, setPhotos] = useState<Photo[]>(initialPhotos);
   const [open, setOpen] = useState<number | null>(null);
   const [items, setItems] = useState<Item[]>([]);
@@ -61,9 +64,10 @@ export default function AlbumApp({ token, party, initialPhotos, defaultTakenBy, 
   }, [token, party]);
 
   useEffect(() => {
+    if (embedded) refresh(); // the in-app sheet starts empty; load straight away
     const t = setInterval(() => { if (document.visibilityState === "visible") refresh(); }, 20000);
     return () => clearInterval(t);
-  }, [refresh]);
+  }, [refresh, embedded]);
 
   // Keep the lightbox index valid if the list changes underneath it.
   useEffect(() => {
@@ -174,16 +178,16 @@ export default function AlbumApp({ token, party, initialPhotos, defaultTakenBy, 
   useEffect(() => { setFromPlay(new URLSearchParams(location.search).get("from") === "play"); }, []);
 
   return (
-    <main className="al-wrap">
-      {fromPlay && (
+    <main className={`al-wrap${embedded ? " al-embedded" : ""}`}>
+      {fromPlay && !embedded && (
         <a className="al-back" href={party === "demo" ? "/play?party=demo" : "/play"}>
           <span aria-hidden="true">←</span> Back to the game
         </a>
       )}
       <header className="al-head">
-        <p className="al-eyebrow">AFTERLIFE · Party album{party === "demo" ? " · demo" : ""}</p>
-        <h1 className="al-h1">Tonight, in pictures</h1>
-        <p className="al-lede">Add the photos you take at the party — during and after. Everyone with this link can see and download them.</p>
+        {!embedded && <p className="al-eyebrow">AFTERLIFE · Party album{party === "demo" ? " · demo" : ""}</p>}
+        {!embedded && <h1 className="al-h1">Tonight, in pictures</h1>}
+        <p className="al-lede">{embedded ? "Add the photos you take tonight — everyone at the party can see and save them." : "Add the photos you take at the party — during and after. Everyone with this link can see and download them."}</p>
         <div className="al-actions">
           <button className="al-btn" onClick={() => fileInput.current?.click()}>
             <span aria-hidden="true">＋</span> Add photos

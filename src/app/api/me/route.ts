@@ -4,7 +4,8 @@ export const dynamic = "force-dynamic";
 import { cookies } from "next/headers";
 import { getDb } from "@/server/db";
 import { buildMe, partyIdOf } from "@/server/engine";
-import { albumPath } from "@/server/album/config";
+import { albumPath, albumToken, ALBUM_LIMITS } from "@/server/album/config";
+import { storageKind } from "@/server/storage";
 import { err, handle, json } from "@/server/http";
 import { cookieName, memberForSecret, touch } from "@/server/session";
 
@@ -17,7 +18,9 @@ export async function GET(req: Request) {
     if (!m) return err("no_session", "Not joined", 401);
     const now = Date.now();
     await touch(db, m.memberId, now);
-    return json({ ...(await buildMe(db, party, m.memberId, now)), albumUrl: albumPath(party) });
+    const t = albumToken();
+    const album = t ? { token: t, mode: storageKind() === "vercel-blob" ? "blob" : "local", maxCaption: ALBUM_LIMITS.maxCaptionChars } : null;
+    return json({ ...(await buildMe(db, party, m.memberId, now)), albumUrl: albumPath(party), album });
   } catch (e) {
     return handle(e);
   }

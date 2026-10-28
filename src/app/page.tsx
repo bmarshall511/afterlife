@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Backdrop } from "@/components/Backdrop";
 import { Wordmark } from "@/components/Brand";
 import { Icon } from "@/components/Icon";
+import { InstallButton } from "@/components/InstallButton";
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const qs = (await searchParams).party === "demo" ? "?party=demo" : "";
@@ -18,7 +19,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
             <summary><Icon name="heart" /> Remember someone</summary>
             <p>Your host shares a private upload link before the party. Open it to add a photo and a few words — it will appear on the TV between rounds. No game account needed.</p>
           </details>
-          <Link className="landing-install" href={`/install${qs}`}>Install app</Link>
+          <InstallButton className="landing-install" />
         </div>
       </div>
     </main>

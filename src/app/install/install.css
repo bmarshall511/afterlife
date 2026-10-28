@@ -21,3 +21,8 @@
 .ig-small { color: var(--ink-3); font-size: 15px; line-height: 1.5; margin: 10px 0 0; }
 .ig-foot { text-align: center; margin-top: 22px; }
 .ig-foot a { color: var(--marigold-2); }
+
+.ig.ig-embedded { padding: 0; }
+.ig-embedded .ig-head { margin-bottom: 18px; }
+.ig-embedded .ig-lead { font-size: 16px; }
+.ig-icon { display: block; margin: 0 auto; }

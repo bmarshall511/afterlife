@@ -15,6 +15,8 @@ import { Avatar } from "@/components/Avatar";
 import { Sheet } from "@/components/Sheet";
 import AlbumApp from "@/app/album/AlbumApp";
 import InstallGuide from "@/app/install/InstallGuide";
+import RememberForm from "@/app/remember/[token]/RememberForm";
+import "@/app/remember/remember.css";
 import { AnswerInput, ValueSummary, incompleteReason, initialDraft, type Draft } from "./inputs";
 import { CASE_MAX, fibFeatured, inputOf, lines, pesos, rememberInput, valueText } from "@/app/tv/families";
 
@@ -33,7 +35,7 @@ const ERR: Record<string, string> = {
   no_session: "This phone lost its team — rejoin from the TV QR.",
   late_join: "You joined mid-question — play from the next one.",
 };
-type SheetKind = null | "invite" | "history" | "captain" | "photos" | "install";
+type SheetKind = null | "invite" | "history" | "captain" | "photos" | "install" | "remember" | "more";
 
 export function PlayScreen({ party, mock }: { party: PartyId; mock: string | null }) {
   const { snapshot: s, online, offsetMs } = useSnapshot(party, { intervalMs: 1500, mock });
@@ -45,6 +47,12 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
   const partyQs = party === "demo" ? "?party=demo" : "";
 
   useEffect(() => { setSound(cuesEnabled()); }, []);
+  // dev mocks: ?sheet=photos|remember|history|more opens a sheet for screenshots
+  useEffect(() => {
+    if (!mock || process.env.NODE_ENV === "production") return;
+    const k = new URLSearchParams(window.location.search).get("sheet");
+    if (k) setTimeout(() => setSheet(k as SheetKind), 400);
+  }, [mock]);
   // dev mocks: simulate a server rejection (e.g. filtered) on load
   useEffect(() => {
     if (!mock || process.env.NODE_ENV === "production") return;
@@ -132,21 +140,26 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
           <div className="ph-practice"><Icon name="clock" /> Practice set — your ranked play starts next set</div>
         )}
         {!s || !me ? <Loading /> : <Stateful s={s} me={me} offsetMs={offsetMs} sub={sub && sub.key === stageKey ? sub : null}
-          submit={submit} openCaptain={() => setSheet("captain")} openPhotos={me.album ? () => setSheet("photos") : undefined} />}
+          submit={submit} openCaptain={() => setSheet("captain")} openPhotos={me.album ? () => setSheet("photos") : undefined} openRemember={me.remember ? () => setSheet("remember") : undefined} />}
       </div>
 
       {me && (
-        <nav className="ph-actions" aria-label="Team options">
-          {me.team.status === "away"
-            ? <button className="chip-btn on" disabled={busy} onClick={() => teamAction("resume")}><Icon name="play" /> We’re back</button>
-            : <button className="chip-btn" disabled={busy} onClick={() => teamAction("away")}><Icon name="pause" /> Taking a break</button>}
-          <button className="chip-btn" onClick={() => setSheet("invite")}><Icon name="share" /> Invite</button>
-          <button className="chip-btn" onClick={() => setSheet("history")}><Icon name="history" /> Scores</button>
-          <button className="chip-btn" aria-pressed={sound} onClick={() => { const v = !sound; setCues(v); setSound(v); }}>
-            <Icon name={sound ? "sound" : "mute"} /> {sound ? (canVibrate() ? "Sound & buzz on" : "Sound on") : "Sound off"}
-          </button>
-          {me.album && <button className="chip-btn" onClick={() => setSheet("photos")}><Icon name="share" /> Party photos</button>}
-          <button className="chip-btn" onClick={() => setSheet("install")}><Icon name="arrow" /> Install app</button>
+        <nav className="ph-tabbar" aria-label="Controller">
+          {([
+            ["play", "Play", "play", null],
+            me.album ? ["photos", "Photos", "camera", "photos"] : null,
+            me.remember ? ["remember", "Remember", "candle", "remember"] : null,
+            ["history", "Scores", "trophy", "history"],
+            ["more", "More", "more", "more"],
+          ] as ([string, string, string, SheetKind] | null)[]).filter(Boolean).map((t) => {
+            const [id, label, icon, target] = t!;
+            const active = target === null ? sheet === null || !["photos", "remember", "history", "more"].includes(sheet) : sheet === target;
+            return (
+              <button key={id} className={`ph-tab ${active ? "on" : ""}`} aria-current={active ? "page" : undefined} onClick={() => setSheet(target)}>
+                <Icon name={icon} size={22} /><span>{label}</span>
+              </button>
+            );
+          })}
         </nav>
       )}
 
@@ -170,6 +183,29 @@ export function PlayScreen({ party, mock }: { party: PartyId; mock: string | nul
               </div>
             </Sheet>
           )}
+          {me.remember && (
+            <Sheet open={sheet === "remember"} onClose={() => setSheet(null)} title="Remember someone" size="full">
+              <div className="rm-in-sheet"><RememberForm token={me.remember.token} party={party} /></div>
+            </Sheet>
+          )}
+          <Sheet open={sheet === "more"} onClose={() => setSheet(null)} title="More">
+            <ul className="ph-menu">
+              <li><button onClick={() => setSheet("invite")}><span className="ph-menu-ic"><Icon name="share" /></span><span><b>Invite family</b><small>QR code and team code {me.team.inviteCode}</small></span><Icon name="chev" /></button></li>
+              <li><button disabled={busy} onClick={() => teamAction(me.team.status === "away" ? "resume" : "away")}>
+                <span className="ph-menu-ic"><Icon name={me.team.status === "away" ? "play" : "pause"} /></span>
+                <span><b>{me.team.status === "away" ? "We’re back" : "Taking a break"}</b><small>{me.team.status === "away" ? "Rejoin from the next set" : "Sit out upcoming sets — no penalty"}</small></span>
+                <span className={`ph-switch ${me.team.status === "away" ? "on" : ""}`} aria-hidden="true" /></button></li>
+              <li><button aria-pressed={sound} onClick={() => { const v = !sound; setCues(v); setSound(v); }}>
+                <span className="ph-menu-ic"><Icon name={sound ? "sound" : "mute"} /></span>
+                <span><b>{canVibrate() ? "Sound & vibration" : "Sound"}</b><small>Little cues when a question opens</small></span>
+                <span className={`ph-switch ${sound ? "on" : ""}`} aria-hidden="true" /></button></li>
+              <li><button onClick={() => setSheet("install")}><span className="ph-menu-ic"><Icon name="arrow" /></span><span><b>Install app</b><small>Add AFTERLIFE to your home screen</small></span><Icon name="chev" /></button></li>
+              <li><button onClick={() => me.member.isCaptain ? undefined : setSheet("captain")} disabled={me.member.isCaptain}>
+                <span className="ph-menu-ic"><Icon name="crown" /></span>
+                <span><b>{me.member.isCaptain ? "You’re the captain" : `Captain: ${me.team.captainName ?? "not set"}`}</b><small>{me.member.isCaptain ? "Your phone submits answers for the team" : "Tap to make this phone the captain"}</small></span>
+                {!me.member.isCaptain && <Icon name="chev" />}</button></li>
+            </ul>
+          </Sheet>
           <Sheet open={sheet === "install"} onClose={() => setSheet(null)} title="Install the app" size="full">
             <InstallGuide embedded onDone={() => setSheet(null)} />
           </Sheet>
@@ -193,30 +229,41 @@ function TeamChip({ me }: { me: MeView }) {
   );
 }
 
-function PhotosCard({ onOpen }: { onOpen?: () => void }) {
-  if (!onOpen) return null;
+function ActionCards({ openPhotos, openRemember }: { openPhotos?: () => void; openRemember?: () => void }) {
+  if (!openPhotos && !openRemember) return null;
   return (
-    <button className="ph-photos" onClick={onOpen}>
-      <span className="ph-photos-ic" aria-hidden="true"><Icon name="share" /></span>
-      <span><strong>Party photos</strong><small>Add yours and see everyone’s — they show on the TV during breaks.</small></span>
-      <Icon name="arrow" />
-    </button>
+    <div className="ph-acards">
+      {openPhotos && (
+        <button className="ph-acard photos" onClick={openPhotos}>
+          <span className="ph-acard-ic" aria-hidden="true"><Icon name="camera" /></span>
+          <span className="ph-acard-t"><b>Party photos</b><small>Add yours — they play on the TV</small></span>
+          <Icon name="chev" className="ph-acard-chev" />
+        </button>
+      )}
+      {openRemember && (
+        <button className="ph-acard remember" onClick={openRemember}>
+          <span className="ph-acard-ic" aria-hidden="true"><Icon name="candle" /></span>
+          <span className="ph-acard-t"><b>Remember someone</b><small>A photo and a few words</small></span>
+          <Icon name="chev" className="ph-acard-chev" />
+        </button>
+      )}
+    </div>
   );
 }
 
-function Stateful({ s, me, offsetMs, sub, submit, openCaptain, openPhotos }: {
-  s: Snapshot; me: MeView; offsetMs: number; sub: SubmitState | null; submit: (v: AnswerValue) => void; openCaptain: () => void; openPhotos?: () => void;
+function Stateful({ s, me, offsetMs, sub, submit, openCaptain, openPhotos, openRemember }: {
+  s: Snapshot; me: MeView; offsetMs: number; sub: SubmitState | null; submit: (v: AnswerValue) => void; openCaptain: () => void; openPhotos?: () => void; openRemember?: () => void;
 }) {
   const kind = s.phase.kind;
   if (s.status === "paused") return <Card icon="pause" title="Paused" text="The host paused the game. Hang tight." />;
   if (me.team.status === "away" && kind !== "question" && kind !== "reveal") {
-    return <Card icon="pause" title="Taking a break" text="Your family sits out upcoming sets. Tap “We’re back” when you’re ready — you rejoin at the next set." />;
+    return <Card icon="pause" title="Taking a break" text="Your family sits out upcoming sets. Tap More → “We’re back” when you’re ready — you rejoin at the next set." />;
   }
   if (kind === "ambient" || s.status === "idle") {
     return (
       <>
         <Card icon="clock" title="Starting soon" text="You’re in. When the first set begins, watch the TV — your choices appear here." />
-        <PhotosCard onOpen={openPhotos} />
+        <ActionCards openPhotos={openPhotos} openRemember={openRemember} />
       </>
     );
   }
@@ -259,8 +306,7 @@ function Stateful({ s, me, offsetMs, sub, submit, openCaptain, openPhotos }: {
       <h1 className="ph-h1">{t ? "Look at the TV" : "Stretch, refill, mingle"}</h1>
       <p className="ph-p">{t ? `Remembering ${t.personName}.` : "The next set starts on its own."}</p>
       {s.mode !== "tribute_only" && <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} className="ph-count sm" />}
-      <PhotosCard onOpen={openPhotos} />
-      <p className="ph-p dim">Want to remember someone on the TV? Ask your host for the upload link.</p>
+      <ActionCards openPhotos={openPhotos} openRemember={openRemember} />
     </div>
   );
 }
@@ -275,7 +321,7 @@ function useDraft(key: string, spec: InputSpec | null, failed: SubmitState | nul
 
 const REASON: Record<string, { icon: string; text: string }> = {
   late_join: { icon: "eye", text: "Watching this one — you play from the next question." },
-  away: { icon: "pause", text: "You’re on a break. Tap “We’re back” to rejoin next set." },
+  away: { icon: "pause", text: "You’re on a break. Tap More → “We’re back” to rejoin next set." },
   closed: { icon: "clock", text: "Answers are closed." },
   watching: { icon: "tv", text: "Read the clues on the TV. Answers open in a moment." },
   need_answer: { icon: "alert", text: "Your family didn’t pick an answer in step 1, so there’s nothing to guess this time." },

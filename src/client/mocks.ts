@@ -299,5 +299,7 @@ export function mockMe(name: string): MeView {
     ],
     total: 1178, setsCounted: 4,
     albumUrl: "https://example.org/album",
+    album: { token: "mock-album", mode: "local", maxCaption: 120 },
+    remember: { token: "mock-remember" },
   };
 }

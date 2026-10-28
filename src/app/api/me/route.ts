@@ -6,6 +6,7 @@ import { getDb } from "@/server/db";
 import { buildMe, partyIdOf } from "@/server/engine";
 import { albumPath, albumToken, ALBUM_LIMITS } from "@/server/album/config";
 import { storageKind } from "@/server/storage";
+import { inviteToken } from "@/server/tributes/config";
 import { err, handle, json } from "@/server/http";
 import { cookieName, memberForSecret, touch } from "@/server/session";
 
@@ -20,7 +21,8 @@ export async function GET(req: Request) {
     await touch(db, m.memberId, now);
     const t = albumToken();
     const album = t ? { token: t, mode: storageKind() === "vercel-blob" ? "blob" : "local", maxCaption: ALBUM_LIMITS.maxCaptionChars } : null;
-    return json({ ...(await buildMe(db, party, m.memberId, now)), albumUrl: albumPath(party), album });
+    const rt = inviteToken();
+    return json({ ...(await buildMe(db, party, m.memberId, now)), albumUrl: albumPath(party), album, remember: rt ? { token: rt } : null });
   } catch (e) {
     return handle(e);
   }

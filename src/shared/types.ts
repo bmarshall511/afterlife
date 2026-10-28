@@ -201,6 +201,8 @@ export interface MeView {
   albumUrl?: string | null;
   /** Everything the in-app Party photos sheet needs (same secret as albumUrl; joined guests only). */
   album?: { token: string; mode: "blob" | "local"; maxCaption: number } | null;
+  /** Tribute upload capability for the in-app "Remember someone" sheet (joined guests only; same secret as the invite link). */
+  remember?: { token: string } | null;
 }
 
 export type ApiError = { error: string; code: string };

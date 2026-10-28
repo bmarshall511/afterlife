@@ -27,3 +27,15 @@ hash); presence throttle could mark teams practice-only with short intros.
 - Real iPhone/Android sound + vibration (iOS Safari does not support `navigator.vibrate`; silent fallback tested).
 - Real HEIC from iPhone Safari (browser-side conversion path).
 - Vercel/Neon/Blob deployment, serverless restart persistence on Vercel, multi-hour real-time soak.
+
+## Games v2 + album + PWA (2026-10-27, local production build)
+| Check | Result |
+|---|---|
+| Unit (`npm test`) | 93/93 |
+| Content validation | 316 items valid; case puzzles solver-verified unique |
+| Simulation 4 h / 20 teams (real content) | 51 sets, six games balanced, 0 repeats, 0 violations |
+| Browser e2e (`npx playwright test -c tests/e2e/playwright.config.ts`) | 30/30 (Chromium + WebKit iPhone): every game played by real taps on 3 phones + TV 1080p/4K, scoring vs formulas, captain-only, late join, doubled set, no pre-reveal secrets, album upload/GPS strip/escape/hide/TV slide/demo reset, PWA manifest + install pages, admin 401s, reconnect, overflow, reduced motion |
+| Bundle scan (`npx tsx scripts/verify-bundle.ts`) | pass |
+
+Fixed after review: raw void codes shown to guests; single enabled game not honoured; lotería moon icon too dark; text selection while dragging.
+Not verified: real Vercel Blob presigned upload + signed full-size download (local fallback only), HEIC from Safari, physical phones/TV.

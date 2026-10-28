@@ -12,7 +12,7 @@ function stepLabel(s: Snapshot): string {
   if (s.status !== "running") return s.status === "paused" ? "Paused" : "Not started";
   if (k === "question") return `${fam} · Q${(s.phase.qIndex ?? 0) + 1}${s.phase.stage ? ` · ${s.phase.stage}` : ""}`;
   if (k === "reveal") return `${fam} · Q${(s.phase.qIndex ?? 0) + 1} · reveal`;
-  if (k === "intro") return `${fam} · intro`;
+  if (k === "intro") return `${new Set(s.phase.setFamilies ?? []).size > 1 ? "Ronda Sorpresa" : fam} · intro`;
   if (k === "results") return `${fam} · results`;
   if (k === "interval") return s.phase.tribute ? "Break · tribute" : s.phase.slide ? "Break · party photo" : "Break";
   return "Waiting for teams";

@@ -3,7 +3,7 @@ import type { Q } from "@/server/db";
 import type { AnswerValue, GameFamily } from "@/shared/types";
 import { album, content, db, tributes } from "./deps";
 import { iso, ms, shuffle } from "./rng";
-import { chooseSet, markExposed } from "./select";
+import { chooseMixed, chooseSet, markExposed, mixedFamilies, pickReplacement } from "./select";
 import { settingsOf } from "./settings";
 import { firstStage, isWatchStage, nextStage, questionMax, revealMsFor, stageMs } from "./stages";
 import { asIds, audit, loadParty, saveParty } from "./store";
@@ -236,7 +236,10 @@ export async function startSet(q: Q, p: PartyRow, s: Settings, t: number) {
   const c = await content();
   const seq = p.set_seq + 1;
   const seed = `${p.rng_seed}:${p.id}:${seq}`;
-  const pick = await chooseSet(q, p, s, c, { teams: cohort.length, seed });
+  // Mixed rounds (host feedback 2026-10-28): each question picks its own game. A single enabled game
+  // (Admin → demo_game, or only the Ofrenda Case) still plays as a whole set of that game.
+  const mixed = mixedFamilies(s).length >= 2;
+  const pick = mixed ? await chooseMixed(q, p, s, c, { teams: cohort.length, seed }) : await chooseSet(q, p, s, c, { teams: cohort.length, seed });
   if (!pick) {
     await audit(q, p.id, "engine", "no_content", { seq });
     p.phase = { kind: "interval", startsAt: t, endsAt: t + s.intervalMs };
@@ -255,10 +258,12 @@ export async function startSet(q: Q, p: PartyRow, s: Settings, t: number) {
   p.engine.encore = pick.encore;
   p.engine.doubleNext = false;
   p.set_seq = seq;
-  p.engine.lastFamily = pick.family;
-  bumpPlayed(p, pick.family);
+  p.engine.lastBeforeSet = p.engine.lastFamily ?? null;
+  p.engine.lastFamily = pick.items[pick.items.length - 1].family;
+  for (const it of pick.items) bumpPlayed(p, it.family);
   p.engine.forceObjective = false;
-  p.phase = { kind: "intro", startsAt: t, endsAt: t + s.introMs, setId, setSeq: seq, family: pick.family, ...(doubled ? { doubled: true } : {}) };
+  // intro shows the first question's game
+  p.phase = { kind: "intro", startsAt: t, endsAt: t + s.introMs, setId, setSeq: seq, family: pick.items[0].family, ...(doubled ? { doubled: true } : {}) };
 }
 
 async function insertQuestions(q: Q, partyId: string, setId: string, items: ContentItem[], c: ContentSource) {
@@ -296,7 +301,7 @@ async function endIntro(q: Q, p: PartyRow, s: Settings, t: number) {
   if (SOCIAL.has(set.family) && eligible.length < 3) {
     // Social set needs >=3 eligible teams: swap to an objective family before any question opens.
     const c = await content();
-    bumpPlayed(p, set.family, -1);
+    bumpPlayed(p, set.family, -3);
     const pick = await chooseSet(q, { ...p, engine: { ...p.engine, lastFamily: set.family } }, s, c, { teams: eligible.length, seed: `${p.rng_seed}:${p.id}:${ph.setSeq}:swap` });
     if (!pick) {
       await invalidateSetRow(q, p.id, ph.setId!, "insufficient_teams", "engine");
@@ -306,20 +311,52 @@ async function endIntro(q: Q, p: PartyRow, s: Settings, t: number) {
     await q.query(`UPDATE game_set SET family=$2 WHERE id=$1`, [ph.setId, pick.family]);
     await insertQuestions(q, p.id, ph.setId!, pick.items, c);
     await markExposed(q, p.id, pick.items.map((i) => i.id), t);
-    ph.family = pick.family;
-    p.engine.lastFamily = pick.family;
-    bumpPlayed(p, pick.family);
+    ph.family = pick.items[0].family;
+    p.engine.lastFamily = pick.items[pick.items.length - 1].family;
+    for (const it of pick.items) bumpPlayed(p, it.family);
   }
   await openQuestion(q, p, s, 0, t);
 }
 
 async function openQuestion(q: Q, p: PartyRow, s: Settings, idx: number, t: number) {
   const ph = p.phase;
-  const row = (await q.query(`SELECT id FROM question WHERE set_id=$1 AND idx=$2`, [ph.setId, idx]))[0];
+  const row = (await q.query(`SELECT id, private FROM question WHERE set_id=$1 AND idx=$2`, [ph.setId, idx]))[0];
+  let f = (row.private?.item?.family ?? ph.family) as GameFamily;
+  if (SOCIAL.has(f)) {
+    const set = (await q.query(`SELECT family, eligible FROM game_set WHERE id=$1`, [ph.setId]))[0];
+    if (set.family === "mixed") {
+      const n = (await q.query(`SELECT COUNT(*)::int n FROM team WHERE id = ANY($1::uuid[]) AND status='active'`, [asIds(set.eligible)]))[0].n;
+      if (Number(n) < 3) f = await replaceQuestion(q, p, s, row.id, idx, t);
+    }
+  }
   await q.query(`UPDATE question SET status='open', opened_at=$2 WHERE id=$1`, [row.id, iso(t)]);
-  const f = ph.family!;
   const st = firstStage(f);
   p.phase = { kind: "question", startsAt: t, endsAt: t + stageMs(s, f, st), setId: ph.setId, setSeq: ph.setSeq, family: f, qIndex: idx, stage: st, stageStartsAt: t, questionId: row.id, ...(ph.doubled ? { doubled: true } : {}) };
+}
+
+/** Mixed set: swap a social question (too few eligible teams at its start) for an objective one in place. */
+async function replaceQuestion(q: Q, p: PartyRow, s: Settings, qid: string, idx: number, t: number): Promise<GameFamily> {
+  const ph = p.phase;
+  const others = await q.query(`SELECT idx, content_id, private->'item'->>'family' AS fam FROM question WHERE set_id=$1`, [ph.setId]);
+  const prevFam = idx === 0 ? p.engine.lastBeforeSet ?? null : (others.find((o) => o.idx === idx - 1)?.fam ?? null);
+  const nextFam = others.find((o) => o.idx === idx + 1)?.fam ?? null;
+  const c = await content();
+  const r = await pickReplacement(q, p, s, c, { avoid: [prevFam, nextFam], difficulty: idx + 1, usedIds: others.map((o) => o.content_id), seed: `${ph.setId}:swap:${idx}` });
+  const old = others.find((o) => o.idx === idx)?.fam as GameFamily;
+  if (!r) return old; // nothing else available: play it anyway (scoring voids it if too few answer)
+  let reveal: unknown;
+  try {
+    reveal = c.revealInfo(r.item);
+  } catch {
+    reveal = { correct: r.item.answer, explanation: r.item.explanation ?? "" };
+  }
+  await q.query(`UPDATE question SET content_id=$2, public=$3, private=$4 WHERE id=$1`, [qid, r.item.id, JSON.stringify({ family: r.item.family, difficulty: r.item.difficulty }), JSON.stringify({ item: r.item, reveal })]);
+  await markExposed(q, p.id, [r.item.id], t);
+  bumpPlayed(p, old, -1);
+  bumpPlayed(p, r.item.family);
+  if (idx === 2) p.engine.lastFamily = r.item.family;
+  await audit(q, p.id, "engine", "question_swapped", { setId: ph.setId, idx, from: old, to: r.item.family });
+  return r.item.family;
 }
 
 function toReveal(p: PartyRow, s: Settings, t: number) {
@@ -516,10 +553,11 @@ export async function finalizeSet(q: Q, p: PartyRow, setId: string, t: number): 
   const answered = await q.query(`SELECT DISTINCT a.team_id FROM answer a JOIN question qq ON qq.id=a.question_id WHERE qq.set_id=$1`, [setId]);
   const teams = new Set<string>([...eligible, ...sums.map((r) => r.team_id), ...answered.map((r) => r.team_id)]);
   const pts = new Map(sums.map((r) => [r.team_id as string, Number(r.pts)]));
-  const social = SOCIAL.has(set.family);
+  // Any void question (mixed rounds can void a social question) rescales over counted questions.
+  const social = nonvoid < 3;
   const max = 300 * (set.doubled ? 2 : 1);
   let invalid: string | null = null;
-  if (social && nonvoid < 2) invalid = `${set.family}_void`;
+  if (nonvoid < 2) invalid = `${set.family}_void`;
   for (const team of teams) {
     const raw = pts.get(team) ?? 0;
     const score = social && nonvoid ? Math.min(max, Math.round((raw / nonvoid) * 3)) : raw;

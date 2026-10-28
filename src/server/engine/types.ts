@@ -84,6 +84,8 @@ export interface PhaseState {
 /** Stored in party.engine (jsonb). */
 export interface EngineState {
   lastFamily?: GameFamily | null;
+  /** family of the last question before the current set (mixed-set swap avoids repeating it) */
+  lastBeforeSet?: GameFamily | null;
   /** families played so far (rotation fairness) */
   played?: Partial<Record<GameFamily, number>>;
   forceObjective?: boolean;

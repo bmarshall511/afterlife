@@ -1,3 +1,4 @@
+import type { GameFamily } from "@/shared/types";
 import { createHash } from "node:crypto";
 import type { Q } from "@/server/db";
 import type { AnswerValue, QuestionOption, BackdropState, InputSpec, MeView, PublicPhase, PublicQuestion, RevealInfo, SetResult, Snapshot, Stage, StandingRow, TeamSummary } from "@/shared/types";
@@ -160,7 +161,8 @@ async function questionView(q: Q, p: PartyRow): Promise<{ question: PublicQuesti
 }
 
 async function lastSetResult(q: Q, setId: string): Promise<SetResult | null> {
-  const set = (await q.query(`SELECT family FROM game_set WHERE id=$1`, [setId]))[0];
+  // 'mixed' is not a GameFamily: report the first question's family.
+  const set = (await q.query(`SELECT g.family='mixed' AS mixed, CASE WHEN g.family='mixed' THEN (SELECT qq.private->'item'->>'family' FROM question qq WHERE qq.set_id=g.id AND qq.idx=0) ELSE g.family END AS family FROM game_set g WHERE g.id=$1`, [setId]))[0];
   if (!set) return null;
   const rows = await q.query(
     `SELECT ss.team_id, t.name, ss.score, ss.ranked, ss.perfect FROM set_score ss JOIN team t ON t.id=ss.team_id
@@ -170,7 +172,7 @@ async function lastSetResult(q: Q, setId: string): Promise<SetResult | null> {
   const scores = rows.map((r) => ({ teamId: r.team_id, name: r.name, score: Number(r.score), ranked: r.ranked, perfect: r.perfect }));
   const pool = scores.some((s) => s.ranked) ? scores.filter((s) => s.ranked) : scores;
   const top = Math.max(0, ...pool.map((s) => s.score));
-  return { setId, family: set.family, scores, winners: top > 0 ? pool.filter((s) => s.score === top).map((s) => s.teamId) : [] };
+  return { setId, family: set.family, mixed: !!set.mixed, scores, winners: top > 0 ? pool.filter((s) => s.score === top).map((s) => s.teamId) : [] };
 }
 
 async function stageCounts(q: Q, p: PartyRow): Promise<{ answered: number; eligible: number }> {
@@ -191,6 +193,13 @@ export async function teamSummaries(q: Q, partyId: string): Promise<TeamSummary[
   return r.map((t) => ({ id: t.id, name: t.name, color: t.color, avatar: t.avatar, status: t.status, ...(t.bot ? { bot: true } : {}) }));
 }
 
+async function setFamilies(q: Q, p: PartyRow): Promise<GameFamily[] | undefined> {
+  const ph = p.phase;
+  if (!ph.setId || !["intro", "question", "reveal", "results"].includes(ph.kind)) return undefined;
+  const r = await q.query(`SELECT private->'item'->>'family' AS f FROM question WHERE set_id=$1 ORDER BY idx`, [ph.setId]);
+  return r.length ? r.map((x) => x.f as GameFamily) : undefined;
+}
+
 export async function buildSnapshot(q: Q, partyId: string, now: number, _audience: "tv" | "phone" = "phone"): Promise<Snapshot> {
   const p = await loadParty(q, partyId, false);
   const s = settingsOf(p.settings);
@@ -202,7 +211,7 @@ export async function buildSnapshot(q: Q, partyId: string, now: number, _audienc
     status: p.status,
     mode: p.mode,
     backdrop: backdropOf(p.phase.kind),
-    phase: publicPhase(p),
+    phase: await (async () => { const ph = publicPhase(p); const sf = await setFamilies(q, p); if (sf) ph.setFamilies = sf; return ph; })(),
     question: qv.question,
     reveal: qv.reveal,
     answeredCount: counts.answered,
@@ -269,7 +278,7 @@ export async function buildMe(q: Q, partyId: string, memberId: string, now: numb
     }
   }
   const hist = await q.query(
-    `SELECT ss.set_id, gs.seq, gs.family, gs.doubled, ss.score, ss.ranked, gs.status FROM set_score ss JOIN game_set gs ON gs.id=ss.set_id
+    `SELECT ss.set_id, gs.seq, CASE WHEN gs.family='mixed' THEN (SELECT qq.private->'item'->>'family' FROM question qq WHERE qq.set_id=gs.id AND qq.idx=0) ELSE gs.family END AS family, gs.doubled, ss.score, ss.ranked, gs.status FROM set_score ss JOIN game_set gs ON gs.id=ss.set_id
       WHERE ss.team_id=$1 ORDER BY gs.seq`,
     [t.id],
   );

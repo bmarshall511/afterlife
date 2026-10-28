@@ -834,3 +834,18 @@ a.chip-btn { text-decoration: none; color: inherit; }
 .ph-photos strong { font-family: var(--display); font-size: 18px; }
 .ph-photos small { color: var(--ink-2); font-size: 14px; line-height: 1.35; }
 .ph-photos-ic { width: 44px; height: 44px; flex: none; border-radius: 12px; display: grid; place-items: center; background: var(--marigold); color: #1a1006; }
+
+/* ---------- Mixed rounds ---------- */
+.tv-mixlist { list-style: none; margin: calc(var(--u) * 1.2) 0 0; padding: 0; display: grid; gap: calc(var(--u) * 0.8); max-width: calc(var(--u) * 46); }
+.tv-mixlist li { display: grid; grid-template-columns: calc(var(--u) * 2.6) 1fr; align-items: baseline; gap: calc(var(--u) * 0.8);
+  padding: calc(var(--u) * 0.9) calc(var(--u) * 1.2); border: 1px solid var(--line); border-radius: calc(var(--u) * 0.6); background: rgba(14,11,20,0.6); }
+.tv-mixlist b { font-family: var(--display); color: var(--marigold); font-size: calc(var(--u) * 1.6); }
+.tv-mixlist strong { display: block; font-family: var(--display); font-size: calc(var(--u) * 1.6); }
+.tv-mixlist span { display: block; color: var(--ink-2); font-size: calc(var(--u) * 1.05); margin-top: 0.2em; }
+.tv-qhow { margin: calc(var(--u) * 0.4) 0 0; color: var(--ink-3); font-size: calc(var(--u) * 0.95); max-width: calc(var(--u) * 44); }
+.ph-mixlist { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 8px; }
+.ph-mixlist li { display: flex; gap: 12px; align-items: baseline; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.04); }
+.ph-mixlist b { color: var(--marigold); font-family: var(--display); }
+.ph-mixlist strong { display: block; font-size: 17px; }
+.ph-mixlist span { display: block; color: var(--ink-2); font-size: 14px; margin-top: 2px; }
+.ph-qhow { margin: -4px 0 4px; color: var(--ink-3); font-size: 14px; line-height: 1.4; }

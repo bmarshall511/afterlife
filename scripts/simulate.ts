@@ -116,9 +116,18 @@ async function main() {
   const fam: Record<string, number> = {};
   for (const s of sets) fam[s.family] = (fam[s.family] ?? 0) + 1;
   const violations: string[] = [];
-  for (let i = 1; i < sets.length; i++) if (sets[i].family === sets[i - 1].family) violations.push(`same family twice at seq ${sets[i].seq}`);
+  // Mixed rounds: family per question; never twice in a row (within and across sets), ≤1 social per set, no case.
+  const qfam = await d.query(`SELECT g.seq, g.family AS setfam, q.idx, q.private->'item'->>'family' AS fam FROM question q JOIN game_set g ON g.id=q.set_id WHERE g.party_id=$1 ORDER BY g.seq, q.idx`, [P]);
+  const perSet: Record<number, string[]> = {};
+  for (const r of qfam) (perSet[r.seq] ??= []).push(r.fam);
+  for (let i = 1; i < qfam.length; i++) if (qfam[i].fam === qfam[i - 1].fam && qfam[i].setfam === "mixed") violations.push(`same family twice in a row at set ${qfam[i].seq} q${qfam[i].idx}`);
+  for (const [seq, fs] of Object.entries(perSet)) {
+    if (fs.filter((f) => f === "calavera" || f === "room").length > 1) violations.push(`set ${seq} has >1 social question`);
+    if (fs.includes("case")) violations.push(`set ${seq} has case in a mixed set`);
+  }
+  const questionFamilies: Record<string, number> = {};
+  for (const r of qfam) questionFamilies[r.fam] = (questionFamilies[r.fam] ?? 0) + 1;
   const social = (f: string) => f === "calavera" || f === "room";
-  for (let i = 1; i < sets.length; i++) if (social(sets[i].family) && social(sets[i - 1].family)) violations.push(`social sets back-to-back at seq ${sets[i].seq}`);
   for (const s of sets) if (social(s.family) && s.status === "complete" && (s.eligible as string[]).length < 3) violations.push(`social set ${s.seq} with <3 eligible`);
   const doubledSets = sets.filter((s) => s.doubled).map((s) => s.seq);
   if (doubledSets.length !== 1) violations.push(`expected exactly one doubled set, got ${doubledSets}`);
@@ -165,7 +174,9 @@ async function main() {
     setsTotal: sets.length,
     setsComplete: sets.filter((s) => s.status === "complete").length,
     invalidated: sets.filter((s) => s.status === "invalidated").map((s) => `${s.seq}:${s.invalid_reason}`),
-    families: fam,
+    setFamilies: fam,
+    questionFamilies,
+    perSet: Object.fromEntries(Object.entries(perSet).map(([k, v]) => [k, v.join(" > ")])),
     doubledSets,
     voidQuestions: Object.fromEntries(voided.map((r) => [r.void_reason, r.n])),
     answersAccepted: answers,

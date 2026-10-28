@@ -41,6 +41,7 @@ export interface PublicPhase {
   stage?: Stage;
   tribute?: PublicTribute | null; // interval/ambient: tribute currently on TV
   encore?: boolean;        // content pool exhausted; repeating questions
+  setFamilies?: GameFamily[]; // the current set's 3 question families in order (intro/question/reveal/results)
   doubled?: boolean;       // host-triggered "last chance" set: points x2
   slide?: PublicSlide | null; // interval/ambient: party album photo on TV (never at the same time as a tribute)
 }
@@ -144,7 +145,8 @@ export interface StandingRow {
 
 export interface SetResult {
   setId: string;
-  family: GameFamily;
+  family: GameFamily;       // mixed sets: first question's family
+  mixed?: boolean;          // game_set.family = 'mixed'
   scores: { teamId: string; name: string; score: number; ranked: boolean; perfect: boolean }[];
   winners: string[];        // team ids sharing top score
 }

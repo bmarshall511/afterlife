@@ -14,7 +14,8 @@ import { shuffle } from "./rng";
  *  - pool dry: generateFresh(), else explicit "encore" (least recently shown), audited by the caller.
  */
 export interface Pick {
-  family: GameFamily;
+  /** 'mixed' = each question picks its own family (host feedback 2026-10-28) */
+  family: GameFamily | "mixed";
   items: ContentItem[];
   encore: boolean;
 }
@@ -117,4 +118,100 @@ export async function markExposed(q: Q, partyId: string, ids: string[], now: num
        ON CONFLICT (party_id, content_id) DO UPDATE SET shown = content_exposure.shown + 1, last_shown = $3`,
       [partyId, id, new Date(now).toISOString()],
     );
+}
+
+/** Social questions need ≥3 teams. */
+const isSocial = (f: GameFamily) => SOCIAL_FAMILIES.includes(f);
+
+/** One item of `family` near `difficulty`, not exposed/used; then generateFresh; then (encore) least shown. */
+function pickOne(family: GameFamily, difficulty: number, all: ContentItem[], exp: Map<string, any>, off: Set<string>, used: Set<string>, c: ContentSource, seed: string, allowEncore: boolean, exact = false): { item: ContentItem; encore: boolean } | null {
+  const pool = all.filter((i) => i.family === family && i.enabled && !off.has(i.id) && !used.has(i.id));
+  const fresh = shuffle(pool.filter((i) => !exp.has(i.id)), seed);
+  const exactHit = fresh.find((i) => i.difficulty === difficulty);
+  if (exact) return exactHit ? { item: exactHit, encore: false } : null;
+  const hit = exactHit ?? fresh.sort((a, b) => Math.abs(a.difficulty - difficulty) - Math.abs(b.difficulty - difficulty))[0];
+  if (hit) return { item: hit, encore: false };
+  for (let k = 0; k < 6; k++) {
+    let g: ContentItem | null = null;
+    try {
+      g = c.generateFresh(family, `${seed}:gen:${k}`);
+    } catch {
+      g = null;
+    }
+    if (!g) break;
+    if (!exp.has(g.id) && !used.has(g.id)) return { item: g, encore: false };
+  }
+  if (!allowEncore || !pool.length) return null;
+  const old = pool.slice().sort((a, b) => {
+    const ea = exp.get(a.id), eb = exp.get(b.id);
+    return (ea?.shown ?? 0) - (eb?.shown ?? 0) || +new Date(ea?.last_shown ?? 0) - +new Date(eb?.last_shown ?? 0) || Math.abs(a.difficulty - difficulty) - Math.abs(b.difficulty - difficulty) || a.id.localeCompare(b.id);
+  });
+  return { item: old[0], encore: true };
+}
+
+/** Families usable in mixed sets: enabled minus the Ofrenda Case (it spans 3 rounds, so it only plays as a whole set). */
+export function mixedFamilies(s: Settings): GameFamily[] {
+  return s.families.filter((f) => f !== "case");
+}
+
+/**
+ * Candidate families for one mixed-set question, in preference order: never `prev`, social only if allowed,
+ * least played first (seeded tie-break). Falls back to objective (non-case) families if nothing is enabled.
+ */
+export function questionFamilyOrder(fams: GameFamily[], prev: GameFamily | null, socialOk: boolean, played: Partial<Record<GameFamily, number>>, seed: string): GameFamily[] {
+  let allowed = fams.filter((f) => f !== prev && (socialOk || !isSocial(f)));
+  if (!allowed.length) allowed = OBJECTIVE_FAMILIES.filter((f) => f !== "case" && f !== prev);
+  // Least-played games first (so every game gets regular turns), seeded random order among ties.
+  return shuffle(allowed, seed).sort((a, b) => (played[a] ?? 0) - (played[b] ?? 0));
+}
+
+async function pickQuestion(q: Q, ctx: { all: ContentItem[]; exp: Map<string, any>; off: Set<string>; used: Set<string>; c: ContentSource }, order: GameFamily[], difficulty: number, seed: string) {
+  // prefer a family that still has fresh content at the target difficulty (keeps the 1→2→3 ramp)
+  for (const f of order) {
+    const r = pickOne(f, difficulty, ctx.all, ctx.exp, ctx.off, ctx.used, ctx.c, `${seed}:${f}`, false, true);
+    if (r) return r;
+  }
+  for (const enc of [false, true])
+    for (const f of order) {
+      const r = pickOne(f, difficulty, ctx.all, ctx.exp, ctx.off, ctx.used, ctx.c, `${seed}:${f}`, enc);
+      if (r) return r;
+    }
+  return null;
+}
+
+/**
+ * Mixed set: 3 questions, each family chosen independently. Never the same family twice in a row (also across
+ * the set boundary via engine.lastFamily), at most one social question and only with ≥3 teams, no case.
+ * Difficulty ramps 1→2→3 where content allows.
+ */
+export async function chooseMixed(q: Q, p: PartyRow, s: Settings, c: ContentSource, opts: { teams: number; seed: string }): Promise<Pick | null> {
+  const ctx = { all: c.allContent(), ...(await Promise.all([exposure(q, p.id), disabledIds(q)]).then(([exp, off]) => ({ exp, off }))), used: new Set<string>(), c };
+  const fams = mixedFamilies(s);
+  const played = { ...(p.engine.played ?? {}) };
+  let prev = p.engine.lastFamily ?? null;
+  let socialUsed = false;
+  const items: ContentItem[] = [];
+  let encore = false;
+  for (let k = 0; k < 3; k++) {
+    const socialOk = opts.teams >= 3 && !p.engine.forceObjective && !socialUsed;
+    const order = questionFamilyOrder(fams, prev, socialOk, played, `${opts.seed}:q${k}`);
+    const r = await pickQuestion(q, ctx, order, k + 1, `${opts.seed}:q${k}`);
+    if (!r) return null;
+    items.push(r.item);
+    ctx.used.add(r.item.id);
+    encore ||= r.encore;
+    prev = r.item.family;
+    played[prev] = (played[prev] ?? 0) + 1;
+    if (isSocial(prev)) socialUsed = true;
+  }
+  return { family: "mixed", items, encore };
+}
+
+/** Replacement objective question (a social question whose start has <3 eligible teams). */
+export async function pickReplacement(q: Q, p: PartyRow, s: Settings, c: ContentSource, opts: { avoid: (GameFamily | null)[]; difficulty: number; usedIds: string[]; seed: string }) {
+  const ctx = { all: c.allContent(), ...(await Promise.all([exposure(q, p.id), disabledIds(q)]).then(([exp, off]) => ({ exp, off }))), used: new Set(opts.usedIds), c };
+  const objective = mixedFamilies(s).filter((f) => !isSocial(f));
+  let order = shuffle((objective.length ? objective : OBJECTIVE_FAMILIES.filter((f) => f !== "case")).filter((f) => !opts.avoid.includes(f)), opts.seed);
+  if (!order.length) order = OBJECTIVE_FAMILIES.filter((f) => f !== "case");
+  return pickQuestion(q, ctx, order, opts.difficulty, opts.seed);
 }

@@ -272,38 +272,96 @@ describe("doubled set (final_round)", () => {
 
 describe("scheduling", () => {
   const fast = { introMs: 1000, calaveraWriteMs: 2000, calaveraVoteMs: 2000, lineAnswerMs: 2000, loteriaAnswerMs: 2000, roomAnswerMs: 2000, roomGuessMs: 2000, closestAnswerMs: 2000, caseClueMs: 1000, caseAnswerMs: 1000, revealMs: 1000, calaveraRevealMs: 1000, resultsMs: 1000, intervalMs: 1000 };
-  async function run(n: number, sets: number) {
+  async function run(n: number, sets: number, extra: Record<string, unknown> = {}) {
     await setup({ content: (await import("@/server/engine/fixtures")).fixtureContent(20) });
     await teams(n);
-    await C.updateSettings(P, fast, "admin", T0);
+    await C.updateSettings(P, { ...fast, ...extra }, "admin", T0);
     await C.startParty(P, "test", T0);
     await runUntil(d, T0, (x) => x.kind === "intro" && x.setSeq === sets, 1000);
-    return d.query("SELECT g.seq, g.family, g.status, array_agg(q.content_id ORDER BY q.idx) ids FROM game_set g JOIN question q ON q.set_id=g.id GROUP BY g.seq, g.family, g.status ORDER BY g.seq");
+    const qs = await d.query(
+      `SELECT g.seq, g.family AS setfam, g.status, q.idx, q.content_id, q.status AS qstatus, q.private->'item'->>'family' AS family, (q.private->'item'->>'difficulty')::int AS diff
+         FROM game_set g JOIN question q ON q.set_id=g.id WHERE g.seq < $1 ORDER BY g.seq, q.idx`,
+      [sets],
+    );
+    return qs;
   }
-  async function diffs() {
-    return d.query("SELECT g.seq, array_agg((q.private->'item'->>'difficulty')::int ORDER BY q.idx) dd FROM game_set g JOIN question q ON q.set_id=g.id GROUP BY g.seq");
+  const social = (f: string) => f === "calavera" || f === "room";
+  function bySet(qs: any[]) {
+    const m = new Map<number, any[]>();
+    for (const r of qs) (m.get(r.seq) ?? m.set(r.seq, []).get(r.seq)!).push(r);
+    return [...m.values()];
   }
 
-  it("2 teams: objective only, no back-to-back family, no repeats, difficulty 1→2→3", async () => {
-    const sets = await run(2, 14);
-    const fams = sets.map((s) => s.family);
-    expect(fams.filter((f) => f === "calavera" || f === "room")).toEqual([]);
+  it("2 teams: mixed objective questions, no family twice in a row (incl. across sets), no repeats, difficulty 1→2→3", async () => {
+    const qs = await run(2, 14);
+    const fams = qs.map((r) => r.family);
+    expect(fams.filter(social)).toEqual([]);
+    expect(fams).not.toContain("case");
     for (let i = 1; i < fams.length; i++) expect(fams[i]).not.toBe(fams[i - 1]);
-    const ids = sets.flatMap((s) => s.ids);
+    for (const set of bySet(qs)) {
+      expect(set[0].setfam).toBe("mixed");
+      expect(new Set(set.map((r) => r.family)).size).toBeGreaterThan(1);
+      expect(set.map((r) => r.diff)).toEqual([1, 2, 3]);
+    }
+    const ids = qs.map((r) => r.content_id);
     expect(new Set(ids).size).toBe(ids.length);
-    for (const r of await diffs()) expect(r.dd).toEqual([1, 2, 3]);
   });
 
-  it("4 teams: social sets appear, never two social sets in a row", async () => {
-    const sets = await run(4, 14);
-    const fams = sets.map((s) => s.family);
-    const social = (f: string) => f === "calavera" || f === "room";
+  it("4 teams: social questions appear, at most one per set; phase.family follows the question", async () => {
+    const qs = await run(4, 14);
+    const fams = qs.map((r) => r.family);
     expect(fams.some(social)).toBe(true);
-    expect(new Set(fams).size).toBe(6);
-    for (let i = 1; i < fams.length; i++) {
-      expect(fams[i]).not.toBe(fams[i - 1]);
-      expect(social(fams[i]) && social(fams[i - 1])).toBe(false);
+    expect(new Set(fams)).toEqual(new Set(["calavera", "line", "loteria", "room", "closest"]));
+    for (let i = 1; i < fams.length; i++) expect(fams[i]).not.toBe(fams[i - 1]);
+    for (const set of bySet(qs)) expect(set.filter((r) => social(r.family)).length).toBeLessThanOrEqual(1);
+  });
+
+  it("single enabled game (demo_game) → whole set of that game; case only alone", async () => {
+    const qs = await run(1, 4, { families: ["closest"] });
+    expect(new Set(qs.map((r) => r.family))).toEqual(new Set(["closest"]));
+    expect(new Set(qs.map((r) => r.setfam))).toEqual(new Set(["closest"]));
+  });
+
+  it("mixed set: social question with <3 eligible at its start is swapped for an objective one", async () => {
+    const ts = await teams(3);
+    await families(d, ["room", "line", "loteria", "closest"]);
+    await C.updateSettings(P, fast, "admin", T0);
+    // force a social first question by making it the least played and only option for q0
+    await d.query(`UPDATE party SET engine=$2 WHERE id=$1`, [P, JSON.stringify({ played: { line: 9, loteria: 9, closest: 9, room: 0 } })]);
+    await C.startParty(P, "test", T0);
+    let t = await runUntil(d, T0, (x) => x.kind === "intro");
+    const q0 = (await d.query("SELECT q.private->'item'->>'family' f FROM question q JOIN game_set g ON g.id=q.set_id WHERE q.idx=0"))[0].f;
+    expect(q0).toBe("room");
+    expect((await snap(t)).phase.family).toBe("room");
+    // one team goes away before the question opens → only 2 eligible-active
+    await d.query("UPDATE team SET status='away' WHERE id=$1", [ts[2].teamId]);
+    t = await runUntil(d, t, (x) => x.kind === "question", 1000);
+    const ph = await phase(d);
+    expect(social(ph.family!)).toBe(false);
+    expect((await snap(t)).question!.family).toBe(ph.family);
+    expect((await d.query("SELECT COUNT(*)::int n FROM audit WHERE action='question_swapped'"))[0].n).toBe(1);
+  });
+
+  it("mixed set with a void question rescales over counted questions", async () => {
+    const ts = await teams(3);
+    await families(d, ["room", "loteria", "line"]);
+    await C.updateSettings(P, fast, "admin", T0);
+    await d.query(`UPDATE party SET engine=$2 WHERE id=$1`, [P, JSON.stringify({ played: { line: 9, loteria: 9, room: 0 } })]);
+    await C.startParty(P, "test", T0);
+    let t = await runUntil(d, T0, (x) => x.kind === "question");
+    expect((await phase(d)).family).toBe("room"); // nobody answers → void
+    for (let i = 1; i < 3; i++) {
+      t = await runUntil(d, t, (x) => x.kind === "question" && x.qIndex === i);
+      const it0 = await itemOf(d, (await phase(d)).questionId!);
+      await submit(d, ts[0].memberId, it0.answer, t + 100);
     }
+    t = await runUntil(d, t, (x) => x.kind === "results");
+    const sc = (await snap(t)).lastSet!;
+    expect(sc.family).toBe("room");
+    expect(sc.mixed).toBe(true);
+    expect((await snap(t)).phase.setFamilies).toHaveLength(3);
+    expect((await snap(t)).phase.setFamilies![0]).toBe("room"); // 'mixed' is not a GameFamily: first question's family
+    expect(sc.scores.find((s) => s.teamId === ts[0].teamId)!.score).toBe(300); // 200 × 3 / 2
   });
 });
 

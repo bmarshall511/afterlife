@@ -80,19 +80,18 @@ describe("admin control", () => {
 });
 
 describe("content pool", () => {
-  it("no repeats until exhausted, then explicit encore; case always fresh", async () => {
+  it("mixed sets: no repeats until exhausted, then explicit encore; no case", async () => {
     await setup({ content: fixtureContent(3) });
     await newTeam("Ana");
     await C.updateSettings(P, { introMs: 1000, lineAnswerMs: 1000, loteriaAnswerMs: 1000, closestAnswerMs: 1000, caseClueMs: 1000, caseAnswerMs: 1000, revealMs: 1000, resultsMs: 1000, intervalMs: 1000 }, "admin", T0);
     await C.startParty(P, "admin", T0);
     await runUntil(d, T0, (x) => x.setSeq === 12 && x.kind === "intro", 500);
-    const qs = await d.query("SELECT q.content_id, g.seq, g.family FROM question q JOIN game_set g ON g.id=q.set_id ORDER BY g.seq, q.idx");
-    // 3 objective pools x 3 items = 9 unique + case; the first 4 sets never repeat
-    const first = qs.filter((r) => r.seq <= 4).map((r) => r.content_id);
-    expect(new Set(first).size).toBe(first.length);
-    expect(new Set(qs.filter((r) => r.seq <= 4).map((r) => r.family)).size).toBe(4);
-    const caseIds = qs.filter((r) => r.family === "case").map((r) => r.content_id);
-    expect(new Set(caseIds).size).toBe(caseIds.length);
+    const qs = await d.query("SELECT q.content_id, g.seq, g.family AS setfam, q.private->'item'->>'family' AS family FROM question q JOIN game_set g ON g.id=q.set_id ORDER BY g.seq, q.idx");
+    expect(new Set(qs.map((r) => r.setfam))).toEqual(new Set(["mixed"]));
+    // 3 objective pools (case off by default) x 3 items = 9 unique: the first 3 sets never repeat
+    const first = qs.filter((r) => r.seq <= 3).map((r) => r.content_id);
+    expect(new Set(first).size).toBe(9);
+    expect(qs.some((r) => r.family === "case")).toBe(false);
     expect((await d.query("SELECT COUNT(*)::int n FROM audit WHERE action='encore'"))[0].n).toBeGreaterThan(0);
   });
 });

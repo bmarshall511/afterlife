@@ -105,6 +105,24 @@ function AmbientView({ s }: { s: Snapshot }) {
 
 function IntroView({ s, offsetMs, paused }: { s: Snapshot; offsetMs: number; paused: boolean }) {
   const f = FAMILY[s.phase.family ?? "line"];
+  const fams = s.phase.setFamilies ?? [];
+  if (new Set(fams).size > 1) {
+    return (
+      <div className={`tv-col tv-intro ${s.phase.doubled ? "doubled" : ""}`}>
+        <Wordmark size="md" />
+        <SetLabel s={s} />
+        {s.phase.doubled && <div className="tv-lastchance"><Icon name="flame" /><span>Last chance</span><b>Double points</b></div>}
+        <h1 className="tv-title">Ronda Sorpresa</h1>
+        <p className="tv-sub">Three different games this round.</p>
+        <ol className="tv-mixlist">
+          {fams.map((g, i) => (
+            <li key={i}><b>{i + 1}</b><div><strong>{FAMILY[g].title}</strong><span>{FAMILY[g].sub}</span></div></li>
+          ))}
+        </ol>
+        <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} paused={paused} className="tv-count" />
+      </div>
+    );
+  }
   return (
     <div className={`tv-col tv-intro ${s.phase.doubled ? "doubled" : ""}`}>
       <Wordmark size="md" />
@@ -127,6 +145,7 @@ function QHeader({ s, offsetMs, paused, title }: { s: Snapshot; offsetMs: number
       <div>
         <div className="tv-fam">{title ?? f.title} <DoubleBadge s={s} /></div>
         <SetLabel s={s} />
+        {!title && s.phase.kind === "question" && <p className="tv-qhow">{f.how}</p>}
       </div>
       <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} paused={paused} className="tv-count-sm" />
     </header>
@@ -181,7 +200,7 @@ function ResultsView({ s, offsetMs }: { s: Snapshot; offsetMs: number }) {
   const headline = names.length > 1 ? `${names.slice(0, -1).join(", ")} & ${names.at(-1)}` : names[0] ?? "No winner this set";
   return (
     <div className="tv-col tv-results">
-      <div className="tv-qhead"><div><div className="tv-fam">{set ? FAMILY[set.family].title : "Results"} <DoubleBadge s={s} /></div><div className="tv-eyebrow">Set {s.phase.setSeq ?? ""} results</div></div>
+      <div className="tv-qhead"><div><div className="tv-fam">{set ? (set.mixed ? "Ronda Sorpresa" : FAMILY[set.family].title) : "Results"} <DoubleBadge s={s} /></div><div className="tv-eyebrow">Set {s.phase.setSeq ?? ""} results</div></div>
         <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} className="tv-count-sm" /></div>
       <div className="tv-eyebrow accent">{names.length > 1 ? "Shared win" : "Set winner"}</div>
       <h1 className="tv-title sm">{headline}</h1>

@@ -156,13 +156,13 @@ describe("participation", () => {
     expect((await d.query("SELECT COUNT(*)::int n FROM game_set"))[0].n).toBe(1);
   });
 
-  it("1–2 teams: objective families only, never the same family twice in a row", async () => {
+  it("1–2 teams: objective families only, never the same family twice in a row (per question, across sets)", async () => {
     await C2.updateSettings(P, { introMs: 1000, lineAnswerMs: 2000, loteriaAnswerMs: 2000, closestAnswerMs: 2000, caseClueMs: 1000, caseAnswerMs: 1000, revealMs: 1000, resultsMs: 1000, intervalMs: 1000 }, "admin", T0);
     await newTeam("Ana");
     await newTeam("Beto");
     await startParty(P, "test", T0);
     await runUntil(d, T0, (x) => x.kind === "intro" && x.setSeq === 8, 2000);
-    const fams = (await d.query("SELECT family FROM game_set ORDER BY seq")).map((r) => r.family);
+    const fams = (await d.query("SELECT q.private->'item'->>'family' AS family FROM question q JOIN game_set g ON g.id=q.set_id ORDER BY g.seq, q.idx")).map((r) => r.family);
     expect(fams.some((f: string) => f === "calavera" || f === "room")).toBe(false);
     for (let i = 1; i < fams.length; i++) expect(fams[i]).not.toBe(fams[i - 1]);
   });

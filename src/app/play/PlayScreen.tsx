@@ -221,12 +221,16 @@ function Stateful({ s, me, offsetMs, sub, submit, openCaptain, openPhotos }: {
   }
   if (kind === "intro") {
     const f = FAMILY[s.phase.family ?? "line"];
+    const fams = s.phase.setFamilies ?? [];
+    const mixed = new Set(fams).size > 1;
     return (
       <div className="ph-state">
         {s.phase.doubled && <div className="ph-double big"><Icon name="flame" /> Last chance — double points</div>}
         <div className="ph-eyebrow">Next up · Look at the TV</div>
-        <h1 className="ph-h1 caps">{f.title}</h1>
-        <p className="ph-p">{f.how}</p>
+        <h1 className="ph-h1 caps">{mixed ? "Ronda Sorpresa" : f.title}</h1>
+        {mixed
+          ? <ol className="ph-mixlist">{fams.map((g, i) => <li key={i}><b>{i + 1}</b><div><strong>{FAMILY[g].title}</strong><span>{FAMILY[g].sub}</span></div></li>)}</ol>
+          : <p className="ph-p">{f.how}</p>}
         <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} className="ph-count" />
       </div>
     );
@@ -304,6 +308,7 @@ function QuestionState({ s, q, me, offsetMs, sub, submit, openCaptain }: {
         <div className="ph-eyebrow">{f.title} · {isCase ? `Round ${round}/3` : `Q${q.index + 1}/3`}</div>
         <Countdown endsAt={s.phase.endsAt} offsetMs={offsetMs} className="ph-count xs" />
       </div>
+      <p className="ph-qhow">{f.how}</p>
       {s.phase.doubled && <div className="ph-double"><Icon name="flame" /> Double points</div>}
     </>
   );

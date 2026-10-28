@@ -123,11 +123,14 @@ button { font: inherit; color: inherit; }
 .tv-muted { color: var(--ink-3); font-size: calc(var(--u) * 1.2); }
 .tv-eyebrow { font-size: calc(var(--u) * 0.95); letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin-top: calc(var(--u) * 2.4); }
 .tv-eyebrow.accent { color: var(--marigold); }
+/* Solid colour, no background-clip:text: Safari leaves stale digits behind when gradient-clipped text changes
+   while an animation runs (numbers appeared stacked on top of each other). */
 .countdown { font-family: var(--display); font-weight: 300; color: var(--marigold); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; line-height: 1;
-  background: linear-gradient(180deg, var(--marigold-2), var(--marigold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  text-shadow: 0 0 0.35em rgba(246, 166, 35, 0.18); }
 .tv-count { font-size: calc(var(--u) * 5.8); margin-top: calc(var(--u) * 2.2); }
 .tv-count-sm { font-size: calc(var(--u) * 3.6); }
-.countdown.urgent { animation: pulse 1s ease-in-out infinite; }
+.countdown.urgent { animation: countdown-urgent 1s ease-in-out infinite; }
+@keyframes countdown-urgent { 50% { color: var(--marigold-2); } }
 @keyframes pulse { 50% { opacity: 0.55; } }
 .tv-bottom-row { margin-top: auto; display: flex; align-items: flex-end; gap: calc(var(--u) * 4); }
 .tv-join { display: flex; align-items: center; gap: calc(var(--u) * 1.2); }

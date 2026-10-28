@@ -1,0 +1,34 @@
+[
+  {
+    "file": "assets/arrival-amber.png",
+    "role": "Arrival and intermission",
+    "width": 1672,
+    "height": 941,
+    "generation": "Built-in image generation; static raster",
+    "notes": "Preserve original; derive optimized responsive assets without stretching"
+  },
+  {
+    "file": "assets/focus-violet.png",
+    "role": "Active play",
+    "width": 1672,
+    "height": 941,
+    "generation": "Built-in image generation; static raster",
+    "notes": "Preserve original; derive optimized responsive assets without stretching"
+  },
+  {
+    "file": "assets/celebration-magenta.png",
+    "role": "Results and celebration",
+    "width": 1672,
+    "height": 941,
+    "generation": "Built-in image generation; static raster",
+    "notes": "Preserve original; derive optimized responsive assets without stretching"
+  },
+  {
+    "file": "design/approved-direction.png",
+    "role": "Approved mockup reference, fictional tribute",
+    "width": 1536,
+    "height": 1024,
+    "generation": "Built-in image generation; static raster",
+    "notes": "Use as reference only"
+  }
+]

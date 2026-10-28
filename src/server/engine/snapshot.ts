@@ -187,8 +187,8 @@ async function stageCounts(q: Q, p: PartyRow): Promise<{ answered: number; eligi
 }
 
 export async function teamSummaries(q: Q, partyId: string): Promise<TeamSummary[]> {
-  const r = await q.query(`SELECT id, name, color, avatar, status FROM team WHERE party_id=$1 AND status IN ('active','away') ORDER BY name, id`, [partyId]);
-  return r.map((t) => ({ id: t.id, name: t.name, color: t.color, avatar: t.avatar, status: t.status }));
+  const r = await q.query(`SELECT id, name, color, avatar, status, bot FROM team WHERE party_id=$1 AND status IN ('active','away') ORDER BY name, id`, [partyId]);
+  return r.map((t) => ({ id: t.id, name: t.name, color: t.color, avatar: t.avatar, status: t.status, ...(t.bot ? { bot: true } : {}) }));
 }
 
 export async function buildSnapshot(q: Q, partyId: string, now: number, _audience: "tv" | "phone" = "phone"): Promise<Snapshot> {

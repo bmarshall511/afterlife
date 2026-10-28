@@ -4,6 +4,7 @@ export const dynamic = "force-dynamic";
 import { cookies } from "next/headers";
 import { getDb } from "@/server/db";
 import { buildSnapshot, partyIdOf, tick } from "@/server/engine";
+import { runDemoBots } from "@/server/engine/demobots";
 import { handle, json } from "@/server/http";
 import { cookieName, memberForSecret, touch } from "@/server/session";
 
@@ -19,6 +20,7 @@ export async function GET(req: Request) {
       const m = await memberForSecret(db, party, secret);
       if (m) await touch(db, m.memberId, now);
     }
+    if (party === "demo") await runDemoBots(party, now).catch(() => {});
     const { version } = await tick(party, now);
     const v = url.searchParams.get("v");
     if (v != null && Number(v) === version) return new Response(null, { status: 204, headers: { "Cache-Control": "no-store" } });

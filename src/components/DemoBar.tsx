@@ -4,7 +4,7 @@ import type { GameFamily, Snapshot } from "@/shared/types";
 import { FAMILY } from "./Brand";
 import { Icon } from "./Icon";
 
-const GAMES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest", "case"];
+const GAMES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest"];
 
 function stepLabel(s: Snapshot): string {
   const k = s.phase.kind;
@@ -57,6 +57,7 @@ export function DemoBar({ s }: { s: Snapshot }) {
 
   if (!admin) return null;
   const running = s.status === "running";
+  const bots = s.teams.filter((t) => t.bot).length;
   const paused = s.status === "paused";
 
   if (!open) return <button className="demobar-tab" onClick={() => setOpen(true)}>Demo controls</button>;
@@ -72,6 +73,9 @@ export function DemoBar({ s }: { s: Snapshot }) {
         {running && <button className="demobar-btn primary" disabled={busy} onClick={() => act({ action: "demo_next" })} title="Shortcut: → or N"><Icon name="arrow" /> Next step</button>}
         {running && <button className="demobar-btn" disabled={busy} onClick={() => act({ action: "pause" })}><Icon name="pause" /> Pause</button>}
         {paused && <button className="demobar-btn primary" disabled={busy} onClick={() => act({ action: "resume" })}><Icon name="play" /> Resume</button>}
+        <button className="demobar-btn" disabled={busy} onClick={() => act({ action: "demo_bots" })} title="Stand-in families that answer by themselves">
+          <Icon name="people" /> Add 3 bot families{bots ? ` (${bots})` : ""}
+        </button>
       </div>
       <div className="demobar-row demobar-games">
         <span className="demobar-lbl">Play next</span>
@@ -83,7 +87,7 @@ export function DemoBar({ s }: { s: Snapshot }) {
         ))}
       </div>
       {msg && <p className="demobar-msg" role="alert">{msg}</p>}
-      <p className="demobar-hint">Only you see this (signed in to admin). Join a few teams from your phone or private windows first.</p>
+      <p className="demobar-hint">Only you see this (signed in to admin). Join from your phone, then add bot families so Calavera and Read the Room have enough players.</p>
     </div>
   );
 }

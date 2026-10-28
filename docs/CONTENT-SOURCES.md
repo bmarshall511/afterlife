@@ -6,7 +6,7 @@ Method note: several authoritative sites (britannica.com, whc.unesco.org, inegi.
 
 ## The Line
 
- | id | values | source |
+| id | values | source |
 |---|---|---|
 | mx-milestones | Mexica found Tenochtitlan = 1325, Fall of Tenochtitlan to Cortés and allies = 1521, Hidalgo's Grito de Dolores = 1810, Battle of Puebla (the original Cinco de Mayo) = 1862, Madero's call to revolt starts the Mexican Revolution = 1910 | [Gob.mx / Memórica: fundación de México-Tenochtitlan](https://www.gob.mx/bancodelbienestar/articulos/693-aniversario-de-la-fundacion-de-mexico-tenochtitlan?idiom=es) |
 | cdmx-landmarks | Metropolitan Cathedral finished = 1813, Angel of Independence column inaugurated = 1910, Palacio de Bellas Artes inaugurated = 1934, Torre Latinoamericana completed = 1956, National Museum of Anthropology opens = 1964 | [INAH Catálogo Nacional de Monumentos Históricos: Conjunto Catedral Metropolitana](https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/84725) |
@@ -42,6 +42,46 @@ Method note: several authoritative sites (britannica.com, whc.unesco.org, inegi.
 | latam-areas | Colombia = 1,141,748 km², Peru = 1,285,216 km², Mexico = 1,964,375 km², Argentina = 2,704,789 km² | [Britannica: Argentina](https://www.britannica.com/place/Argentina) |
 | scoville | Jalapeño = up to 5,000 SHU, Serrano = up to 15,000 SHU, Cayenne = up to 50,000 SHU, Rocoto (Andean) = 175,000 SHU, Bhut jolokia (ghost pepper) = 1,000,000 SHU | [NDSU Extension: From the Garden to the Table - Salsa!](https://ndsu.edu/agriculture/node/8324) |
 | chocolate-milestones | Van Houten's cocoa-powder press = 1828, Fry's sweet eating chocolate = 1847, Daniel Peter's milk chocolate = 1876, Lindt's conche (smooth chocolate) = 1879 | [Britannica: Chocolate](https://www.britannica.com/topic/chocolate) |
+| latam-independence | Haiti declares independence = 1804, Paraguay ousts Spanish governor = 1811, Argentina declares at Tucumán = 1816, Brazil breaks from Portugal = 1822, Panama splits from Colombia = 1903 | [Britannica: History of Haiti; Paraguay colonial period; History of Argentina; History of Panama](https://www.britannica.com/topic/history-of-Haiti) |
+| latam-volcanoes | Arenal (Costa Rica) = 1,633, Tajumulco (Guatemala) = 4,220, El Misti (Peru) = 5,821, Chimborazo (Ecuador) = 6,310, Ojos del Salado (Chile/Argentina) = 6,893 | [Britannica: Arenal Volcano; Tajumulco Volcano; Misti Volcano; Chimborazo; Selected world mountains](https://www.britannica.com/place/Tajumulco-Volcano) |
+| latam-capitals-founded | Lima = 1535, Santiago = 1541, Caracas = 1567, Buenos Aires (lasting refounding) = 1580, Montevideo = 1726 | [Britannica: Lima; Santiago; Caracas history; Buenos Aires history; Montevideo](https://www.britannica.com/place/Lima) |
+| latam-nobel-literature | Gabriela Mistral (Chile) = 1945, Miguel Ángel Asturias (Guatemala) = 1967, Pablo Neruda (Chile) = 1971, Gabriel García Márquez (Colombia) = 1982, Mario Vargas Llosa (Peru) = 2010 | [NobelPrize.org laureate pages](https://www.nobelprize.org/prizes/lists/all-nobel-prizes-in-literature/all/) |
+| americas-abolition | Chile = 1823, Mexico = 1829, Puerto Rico = 1873, Cuba = 1886, Brazil = 1888 | [Britannica: Slavery - Ways of ending slavery; Abolitionism timeline](https://www.britannica.com/topic/slavery-sociology/Ways-of-ending-slavery) |
+| mx-state-areas | Tlaxcala = 3,997, Yucatán = 39,524, Oaxaca = 93,757, Sonora = 179,355, Chihuahua = 247,413 | [INEGI: Anuario estadístico y geográfico por entidad federativa](https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/nueva_estruc/889463901846.pdf) |
+| mx-state-pop-2020 | Colima = 731,391, Nuevo León = 5,784,442, Jalisco = 8,348,151, Mexico City = 9,209,944, State of México = 16,992,418 | [INEGI Censo 2020 press releases and state results](https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Nal.pdf) |
+| latam-world-cup-wins | Uruguay wins the first World Cup = 1930, Brazil's first title (Pelé's debut) = 1958, Argentina's first title = 1978, Brazil's record fifth title = 2002 | [FIFA: Teams with the most World Cup titles; Britannica: FIFA World Cup](https://www.fifa.com/en/tournaments/mens/worldcup/articles/teams-most-wins-titles-trophies) |
+| latam-waterfalls | Iguazú Falls (max drop) = 82, Tequendama Falls = 157, Kaieteur Falls = 251, Angel Falls = 979 | [Britannica: Angel Falls; Tequendama Falls; Iguaçu Falls; Waterfall](https://www.britannica.com/place/Angel-Falls) |
+| latam-engineering | Panama Canal opens = 1914, Christ the Redeemer dedicated = 1931, Brasília becomes capital = 1960, Itaipú main dam completed = 1982 | [Britannica: Panama Canal; Christ the Redeemer; Brasília; Hydroelectric power](https://www.britannica.com/topic/Christ-the-Redeemer) |
+| latam-nobel-peace | Carlos Saavedra Lamas (Argentina) = 1936, Adolfo Pérez Esquivel (Argentina) = 1980, Óscar Arias (Costa Rica) = 1987, Rigoberta Menchú (Guatemala) = 1992 | [NobelPrize.org Peace Prize summaries](https://www.nobelprize.org/prizes/peace/1987/summary/) |
+| latam-nobel-medicine | Bernardo Houssay (Medicine) = 1947, Luis Leloir (Chemistry) = 1970, Baruj Benacerraf (Medicine) = 1980, César Milstein (Medicine) = 1984 | [NobelPrize.org laureate facts and country-of-birth list](https://www.nobelprize.org/prizes/medicine/1984/milstein/biographical/) |
+| latam-lakes | Lake Atitlán (Guatemala) = 49, Lake Managua (Nicaragua) = 400, Lake Titicaca (Peru/Bolivia) = 3,200, Lake Maracaibo (Venezuela) = 5,130 | [Britannica: Lake Atitlán; Lake Managua; Lake Titicaca; Lake Maracaibo](https://www.britannica.com/place/Lake-Titicaca) |
+| mx-biodiversity | Amphibians = 361, Mammals = 535, Reptiles = 864, Birds = 1,096 | [CONABIO / biodiversidad.gob.mx: Especies endémicas](https://www.biodiversidad.gob.mx/especies/endemicas) |
+| mx-denominations | Tequila = 1977, Mezcal = 1994, Café Veracruz = 2000, Chile habanero, Yucatán Peninsula = 2010 | [IMPI denominations of origin registry (doig.impi.gob.mx); gob.mx/impi](https://doig.impi.gob.mx/) |
+| mx-sea-giants | Vaquita porpoise = 5, Whale shark = 40, Gray whale = 49, Blue whale = 110 | [NOAA Fisheries species pages](https://www.fisheries.noaa.gov/species/vaquita) |
+| mx-cities-founded | Veracruz = 1519, Morelia (as Valladolid) = 1541, Durango = 1563, Monterrey = 1596 | [Britannica: Veracruz; Morelia; Durango; Monterrey](https://www.britannica.com/place/Veracruz-Mexico) |
+| mx-newest-entities | Nayarit = 1917, Baja California = 1952, Quintana Roo = 1974, Mexico City (federal entity) = 2016 | [Britannica: Nayarit; Baja California; Quintana Roo; DOF decree of 29 Jan 2016](https://dof.gob.mx/nota_detalle.php?codigo=5424043&fecha=29/01/2016) |
+| mx-municipalities | Tlaxcala = 60, Jalisco = 125, Puebla = 217, Oaxaca = 570 | [INEGI: Ingreso Corriente para los Municipios de México 2020; Panorama de los gobiernos municipales 2022](https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2023/ICMM/ICMM_2020.pdf) |
+| latam-whc | Galápagos Islands (Ecuador) = 1978, Tikal (Guatemala) = 1979, Machu Picchu (Peru) = 1983, Rapa Nui / Easter Island (Chile) = 1995 | [UNESCO World Heritage Centre property pages](https://whc.unesco.org/en/list/001/) |
+| great-lakes-area | Lake Ontario = 7,340 sq mi, Lake Erie = 9,910 sq mi, Lake Michigan = 22,300 sq mi, Lake Huron = 23,000 sq mi, Lake Superior = 31,700 sq mi | [Physical Features of the Great Lakes (US EPA)](https://www.epa.gov/greatlakes/physical-features-great-lakes) |
+| metal-melting-points | Mercury = −38.8 °C, Gallium = 29.8 °C, Lead = 327.5 °C, Gold = 1,064 °C, Tungsten = 3,414 °C | [Royal Society of Chemistry Periodic Table](https://periodic-table.rsc.org/element/74/tungsten) |
+| atomic-numbers | Oxygen = 8, Copper = 29, Tin = 50, Lead = 82 | [Royal Society of Chemistry Periodic Table](https://periodic-table.rsc.org/element/82/lead) |
+| nasa-launches | Voyager 1 = 1977, Hubble Space Telescope = 1990, Cassini to Saturn = 1997, Curiosity Mars rover = 2011, James Webb Space Telescope = 2021 | [NASA Science mission pages](https://science.nasa.gov/mission/voyager/voyager-1/) |
+| candy-classics | Tootsie Roll = 1896, Hershey's Milk Chocolate bar = 1900, Hershey's Kisses = 1907, Reese's Peanut Butter Cups = 1928, M&M's = 1941 | [Tootsie history; The Hershey Company history; Smithsonian NMAH Halloween candy blog](https://www.thehersheycompany.com/en_us/home/about-us/the-company/history.html) |
+| candy-1920s-40s | Butterfinger = 1923, Dubble Bubble gum = 1928, Snickers = 1930, Almond Joy = 1946 | [From homemade Halloween treats to colorfully packaged candies (Smithsonian NMAH)](https://americanhistory.si.edu/explore/stories/homemade-halloween-treats-colorfully-packaged-candies) |
+| horror-films | Dracula (Bela Lugosi) = 1931, Psycho = 1960, The Exorcist = 1973, Halloween (Carpenter) = 1978 | [National Film Registry Titles by Release Date (Library of Congress)](https://www.loc.gov/static/programs/national-film-preservation-board/documents/Registry-Titles-by-release-date.pdf) |
+| gothic-lit | Frankenstein (Mary Shelley) = 1818, The Raven (Poe) = 1845, Dr Jekyll and Mr Hyde = 1886, Dracula (Bram Stoker) = 1897 | [Britannica: Frankenstein; Gothic novel; Jekyll and Hyde; Dracula](https://www.britannica.com/art/Gothic-novel) |
+| athletics-wr-years | Flo-Jo, women's 100m (10.49) = 1988, Mike Powell, long jump (8.95 m) = 1991, Sotomayor, high jump (2.45 m) = 1993, Usain Bolt, men's 100m (9.58) = 2009 | [World Athletics records and news](https://worldathletics.org/news/news/bolt-again-958-world-record-in-berlin-updat) |
+| body-counts | Carpal bones in one wrist = 8, Baby (primary) teeth = 20, Ribs (12 pairs) = 24, Adult permanent teeth = 32 | [Britannica: Tooth; Rib; Human skeleton (hands and feet)](https://www.britannica.com/science/tooth-anatomy) |
+| desert-areas | Kalahari = 930,000 km², Gobi = 1,300,000 km², Arabian = 2,300,000 km², Sahara = 8,600,000 km² | [World's largest deserts (Britannica)](https://www.britannica.com/topic/worlds-largest-deserts-2225895) |
+| island-areas | Baffin Island = 507,451 km², Madagascar = 591,896 km², Borneo = 755,000 km², New Guinea = 821,400 km², Greenland = 2,166,086 km² | [World's largest islands (Britannica)](https://www.britannica.com/topic/worlds-largest-islands-2228256) |
+| big-lakes | Lake Titicaca = 8,300 km², Lake Baikal = 31,500 km², Lake Victoria = 69,484 km², Caspian Sea = 386,400 km² | [Britannica: Caspian Sea; Lake Victoria; Lake Baikal; Lake Titicaca](https://www.britannica.com/place/Lake-Victoria) |
+| ocean-areas | Arctic Ocean = 12.2 million km², Indian Ocean = 73.6 million km², Atlantic Ocean = 82 million km², Pacific Ocean = 166 million km² | [The Ocean (NOAA JetStream)](https://www.noaa.gov/jetstream/ocean) |
+| landmark-openings | Brooklyn Bridge = 1883, Golden Gate Bridge = 1937, Sydney Opera House = 1973, Channel Tunnel = 1994 | [Britannica; Golden Gate Bridge official site; Sydney Opera House](https://www.britannica.com/topic/Channel-Tunnel) |
+| entertainment-firsts | First Academy Awards = 1929, First Emmy Awards = 1949, First Grammy Awards = 1959, First Super Bowl = 1967, MTV goes on the air = 1981 | [Oscars.org history; Britannica: Emmy Award, Grammy Award, Super Bowl, MTV](https://www.oscars.org/sites/oscars/files/87aa_oscar_history.pdf) |
+| world-cup-first-titles | England = 1966, Argentina = 1978, France = 1998, Spain = 2010 | [World Cup winners 1930–1978 and 1982 onward (FIFA)](https://www.fifa.com/en/tournaments/mens/worldcup/articles/world-cup-champions-1930-1978-uruguay-italy-germany-brazil-england-argentina) |
+| tower-heights | Space Needle, Seattle = 184 m, Gateway Arch, St. Louis = 192 m, CN Tower, Toronto = 553 m, Tokyo Skytree = 634 m | [NPS Gateway Arch; Space Needle; CN Tower; Britannica Tokyo Sky Tree](https://www.nps.gov/jeff/planyourvisit/arch-height.htm) |
+| olympic-hosts-asia-pacific | Tokyo = 1964, Seoul = 1988, Sydney = 2000, Beijing = 2008 | [Olympics.com Games pages](https://www.olympics.com/en/sport-events/tokyo-1964) |
+| element-discoveries | Phosphorus = 1669, Hydrogen = 1766, Uranium = 1789, Helium (on Earth) = 1895, Plutonium = 1940 | [Royal Society of Chemistry Periodic Table](https://periodic-table.rsc.org/element/15/phosphorus) |
 
 ## Closest Without Going Over
 
@@ -81,6 +121,42 @@ Method note: several authoritative sites (britannica.com, whc.unesco.org, inegi.
 | disneyland-opened | 1955 year | [Britannica: Disneyland](https://www.britannica.com/place/Disneyland) |
 | apollo-11 | 1969 year | [NASA: Apollo 11 Mission Overview](https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/) |
 | big-ben-steps | 334 steps | [UK Parliament: Facts and figures, Big Ben and Elizabeth Tower](https://www.parliament.uk/about/living-heritage/building/palace/big-ben/facts-figures/) |
+| torre-latinoamericana | 181 m | [Torre Latinoamericana – Historia](https://torrelatinoamericana.com.mx/historia/) |
+| castillo-height | 30 m | [INAH – El Castillo de Chichén Itzá](https://www.inah.gob.mx/foto-del-dia/el-castillo-de-chichen-itza-arquitectura-astronomia-y-tiempo) |
+| mx-municipalities | 2478 municipalities | [INEGI – Censo Nacional de Gobiernos Municipales y Demarcaciones Territoriales 2025](https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/cngmd/CNGMD_25.pdf) |
+| monarch-migration | 3000 miles | [USDA Forest Service – Monarch Butterfly Migration and Overwintering](https://www.fs.usda.gov/wildflowers/pollinators/Monarch_Butterfly/migration/index.shtml) |
+| cdmx-elevation | 2240 m | [Britannica – Mexico City: Landscape](https://www.britannica.com/place/Mexico-City/Landscape) |
+| paricutin-born | 1943 year | [Smithsonian Global Volcanism Program – Parícutin](https://volcano.si.edu/volcano.cfm?vn=341060) |
+| paricutin-height | 424 m | [Smithsonian Global Volcanism Program – Parícutin](https://volcano.si.edu/volcano.cfm?vn=341060) |
+| us-mexico-border | 1954 miles | [IBWC – About Us](https://www.ibwc.gov/about-us/) |
+| angel-falls | 979 m | [Britannica – Angel Falls](https://www.britannica.com/place/Angel-Falls) |
+| titicaca-elevation | 3810 m | [Britannica – Lake Titicaca](https://www.britannica.com/place/Lake-Titicaca) |
+| tequila-agave | 51 % | [Consejo Regulador del Tequila – Our Tequila](https://www.crt.org.mx/en/our-tequila/) |
+| iguazu-falls | 275 waterfalls | [Britannica – Iguaçu Falls](https://www.britannica.com/place/Iguacu-Falls) |
+| ajusco | 3930 m | [Britannica – Mexico City: Landscape](https://www.britannica.com/place/Mexico-City/Landscape) |
+| azteca-capacity | 81 thousand seats | [FIFA – Stadium information (FIFA World Cup 26)](https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026/articles/stadium-information-details-es) |
+| gulf-of-california | 750 miles | [Britannica – Gulf of California](https://www.britannica.com/place/Gulf-of-California) |
+| christ-redeemer-height | 30 m | [Britannica – Christ the Redeemer](https://www.britannica.com/topic/Christ-the-Redeemer) |
+| christ-redeemer-arms | 28 m | [Britannica – Christ the Redeemer](https://www.britannica.com/topic/Christ-the-Redeemer) |
+| pyramid-of-the-moon | 43 m | [Britannica – Teotihuacán](https://www.britannica.com/place/Teotihuacan) |
+| cdmx-population-2020 | 9210 thousand people | [INEGI – Censo 2020 resultados Ciudad de México (comunicado 98/21)](https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_CdMx.pdf) |
+| iss-speed | 17500 mph | [NASA – Spot the Station FAQ](https://www.nasa.gov/missions/station/spot-the-station-frequently-asked-questions/) |
+| blue-whale-length | 110 ft | [NOAA Fisheries – Blue Whale](https://www.fisheries.noaa.gov/species/blue-whale) |
+| elephant-gestation | 660 days | [Smithsonian's National Zoo – Elephant FAQs](https://nationalzoo.si.edu/animals/asian-elephant-faqs) |
+| horseshoe-falls-height | 57 m | [Niagara Parks – Niagara Falls Geology Facts & Figures](https://www.niagaraparks.com/visit-niagara-parks/plan-your-visit/niagara-falls-geology-facts-figures/) |
+| horseshoe-falls-crest | 670 m | [Niagara Parks – Niagara Falls Geology Facts & Figures](https://www.niagaraparks.com/visit-niagara-parks/plan-your-visit/niagara-falls-geology-facts-figures/) |
+| mount-fuji | 3776 m | [Britannica – Mount Fuji](https://www.britannica.com/summary/Mount-Fuji) |
+| sunlight-travel | 500 seconds | [NASA Science – Voyager 1: What Is a Light-Day](https://science.nasa.gov/mission/voyager/voyager-1/voyager-1-what-is-a-light-day/) |
+| sun-distance-miles | 93 million miles | [NASA Science – Voyager 1: What Is a Light-Day](https://science.nasa.gov/mission/voyager/voyager-1/voyager-1-what-is-a-light-day/) |
+| voyager-launch | 1977 year | [NASA – Voyager 1 and Voyager 2 Launched](https://www.nasa.gov/image-article/august-september-1977-voyager-1-voyager-2-launched/) |
+| yellowstone-year | 1872 year | [NPS – Birth of a National Park](https://www.nps.gov/yell/learn/historyculture/yellowstoneestablishment.htm) |
+| old-faithful-interval | 102 minutes | [NPS – Old Faithful](https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm) |
+| great-wall-length | 21200 km | [Britannica – Great Wall of China](https://www.britannica.com/topic/Great-Wall-of-China) |
+| gateway-arch | 630 ft | [NPS – How Tall is it? (Gateway Arch)](https://www.nps.gov/jeff/planyourvisit/arch-height.htm) |
+| lincoln-columns | 36 columns | [NPS – Lincoln Memorial Building Statistics](https://www.nps.gov/linc/learn/historyculture/lincoln-memorial-building-statistics.htm) |
+| jupiter-diameter | 89 thousand miles | [NASA Science – Jupiter Facts](https://science.nasa.gov/jupiter/jupiter-facts/) |
+| jupiter-earths-wide | 11 Earths | [NASA Science – Jupiter Facts](https://science.nasa.gov/jupiter/jupiter-facts/) |
+| sun-surface-temp | 10000 °F | [NASA Science – Sun Facts](https://science.nasa.gov/sun/facts/) |
 
 ## Lotería “why” lines with factual claims
 
@@ -94,9 +170,13 @@ Method note: several authoritative sites (britannica.com, whc.unesco.org, inegi.
 - Closest: Posada birth year (Britannica 1851 vs LoC 1852), Popocatépetl height (INEGI publications disagree), Mariana Trench depth, Grand Canyon length (NPS pages disagree), Frida Kahlo self-portrait count.
 - Lotería: escalera = poker straight in Spanish (RAE returned 403), Hidalgo bell/15 September ritual, Yaqui deer dance, siren etymology — riddles rewritten without those claims.
 
+- Batch 2 (Line): Cuba independence year, Irazú, Argentina abolition date, Itaipú start-up year, Christ the Redeemer height, Havana/Puebla/Guadalajara founding dates, Cotopaxi height, Poniatowska/Esquivel birth years, Lake Chapala area, axolotl; FDA caffeine (ranges only), animal comparisons, Nosferatu, Tootsie Pop, Phantom of the Opera, oxygen discovery year, Southern Ocean area.
+- Batch 2 (Closest): Baja California length, Lake Chapala area, Copper Canyon depth, Chicxulub diameter, Panama Canal length, Olympus Mons height, Colosseum capacity, Moon diameter, element count, Earth circumference, Hubble launch year. Removed in editing as awkward/duplicative/"at least" phrasing: adult and baby teeth (duplicate of a Line), Bolt 100 m and marathon record in odd units, heartbeats per day (approximate), hummingbird heart rate ("can exceed").
+
 ## Values that may change
+- `mx-municipalities` (2,478, INEGI 2025 municipal census; older catalogs differ), `old-faithful-interval` (NPS, Jan 2025), `paricutin-height` (Smithsonian GVP figure; USGS baseline differs).
 - `mexico-unesco-sites` (36, as of 2025 inscriptions), `cdmx-metro-stations` (195), `moon-count` (NASA counts as of 2026). Re-check before reuse after this party.
 
 ## Domains
 
-airandspace.si.edu, atlas.inali.gob.mx, catalogonacionalmhi.inah.gob.mx, gisviewer.semarnat.gob.mx, ich.unesco.org, museodelasconstituciones.unam.mx, nationalzoo.si.edu, ndsu.edu, nssdc.gsfc.nasa.gov, ocean.si.edu, patrimoniomundialmexico.inah.gob.mx, science.nasa.gov, spaceplace.nasa.gov, visitateotihuacan.inah.gob.mx, whc.unesco.org, www.artic.edu, www.britannica.com, www.burjkhalifa.ae, www.dgcs.unam.mx, www.esbnyc.com, www.fifa.com, www.gob.mx, www.goldengate.org, www.inah.gob.mx, www.inegi.org.mx, www.loc.gov, www.metro.cdmx.gob.mx, www.nasa.gov, www.nist.gov, www.nobelprize.org, www.nps.gov, www.parliament.uk, www.skyscrapercenter.com, www.toureiffel.paris, www.usgs.gov
+airandspace.si.edu, americanhistory.si.edu, atlas.inali.gob.mx, catalogonacionalmhi.inah.gob.mx, dof.gob.mx, doig.impi.gob.mx, gisviewer.semarnat.gob.mx, ich.unesco.org, museodelasconstituciones.unam.mx, nationalzoo.si.edu, ndsu.edu, nssdc.gsfc.nasa.gov, ocean.si.edu, patrimoniomundialmexico.inah.gob.mx, periodic-table.rsc.org, science.nasa.gov, spaceplace.nasa.gov, torrelatinoamericana.com.mx, visitateotihuacan.inah.gob.mx, volcano.si.edu, whc.unesco.org, worldathletics.org, www.artic.edu, www.biodiversidad.gob.mx, www.britannica.com, www.burjkhalifa.ae, www.crt.org.mx, www.dgcs.unam.mx, www.epa.gov, www.esbnyc.com, www.fifa.com, www.fisheries.noaa.gov, www.fs.usda.gov, www.gob.mx, www.goldengate.org, www.ibwc.gov, www.inah.gob.mx, www.inegi.org.mx, www.loc.gov, www.metro.cdmx.gob.mx, www.nasa.gov, www.niagaraparks.com, www.nist.gov, www.noaa.gov, www.nobelprize.org, www.nps.gov, www.olympics.com, www.oscars.org, www.parliament.uk, www.skyscrapercenter.com, www.thehersheycompany.com, www.toureiffel.paris, www.usgs.gov

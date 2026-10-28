@@ -11,11 +11,11 @@ const STAGES: Record<GameFamily, Stage[]> = { calavera: ["write", "vote"], line:
 
 describe("v2 content pool", () => {
   it("meets GAMES-V2 minimums and validates", () => {
-    expect(fam("calavera").length).toBeGreaterThanOrEqual(30);
-    expect(fam("line").length).toBeGreaterThanOrEqual(30);
-    expect(fam("loteria").length).toBeGreaterThanOrEqual(36);
-    expect(fam("room").length).toBeGreaterThanOrEqual(30);
-    expect(fam("closest").length).toBeGreaterThanOrEqual(30);
+    expect(fam("calavera").length).toBeGreaterThanOrEqual(70);
+    expect(fam("line").length).toBeGreaterThanOrEqual(70);
+    expect(fam("loteria").length).toBeGreaterThanOrEqual(80);
+    expect(fam("room").length).toBeGreaterThanOrEqual(70);
+    expect(fam("closest").length).toBeGreaterThanOrEqual(70);
     expect(new Set(fam("case").map((i) => (i.data as { puzzleId: string }).puzzleId)).size).toBeGreaterThanOrEqual(40);
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
     expect(validateAll(items, publicQuestion)).toEqual([]);
@@ -31,7 +31,9 @@ describe("v2 content pool", () => {
   it("lotería uses >=12 cards at least twice, all with icons", () => {
     const counts = new Map<string, number>();
     for (const i of fam("loteria")) { const c = (i.data as { card: { id: string } }).card.id; counts.set(c, (counts.get(c) ?? 0) + 1); }
-    expect([...counts.values()].filter((n) => n >= 2).length).toBeGreaterThanOrEqual(12);
+    expect([...counts.values()].filter((n) => n >= 2).length).toBeGreaterThanOrEqual(24);
+    const byD = [1, 2, 3].map((d) => fam("loteria").filter((i) => i.difficulty === d).length);
+    expect(Math.min(...byD)).toBeGreaterThanOrEqual(24);
     for (const i of fam("loteria")) for (const o of (publicQuestion(i, { stage: "answer", index: 0 }).input as { options: { icon: string }[] }).options) expect(ICON_IDS).toContain(o.icon);
   });
 });

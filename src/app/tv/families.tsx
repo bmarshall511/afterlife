@@ -221,7 +221,7 @@ export function LineR({ q, reveal }: { q: PublicQuestion; reveal: RevealInfo | n
             <li key={id} style={{ ["--d" as string]: (from.get(id) ?? k) - k, animationDelay: `${0.05 * k}s` } as CSSProperties}>
               <em className="line-rank">{k + 1}</em>
               <span>{it?.text ?? id}</span>
-              {v != null && <b className="line-val" style={{ animationDelay: `${1.1 + 0.12 * k}s` }}>{String(v)}</b>}
+              {v != null && <b className="line-val" style={{ animationDelay: `${1.1 + 0.12 * k}s` }}><span>{String(v)}</span></b>}
             </li>
           );
         })}

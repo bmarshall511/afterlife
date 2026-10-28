@@ -128,6 +128,7 @@ export interface TeamSummary {
   color: string;
   avatar: string;
   status: "active" | "away";
+  bot?: boolean;            // demo-only stand-in family
 }
 
 export interface StandingRow {

@@ -20,7 +20,7 @@ async function joinUI(browser: Browser, name: string, vp: { width: number; heigh
   const ctx = await browser.newContext({ viewport: vp, isMobile: true, hasTouch: true, extraHTTPHeaders: { "x-forwarded-for": fakeIp() } });
   const page = await ctx.newPage();
   await page.goto("/join?party=demo");
-  if (invite) await page.getByRole("button", { name: "Join an existing team" }).click();
+  if (invite) await page.getByRole("button", { name: "Have a team code?" }).click();
   await page.getByPlaceholder("e.g. Lucía").fill(name);
   if (invite) await page.getByPlaceholder(/invite/i).fill(invite);
   await page.getByRole("button", { name: "Join", exact: true }).click();

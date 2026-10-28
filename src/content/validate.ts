@@ -4,7 +4,7 @@ import { isFiltered } from "@/server/engine/wordfilter";
 import { solveCount, type CasePuzzle } from "./case";
 import type { CalaveraData, CaseData, ClosestData, ContentItem, LineData, LoteriaData, RoomData } from "./types";
 
-export const MINIMUMS = { calavera: 30, line: 30, loteria: 36, room: 30, closest: 30, case: 120 } as const;
+export const MINIMUMS = { calavera: 70, line: 70, loteria: 80, room: 70, closest: 70, case: 120 } as const;
 const FACTUAL = new Set(["line", "closest"]);
 const STAGES: Record<string, Stage[]> = { calavera: ["write", "vote"], line: ["answer"], loteria: ["answer"], room: ["answer", "guess"], closest: ["answer"], case: ["clue", "answer"] };
 

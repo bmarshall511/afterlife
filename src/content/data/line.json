@@ -1282,5 +1282,1515 @@
    "url": "https://www.britannica.com/topic/chocolate",
    "verification": "Britannica Chocolate/Cocoa: van Houten patented cocoa-butter press 1828; Fry and Sons first combined cocoa butter, liquor and sugar into sweet chocolate in 1847; Daniel Peter added dried milk in 1876. Smithsonian Magazine (smithsonianmag.com/smart-news/lindt-opens-worlds-biggest-chocolate-museum-switzerland-180975919/): Lindt invented the conche in 1879. Confirmed via search excerpts. Checked 2026-10-27."
   }
+ },
+ {
+  "id": "latam-independence",
+  "prompt": "Order these Latin American independence moments, earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Haiti declares independence",
+    "value": 1804,
+    "display": "1804"
+   },
+   {
+    "text": "Paraguay ousts Spanish governor",
+    "value": 1811,
+    "display": "1811"
+   },
+   {
+    "text": "Argentina declares at Tucumán",
+    "value": 1816,
+    "display": "1816"
+   },
+   {
+    "text": "Brazil breaks from Portugal",
+    "value": 1822,
+    "display": "1822"
+   },
+   {
+    "text": "Panama splits from Colombia",
+    "value": 1903,
+    "display": "1903"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Haiti beat everyone south of the US by years; Panama waited nearly a century, with a canal-shaped incentive.",
+  "source": {
+   "title": "Britannica: History of Haiti; Paraguay colonial period; History of Argentina; History of Panama",
+   "url": "https://www.britannica.com/topic/history-of-Haiti",
+   "verification": "Britannica: Haiti independent 1 Jan 1804; Paraguay declared independence 14 May 1811; Tucumán congress declared 9 Jul 1816; Brazil independent monarchy 1822; Panamanian junta proclaimed independence 3 Nov 1903; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-volcanoes",
+  "prompt": "Order these Latin American volcanoes by elevation, lowest to highest",
+  "lowLabel": "Lowest",
+  "highLabel": "Highest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Arenal (Costa Rica)",
+    "value": 1633,
+    "display": "1,633"
+   },
+   {
+    "text": "Tajumulco (Guatemala)",
+    "value": 4220,
+    "display": "4,220"
+   },
+   {
+    "text": "El Misti (Peru)",
+    "value": 5821,
+    "display": "5,821"
+   },
+   {
+    "text": "Chimborazo (Ecuador)",
+    "value": 6310,
+    "display": "6,310"
+   },
+   {
+    "text": "Ojos del Salado (Chile/Argentina)",
+    "value": 6893,
+    "display": "6,893"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Arenal is the baby of the bunch; Ojos del Salado is the tallest volcano on Earth's surface by elevation.",
+  "source": {
+   "title": "Britannica: Arenal Volcano; Tajumulco Volcano; Misti Volcano; Chimborazo; Selected world mountains",
+   "url": "https://www.britannica.com/place/Tajumulco-Volcano",
+   "verification": "Britannica: Arenal 5,358 ft (1,633 m); Tajumulco 13,845 ft (4,220 m), Central America's high point; Misti 19,098 ft (5,821 m); Chimborazo 20,702 ft (6,310 m); Ojos del Salado 6,893 m; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-capitals-founded",
+  "prompt": "Order these South American capitals by Spanish founding year",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Lima",
+    "value": 1535,
+    "display": "1535"
+   },
+   {
+    "text": "Santiago",
+    "value": 1541,
+    "display": "1541"
+   },
+   {
+    "text": "Caracas",
+    "value": 1567,
+    "display": "1567"
+   },
+   {
+    "text": "Buenos Aires (lasting refounding)",
+    "value": 1580,
+    "display": "1580"
+   },
+   {
+    "text": "Montevideo",
+    "value": 1726,
+    "display": "1726"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Buenos Aires needed two tries; Montevideo was founded largely to annoy the Portuguese.",
+  "source": {
+   "title": "Britannica: Lima; Santiago; Caracas history; Buenos Aires history; Montevideo",
+   "url": "https://www.britannica.com/place/Lima",
+   "verification": "Britannica: Pizarro founded Lima 18 Jan 1535; Valdivia founded Santiago 1541; Losada founded Caracas 1567; Garay refounded Buenos Aires 1580 (first attempt 1536); Zabala founded Montevideo 1726; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-nobel-literature",
+  "prompt": "Order these Latin American writers by year they won the Nobel in Literature",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Gabriela Mistral (Chile)",
+    "value": 1945,
+    "display": "1945"
+   },
+   {
+    "text": "Miguel Ángel Asturias (Guatemala)",
+    "value": 1967,
+    "display": "1967"
+   },
+   {
+    "text": "Pablo Neruda (Chile)",
+    "value": 1971,
+    "display": "1971"
+   },
+   {
+    "text": "Gabriel García Márquez (Colombia)",
+    "value": 1982,
+    "display": "1982"
+   },
+   {
+    "text": "Mario Vargas Llosa (Peru)",
+    "value": 2010,
+    "display": "2010"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Mistral opened the door for the whole continent; Vargas Llosa walked through it 65 years later.",
+  "source": {
+   "title": "NobelPrize.org laureate pages",
+   "url": "https://www.nobelprize.org/prizes/lists/all-nobel-prizes-in-literature/all/",
+   "verification": "NobelPrize.org: Mistral 1945 (South America's first literature laureate); Asturias 1967; Neruda 1971; García Márquez 1982; Vargas Llosa 2010; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "americas-abolition",
+  "prompt": "Order these places by the year they abolished slavery",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Chile",
+    "value": 1823,
+    "display": "1823"
+   },
+   {
+    "text": "Mexico",
+    "value": 1829,
+    "display": "1829"
+   },
+   {
+    "text": "Puerto Rico",
+    "value": 1873,
+    "display": "1873"
+   },
+   {
+    "text": "Cuba",
+    "value": 1886,
+    "display": "1886"
+   },
+   {
+    "text": "Brazil",
+    "value": 1888,
+    "display": "1888"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Chile and Mexico moved within a decade of independence; Brazil was the last in the Western Hemisphere.",
+  "source": {
+   "title": "Britannica: Slavery - Ways of ending slavery; Abolitionism timeline",
+   "url": "https://www.britannica.com/topic/slavery-sociology/Ways-of-ending-slavery",
+   "verification": "Britannica: Chile freed slaves 1823; Mexico 1829; Puerto Rico abolition 1873; Cuba 1886 (abolitionism timeline and Latin America article; one survey says 1880); Brazil 13 May 1888, last in the hemisphere; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-state-areas",
+  "prompt": "Order these Mexican states by area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "km²",
+  "items": [
+   {
+    "text": "Tlaxcala",
+    "value": 3997,
+    "display": "3,997"
+   },
+   {
+    "text": "Yucatán",
+    "value": 39524,
+    "display": "39,524"
+   },
+   {
+    "text": "Oaxaca",
+    "value": 93757,
+    "display": "93,757"
+   },
+   {
+    "text": "Sonora",
+    "value": 179355,
+    "display": "179,355"
+   },
+   {
+    "text": "Chihuahua",
+    "value": 247413,
+    "display": "247,413"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "You could fit about 60 Tlaxcalas inside Chihuahua and still have room for a carne asada.",
+  "source": {
+   "title": "INEGI: Anuario estadístico y geográfico por entidad federativa",
+   "url": "https://www.inegi.org.mx/contenidos/productos/prod_serv/contenidos/espanol/bvinegi/productos/nueva_estruc/889463901846.pdf",
+   "verification": "INEGI state surfaces: Tlaxcala 3,997.2 km² (0.2%); Yucatán 39,524.1 (2.0%); Oaxaca 93,757.4 (4.8%); Sonora 179,355.1 (9.1%); Chihuahua 247,412.5 (12.6%); state labels inferred from national-share percentages in excerpt; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-state-pop-2020",
+  "prompt": "Order these Mexican states by 2020 census population",
+  "lowLabel": "Fewest",
+  "highLabel": "Most",
+  "unit": "people",
+  "items": [
+   {
+    "text": "Colima",
+    "value": 731391,
+    "display": "731,391"
+   },
+   {
+    "text": "Nuevo León",
+    "value": 5784442,
+    "display": "5,784,442"
+   },
+   {
+    "text": "Jalisco",
+    "value": 8348151,
+    "display": "8,348,151"
+   },
+   {
+    "text": "Mexico City",
+    "value": 9209944,
+    "display": "9,209,944"
+   },
+   {
+    "text": "State of México",
+    "value": 16992418,
+    "display": "16,992,418"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The State of México that wraps around the capital has nearly twice the people of the capital itself.",
+  "source": {
+   "title": "INEGI Censo 2020 press releases and state results",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_Nal.pdf",
+   "verification": "INEGI 2020: Edomex 16,992,418 (most populous); CDMX 9,209,944; Jalisco 8,348,151; Nuevo León 5,784,442; Colima 731,391 (least populous); checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-world-cup-wins",
+  "prompt": "Order these Latin American World Cup triumphs, earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Uruguay wins the first World Cup",
+    "value": 1930,
+    "display": "1930"
+   },
+   {
+    "text": "Brazil's first title (Pelé's debut)",
+    "value": 1958,
+    "display": "1958"
+   },
+   {
+    "text": "Argentina's first title",
+    "value": 1978,
+    "display": "1978"
+   },
+   {
+    "text": "Brazil's record fifth title",
+    "value": 2002,
+    "display": "2002"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Uruguay won the very first one; Brazil took 44 years to go from one star to five.",
+  "source": {
+   "title": "FIFA: Teams with the most World Cup titles; Britannica: FIFA World Cup",
+   "url": "https://www.fifa.com/en/tournaments/mens/worldcup/articles/teams-most-wins-titles-trophies",
+   "verification": "FIFA/Britannica: Uruguay 1930 and 1950; Brazil 1958, 1962, 1970, 1994, 2002 (fifth); Argentina 1978, 1986, 2022; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-waterfalls",
+  "prompt": "Order these South American waterfalls by height, shortest to tallest",
+  "lowLabel": "Shortest",
+  "highLabel": "Tallest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Iguazú Falls (max drop)",
+    "value": 82,
+    "display": "82"
+   },
+   {
+    "text": "Tequendama Falls",
+    "value": 157,
+    "display": "157"
+   },
+   {
+    "text": "Kaieteur Falls",
+    "value": 251,
+    "display": "251"
+   },
+   {
+    "text": "Angel Falls",
+    "value": 979,
+    "display": "979"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Iguazú wins on width and drama; Angel Falls is so tall much of it turns to mist before landing.",
+  "source": {
+   "title": "Britannica: Angel Falls; Tequendama Falls; Iguaçu Falls; Waterfall",
+   "url": "https://www.britannica.com/place/Angel-Falls",
+   "verification": "Britannica: Angel 979 m total; Kaieteur 251 m (student encyclopedia); Tequendama 157 m; Iguaçu cataracts 60-82 m; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-engineering",
+  "prompt": "Order these Latin American landmarks by year completed or opened",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Panama Canal opens",
+    "value": 1914,
+    "display": "1914"
+   },
+   {
+    "text": "Christ the Redeemer dedicated",
+    "value": 1931,
+    "display": "1931"
+   },
+   {
+    "text": "Brasília becomes capital",
+    "value": 1960,
+    "display": "1960"
+   },
+   {
+    "text": "Itaipú main dam completed",
+    "value": 1982,
+    "display": "1982"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "A canal, a giant Christ, an instant capital and a monster dam: Latin America does not build small.",
+  "source": {
+   "title": "Britannica: Panama Canal; Christ the Redeemer; Brasília; Hydroelectric power",
+   "url": "https://www.britannica.com/topic/Christ-the-Redeemer",
+   "verification": "Britannica: canal opened 15 Aug 1914; statue completed and dedicated 12 Oct 1931; capital moved to Brasília 21 Apr 1960; Itaipú main dam completed 1982; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-nobel-peace",
+  "prompt": "Order these Latin American Nobel Peace laureates by prize year",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Carlos Saavedra Lamas (Argentina)",
+    "value": 1936,
+    "display": "1936"
+   },
+   {
+    "text": "Adolfo Pérez Esquivel (Argentina)",
+    "value": 1980,
+    "display": "1980"
+   },
+   {
+    "text": "Óscar Arias (Costa Rica)",
+    "value": 1987,
+    "display": "1987"
+   },
+   {
+    "text": "Rigoberta Menchú (Guatemala)",
+    "value": 1992,
+    "display": "1992"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Saavedra Lamas was the first laureate from outside Western Europe or the US; Menchú was honoured for Indigenous rights.",
+  "source": {
+   "title": "NobelPrize.org Peace Prize summaries",
+   "url": "https://www.nobelprize.org/prizes/peace/1987/summary/",
+   "verification": "NobelPrize.org: Saavedra Lamas 1936; Pérez Esquivel 1980; Arias 1987 (Central American peace); Menchú Tum 1992; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-nobel-medicine",
+  "prompt": "Order these Latin American-born scientists by Nobel Prize year",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Bernardo Houssay (Medicine)",
+    "value": 1947,
+    "display": "1947"
+   },
+   {
+    "text": "Luis Leloir (Chemistry)",
+    "value": 1970,
+    "display": "1970"
+   },
+   {
+    "text": "Baruj Benacerraf (Medicine)",
+    "value": 1980,
+    "display": "1980"
+   },
+   {
+    "text": "César Milstein (Medicine)",
+    "value": 1984,
+    "display": "1984"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Three Argentines and a Caracas-born immunologist; Milstein's monoclonal antibodies now fill pharmacies.",
+  "source": {
+   "title": "NobelPrize.org laureate facts and country-of-birth list",
+   "url": "https://www.nobelprize.org/prizes/medicine/1984/milstein/biographical/",
+   "verification": "NobelPrize.org: Houssay 1947 (Argentina); Leloir Chemistry 1970; Benacerraf 1980, born Caracas; Milstein 1984, born Bahía Blanca; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-lakes",
+  "prompt": "Order these Latin American lakes by surface area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "sq mi",
+  "items": [
+   {
+    "text": "Lake Atitlán (Guatemala)",
+    "value": 49.3,
+    "display": "49"
+   },
+   {
+    "text": "Lake Managua (Nicaragua)",
+    "value": 400,
+    "display": "400"
+   },
+   {
+    "text": "Lake Titicaca (Peru/Bolivia)",
+    "value": 3200,
+    "display": "3,200"
+   },
+   {
+    "text": "Lake Maracaibo (Venezuela)",
+    "value": 5130,
+    "display": "5,130"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Titicaca gets the fame, but brackish Maracaibo is bigger, if you count it as a lake at all.",
+  "source": {
+   "title": "Britannica: Lake Atitlán; Lake Managua; Lake Titicaca; Lake Maracaibo",
+   "url": "https://www.britannica.com/place/Lake-Titicaca",
+   "verification": "Britannica: Atitlán 49.3 sq mi (127.7 km²); Managua about 400 sq mi; Titicaca about 3,200 sq mi (8,300 km²); Maracaibo 5,130 sq mi (13,280 km²); checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-biodiversity",
+  "prompt": "Order these groups by number of species recorded in Mexico",
+  "lowLabel": "Fewest",
+  "highLabel": "Most",
+  "unit": "species",
+  "items": [
+   {
+    "text": "Amphibians",
+    "value": 361,
+    "display": "361"
+   },
+   {
+    "text": "Mammals",
+    "value": 535,
+    "display": "535"
+   },
+   {
+    "text": "Reptiles",
+    "value": 864,
+    "display": "864"
+   },
+   {
+    "text": "Birds",
+    "value": 1096,
+    "display": "1,096"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mexico is reptile royalty, near the top of the world rankings for scaly species.",
+  "source": {
+   "title": "CONABIO / biodiversidad.gob.mx: Especies endémicas",
+   "url": "https://www.biodiversidad.gob.mx/especies/endemicas",
+   "verification": "biodiversidad.gob.mx table: amphibians 361, reptiles 864, birds 1,096, mammals 535; other CONABIO/SEMARNAT counts differ by year but keep the same order; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-denominations",
+  "prompt": "Order these Mexican products by year IMPI declared their denomination of origin",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Tequila",
+    "value": 1977,
+    "display": "1977"
+   },
+   {
+    "text": "Mezcal",
+    "value": 1994,
+    "display": "1994"
+   },
+   {
+    "text": "Café Veracruz",
+    "value": 2000,
+    "display": "2000"
+   },
+   {
+    "text": "Chile habanero, Yucatán Peninsula",
+    "value": 2010,
+    "display": "2010"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Tequila got legal protection first; mezcal had to wait 17 more years to get its own.",
+  "source": {
+   "title": "IMPI denominations of origin registry (doig.impi.gob.mx); gob.mx/impi",
+   "url": "https://doig.impi.gob.mx/",
+   "verification": "IMPI registry: Tequila declared 13/10/1977 (applied 1972; regulator cites 1974); Mezcal 28/11/1994; Café Veracruz 15/11/2000; Chile habanero 04/06/2010; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-sea-giants",
+  "prompt": "Order these animals of Mexican waters by maximum length",
+  "lowLabel": "Shortest",
+  "highLabel": "Longest",
+  "unit": "ft",
+  "items": [
+   {
+    "text": "Vaquita porpoise",
+    "value": 5,
+    "display": "5"
+   },
+   {
+    "text": "Whale shark",
+    "value": 40,
+    "display": "40"
+   },
+   {
+    "text": "Gray whale",
+    "value": 49,
+    "display": "49"
+   },
+   {
+    "text": "Blue whale",
+    "value": 110,
+    "display": "110"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "The vaquita is barely taller than a kid; the blue whale is longer than a basketball court.",
+  "source": {
+   "title": "NOAA Fisheries species pages",
+   "url": "https://www.fisheries.noaa.gov/species/vaquita",
+   "verification": "NOAA: vaquita about 4-5 ft; whale shark to about 40 ft (12.2 m); gray whale to about 49 ft; blue whale up to 110 ft (largest Antarctic animals; northern ones ~90 ft); checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-cities-founded",
+  "prompt": "Order these Mexican cities by Spanish founding year",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Veracruz",
+    "value": 1519,
+    "display": "1519"
+   },
+   {
+    "text": "Morelia (as Valladolid)",
+    "value": 1541,
+    "display": "1541"
+   },
+   {
+    "text": "Durango",
+    "value": 1563,
+    "display": "1563"
+   },
+   {
+    "text": "Monterrey",
+    "value": 1596,
+    "display": "1596"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Veracruz came first because Cortés needed somewhere to park his ships.",
+  "source": {
+   "title": "Britannica: Veracruz; Morelia; Durango; Monterrey",
+   "url": "https://www.britannica.com/place/Veracruz-Mexico",
+   "verification": "Britannica: Cortés founded Villa Rica de la Vera Cruz 1519; Morelia founded 1541 as Valladolid; Durango officially founded 1563 (settled 1556); Monterrey founded 1596; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-newest-entities",
+  "prompt": "Order these Mexican entities by the year they gained full state status",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Nayarit",
+    "value": 1917,
+    "display": "1917"
+   },
+   {
+    "text": "Baja California",
+    "value": 1952,
+    "display": "1952"
+   },
+   {
+    "text": "Quintana Roo",
+    "value": 1974,
+    "display": "1974"
+   },
+   {
+    "text": "Mexico City (federal entity)",
+    "value": 2016,
+    "display": "2016"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Mexico City was the capital for centuries but only became a full-fledged entity in 2016.",
+  "source": {
+   "title": "Britannica: Nayarit; Baja California; Quintana Roo; DOF decree of 29 Jan 2016",
+   "url": "https://dof.gob.mx/nota_detalle.php?codigo=5424043&fecha=29/01/2016",
+   "verification": "Britannica: Nayarit separate state 1917; Baja California state 1952; Quintana Roo state 1974; DOF 29 Jan 2016 decree made the former Distrito Federal the entity Ciudad de México; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "mx-municipalities",
+  "prompt": "Order these Mexican states by number of municipalities",
+  "lowLabel": "Fewest",
+  "highLabel": "Most",
+  "unit": "municipalities",
+  "items": [
+   {
+    "text": "Tlaxcala",
+    "value": 60,
+    "display": "60"
+   },
+   {
+    "text": "Jalisco",
+    "value": 125,
+    "display": "125"
+   },
+   {
+    "text": "Puebla",
+    "value": 217,
+    "display": "217"
+   },
+   {
+    "text": "Oaxaca",
+    "value": 570,
+    "display": "570"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Oaxaca alone has nearly a quarter of all Mexico's municipalities.",
+  "source": {
+   "title": "INEGI: Ingreso Corriente para los Municipios de México 2020; Panorama de los gobiernos municipales 2022",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2023/ICMM/ICMM_2020.pdf",
+   "verification": "INEGI table: Oaxaca 570, Puebla 217, Jalisco 125; INEGI Tlaxcala panorama: 60 municipalities; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "latam-whc",
+  "prompt": "Order these Latin American wonders by year UNESCO listed them as World Heritage",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Galápagos Islands (Ecuador)",
+    "value": 1978,
+    "display": "1978"
+   },
+   {
+    "text": "Tikal (Guatemala)",
+    "value": 1979,
+    "display": "1979"
+   },
+   {
+    "text": "Machu Picchu (Peru)",
+    "value": 1983,
+    "display": "1983"
+   },
+   {
+    "text": "Rapa Nui / Easter Island (Chile)",
+    "value": 1995,
+    "display": "1995"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "The Galápagos was literally first on the whole World Heritage List; Easter Island's statues waited till 1995.",
+  "source": {
+   "title": "UNESCO World Heritage Centre property pages",
+   "url": "https://whc.unesco.org/en/list/001/",
+   "verification": "whc.unesco.org: Galápagos inscribed 1978, first site on the List; Tikal 1979 (mixed); Machu Picchu 1983; Rapa Nui National Park 1995; checked 2026-10-27 via domain-restricted search excerpts"
+  }
+ },
+ {
+  "id": "great-lakes-area",
+  "prompt": "Order the five Great Lakes by surface area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "sq mi",
+  "items": [
+   {
+    "text": "Lake Ontario",
+    "value": 7340,
+    "display": "7,340 sq mi"
+   },
+   {
+    "text": "Lake Erie",
+    "value": 9910,
+    "display": "9,910 sq mi"
+   },
+   {
+    "text": "Lake Michigan",
+    "value": 22300,
+    "display": "22,300 sq mi"
+   },
+   {
+    "text": "Lake Huron",
+    "value": 23000,
+    "display": "23,000 sq mi"
+   },
+   {
+    "text": "Lake Superior",
+    "value": 31700,
+    "display": "31,700 sq mi"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Huron edges out Michigan by a few hundred square miles, while Superior could swallow both Erie and Ontario twice over.",
+  "source": {
+   "title": "Physical Features of the Great Lakes (US EPA)",
+   "url": "https://www.epa.gov/greatlakes/physical-features-great-lakes",
+   "verification": "EPA table lists water surface areas: Superior 31,700, Michigan 22,300, Huron 23,000, Erie 9,910, Ontario 7,340 sq mi; NOAA GLERL physical-characteristics table matches; domain-restricted search excerpt (epa.gov/noaa.gov); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "metal-melting-points",
+  "prompt": "Order these elements by melting point, lowest to highest",
+  "lowLabel": "Lowest",
+  "highLabel": "Highest",
+  "unit": "°C",
+  "items": [
+   {
+    "text": "Mercury",
+    "value": -38.829,
+    "display": "−38.8 °C"
+   },
+   {
+    "text": "Gallium",
+    "value": 29.7646,
+    "display": "29.8 °C"
+   },
+   {
+    "text": "Lead",
+    "value": 327.462,
+    "display": "327.5 °C"
+   },
+   {
+    "text": "Gold",
+    "value": 1064.18,
+    "display": "1,064 °C"
+   },
+   {
+    "text": "Tungsten",
+    "value": 3414,
+    "display": "3,414 °C"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Gallium melts in your palm, mercury is already a puddle, and tungsten shrugs at 3,400 degrees — the top melting point of any metal.",
+  "source": {
+   "title": "Royal Society of Chemistry Periodic Table",
+   "url": "https://periodic-table.rsc.org/element/74/tungsten",
+   "verification": "RSC element pages (element/80, /31, /82, /79, /74) give melting points: mercury −38.829 °C, gallium 29.7646 °C, lead 327.462 °C, gold 1064.18 °C, tungsten 3414 °C; domain-restricted search excerpt (rsc.org); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "atomic-numbers",
+  "prompt": "Order these elements by atomic number, lowest to highest",
+  "lowLabel": "Lowest",
+  "highLabel": "Highest",
+  "unit": "protons",
+  "items": [
+   {
+    "text": "Oxygen",
+    "value": 8,
+    "display": "8"
+   },
+   {
+    "text": "Copper",
+    "value": 29,
+    "display": "29"
+   },
+   {
+    "text": "Tin",
+    "value": 50,
+    "display": "50"
+   },
+   {
+    "text": "Lead",
+    "value": 82,
+    "display": "82"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Atomic number is just a proton head-count — lead carries ten times oxygen's crowd.",
+  "source": {
+   "title": "Royal Society of Chemistry Periodic Table",
+   "url": "https://periodic-table.rsc.org/element/82/lead",
+   "verification": "RSC periodic table element pages are indexed by atomic number: oxygen 8, copper 29, tin 50, lead 82 (element/82/lead confirmed in search excerpt); standard invariant values; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "nasa-launches",
+  "prompt": "Order these NASA missions by launch year, earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Voyager 1",
+    "value": 1977,
+    "display": "1977"
+   },
+   {
+    "text": "Hubble Space Telescope",
+    "value": 1990,
+    "display": "1990"
+   },
+   {
+    "text": "Cassini to Saturn",
+    "value": 1997,
+    "display": "1997"
+   },
+   {
+    "text": "Curiosity Mars rover",
+    "value": 2011,
+    "display": "2011"
+   },
+   {
+    "text": "James Webb Space Telescope",
+    "value": 2021,
+    "display": "2021"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Voyager 1 left in the disco era and is still phoning home; Webb launched on Christmas Day 2021.",
+  "source": {
+   "title": "NASA Science mission pages",
+   "url": "https://science.nasa.gov/mission/voyager/voyager-1/",
+   "verification": "NASA: Voyager 1 launched Sept 5, 1977; Hubble launched into orbit 1990 (NASA history page); Cassini in space 1997–2017; MSL Curiosity lifted off Nov 26, 2011; Webb launched Dec 25, 2021 (science.nasa.gov/mission/webb); domain-restricted search excerpts (nasa.gov); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "candy-classics",
+  "prompt": "Halloween haul: order these sweets by the year they debuted",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Tootsie Roll",
+    "value": 1896,
+    "display": "1896"
+   },
+   {
+    "text": "Hershey's Milk Chocolate bar",
+    "value": 1900,
+    "display": "1900"
+   },
+   {
+    "text": "Hershey's Kisses",
+    "value": 1907,
+    "display": "1907"
+   },
+   {
+    "text": "Reese's Peanut Butter Cups",
+    "value": 1928,
+    "display": "1928"
+   },
+   {
+    "text": "M&M's",
+    "value": 1941,
+    "display": "1941"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The Tootsie Roll was a penny candy before cars were common; M&M's arrived in time to ride along with WWII soldiers.",
+  "source": {
+   "title": "Tootsie history; The Hershey Company history; Smithsonian NMAH Halloween candy blog",
+   "url": "https://www.thehersheycompany.com/en_us/home/about-us/the-company/history.html",
+   "verification": "tootsie.com/history: invented by Leo Hirschfield 1896; Hershey Company history: milk chocolate bar 1900; hersheyland.com/kisses: introduced 1907; hersheyland Reese's: created by H.B. Reese 1928; americanhistory.si.edu: M&M's first sold 1941; domain-restricted search excerpts; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "candy-1920s-40s",
+  "prompt": "Trick-or-treat time machine: order these candies by year introduced",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Butterfinger",
+    "value": 1923,
+    "display": "1923"
+   },
+   {
+    "text": "Dubble Bubble gum",
+    "value": 1928,
+    "display": "1928"
+   },
+   {
+    "text": "Snickers",
+    "value": 1930,
+    "display": "1930"
+   },
+   {
+    "text": "Almond Joy",
+    "value": 1946,
+    "display": "1946"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Butterfinger beat Snickers to the wrapper by seven years; Almond Joy showed up after wartime rationing.",
+  "source": {
+   "title": "From homemade Halloween treats to colorfully packaged candies (Smithsonian NMAH)",
+   "url": "https://americanhistory.si.edu/explore/stories/homemade-halloween-treats-colorfully-packaged-candies",
+   "verification": "Smithsonian NMAH blog dates Butterfinger 1923, Dubble Bubble 1928, Almond Joy 1946; Mars (mars.com) states Snickers introduced 1930; domain-restricted search excerpts; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "horror-films",
+  "prompt": "Order these horror classics by release year, earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Dracula (Bela Lugosi)",
+    "value": 1931,
+    "display": "1931"
+   },
+   {
+    "text": "Psycho",
+    "value": 1960,
+    "display": "1960"
+   },
+   {
+    "text": "The Exorcist",
+    "value": 1973,
+    "display": "1973"
+   },
+   {
+    "text": "Halloween (Carpenter)",
+    "value": 1978,
+    "display": "1978"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "From Lugosi's cape to Michael Myers' mask, all four now sit in the National Film Registry.",
+  "source": {
+   "title": "National Film Registry Titles by Release Date (Library of Congress)",
+   "url": "https://www.loc.gov/static/programs/national-film-preservation-board/documents/Registry-Titles-by-release-date.pdf",
+   "verification": "LOC registry list and LOC pages: Dracula 1931 (added 2000), Psycho 1960 (added 1992), The Exorcist 1973 (added 2010), Halloween 1978 (added 2006); domain-restricted search excerpt (loc.gov); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "gothic-lit",
+  "prompt": "Order these spooky classics by year first published",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Frankenstein (Mary Shelley)",
+    "value": 1818,
+    "display": "1818"
+   },
+   {
+    "text": "The Raven (Poe)",
+    "value": 1845,
+    "display": "1845"
+   },
+   {
+    "text": "Dr Jekyll and Mr Hyde",
+    "value": 1886,
+    "display": "1886"
+   },
+   {
+    "text": "Dracula (Bram Stoker)",
+    "value": 1897,
+    "display": "1897"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Shelley's monster had nearly 80 years to haunt shelves before Stoker's count turned up.",
+  "source": {
+   "title": "Britannica: Frankenstein; Gothic novel; Jekyll and Hyde; Dracula",
+   "url": "https://www.britannica.com/art/Gothic-novel",
+   "verification": "Britannica: Frankenstein first published 1818; Gothic novel article cites The Raven (1845); Jekyll and Hyde published 1886; Dracula published 1897; domain-restricted search excerpts (britannica.com); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "athletics-wr-years",
+  "prompt": "Order these still-standing world records by the year they were set",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Flo-Jo, women's 100m (10.49)",
+    "value": 1988,
+    "display": "1988"
+   },
+   {
+    "text": "Mike Powell, long jump (8.95 m)",
+    "value": 1991,
+    "display": "1991"
+   },
+   {
+    "text": "Sotomayor, high jump (2.45 m)",
+    "value": 1993,
+    "display": "1993"
+   },
+   {
+    "text": "Usain Bolt, men's 100m (9.58)",
+    "value": 2009,
+    "display": "2009"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "Flo-Jo's 100m mark is older than many of the athletes now chasing it.",
+  "source": {
+   "title": "World Athletics records and news",
+   "url": "https://worldathletics.org/news/news/bolt-again-958-world-record-in-berlin-updat",
+   "verification": "World Athletics: Griffith Joyner 10.49 Indianapolis 16 Jul 1988; Powell 8.95 Tokyo 30 Aug 1991; Sotomayor 2.45 Salamanca 27 Jul 1993; Bolt 9.58 Berlin 2009; domain-restricted search excerpts (worldathletics.org, olympics.com); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "body-counts",
+  "prompt": "Order these human body counts, fewest to most",
+  "lowLabel": "Fewest",
+  "highLabel": "Most",
+  "unit": "count",
+  "items": [
+   {
+    "text": "Carpal bones in one wrist",
+    "value": 8,
+    "display": "8"
+   },
+   {
+    "text": "Baby (primary) teeth",
+    "value": 20,
+    "display": "20"
+   },
+   {
+    "text": "Ribs (12 pairs)",
+    "value": 24,
+    "display": "24"
+   },
+   {
+    "text": "Adult permanent teeth",
+    "value": 32,
+    "display": "32"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Your wrist is a tiny bag of eight bones; your adult mouth is a full 32-piece set, wisdom teeth included.",
+  "source": {
+   "title": "Britannica: Tooth; Rib; Human skeleton (hands and feet)",
+   "url": "https://www.britannica.com/science/tooth-anatomy",
+   "verification": "Britannica: 20 primary and 32 permanent teeth; normally 12 pairs of ribs; eight carpal bones in the wrist; domain-restricted search excerpts (britannica.com); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "desert-areas",
+  "prompt": "Order these deserts by area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "km²",
+  "items": [
+   {
+    "text": "Kalahari",
+    "value": 930000,
+    "display": "930,000 km²"
+   },
+   {
+    "text": "Gobi",
+    "value": 1300000,
+    "display": "1,300,000 km²"
+   },
+   {
+    "text": "Arabian",
+    "value": 2300000,
+    "display": "2,300,000 km²"
+   },
+   {
+    "text": "Sahara",
+    "value": 8600000,
+    "display": "8,600,000 km²"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "The Sahara is bigger than the other three combined — nearly twice over.",
+  "source": {
+   "title": "World's largest deserts (Britannica)",
+   "url": "https://www.britannica.com/topic/worlds-largest-deserts-2225895",
+   "verification": "Britannica: Sahara ~8,600,000 km² (3,320,000 sq mi); Arabian ~2,300,000 km²; Gobi 1,300,000 km²; Kalahari ~930,000 km² (360,000 sq mi); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "island-areas",
+  "prompt": "Order these islands by area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "km²",
+  "items": [
+   {
+    "text": "Baffin Island",
+    "value": 507451,
+    "display": "507,451 km²"
+   },
+   {
+    "text": "Madagascar",
+    "value": 591896,
+    "display": "591,896 km²"
+   },
+   {
+    "text": "Borneo",
+    "value": 755000,
+    "display": "755,000 km²"
+   },
+   {
+    "text": "New Guinea",
+    "value": 821400,
+    "display": "821,400 km²"
+   },
+   {
+    "text": "Greenland",
+    "value": 2166086,
+    "display": "2,166,086 km²"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Greenland is the heavyweight champ; Australia doesn't count — it's a continent.",
+  "source": {
+   "title": "World's largest islands (Britannica)",
+   "url": "https://www.britannica.com/topic/worlds-largest-islands-2228256",
+   "verification": "Britannica list/articles: Greenland 2,166,086 km²; New Guinea 821,400 km²; Borneo ~755,000 km²; Madagascar 591,896 km²; Baffin 507,451 km² (fifth largest); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "big-lakes",
+  "prompt": "Order these lakes by surface area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "km²",
+  "items": [
+   {
+    "text": "Lake Titicaca",
+    "value": 8300,
+    "display": "8,300 km²"
+   },
+   {
+    "text": "Lake Baikal",
+    "value": 31500,
+    "display": "31,500 km²"
+   },
+   {
+    "text": "Lake Victoria",
+    "value": 69484,
+    "display": "69,484 km²"
+   },
+   {
+    "text": "Caspian Sea",
+    "value": 386400,
+    "display": "386,400 km²"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Baikal isn't the widest, but it's the oldest; the Caspian dwarfs everything despite being called a sea.",
+  "source": {
+   "title": "Britannica: Caspian Sea; Lake Victoria; Lake Baikal; Lake Titicaca",
+   "url": "https://www.britannica.com/place/Lake-Victoria",
+   "verification": "Britannica: Caspian ~386,400 km²; Victoria 69,484 km²; Baikal ~31,500 km²; Titicaca ~8,300 km²; domain-restricted search excerpts (britannica.com); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "ocean-areas",
+  "prompt": "Order these oceans by area, smallest to largest",
+  "lowLabel": "Smallest",
+  "highLabel": "Largest",
+  "unit": "million km²",
+  "items": [
+   {
+    "text": "Arctic Ocean",
+    "value": 12.17,
+    "display": "12.2 million km²"
+   },
+   {
+    "text": "Indian Ocean",
+    "value": 73.6,
+    "display": "73.6 million km²"
+   },
+   {
+    "text": "Atlantic Ocean",
+    "value": 82,
+    "display": "82 million km²"
+   },
+   {
+    "text": "Pacific Ocean",
+    "value": 166,
+    "display": "166 million km²"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "The Pacific alone covers more area than all of Earth's land put together.",
+  "source": {
+   "title": "The Ocean (NOAA JetStream)",
+   "url": "https://www.noaa.gov/jetstream/ocean",
+   "verification": "NOAA JetStream ocean table: Pacific 166,000,000 km²; Atlantic 82,000,000; Indian 73,600,000; Arctic 12,170,000 (other NOAA pages differ by boundary, ordering unaffected); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "landmark-openings",
+  "prompt": "Order these landmarks by the year they opened",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Brooklyn Bridge",
+    "value": 1883,
+    "display": "1883"
+   },
+   {
+    "text": "Golden Gate Bridge",
+    "value": 1937,
+    "display": "1937"
+   },
+   {
+    "text": "Sydney Opera House",
+    "value": 1973,
+    "display": "1973"
+   },
+   {
+    "text": "Channel Tunnel",
+    "value": 1994,
+    "display": "1994"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "The Brooklyn Bridge opened with fireworks in 1883; the Chunnel waited until 1994 to link Britain and France.",
+  "source": {
+   "title": "Britannica; Golden Gate Bridge official site; Sydney Opera House",
+   "url": "https://www.britannica.com/topic/Channel-Tunnel",
+   "verification": "Britannica Kids/Students: Brooklyn Bridge opened May 24, 1883; goldengate.org: opened to traffic May 28, 1937; sydneyoperahouse.com: opened by Queen Elizabeth II 20 Oct 1973; Britannica: Channel Tunnel officially opened May 6, 1994; domain-restricted search excerpts; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "entertainment-firsts",
+  "prompt": "Order these entertainment firsts from earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "First Academy Awards",
+    "value": 1929,
+    "display": "1929"
+   },
+   {
+    "text": "First Emmy Awards",
+    "value": 1949,
+    "display": "1949"
+   },
+   {
+    "text": "First Grammy Awards",
+    "value": 1959,
+    "display": "1959"
+   },
+   {
+    "text": "First Super Bowl",
+    "value": 1967,
+    "display": "1967"
+   },
+   {
+    "text": "MTV goes on the air",
+    "value": 1981,
+    "display": "1981"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "The Oscars were a quick hotel banquet in 1929; MTV opened with 'Video Killed the Radio Star'.",
+  "source": {
+   "title": "Oscars.org history; Britannica: Emmy Award, Grammy Award, Super Bowl, MTV",
+   "url": "https://www.oscars.org/sites/oscars/files/87aa_oscar_history.pdf",
+   "verification": "oscars.org: first awards May 16, 1929 at the Hollywood Roosevelt; Britannica: first Emmys presented 1949; 1959 Grammy ceremony; first Super Bowl Jan 15, 1967; MTV launched Aug 1, 1981; domain-restricted search excerpts; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "world-cup-first-titles",
+  "prompt": "Order these nations by the year of their FIRST men's World Cup title",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "England",
+    "value": 1966,
+    "display": "1966"
+   },
+   {
+    "text": "Argentina",
+    "value": 1978,
+    "display": "1978"
+   },
+   {
+    "text": "France",
+    "value": 1998,
+    "display": "1998"
+   },
+   {
+    "text": "Spain",
+    "value": 2010,
+    "display": "2010"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "England's lone title came on home soil at Wembley; Spain had to wait until Iniesta's extra-time strike in 2010.",
+  "source": {
+   "title": "World Cup winners 1930–1978 and 1982 onward (FIFA)",
+   "url": "https://www.fifa.com/en/tournaments/mens/worldcup/articles/world-cup-champions-1930-1978-uruguay-italy-germany-brazil-england-argentina",
+   "verification": "FIFA articles: England first title 1966 at Wembley; Argentina maiden title 1978; France maiden crown 1998; Spain first world champions 2010; domain-restricted search excerpt (fifa.com); checked 2026-10-27"
+  }
+ },
+ {
+  "id": "tower-heights",
+  "prompt": "Order these structures by height, shortest to tallest",
+  "lowLabel": "Shortest",
+  "highLabel": "Tallest",
+  "unit": "m",
+  "items": [
+   {
+    "text": "Space Needle, Seattle",
+    "value": 184,
+    "display": "184 m"
+   },
+   {
+    "text": "Gateway Arch, St. Louis",
+    "value": 192,
+    "display": "192 m"
+   },
+   {
+    "text": "CN Tower, Toronto",
+    "value": 553.33,
+    "display": "553 m"
+   },
+   {
+    "text": "Tokyo Skytree",
+    "value": 634,
+    "display": "634 m"
+   }
+  ],
+  "difficulty": 2,
+  "explanation": "The Gateway Arch beats the Space Needle by just 8 metres — and it's exactly as wide as it is tall.",
+  "source": {
+   "title": "NPS Gateway Arch; Space Needle; CN Tower; Britannica Tokyo Sky Tree",
+   "url": "https://www.nps.gov/jeff/planyourvisit/arch-height.htm",
+   "verification": "NPS: Arch 630 ft (192 m); spaceneedle.com/Britannica: 605 ft (184 m); cntower.ca: 553.33 m to antenna top; Britannica: Skytree 634 m; domain-restricted search excerpts; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "olympic-hosts-asia-pacific",
+  "prompt": "Order these Summer Olympics by year held, earliest to latest",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Tokyo",
+    "value": 1964,
+    "display": "1964"
+   },
+   {
+    "text": "Seoul",
+    "value": 1988,
+    "display": "1988"
+   },
+   {
+    "text": "Sydney",
+    "value": 2000,
+    "display": "2000"
+   },
+   {
+    "text": "Beijing",
+    "value": 2008,
+    "display": "2008"
+   }
+  ],
+  "difficulty": 1,
+  "explanation": "Tokyo 1964 was the first Games in Asia — and debuted judo and volleyball.",
+  "source": {
+   "title": "Olympics.com Games pages",
+   "url": "https://www.olympics.com/en/sport-events/tokyo-1964",
+   "verification": "Olympics.com: Tokyo 1964 held 10–24 Oct 1964; Olympic Studies Centre pictogram reference covers Seoul 1988, Sydney 2000, Beijing 2008; results pages olympics.com/en/olympic-games/seoul-1988 and beijing-2008; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "element-discoveries",
+  "prompt": "Order these elements by the year they were discovered",
+  "lowLabel": "Earliest",
+  "highLabel": "Latest",
+  "unit": "year",
+  "items": [
+   {
+    "text": "Phosphorus",
+    "value": 1669,
+    "display": "1669"
+   },
+   {
+    "text": "Hydrogen",
+    "value": 1766,
+    "display": "1766"
+   },
+   {
+    "text": "Uranium",
+    "value": 1789,
+    "display": "1789"
+   },
+   {
+    "text": "Helium (on Earth)",
+    "value": 1895,
+    "display": "1895"
+   },
+   {
+    "text": "Plutonium",
+    "value": 1940,
+    "display": "1940"
+   }
+  ],
+  "difficulty": 3,
+  "explanation": "Phosphorus was boiled out of urine; plutonium was made in a Berkeley lab during WWII.",
+  "source": {
+   "title": "Royal Society of Chemistry Periodic Table",
+   "url": "https://periodic-table.rsc.org/element/15/phosphorus",
+   "verification": "RSC element pages give discovery dates: phosphorus 1669 (Brandt), hydrogen 1766 (Cavendish), uranium 1789 (Klaproth), helium 1895 (isolated on Earth), plutonium 1940 (Seaborg et al.); domain-restricted search excerpts (rsc.org); checked 2026-10-27"
+  }
  }
 ]

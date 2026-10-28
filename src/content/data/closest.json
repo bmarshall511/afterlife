@@ -542,5 +542,581 @@
    "url": "https://www.parliament.uk/about/living-heritage/building/palace/big-ben/facts-figures/",
    "verification": "334 steps to the belfry, 281 to the clock faces; checked 2026-10-27"
   }
+ },
+ {
+  "id": "torre-latinoamericana",
+  "prompt": "How tall is Mexico City's Torre Latinoamericana including its antenna, in metres (nearest metre)?",
+  "value": 181,
+  "unit": "m",
+  "min": 0,
+  "max": 500,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "181 metres: 44 floors plus a 42 m antenna, and it shrugged off big quakes in 1957 and 1985.",
+  "source": {
+   "title": "Torre Latinoamericana – Historia",
+   "url": "https://torrelatinoamericana.com.mx/historia/",
+   "verification": "Official site gives 181.33 m including antenna, 44 floors; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "castillo-height",
+  "prompt": "Roughly how tall is El Castillo (Temple of Kukulcán) at Chichén Itzá, in metres, per INAH?",
+  "value": 30,
+  "unit": "m",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "About 30 m: 24 m of stepped pyramid plus the temple on top.",
+  "source": {
+   "title": "INAH – El Castillo de Chichén Itzá",
+   "url": "https://www.inah.gob.mx/foto-del-dia/el-castillo-de-chichen-itza-arquitectura-astronomia-y-tiempo",
+   "verification": "INAH describes the structure as approximately 30 m tall with a base nearly 55.5 m per side; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mx-municipalities",
+  "prompt": "How many municipalities (incl. CDMX boroughs) did INEGI's 2025 municipal census count in Mexico?",
+  "value": 2478,
+  "unit": "municipalities",
+  "min": 0,
+  "max": 6000,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "2,478 local governments, so every one deserves its own ofrenda contest.",
+  "source": {
+   "title": "INEGI – Censo Nacional de Gobiernos Municipales y Demarcaciones Territoriales 2025",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/cngmd/CNGMD_25.pdf",
+   "verification": "INEGI states 2,478 municipalities and CDMX demarcations at time of the census (catalog numbers differ by cutoff date); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "monarch-migration",
+  "prompt": "Eastern monarch butterflies fly to Mexico each fall. Up to how many miles, per the US Forest Service?",
+  "value": 3000,
+  "unit": "miles",
+  "min": 0,
+  "max": 10000,
+  "step": 100,
+  "difficulty": 2,
+  "explanation": "Up to 3,000 miles on wings weighing less than a gram, arriving in Michoacán right around Día de Muertos.",
+  "source": {
+   "title": "USDA Forest Service – Monarch Butterfly Migration and Overwintering",
+   "url": "https://www.fs.usda.gov/wildflowers/pollinators/Monarch_Butterfly/migration/index.shtml",
+   "verification": "USFS says eastern monarchs fly up to 3,000 miles to Mexico in fall; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "cdmx-elevation",
+  "prompt": "At what elevation does downtown Mexico City sit, in metres above sea level?",
+  "value": 2240,
+  "unit": "m",
+  "min": 0,
+  "max": 6000,
+  "step": 10,
+  "difficulty": 1,
+  "explanation": "About 2,240 m, so that second mezcal hits harder than you think.",
+  "source": {
+   "title": "Britannica – Mexico City: Landscape",
+   "url": "https://www.britannica.com/place/Mexico-City/Landscape",
+   "verification": "Britannica gives downtown elevation about 2,240 m (7,350 ft); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "paricutin-born",
+  "prompt": "In what year did Paricutín volcano burst out of a farmer's cornfield in Michoacán?",
+  "value": 1943,
+  "unit": "year",
+  "min": 1500,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "1943: a farmer watched his field crack open and a volcano was born.",
+  "source": {
+   "title": "Smithsonian Global Volcanism Program – Parícutin",
+   "url": "https://volcano.si.edu/volcano.cfm?vn=341060",
+   "verification": "GVP/USGS report eruption began 20 February 1943 in a cornfield; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "paricutin-height",
+  "prompt": "How tall did Paricutín's cone grow above the original cornfield, in metres, per the Smithsonian?",
+  "value": 424,
+  "unit": "m",
+  "min": 0,
+  "max": 1500,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "424 m of brand-new mountain in nine years of eruption.",
+  "source": {
+   "title": "Smithsonian Global Volcanism Program – Parícutin",
+   "url": "https://volcano.si.edu/volcano.cfm?vn=341060",
+   "verification": "GVP states cone reached 424 m above the original cornfield (USGS gives ~460 m on a different baseline; we use GVP); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "us-mexico-border",
+  "prompt": "How long is the US–Mexico boundary in miles (excluding maritime limits), per the IBWC?",
+  "value": 1954,
+  "unit": "miles",
+  "min": 0,
+  "max": 6000,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "1,954 miles, about 1,255 of them running down the Rio Grande.",
+  "source": {
+   "title": "IBWC – About Us",
+   "url": "https://www.ibwc.gov/about-us/",
+   "verification": "IBWC says the boundary extends 1,954 miles under treaties of 1848, 1853 and 1970; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "angel-falls",
+  "prompt": "How far does Venezuela's Angel Falls (Kerepakupai Merú) drop in total, in metres?",
+  "value": 979,
+  "unit": "m",
+  "min": 0,
+  "max": 3000,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "979 m, the world's highest waterfall, about 15 times Niagara's drop.",
+  "source": {
+   "title": "Britannica – Angel Falls",
+   "url": "https://www.britannica.com/place/Angel-Falls",
+   "verification": "Britannica gives total drop of 3,212 ft (979 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "titicaca-elevation",
+  "prompt": "Lake Titicaca is the highest large navigable lake. At what elevation, in metres (nearest 10)?",
+  "value": 3810,
+  "unit": "m",
+  "min": 0,
+  "max": 10000,
+  "step": 10,
+  "difficulty": 3,
+  "explanation": "About 3,810 m, so boating there comes with a free altitude headache.",
+  "source": {
+   "title": "Britannica – Lake Titicaca",
+   "url": "https://www.britannica.com/place/Lake-Titicaca",
+   "verification": "Britannica gives 12,500 ft (3,810 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "tequila-agave",
+  "prompt": "Minimum percent of sugars that must come from blue agave for a 'tequila' (not 100% agave) per NOM-006?",
+  "value": 51,
+  "unit": "%",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "51%: the rest may be other sugars, which is why '100% agave' on the label matters.",
+  "source": {
+   "title": "Consejo Regulador del Tequila – Our Tequila",
+   "url": "https://www.crt.org.mx/en/our-tequila/",
+   "verification": "CRT says tequila is made with at least 51% sugars from Agave tequilana Weber blue, max 49% other sugars; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "iguazu-falls",
+  "prompt": "Islands split Iguazú Falls into approximately how many separate waterfalls, per Britannica?",
+  "value": 275,
+  "unit": "waterfalls",
+  "min": 0,
+  "max": 1000,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "About 275 cataracts along roughly 1.7 miles of the Argentina–Brazil border.",
+  "source": {
+   "title": "Britannica – Iguaçu Falls",
+   "url": "https://www.britannica.com/place/Iguacu-Falls",
+   "verification": "Britannica says islands divide the falls into about 275 separate waterfalls; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "ajusco",
+  "prompt": "Ajusco is the highest point inside Mexico City. How high is it, in metres?",
+  "value": 3930,
+  "unit": "m",
+  "min": 0,
+  "max": 10000,
+  "step": 10,
+  "difficulty": 3,
+  "explanation": "3,930 m: you can technically go hiking above the clouds without leaving CDMX.",
+  "source": {
+   "title": "Britannica – Mexico City: Landscape",
+   "url": "https://www.britannica.com/place/Mexico-City/Landscape",
+   "verification": "Britannica gives Ajusco as the capital's highest point at 12,896 ft (3,930 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "azteca-capacity",
+  "prompt": "Mexico City's Estadio Azteca opened the 2026 World Cup. Its tournament capacity, in thousands (nearest)?",
+  "value": 81,
+  "unit": "thousand seats",
+  "min": 0,
+  "max": 200,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "About 81,000 (80,824 exactly), and it filled up every match.",
+  "source": {
+   "title": "FIFA – Stadium information (FIFA World Cup 26)",
+   "url": "https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026/articles/stadium-information-details-es",
+   "verification": "FIFA lists capacity 80,824 for the 2026 tournament; rounded to 81 thousand; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "gulf-of-california",
+  "prompt": "How long is the Gulf of California (Sea of Cortez), in miles?",
+  "value": 750,
+  "unit": "miles",
+  "min": 0,
+  "max": 3000,
+  "step": 10,
+  "difficulty": 2,
+  "explanation": "About 750 miles of water Jacques Cousteau reportedly called the world's aquarium.",
+  "source": {
+   "title": "Britannica – Gulf of California",
+   "url": "https://www.britannica.com/place/Gulf-of-California",
+   "verification": "Britannica gives about 750 miles (1,200 km) long, avg 95 miles wide; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "christ-redeemer-height",
+  "prompt": "How tall is Rio's Christ the Redeemer statue, not counting its base, in metres?",
+  "value": 30,
+  "unit": "m",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "30 m of soapstone-clad concrete keeping an eye on Rio.",
+  "source": {
+   "title": "Britannica – Christ the Redeemer",
+   "url": "https://www.britannica.com/topic/Christ-the-Redeemer",
+   "verification": "Britannica gives 98 ft (30 m) excluding ~8 m base; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "christ-redeemer-arms",
+  "prompt": "What is the arm span of Rio's Christ the Redeemer, in metres?",
+  "value": 28,
+  "unit": "m",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "28 m, the world's widest hug.",
+  "source": {
+   "title": "Britannica – Christ the Redeemer",
+   "url": "https://www.britannica.com/topic/Christ-the-Redeemer",
+   "verification": "Britannica gives arms spanning 92 ft (28 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "pyramid-of-the-moon",
+  "prompt": "How tall is Teotihuacan's Pyramid of the Moon, in metres, per Britannica?",
+  "value": 43,
+  "unit": "m",
+  "min": 0,
+  "max": 200,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "About 43 m, the little sibling to the Pyramid of the Sun.",
+  "source": {
+   "title": "Britannica – Teotihuacán",
+   "url": "https://www.britannica.com/place/Teotihuacan",
+   "verification": "Britannica says the Pyramid of the Moon rose to 140 ft (43 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "cdmx-population-2020",
+  "prompt": "Mexico City's population in INEGI's 2020 census, in thousands (to the nearest 10 thousand)?",
+  "value": 9210,
+  "unit": "thousand people",
+  "min": 0,
+  "max": 30000,
+  "step": 10,
+  "difficulty": 3,
+  "explanation": "9,209,944 people, and they all seem to be at the panteón on Nov 2.",
+  "source": {
+   "title": "INEGI – Censo 2020 resultados Ciudad de México (comunicado 98/21)",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/ResultCenso2020_CdMx.pdf",
+   "verification": "INEGI counted 9,209,944 people in Mexico City; rounded to 9,210 thousand; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "iss-speed",
+  "prompt": "How fast does the International Space Station orbit Earth, in miles per hour, per NASA?",
+  "value": 17500,
+  "unit": "mph",
+  "min": 0,
+  "max": 50000,
+  "step": 100,
+  "difficulty": 1,
+  "explanation": "About 17,500 mph: roughly 16 sunrises a day for the crew.",
+  "source": {
+   "title": "NASA – Spot the Station FAQ",
+   "url": "https://www.nasa.gov/missions/station/spot-the-station-frequently-asked-questions/",
+   "verification": "NASA gives about 17,500 mph (28,000 km/h); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "blue-whale-length",
+  "prompt": "Maximum length of a blue whale, in feet, per NOAA Fisheries?",
+  "value": 110,
+  "unit": "ft",
+  "min": 0,
+  "max": 400,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "Up to 110 feet, the largest animal ever known to exist.",
+  "source": {
+   "title": "NOAA Fisheries – Blue Whale",
+   "url": "https://www.fisheries.noaa.gov/species/blue-whale",
+   "verification": "NOAA species page lists max length 110 ft, max weight 330,000 lb; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "elephant-gestation",
+  "prompt": "Average Asian elephant pregnancy, in days, per the Smithsonian's National Zoo (nearest 10)?",
+  "value": 660,
+  "unit": "days",
+  "min": 0,
+  "max": 2000,
+  "step": 10,
+  "difficulty": 3,
+  "explanation": "About 659 days, the longest pregnancy of any animal.",
+  "source": {
+   "title": "Smithsonian's National Zoo – Elephant FAQs",
+   "url": "https://nationalzoo.si.edu/animals/asian-elephant-faqs",
+   "verification": "Zoo gives an average gestation of about 659 days; rounded to 660; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "horseshoe-falls-height",
+  "prompt": "Average drop of Niagara's Horseshoe Falls, in metres, per Niagara Parks?",
+  "value": 57,
+  "unit": "m",
+  "min": 0,
+  "max": 200,
+  "step": 1,
+  "difficulty": 2,
+  "explanation": "About 57 m: shorter than you'd guess, wider than you'd believe.",
+  "source": {
+   "title": "Niagara Parks – Niagara Falls Geology Facts & Figures",
+   "url": "https://www.niagaraparks.com/visit-niagara-parks/plan-your-visit/niagara-falls-geology-facts-figures/",
+   "verification": "Niagara Parks gives average drop of 57 m (188 ft); Britannica agrees; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "horseshoe-falls-crest",
+  "prompt": "How long is the curving crest of Niagara's Horseshoe Falls, in metres (nearest 10)?",
+  "value": 670,
+  "unit": "m",
+  "min": 0,
+  "max": 2000,
+  "step": 10,
+  "difficulty": 3,
+  "explanation": "About 670 m of horseshoe-shaped edge.",
+  "source": {
+   "title": "Niagara Parks – Niagara Falls Geology Facts & Figures",
+   "url": "https://www.niagaraparks.com/visit-niagara-parks/plan-your-visit/niagara-falls-geology-facts-figures/",
+   "verification": "Niagara Parks gives approx 670 m (2,200 ft); Britannica agrees; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "mount-fuji",
+  "prompt": "How high is Mount Fuji, in metres?",
+  "value": 3776,
+  "unit": "m",
+  "min": 0,
+  "max": 10000,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "3,776 m, quiet since 1707 but still classed as active.",
+  "source": {
+   "title": "Britannica – Mount Fuji",
+   "url": "https://www.britannica.com/summary/Mount-Fuji",
+   "verification": "Britannica gives 12,388 ft (3,776 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "sunlight-travel",
+  "prompt": "How many seconds does sunlight take to reach Earth, per NASA (nearest 10)?",
+  "value": 500,
+  "unit": "seconds",
+  "min": 0,
+  "max": 2000,
+  "step": 10,
+  "difficulty": 2,
+  "explanation": "About 8 min 20 s, so the Sun you see is already 500 seconds old.",
+  "source": {
+   "title": "NASA Science – Voyager 1: What Is a Light-Day",
+   "url": "https://science.nasa.gov/mission/voyager/voyager-1/voyager-1-what-is-a-light-day/",
+   "verification": "NASA says sunlight takes about 8 min 20 s (500 s) to travel ~93 million miles; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "sun-distance-miles",
+  "prompt": "Average distance from Earth to the Sun, in millions of miles?",
+  "value": 93,
+  "unit": "million miles",
+  "min": 0,
+  "max": 300,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "About 93 million miles, roughly 150 million km.",
+  "source": {
+   "title": "NASA Science – Voyager 1: What Is a Light-Day",
+   "url": "https://science.nasa.gov/mission/voyager/voyager-1/voyager-1-what-is-a-light-day/",
+   "verification": "NASA states 93 million miles (about 150 million km) from Sun to Earth; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "voyager-launch",
+  "prompt": "In what year did Voyager 1 launch, now the farthest human-made object?",
+  "value": 1977,
+  "unit": "year",
+  "min": 1900,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "1977, and it's still phoning home from interstellar space.",
+  "source": {
+   "title": "NASA – Voyager 1 and Voyager 2 Launched",
+   "url": "https://www.nasa.gov/image-article/august-september-1977-voyager-1-voyager-2-launched/",
+   "verification": "NASA: Voyager 1 launched 5 Sept 1977 from Cape Canaveral; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "yellowstone-year",
+  "prompt": "In what year was Yellowstone established as the world's first national park?",
+  "value": 1872,
+  "unit": "year",
+  "min": 1700,
+  "max": 2026,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "1872, signed by President Grant, with Old Faithful as the star attraction.",
+  "source": {
+   "title": "NPS – Birth of a National Park",
+   "url": "https://www.nps.gov/yell/learn/historyculture/yellowstoneestablishment.htm",
+   "verification": "NPS: established March 1, 1872; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "old-faithful-interval",
+  "prompt": "Average gap between Old Faithful eruptions, in minutes, per NPS (as of Jan 2025)?",
+  "value": 102,
+  "unit": "minutes",
+  "min": 0,
+  "max": 300,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "About 102 minutes, give or take 10. Plenty of time for a churro.",
+  "source": {
+   "title": "NPS – Old Faithful",
+   "url": "https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm",
+   "verification": "NPS gives eruption interval 102 min ± 10 as of January 2025; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "great-wall-length",
+  "prompt": "Total length of all Great Wall of China sections ever built, in km (to the nearest 100)?",
+  "value": 21200,
+  "unit": "km",
+  "min": 0,
+  "max": 60000,
+  "step": 100,
+  "difficulty": 3,
+  "explanation": "About 21,196 km, counting every rebuilt and overlapping section.",
+  "source": {
+   "title": "Britannica – Great Wall of China",
+   "url": "https://www.britannica.com/topic/Great-Wall-of-China",
+   "verification": "Britannica gives about 21,196 km for all sections; rounded to 21,200; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "gateway-arch",
+  "prompt": "How tall is the Gateway Arch in St. Louis, in feet?",
+  "value": 630,
+  "unit": "ft",
+  "min": 0,
+  "max": 2000,
+  "step": 10,
+  "difficulty": 1,
+  "explanation": "630 feet, and exactly as wide as it is tall.",
+  "source": {
+   "title": "NPS – How Tall is it? (Gateway Arch)",
+   "url": "https://www.nps.gov/jeff/planyourvisit/arch-height.htm",
+   "verification": "NPS lists 630 ft (192 m); domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "lincoln-columns",
+  "prompt": "How many columns surround the Lincoln Memorial's colonnade (one per state at Lincoln's death)?",
+  "value": 36,
+  "unit": "columns",
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "36 Doric columns, one for each state in the Union in 1865.",
+  "source": {
+   "title": "NPS – Lincoln Memorial Building Statistics",
+   "url": "https://www.nps.gov/linc/learn/historyculture/lincoln-memorial-building-statistics.htm",
+   "verification": "NPS: 36 columns, one per state at Lincoln's death; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "jupiter-diameter",
+  "prompt": "Jupiter's equatorial diameter, in thousands of miles (nearest thousand)?",
+  "value": 89,
+  "unit": "thousand miles",
+  "min": 0,
+  "max": 300,
+  "step": 1,
+  "difficulty": 3,
+  "explanation": "About 88,846 miles, roughly 11 Earths across.",
+  "source": {
+   "title": "NASA Science – Jupiter Facts",
+   "url": "https://science.nasa.gov/jupiter/jupiter-facts/",
+   "verification": "NASA gives equatorial diameter of 88,846 miles; rounded to 89 thousand; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "jupiter-earths-wide",
+  "prompt": "How many Earths wide is Jupiter, per NASA (nearest whole number)?",
+  "value": 11,
+  "unit": "Earths",
+  "min": 0,
+  "max": 50,
+  "step": 1,
+  "difficulty": 1,
+  "explanation": "About 11 Earths side by side.",
+  "source": {
+   "title": "NASA Science – Jupiter Facts",
+   "url": "https://science.nasa.gov/jupiter/jupiter-facts/",
+   "verification": "NASA says Jupiter is about 11 times wider than Earth; domain-restricted search excerpt; checked 2026-10-27"
+  }
+ },
+ {
+  "id": "sun-surface-temp",
+  "prompt": "Temperature of the Sun's surface (photosphere), in °F, per NASA?",
+  "value": 10000,
+  "unit": "°F",
+  "min": 0,
+  "max": 30000,
+  "step": 100,
+  "difficulty": 2,
+  "explanation": "A 'relatively cool' 10,000 °F, about 5,500 °C. Hotter than any salsa.",
+  "source": {
+   "title": "NASA Science – Sun Facts",
+   "url": "https://science.nasa.gov/sun/facts/",
+   "verification": "NASA says the photosphere is about 10,000 °F (5,500 °C); domain-restricted search excerpt; checked 2026-10-27"
+  }
  }
 ]

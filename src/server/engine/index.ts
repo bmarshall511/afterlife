@@ -1,6 +1,6 @@
 export { tick } from "./tick";
 export { buildSnapshot, buildMe, computeStandings } from "./snapshot";
-export { join, submitAnswer, teamAction } from "./actions";
+export { join, listTeamsForRejoin, submitAnswer, teamAction } from "./actions";
 export { setEngineDeps } from "./deps";
 export { partyIdOf } from "./store";
 export { EngineError } from "./types";

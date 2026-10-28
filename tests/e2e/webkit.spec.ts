@@ -20,14 +20,16 @@ test("webkit iPhone: join -> controller (no install step), refresh restores", as
   await page.reload();
   await expect(page.getByText("Safari's Family").first()).toBeVisible();
   await noOverflow(page);
-  await expect(page.getByRole("link", { name: /Install app/i })).toHaveAttribute("href", /\/install/);
+  await page.getByRole("button", { name: /Install app/i }).click();
+  await expect(page.getByRole("dialog", { name: "Install the app" })).toContainText("Add to Home Screen");
+  await expect(page).toHaveURL(/\/play/); // the guide opens over the controller, not a new page
   const ok = await page.evaluate(() => { try { (navigator as any).vibrate?.(50); return true; } catch { return false; } });
   expect(ok).toBe(true);
 });
 
 test("webkit iPhone: /install shows iPhone Safari steps", async ({ page }) => {
   await page.goto("/install?party=demo");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(/home screen/i);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/Install the AFTERLIFE app/i);
   await expect(page.getByRole("heading", { name: "iPhone or iPad" })).toBeVisible();
   await expect(page.locator(".ig-card").first()).toContainText("Add to Home Screen");
   await expect(page.locator(".ig-card").first()).toContainText("Share");

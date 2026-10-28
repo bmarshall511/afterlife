@@ -97,7 +97,8 @@ export async function chooseSet(q: Q, p: PartyRow, s: Settings, c: ContentSource
   const [exp, off] = await Promise.all([exposure(q, p.id), disabledIds(q)]);
   let order = familyOrder(p.engine, s, opts.teams, opts.seed);
   // admin disabled every eligible objective family: fall back to any objective family (never a social repeat)
-  if (!order.length) order = shuffle(OBJECTIVE_FAMILIES.filter((f) => f !== p.engine.lastFamily), opts.seed + ":fb");
+  // The Ofrenda Case is only ever played when the host has explicitly enabled it.
+  if (!order.length) order = shuffle(OBJECTIVE_FAMILIES.filter((f) => f !== p.engine.lastFamily && (f !== "case" || s.families.includes("case"))), opts.seed + ":fb");
   for (const f of order) {
     const pk = pickFor(f, all, exp, off, c, `${opts.seed}:${f}`, false);
     if (pk) return pk;

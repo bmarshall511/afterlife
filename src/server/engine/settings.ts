@@ -3,20 +3,24 @@ import type { Settings } from "./types";
 
 export const ALL_FAMILIES: GameFamily[] = ["calavera", "line", "loteria", "room", "closest", "case"];
 
+/**
+ * Casual-party pacing (host feedback 2026-10-27): long answer windows so nobody has to watch the TV,
+ * but every step closes early (after minViewMs) as soon as all eligible families have submitted.
+ */
 export const DEFAULT_SETTINGS: Settings = {
-  introMs: 25000,
-  calaveraWriteMs: 120000,
-  calaveraVoteMs: 60000,
-  lineAnswerMs: 90000,
-  loteriaAnswerMs: 75000,
-  roomAnswerMs: 45000,
-  roomGuessMs: 50000,
-  closestAnswerMs: 75000,
+  introMs: 30000,
+  calaveraWriteMs: 240000,
+  calaveraVoteMs: 120000,
+  lineAnswerMs: 180000,
+  loteriaAnswerMs: 150000,
+  roomAnswerMs: 90000,
+  roomGuessMs: 90000,
+  closestAnswerMs: 150000,
   caseClueMs: 20000,
   caseAnswerMs: 40000,
-  revealMs: 20000,
-  calaveraRevealMs: 30000,
-  resultsMs: 45000,
+  revealMs: 25000,
+  calaveraRevealMs: 35000,
+  resultsMs: 60000,
   intervalMs: 300000,
   minViewMs: 8000,
   catchUpGraceMs: 90000,

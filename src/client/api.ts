@@ -30,6 +30,10 @@ export const api = {
   me: (party: PartyId) => call<MeView>(`/api/me?party=${party}`),
   join: (party: PartyId, name: string, inviteCode?: string) =>
     call<MeView>("/api/join", { method: "POST", body: JSON.stringify({ party, name, inviteCode: inviteCode || undefined }) }),
+  /** Get back in: as an existing person on a team (asMemberId) or as someone new on that team (name). */
+  rejoin: (party: PartyId, teamId: string, opts: { asMemberId?: string; name?: string }) =>
+    call<MeView>("/api/join", { method: "POST", body: JSON.stringify({ party, teamId, asMemberId: opts.asMemberId, name: opts.name }) }),
+  teams: (party: PartyId) => call<{ teams: RejoinTeam[] }>(`/api/join?party=${party}`),
   answer: (party: PartyId, questionId: string, stage: Stage, value: AnswerValue, requestId: string) =>
     call<{ ok: true; saved: { stage: Stage; value: AnswerValue } }>("/api/answer", {
       method: "POST", body: JSON.stringify({ party, questionId, stage, value, requestId }) }),
@@ -41,3 +45,5 @@ export function newRequestId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
+
+export interface RejoinTeam { id: string; name: string; color: string; avatar: string; people: { memberId: string; name: string; captain: boolean }[] }

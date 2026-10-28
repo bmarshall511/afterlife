@@ -117,10 +117,10 @@ const reveals: Record<GameFamily, (round?: number) => RevealInfo> = {
     outcomes: [{ ...T(1), points: 85 }, { ...T(0), points: 60 }, { ...T(2), points: 35 }, { ...T(3), points: 10 }, { ...T(4), points: 10 }, { ...T(5), points: 0, note: "No entry" }] }),
   line: () => ({ correct: ["l1", "l3", "l4", "l2"], explanation: "Independence began in 1810; Posada’s skull-lady came a century later; UNESCO listed the tradition in 2008, and the big parade followed a 2015 film.",
     source: { title: "UNESCO · Indigenous festivity dedicated to the dead", url: "https://ich.unesco.org" },
-    detail: { values: { l1: "1810", l3: "c. 1910", l2: "2016", l4: "2008" } },
+    detail: { values: { l1: "1810", l3: "c. 1910", l2: "169 m (555 ft)", l4: "2008" } },
     outcomes: [{ ...T(0), points: 100 }, { ...T(1), points: 83 }, { ...T(2), points: 67 }, { ...T(3), points: 50 }, { ...T(4), points: 33 }, { ...T(5), points: 17 }] }),
   loteria: () => ({ correct: 0, explanation: "It rises, sets, wakes the roosters and changes color — the sun.",
-    detail: { card: { es: "El Sol", en: "The Sun" } },
+    detail: { card: { es: "La Calavera", en: "The Skull" } }, // longest names: layout stress case
     outcomes: [{ ...T(0), points: 100 }, { ...T(1), points: 100 }, { ...T(2), points: 0 }, { ...T(3), points: 100 }, { ...T(4), points: 0 }, { ...T(5), points: 100 }] }),
   room: () => ({ correct: null, explanation: "Tamales won the room — nobody was surprised.",
     detail: { options: roomOptions, counts: [1, 0, 2, 3], guesses: [

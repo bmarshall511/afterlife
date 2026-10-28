@@ -59,7 +59,7 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .bd-drift .bd-layer.on img, .petals, .bd-accent { animation: none !important; display: none; }
   .bd-layer { transition-duration: 0.4s; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; }
 }
 
 /* ============================ Wordmark ============================ */
@@ -789,3 +789,37 @@ a.chip-btn { text-decoration: none; color: inherit; }
 .demobar-hint { margin: 0; color: var(--ink-3); font-size: 12px; }
 .demobar-tab { position: fixed; right: 20px; bottom: 20px; z-index: 60; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(246,166,35,0.45);
   background: rgba(14,12,18,0.9); color: var(--marigold-2); font: 600 13px var(--ui); cursor: pointer; }
+
+/* ---------- Fit-to-box safety (overflow audit, 2026-10-27) ---------- */
+/* Lotería cards: size names relative to the card itself so long names (LA CALAVERA, LA ESCALERA) always fit. */
+.lot-face, .lot-back { container-type: inline-size; }
+.lot-name { font-size: min(calc(var(--u) * 0.95), 10.5cqi); max-width: 100%; overflow-wrap: anywhere; }
+.lot-es { font-size: min(calc(var(--u) * 1.2), 12.5cqi); max-width: 100%; line-height: 1.05; overflow-wrap: anywhere; }
+.lot-en { font-size: min(calc(var(--u) * 0.85), 10cqi); max-width: 100%; text-align: center; overflow-wrap: anywhere; }
+/* The Line: values like "169 m (555 ft)" wrap inside the card instead of spilling out. */
+.line-cards li { min-width: 0; }
+.line-cards li > .line-val { align-self: stretch; container-type: inline-size; }
+/* one line, sized to the card's width, so long values like "169 m (555 ft)" can't push past the card */
+.line-val { white-space: nowrap; line-height: 1.1; flex: none; display: block; }
+.line-val > span { display: block; font-size: min(calc(var(--u) * 2.2), 12.5cqi); }
+.line-cards.n5 .line-val > span { font-size: min(calc(var(--u) * 1.8), 12.5cqi); }
+/* Read the Room: percentage column sized to its content. */
+.room-bars li { grid-template-columns: minmax(0, 1fr) auto; }
+.room-bars strong { min-width: 3.2ch; }
+/* Lotería reveal heading: size to its column so long names never run into the card grid. */
+.lot-verse { container-type: inline-size; min-width: 0; }
+.lot-answer span { font-size: min(calc(var(--u) * 4.4), 15cqi); overflow-wrap: anywhere; }
+.line-cards { flex: none; } /* never squeeze the cards; the explanation below gives way instead */
+
+/* ---------- Join: "Already playing? Get back in" ---------- */
+.rj-open { margin-top: 4px; }
+.rj-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rj-row { width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line);
+  background: rgba(255,255,255,0.04); color: var(--ink); font: 600 17px var(--ui); text-align: left; cursor: pointer; }
+.rj-row:active { transform: scale(0.99); }
+.rj-row:disabled { opacity: 0.5; }
+.rj-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.rj-meta { color: var(--ink-3); font-weight: 400; font-size: 14px; white-space: nowrap; }
+.rj-cap { display: inline-flex; align-items: center; gap: 4px; color: var(--marigold-2); font-size: 13px; font-weight: 700; white-space: nowrap; }
+.rj-new { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+.rj-av { width: 40px; height: 40px; flex: none; font-size: 20px; }

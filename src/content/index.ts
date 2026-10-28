@@ -4,6 +4,9 @@
  */
 import type { GameFamily, InputSpec, PublicQuestion, RevealInfo, SceneSpec, Stage } from "@/shared/types";
 import { CALAVERAS } from "./calavera";
+import { CALAVERAS_2 } from "./calavera2";
+import { RIDDLES_2 } from "./loteria2";
+import { POLLS_2 } from "./room2";
 import { tryPuzzle } from "./case";
 import closestJson from "./data/closest.json";
 import lineJson from "./data/line.json";
@@ -115,10 +118,10 @@ export function caseSet(seed: string | number): [ContentItem, ContentItem, Conte
 
 function buildAll(): ContentItem[] {
   const items: ContentItem[] = [];
-  items.push(...CALAVERAS.map(calaveraItem));
+  items.push(...[...CALAVERAS, ...CALAVERAS_2].map(calaveraItem));
   items.push(...(lineJson as RawLine[]).map(lineItem));
-  items.push(...RIDDLES.map(loteriaItem));
-  items.push(...POLLS.map(roomItem));
+  items.push(...[...RIDDLES, ...RIDDLES_2].map(loteriaItem));
+  items.push(...[...POLLS, ...POLLS_2].map(roomItem));
   items.push(...(closestJson as RawClosest[]).map(closestItem));
   const seen = new Set<string>();
   for (let i = 0; seen.size < CASE_PUZZLES && i < 5000; i++) {

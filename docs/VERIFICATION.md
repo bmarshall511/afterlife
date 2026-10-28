@@ -45,3 +45,10 @@ Not verified: real Vercel Blob presigned upload + signed full-size download (loc
 - Album, real browser (iPhone 13 emulation): presigned upload straight to the private Blob store → finalize → published; display copy 1920×1080 and full copy 2000×1125 both have no EXIF/GPS; full-size link 302s to a short-lived private Blob URL; in-page fetch used by "Download all" succeeds (no CORS block). Test photo deleted afterwards.
 - Fixed during live check: Blob SDK demanded a webhook key for presigned uploads (callbacks unused; now rejected explicitly).
 - /install shows "Install the AFTERLIFE app"; controller "Party photos" opens in the same tab with "Back to the game".
+
+## Host-feedback round (2026-10-27, LOCAL ONLY — not deployed)
+- Unit 99/99; content validation pass (Calavera 70, Line 74, Lotería 88, Room 70, Closest 70; 121 sources); production build pass.
+- Browser e2e 30/30 against a production build (27 in the full run + the 3 install tests re-run after updating them for the in-app sheet).
+- `npx tsx scripts/ui-overflow-audit.ts`: 0 text-overflow issues across 43 screen states × 6 sizes (TV 720p/1080p/4K, phone 320/375/landscape), incl. long-name stress cases.
+- `npx tsx scripts/verify-runthrough.ts`: every game played on the demo party with TV + phone + 3 bot families: stage windows 150–240 s as configured, every step closed early within 3–5 s once all families answered, all reveals rendered, The Ofrenda Case never scheduled, 0 overflow issues on real screens, no page errors.
+- Join → "Already playing? Get back in" → pick team → pick name restores the person (captain moves to the new phone).

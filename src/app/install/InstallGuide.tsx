@@ -129,7 +129,7 @@ export default function InstallGuide({ embedded = false, onDone }: { embedded?: 
           {teamCode && (platform === "ios-safari" || platform === "ios-other") && (
             <section className="ig-card ig-note">
               <h2>Already playing?</h2>
-              <p>On iPhone, the installed app starts fresh. After you open it, tap <b>Join an existing team</b> and enter your team code:</p>
+              <p>On iPhone, the installed app starts fresh. After you open it, tap <b>Already playing? Get back in</b>, then pick your team and your name. Your team code, just in case:</p>
               <p className="ig-code" aria-label={`Team code ${teamCode.split("").join(" ")}`}>{teamCode}</p>
               <p className="ig-small">Write it down or take a screenshot before you continue. Your team’s points are safe either way.</p>
             </section>

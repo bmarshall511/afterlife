@@ -35,9 +35,13 @@ test("P2 Android (Pixel 7): /install shows Android steps; no horizontal overflow
   await ctx.close();
 });
 
-test("P3 landing links to /install; join form has no install step", async ({ page }) => {
+test("P3 landing 'Install app' opens the guide in an in-app sheet; join form has no install step", async ({ page }) => {
   await page.goto("/?party=demo");
-  await expect(page.getByRole("link", { name: /Install app/i })).toHaveAttribute("href", /\/install/);
+  await page.getByRole("button", { name: /Install app/i }).click();
+  await expect(page.getByRole("dialog", { name: "Install the app" })).toBeVisible();
+  await expect(page).toHaveURL(/\/\?party=demo$/); // stayed on the page: no navigation
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
   await page.goto("/join?party=demo");
   await expect(page.locator("main")).not.toContainText(/home screen|install/i);
 });

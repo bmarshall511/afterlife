@@ -6,6 +6,7 @@ import { api, ApiFailure } from "@/client/api";
 import { Backdrop } from "@/components/Backdrop";
 import { Wordmark } from "@/components/Brand";
 import { Icon } from "@/components/Icon";
+import { Rejoin } from "./Rejoin";
 
 export function JoinForm({ party, initialCode }: { party: PartyId; initialCode: string }) {
   const router = useRouter();
@@ -15,6 +16,7 @@ export function JoinForm({ party, initialCode }: { party: PartyId; initialCode: 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [existing, setExisting] = useState<MeView | null>(null);
+  const [rejoin, setRejoin] = useState(false);
   const qs = party === "demo" ? "?party=demo" : "";
 
   useEffect(() => { api.me(party).then(setExisting).catch(() => {}); }, [party]);
@@ -60,9 +62,15 @@ export function JoinForm({ party, initialCode }: { party: PartyId; initialCode: 
           {error && <p className="form-error" role="alert"><Icon name="alert" /> {error}</p>}
           <button className="btn btn-primary" type="submit" disabled={busy}>{busy ? "Joining…" : "Join"} {!busy && <Icon name="arrow" />}</button>
         </form>
+        {!existing && (
+          <button className="btn btn-ghost rj-open" onClick={() => setRejoin(true)}>
+            <Icon name="people" /> Already playing? Get back in
+          </button>
+        )}
         {!showCode
-          ? <button className="link-btn small" onClick={() => setShowCode(true)}>Join an existing team</button>
+          ? <button className="link-btn small" onClick={() => setShowCode(true)}>Have a team code?</button>
           : <button className="link-btn small" onClick={() => { setShowCode(false); setCode(""); }}>Start a new team instead</button>}
+        <Rejoin party={party} open={rejoin} onClose={() => setRejoin(false)} onJoined={() => router.push(`/play${qs}`)} />
         <p className="ph-fine">No account, no app. Your phone remembers your team.</p>
       </div>
     </main>

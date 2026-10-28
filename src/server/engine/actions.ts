@@ -24,19 +24,70 @@ export interface JoinInput {
   name: unknown;
   teamName?: unknown;
   inviteCode?: unknown;
+  /** Join an existing team picked from the "Already playing?" list. */
+  teamId?: unknown;
+  /** Get back in as a person already on that team (new device). If they were captain, this device becomes captain. */
+  asMemberId?: unknown;
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Public "Already playing?" list for the join page: team names and the people on them. No invite codes. */
+export async function listTeamsForRejoin(partyId: string) {
+  const d = await db();
+  const teams = await d.query(
+    `SELECT id, name, color, avatar, captain_member_id FROM team WHERE party_id=$1 AND status IN ('active','away') AND NOT bot ORDER BY lower(name)`,
+    [partyId],
+  );
+  const members = await d.query(
+    `SELECT id, team_id, display_name, last_seen FROM member WHERE party_id=$1 ORDER BY last_seen DESC`,
+    [partyId],
+  );
+  return teams.map((t) => {
+    const seen = new Set<string>();
+    const people: { memberId: string; name: string; captain: boolean }[] = [];
+    // newest session per name first, so the captain's current row wins
+    for (const m of members.filter((m) => m.team_id === t.id)) {
+      const key = String(m.display_name).toLowerCase();
+      const captain = m.id === t.captain_member_id;
+      const i = people.findIndex((p) => p.name.toLowerCase() === key);
+      if (i >= 0) { if (captain) people[i] = { memberId: m.id, name: m.display_name, captain }; continue; }
+      if (seen.has(key)) continue;
+      seen.add(key);
+      people.push({ memberId: m.id, name: m.display_name, captain });
+    }
+    return { id: t.id as string, name: t.name as string, color: t.color as string, avatar: t.avatar as string, people };
+  });
 }
 
 /** Join: new team (no inviteCode) or existing team by invite code. Returns the session secret to set as cookie. */
 export async function join(partyId: string, input: JoinInput, now: number = Date.now()): Promise<{ secret: string; me: MeView }> {
-  const name = cleanText(input.name, 40);
-  if (!name) throw new EngineError("invalid", "Please enter your name", 400);
+  let name = cleanText(input.name, 40);
   const code = cleanText(input.inviteCode, 12).toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const pickTeam = typeof input.teamId === "string" && UUID.test(input.teamId) ? input.teamId : null;
+  const asMember = typeof input.asMemberId === "string" && UUID.test(input.asMemberId) ? input.asMemberId : null;
+  if (!name && !asMember) throw new EngineError("invalid", "Please enter your name", 400);
   const d = await db();
   const secret = newSecret();
   const memberId = randomUUID();
   await d.tx(async (q) => {
     let teamId: string;
-    if (code) {
+    if (pickTeam) {
+      const t = (await q.query(`SELECT id, captain_member_id, status, bot FROM team WHERE party_id=$1 AND id=$2`, [partyId, pickTeam]))[0];
+      if (!t || t.bot || (t.status !== "active" && t.status !== "away")) throw new EngineError("invalid", "That team isn't playing any more", 404);
+      teamId = t.id;
+      let takeCaptain = !t.captain_member_id;
+      if (asMember) {
+        const m = (await q.query(`SELECT id, display_name FROM member WHERE id=$1 AND team_id=$2`, [asMember, teamId]))[0];
+        if (!m) throw new EngineError("invalid", "That person isn't on this team", 404);
+        name = m.display_name;
+        // Back in on a new phone: if they were the captain, this phone takes over (the old one stops submitting).
+        if (t.captain_member_id === m.id) takeCaptain = true;
+      }
+      await q.query(`INSERT INTO member (id, party_id, team_id, display_name, session_hash, last_seen, created_at) VALUES ($1,$2,$3,$4,$5,$6,$6)`, [memberId, partyId, teamId, name, hashSecret(secret), iso(now)]);
+      if (takeCaptain) await q.query(`UPDATE team SET captain_member_id=$2 WHERE id=$1`, [teamId, memberId]);
+      await q.query(`INSERT INTO audit (party_id, actor, action, detail) VALUES ($1,'guest','rejoin',$2)`, [partyId, JSON.stringify({ teamId, asMember, captain: takeCaptain })]);
+    } else if (code) {
       const t = (await q.query(`SELECT id, captain_member_id, status FROM team WHERE party_id=$1 AND invite_code=$2`, [partyId, code]))[0];
       if (!t || (t.status !== "active" && t.status !== "away")) throw new EngineError("invalid", "That team code wasn't found", 404);
       teamId = t.id;

@@ -158,6 +158,8 @@ export async function resetParty(partyId: string, actor: string, opts: { confirm
     p.set_seq = 0;
     p.engine = {};
     p.phase = { kind: "ambient", startsAt: now, endsAt: null };
+    // A demo reset also restores default pacing/games, so leftover test settings can't linger.
+    if (partyId === "demo") p.settings = {};
     await saveParty(q, p);
     await audit(q, partyId, actor, "reset", {});
   });
@@ -317,3 +319,5 @@ export function demoAdvance(partyId: string, actor: string, now = Date.now()) {
     if (ph.endsAt != null) ph.endsAt = now;
   });
 }
+
+export { addDemoBots } from "./demobots";

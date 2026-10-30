@@ -1,4 +1,5 @@
 "use client";
+import "./remember.css"; // preview styles must load wherever the preview is used (e.g. /admin)
 
 /** Renders a tribute exactly as the TV lays it out: photo left (contain/cover + focal), name and remembrance beside. */
 export interface PreviewProps {

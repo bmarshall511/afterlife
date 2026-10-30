@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import TributePreview from "../remember/TributePreview";
+import { canvasToJpeg, decodeToCanvas } from "../remember/image";
 import AlbumSection from "../album/AdminAlbumSection";
 
 type Party = "live" | "demo";
@@ -254,7 +255,8 @@ function TributesSection({ party, run }: Ctx) {
         <a className="ad-btn" href={`/api/admin/tributes/export?party=${party}`}>Export JSON</a>
         <span className="ad-muted">{list.length} tributes</span>
       </div>
-      {editing ? <TributeEditor t={editing} onClose={() => setEditing(null)} patch={patch} /> : null}
+      {editing ? <TributeEditor t={editing} onClose={() => setEditing(null)} patch={patch}
+        onReplaced={(nt) => { setEditing(nt); reload(); }} run={run} /> : null}
       {!list.length ? <p className="ad-muted">No tributes yet. Share the upload link from the Party tab.</p> : null}
       <div className="ad-grid">
         {list.map((t) => (
@@ -284,39 +286,78 @@ function TributesSection({ party, run }: Ctx) {
   );
 }
 
-function TributeEditor({ t, onClose, patch }: { t: Any; onClose: () => void; patch: (id: string, b: Any, ok?: string) => Promise<boolean> }) {
+function TributeEditor({ t, onClose, patch, onReplaced, run }: {
+  t: Any; onClose: () => void; patch: (id: string, b: Any, ok?: string) => Promise<boolean>;
+  onReplaced: (t: Any) => void; run: Ctx["run"];
+}) {
   const [d, setD] = useState<Any>(t);
+  const [busy, setBusy] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
   useEffect(() => setD(t), [t]);
+  // Escape closes; the page behind doesn't scroll while the editor is open.
+  useEffect(() => {
+    const k = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", k);
+    const o = document.body.style.overflow; document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", k); document.body.style.overflow = o; };
+  }, [onClose]);
+  const dirty = d.personName !== t.personName || d.remembrance !== t.remembrance || d.attribution !== t.attribution || d.fit !== t.fit || d.focalX !== t.focalX || d.focalY !== t.focalY;
+
+  async function replacePhoto(file: File | undefined) {
+    if (!file) return;
+    setBusy(true);
+    await run(async () => {
+      // Same browser-side conversion as guest uploads (handles iPhone HEIC, orientation, size).
+      const blob = await canvasToJpeg(await decodeToCanvas(file));
+      const fd = new FormData();
+      fd.set("photo", blob, "photo.jpg");
+      const r = await fetch(`/api/admin/tributes/${t.id}/photo`, { method: "POST", body: fd, cache: "no-store" });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || `Upload failed (${r.status})`);
+      onReplaced(j.tribute);
+    }, "Photo replaced");
+    setBusy(false);
+    if (fileRef.current) fileRef.current.value = "";
+  }
+
   return (
-    <div className="ad-card">
-      <div className="ad-row" style={{ justifyContent: "space-between" }}>
-        <h2>Edit tribute</h2>
-        <button className="ad-btn" onClick={onClose}>Close</button>
-      </div>
-      <div style={{ maxWidth: 720 }}>
-        <TributePreview photoUrl={d.photoUrl} personName={d.personName} remembrance={d.remembrance} attribution={d.attribution} fit={d.fit} focalX={d.focalX} focalY={d.focalY}
-          onPhotoTap={d.fit === "cover" ? (x, y) => setD({ ...d, focalX: x, focalY: y }) : undefined} />
-      </div>
-      <div className="ad-row" style={{ marginTop: 10 }}>
-        <select className="ad-in" value={d.fit} onChange={(e) => setD({ ...d, fit: e.target.value })} aria-label="Fit">
-          <option value="contain">Show whole photo</option>
-          <option value="cover">Fill frame</option>
-        </select>
-        <button className="ad-btn" onClick={() => patch(t.id, { rotation: (t.rotation + 270) % 360 }, "Rotated")}>Rotate left</button>
-        <button className="ad-btn" onClick={() => patch(t.id, { rotation: (t.rotation + 90) % 360 }, "Rotated")}>Rotate right</button>
-        {d.fit === "cover" ? (
-          <>
-            <label className="ad-muted">X <input type="range" min={0} max={1} step={0.01} value={d.focalX} onChange={(e) => setD({ ...d, focalX: Number(e.target.value) })} /></label>
-            <label className="ad-muted">Y <input type="range" min={0} max={1} step={0.01} value={d.focalY} onChange={(e) => setD({ ...d, focalY: Number(e.target.value) })} /></label>
-          </>
-        ) : null}
-      </div>
-      <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
-        <input className="ad-in" value={d.personName} maxLength={80} onChange={(e) => setD({ ...d, personName: e.target.value })} aria-label="Name" />
-        <textarea className="ad-in" value={d.remembrance} onChange={(e) => setD({ ...d, remembrance: e.target.value })} aria-label="Remembrance" />
-        <span className="ad-muted">{d.remembrance.length} / 300</span>
-        <input className="ad-in" value={d.attribution} maxLength={80} onChange={(e) => setD({ ...d, attribution: e.target.value })} aria-label="Attribution" placeholder="From (optional)" />
-        <div><button className="ad-btn primary" onClick={() => patch(t.id, { personName: d.personName, remembrance: d.remembrance, attribution: d.attribution, fit: d.fit, focalX: d.focalX, focalY: d.focalY })}>Save</button></div>
+    <div className="ad-modal" role="dialog" aria-modal="true" aria-label={`Edit tribute for ${t.personName}`} onClick={onClose}>
+      <div className="ad-modal-panel" onClick={(e) => e.stopPropagation()}>
+        <div className="ad-row" style={{ justifyContent: "space-between", marginBottom: 10 }}>
+          <h2 style={{ margin: 0 }}>Edit tribute</h2>
+          <button className="ad-btn" onClick={onClose}>Close</button>
+        </div>
+        <p className="ad-muted" style={{ margin: "0 0 8px" }}>Preview — this is how it looks on the TV.</p>
+        <div className="ad-modal-preview">
+          <TributePreview photoUrl={d.photoUrl} personName={d.personName} remembrance={d.remembrance} attribution={d.attribution} fit={d.fit} focalX={d.focalX} focalY={d.focalY}
+            onPhotoTap={d.fit === "cover" ? (x, y) => setD({ ...d, focalX: x, focalY: y }) : undefined} />
+        </div>
+        <div className="ad-row" style={{ marginTop: 10 }}>
+          <button className="ad-btn" disabled={busy} onClick={() => fileRef.current?.click()}>{busy ? "Uploading…" : "Replace photo"}</button>
+          <input ref={fileRef} type="file" accept="image/*,.heic,.heif" hidden onChange={(e) => replacePhoto(e.target.files?.[0])} />
+          <select className="ad-in" value={d.fit} onChange={(e) => setD({ ...d, fit: e.target.value })} aria-label="Fit">
+            <option value="contain">Show whole photo</option>
+            <option value="cover">Fill frame</option>
+          </select>
+          <button className="ad-btn" disabled={busy} onClick={() => patch(t.id, { rotation: (t.rotation + 270) % 360 }, "Rotated")}>Rotate left</button>
+          <button className="ad-btn" disabled={busy} onClick={() => patch(t.id, { rotation: (t.rotation + 90) % 360 }, "Rotated")}>Rotate right</button>
+          {d.fit === "cover" ? (
+            <>
+              <label className="ad-muted">X <input type="range" min={0} max={1} step={0.01} value={d.focalX} onChange={(e) => setD({ ...d, focalX: Number(e.target.value) })} /></label>
+              <label className="ad-muted">Y <input type="range" min={0} max={1} step={0.01} value={d.focalY} onChange={(e) => setD({ ...d, focalY: Number(e.target.value) })} /></label>
+            </>
+          ) : null}
+        </div>
+        <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
+          <label className="ad-muted">Name<input className="ad-in" style={{ width: "100%" }} value={d.personName} maxLength={80} onChange={(e) => setD({ ...d, personName: e.target.value })} /></label>
+          <label className="ad-muted">Remembrance (caption)<textarea className="ad-in" style={{ width: "100%", minHeight: 90 }} value={d.remembrance} maxLength={300} onChange={(e) => setD({ ...d, remembrance: e.target.value })} /></label>
+          <span className="ad-muted">{d.remembrance.length} / 300</span>
+          <label className="ad-muted">From<input className="ad-in" style={{ width: "100%" }} value={d.attribution} maxLength={80} onChange={(e) => setD({ ...d, attribution: e.target.value })} placeholder="optional" /></label>
+          <div className="ad-row">
+            <button className="ad-btn primary" disabled={!dirty || busy} onClick={() => patch(t.id, { personName: d.personName, remembrance: d.remembrance, attribution: d.attribution, fit: d.fit, focalX: d.focalX, focalY: d.focalY })}>Save changes</button>
+            {dirty ? <span className="ad-muted">Unsaved changes</span> : null}
+          </div>
+        </div>
       </div>
     </div>
   );

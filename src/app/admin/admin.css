@@ -52,3 +52,12 @@ details.ad-card summary{cursor:pointer;font-weight:600}
 .ad-album img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block;background:#000}
 .ad-album .hidden img{opacity:.35}
 .ad-qr{width:160px;height:160px;background:#fff;border-radius:8px}
+
+/* Tribute editor: overlay so it opens where you clicked, not at the top of a long page */
+.ad-modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.7);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px}
+.ad-modal-panel{width:100%;max-width:860px;background:#131317;border:1px solid #2a2a30;border-radius:14px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.ad-modal-preview{max-width:100%;overflow:hidden;border-radius:10px}
+.ad-modal label{display:grid;gap:4px}
+.ad-btn:disabled{opacity:.45;cursor:default}
+/* Keep the TV preview a sensible size; the preview component keeps its own TV layout */
+.ad-modal-preview{max-width:640px;margin:0 auto}

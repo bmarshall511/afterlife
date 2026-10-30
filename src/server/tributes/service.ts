@@ -224,6 +224,31 @@ export async function updateTribute(q: Q, row: Row, patch: TributePatch, actor: 
   return toView(rows[0]);
 }
 
+/**
+ * Replace a tribute's photo (host action). The new image goes through the same validation/normalisation as guest
+ * uploads (orientation fixed, metadata stripped), framing resets to "show whole photo", and the old stored objects
+ * are deleted only after the row points at the new ones.
+ */
+export async function replaceTributePhoto(q: Q, row: Row, photo: Buffer, actor: string): Promise<TributeView> {
+  const original = await normalizeUpload(photo);
+  const d = await renderDerivatives(original, 0);
+  const keys = await storeDerivatives(row.party_id, row.id, original, d);
+  let rows: Row[];
+  try {
+    rows = await q.query(
+      `UPDATE tribute SET photo_key = $2, thumb_key = $3, original_key = $4, width = $5, height = $6,
+         rotation = 0, fit = 'contain', focal_x = 0.5, focal_y = 0.5, updated_at = now() WHERE id = $1 RETURNING *`,
+      [row.id, keys.display, keys.thumb, keys.original, d.width, d.height],
+    );
+  } catch (e) {
+    await Promise.all([deleteObject(keys.display), deleteObject(keys.thumb), deleteObject(keys.original)]).catch(() => {});
+    throw e;
+  }
+  await Promise.all([deleteObject(row.photo_key), deleteObject(row.thumb_key), deleteObject(row.original_key)].map((p) => p.catch(() => {})));
+  await audit(q, row.party_id, actor, "tribute.photo_replace", { id: row.id });
+  return toView(rows[0]);
+}
+
 /** Removal: mark deleted (keeps queue history consistent), then delete every stored photo object. */
 export async function removeTribute(q: Q, row: Row, actor: string): Promise<void> {
   await q.query("UPDATE tribute SET status = 'deleted', updated_at = now() WHERE id = $1", [row.id]);

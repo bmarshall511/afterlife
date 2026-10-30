@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import type { PartyId, PublicQuestion, PublicSlide, PublicTribute, RevealInfo, Snapshot } from "@/shared/types";
-import { useSnapshot } from "@/client/store";
+import { useServerNow, useSnapshot } from "@/client/store";
 import { Backdrop, type Dim } from "@/components/Backdrop";
 import { Wordmark, FAMILY } from "@/components/Brand";
 import { Countdown } from "@/components/Countdown";
@@ -42,7 +42,7 @@ export function TvScreen({ party, mock }: { party: PartyId; mock: string | null 
         accentKey={kind === "reveal" ? s.question?.id ?? null : null}
       />
       <div className={`tv-safe ${slide && prevTribute.current ? "slow-in" : ""}`} key={kind + (s.question?.id ?? "") + (s.phase.stage ?? "") + (tribute ? "t" : slide ? "s" : "")}>
-        {tribute ? <TributeView s={s} tribute={tribute} /> :
+        {tribute ? <TributeView s={s} tribute={tribute} offsetMs={offsetMs} /> :
           slide ? <SlideView slide={slide} /> :
           kind === "ambient" ? <AmbientView s={s} /> :
           kind === "intro" ? <IntroView s={s} offsetMs={offsetMs} paused={paused} /> :
@@ -246,7 +246,25 @@ function IntervalView({ s, offsetMs, paused }: { s: Snapshot; offsetMs: number; 
 
 /* ----------------------------- tribute ----------------------------- */
 
-function TributeView({ s, tribute }: { s: Snapshot; tribute: PublicTribute }) {
+/** A quiet hint of time: a thin line that fills while a tribute is on screen. No numbers, frozen when paused. */
+function TributeProgress({ t, offsetMs, paused }: { t: PublicTribute; offsetMs: number; paused: boolean }) {
+  const now = useServerNow(offsetMs);
+  // While paused the server holds the tribute (its end time shifts on resume), so hold the line where it is.
+  const held = useRef<{ id: string; p: number } | null>(null);
+  if (!t.until || !t.dwellMs) return null;
+  let p = Math.min(1, Math.max(0, 1 - (t.until - now) / t.dwellMs));
+  if (paused) {
+    if (!held.current || held.current.id !== t.id) held.current = { id: t.id, p };
+    p = held.current.p;
+  } else held.current = null;
+  return (
+    <div className="tribute-progress" aria-hidden="true">
+      <i key={t.id} style={{ transform: `scaleX(${p})`, transition: paused ? "none" : undefined }} />
+    </div>
+  );
+}
+
+function TributeView({ s, tribute, offsetMs }: { s: Snapshot; tribute: PublicTribute; offsetMs: number }) {
   // keep the previous tribute layered underneath so the change is a crossfade
   const [layers, setLayers] = useState<PublicTribute[]>([tribute]);
   useEffect(() => {
@@ -255,6 +273,7 @@ function TributeView({ s, tribute }: { s: Snapshot; tribute: PublicTribute }) {
   return (
     <div className="tv-tribute-wrap">
       {layers.map((t, i) => <TributeCard key={t.id} t={t} leaving={i < layers.length - 1} />)}
+      <TributeProgress t={tribute} offsetMs={offsetMs} paused={s.status === "paused"} />
       <div className="tv-quiet-join"><JoinQR url={s.joinUrl} className="tv-qr-xs" label="Join the game" /><span>Join anytime<br />{shortUrl(s.joinUrl)}</span></div>
     </div>
   );

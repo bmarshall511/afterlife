@@ -986,3 +986,9 @@ a.chip-btn { text-decoration: none; color: inherit; }
 .phone .ph-submit { bottom: calc(var(--tabbar-h) + var(--tab-pad)); }
 .sh-body { padding-bottom: calc(12px + var(--sab)); }
 @media (orientation: landscape) and (max-height: 520px) { .phone { --tabbar-h: 46px; } }
+
+/* Tribute progress: a thin, soft line along the bottom of the TV — a hint of time, never a countdown. */
+.tribute-progress { position: fixed; left: 0; right: 0; bottom: 0; height: max(5px, calc(var(--u) * 0.32)); background: rgba(255, 255, 255, 0.07); z-index: 4; pointer-events: none; }
+.tribute-progress i { display: block; height: 100%; transform-origin: left center; transition: transform 1s linear;
+  background: linear-gradient(90deg, rgba(246, 166, 35, 0.35), rgba(255, 195, 90, 0.95)); box-shadow: 0 0 calc(var(--u) * 0.8) rgba(246, 166, 35, 0.45); }
+@media (prefers-reduced-motion: reduce) { .tribute-progress i { transition: none; } }

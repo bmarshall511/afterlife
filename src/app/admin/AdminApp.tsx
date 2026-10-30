@@ -148,7 +148,6 @@ function PartySection({ party, run, setMsg }: Ctx) {
   const act = (action: string, extra: Any = {}, ok = "Done") => run(async () => { await api("/api/admin/party", { method: "POST", json: { party, action, ...extra } }); reload(); }, ok);
   const p = data?.party;
   const s = p?.settings ?? {};
-  const PACING = ["introMs", "questionMs", "revealMs", "resultsMs", "intervalMs", "tributeDwellMinMs", "tributeDwellMaxMs"];
   return (
     <>
       <div className="ad-card">
@@ -191,20 +190,12 @@ function PartySection({ party, run, setMsg }: Ctx) {
         </label>
       </div>
 
+      <PacingCard eff={data?.effective ?? null} raw={s} party={party} act={act} />
+
       <div className="ad-card">
-        <h2>Pacing (seconds)</h2>
-        <div className="ad-grid" style={{ gridTemplateColumns: "repeat(auto-fill,minmax(150px,1fr))" }}>
-          {PACING.map((k) => (
-            <label key={k} className="ad-muted">{k.replace(/Ms$/, "")}
-              <input className="ad-in" style={{ width: "100%" }} type="number" min={1} defaultValue={s[k] ? Math.round(s[k] / 1000) : ""} placeholder="default"
-                key={`${party}-${k}-${s[k]}`}
-                onBlur={(e) => { const v = Number(e.target.value); if (v > 0 && v * 1000 !== s[k]) act("settings", { patch: { [k]: v * 1000 } }, "Saved"); }} />
-            </label>
-          ))}
-        </div>
-        <details style={{ marginTop: 10 }}>
+        <details>
           <summary className="ad-muted">Advanced: raw settings JSON patch</summary>
-          <textarea className="ad-in" value={settings} onChange={(e) => setSettings(e.target.value)} placeholder='{"socialEvery":5}' />
+          <textarea className="ad-in" value={settings} onChange={(e) => setSettings(e.target.value)} placeholder='{"intervalMs":600000}' />
           <button className="ad-btn" onClick={() => { try { act("settings", { patch: JSON.parse(settings) }, "Saved"); } catch { setMsg({ text: "Invalid JSON", err: true }); } }}>Apply</button>
           <pre className="ad-muted" style={{ whiteSpace: "pre-wrap" }}>{JSON.stringify(s, null, 2)}</pre>
         </details>
@@ -359,6 +350,76 @@ function TributeEditor({ t, onClose, patch, onReplaced, run }: {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ---------------- Pacing ---------------- */
+const fmt = (ms: number) => { const t = Math.round(ms / 1000); return t >= 60 ? `${Math.floor(t / 60)} min${t % 60 ? ` ${t % 60} s` : ""}` : `${t} s`; };
+const PACING_GROUPS: { title: string; note?: string; rows: { key: string; label: string; hint?: string }[] }[] = [
+  { title: "Breaks & tributes", rows: [
+    { key: "intervalMs", label: "Break length", hint: "Time between rounds" },
+    { key: "intervalTributeMs", label: "Tribute time per break", hint: "Then party photos for the rest of the break" },
+    { key: "tributeDwell", label: "Seconds per tribute", hint: "How long each tribute stays on the TV" },
+  ] },
+  { title: "Round screens", rows: [
+    { key: "introMs", label: "Intro" }, { key: "revealMs", label: "Answer reveal" },
+    { key: "calaveraRevealMs", label: "Calavera vote results" }, { key: "resultsMs", label: "Round results" },
+  ] },
+  { title: "Answer time per game", note: "Each step also ends early once every family has answered.", rows: [
+    { key: "lineAnswerMs", label: "The Line" }, { key: "loteriaAnswerMs", label: "La Lotería" },
+    { key: "closestAnswerMs", label: "Closest Without Going Over" }, { key: "priceAnswerMs", label: "¿Cuánto Cuesta?" },
+    { key: "dichosAnswerMs", label: "Dichos" }, { key: "roomAnswerMs", label: "Read the Room — answer" },
+    { key: "roomGuessMs", label: "Read the Room — guess" }, { key: "calaveraWriteMs", label: "Calavera — writing" },
+    { key: "calaveraVoteMs", label: "Calavera — voting" }, { key: "fibWriteMs", label: "Two Truths — writing" },
+    { key: "fibVoteMs", label: "Two Truths — voting" },
+  ] },
+];
+
+/** Plain-language pacing controls showing the real current values (defaults included). Saves on blur/Enter. */
+function PacingCard({ eff, raw, party, act }: { eff: Any | null; raw: Any; party: Party; act: (a: string, extra?: Any, ok?: string) => unknown }) {
+  if (!eff) return <div className="ad-card"><h2>Pacing</h2><p className="ad-muted">Loading…</p></div>;
+  const value = (key: string): number => key === "tributeDwell" ? eff.tributeDwellMinMs : eff[key];
+  const varies = eff.tributeDwellMinMs !== eff.tributeDwellMaxMs;
+  const save = (key: string, secs: number) => {
+    if (!(secs > 0)) return;
+    const ms = Math.round(secs * 1000);
+    if (key === "tributeDwell") {
+      if (!varies && ms === eff.tributeDwellMinMs) return;
+      return act("settings", { patch: { tributeDwellMinMs: ms, tributeDwellMaxMs: ms } }, `Each tribute now shows for ${fmt(ms)}`);
+    }
+    if (ms === eff[key]) return;
+    return act("settings", { patch: { [key]: ms } }, `Saved: ${fmt(ms)}`);
+  };
+  return (
+    <div className="ad-card">
+      <h2>Pacing</h2>
+      <p className="ad-muted" style={{ marginTop: 0 }}>Values in seconds. Changes apply from the next screen.</p>
+      {PACING_GROUPS.map((g) => (
+        <div key={g.title} className="ad-pace-group">
+          <h3>{g.title}</h3>
+          {g.note ? <p className="ad-muted" style={{ margin: "0 0 8px" }}>{g.note}</p> : null}
+          <div className="ad-pace-grid">
+            {g.rows.map((r) => {
+              const v = value(r.key);
+              return (
+                <label key={r.key} className="ad-pace">
+                  <span className="ad-pace-l">{r.label}</span>
+                  <span className="ad-pace-in">
+                    <input className="ad-in" type="number" min={1} step={1} inputMode="numeric" defaultValue={Math.round(v / 1000)}
+                      key={`${party}-${r.key}-${v}-${varies}`} aria-label={`${r.label} in seconds`}
+                      onBlur={(e) => save(r.key, Number(e.target.value))}
+                      onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }} />
+                    <span className="ad-muted">s · {r.key === "tributeDwell" && varies ? `${fmt(eff.tributeDwellMinMs)}–${fmt(eff.tributeDwellMaxMs)} by length` : fmt(v)}</span>
+                  </span>
+                  {r.hint ? <span className="ad-muted ad-pace-h">{r.hint}</span> : null}
+                  {raw[r.key === "tributeDwell" ? "tributeDwellMinMs" : r.key] == null ? <span className="ad-pill">default</span> : null}
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

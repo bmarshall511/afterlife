@@ -3,6 +3,7 @@ import { callControl } from "@/server/admin/engine";
 import { HttpError, json, parseParty } from "@/server/tributes/http";
 import { inviteToken, publicBaseUrl } from "@/server/tributes/config";
 import { deleteObject } from "@/server/storage";
+import { settingsOf } from "@/server/engine/settings";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,6 +16,8 @@ export const GET = adminRoute(async (req, { db }) => {
   const q = party === "demo" ? "?party=demo" : "";
   return json({
     party: rows[0] ?? null,
+    /** settings with defaults applied, so the admin shows the real current values */
+    effective: rows[0] ? settingsOf(rows[0].settings) : null,
     urls: {
       join: `${base}/join${q}`,
       tv: `${base}/tv${q}`,

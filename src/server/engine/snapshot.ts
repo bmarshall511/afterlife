@@ -70,7 +70,7 @@ export function publicPhase(p: PartyRow): PublicPhase {
   if (ph.setId) Object.assign(out, { setId: ph.setId, setSeq: ph.setSeq, family: ph.family });
   if (ph.qIndex != null) out.qIndex = ph.qIndex;
   if (ph.stage && ph.kind === "question") out.stage = ph.stage;
-  if (ph.kind === "interval" || ph.kind === "ambient") { out.tribute = ph.tribute ?? null; out.slide = ph.tribute ? null : ph.slide ?? null; }
+  if (ph.kind === "interval" || ph.kind === "ambient") { out.tribute = ph.tribute ? { ...ph.tribute, until: ph.tributeUntil } : null; out.slide = ph.tribute ? null : ph.slide ?? null; }
   if (p.engine?.encore) out.encore = true;
   if (ph.doubled && ph.setId) out.doubled = true;
   return out;

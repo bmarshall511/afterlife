@@ -115,6 +115,8 @@ export interface PublicTribute {
   focalX: number;
   focalY: number;
   dwellMs: number;
+  /** server epoch ms when this tribute leaves the TV (for the gentle progress line) */
+  until?: number;
 }
 
 /** Party album photo shown on TV during breaks. */

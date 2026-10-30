@@ -61,3 +61,14 @@ details.ad-card summary{cursor:pointer;font-weight:600}
 .ad-btn:disabled{opacity:.45;cursor:default}
 /* Keep the TV preview a sensible size; the preview component keeps its own TV layout */
 .ad-modal-preview{max-width:640px;margin:0 auto}
+
+/* Pacing */
+.ad-pace-group{margin-top:14px}
+.ad-pace-group h3{margin:0 0 6px;font-size:14px;color:#f5a524;letter-spacing:.04em}
+.ad-pace-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.ad-pace{display:grid;gap:4px;padding:10px;border:1px solid #24242a;border-radius:10px;background:#0f0f12}
+.ad-pace-l{font-weight:600;color:#eee}
+.ad-pace-in{display:flex;align-items:center;gap:8px}
+.ad-pace-in input{width:96px}
+.ad-pace-h{font-size:12px}
+.ad-pace .ad-pill{justify-self:start}
